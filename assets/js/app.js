@@ -1,20 +1,25 @@
 /* ==========================================================================
    Nextendo Network — client compte (vanilla JS, sans build).
    Parle au backend nextendo-account via /api/* (même origine).
-   Auth = jeton Bearer signé, conservé dans localStorage.
+   Auth = cookie HttpOnly (setTokenCookie côté serveur). Le jeton n'est plus
+   conservé dans localStorage (XSS-safe). On lit encore l'ancien localStorage
+   pour les sessions existantes, mais on n'y écrit plus.
    ========================================================================== */
 const NX = {
-  tokenKey: "nx_token",
   nexKey: "nx_nex_token",
 
-  get token() { return localStorage.getItem(this.tokenKey) || ""; },
-  set token(t) { t ? localStorage.setItem(this.tokenKey, t) : localStorage.removeItem(this.tokenKey); },
+  // Retourne l'ancien token localStorage s'il existe (compat ascendante).
+  // Les nouveaux sessions utilisent le cookie HttpOnly — on n'écrit plus ici.
+  get token() { return localStorage.getItem("nx_token") || ""; },
+
   get nexToken() { return localStorage.getItem(this.nexKey) || ""; },
   set nexToken(t) { t ? localStorage.setItem(this.nexKey, t) : localStorage.removeItem(this.nexKey); },
 
   async api(path, body, method = "POST") {
-    const opts = { method, headers: {} };
+    const opts = { method, headers: {}, credentials: "same-origin" };
     if (body) { opts.headers["Content-Type"] = "application/json"; opts.body = JSON.stringify(body); }
+    // Envoie l'ancien token localStorage si présent (compat ascendante) ;
+    // le serveur tokenFromRequest() checke d'abord le header, puis le cookie.
     if (this.token) opts.headers["Authorization"] = "Bearer " + this.token;
     const res = await fetch(path, opts);
     let data = {};
@@ -23,8 +28,9 @@ const NX = {
     return data;
   },
 
-  // Conserve la session renvoyée par register/login/guest.
-  save(r) { if (r && r.token) this.token = r.token; if (r && r.nex_token) this.nexToken = r.nex_token; return r; },
+  // Conserve le nex_token (pour l'écosystème NEX) ; le web token est désormais
+  // dans un cookie HttpOnly posé par le serveur — plus besoin de le stocker ici.
+  save(r) { if (r && r.nex_token) this.nexToken = r.nex_token; return r; },
 
   register(username, email, password) { return this.api("/api/register", { username, email, password }).then(r => this.save(r)); },
   login(login, password)              { return this.api("/api/login", { login, password }).then(r => this.save(r)); },
@@ -56,7 +62,7 @@ const NX = {
   revokeSession(id)            { return this.api("/api/sessions/revoke", { id }); },
   revokeAllSessions()          { return this.api("/api/sessions/revoke-all", {}); },
 
-  logout() { this.token = ""; this.nexToken = ""; location.href = "/"; },
+  logout() { localStorage.removeItem("nx_token"); this.nexToken = ""; location.href = "/"; },
 
   // Petit toast (copie, etc.)
   toast(text) {
