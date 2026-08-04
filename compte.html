@@ -14,6 +14,69 @@
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
   <link rel="stylesheet" href="assets/css/style.css?v=9" />
   <link rel="stylesheet" href="assets/css/nx-ui.css?v=2" />
+  <style>
+    /* Sauvegardes cloud — espace perso */
+    .saves-quota{margin-bottom:1rem}
+    .saves-quota__top{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.45rem}
+    .saves-quota__used{font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
+    .saves-quota__badge{font-size:.72rem;font-weight:700;letter-spacing:.02em;color:#ff6ec7;border:1px solid #ff6ec7;border-radius:999px;padding:.12rem .5rem;white-space:nowrap}
+    .saves-quota__bar{height:8px;border-radius:6px;background:var(--line);overflow:hidden}
+    .saves-quota__fill{height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,#4f8cff,#7c5cff);transition:width .4s var(--ease,ease)}
+    .saves-quota__fill.warn{background:linear-gradient(90deg,#ff9d3d,#ff5d5d)}
+    .saves-quota__fill.booster{background:linear-gradient(90deg,#ff6ec7,#b06cff)}
+    .saves{display:flex;flex-direction:column;gap:.55rem}
+    .save-grace{display:flex;gap:.7rem;align-items:flex-start;padding:.7rem .85rem;margin-bottom:.2rem;border:1px solid #ff9d3d55;border-radius:14px;background:linear-gradient(90deg,#ff9d3d1a,#ff5d5d0f)}
+    .save-grace>i{color:#ff9d3d;font-size:1.25rem;flex:0 0 auto;margin-top:.05rem}
+    .save-grace__t{font-weight:700;color:#ffb765;font-size:.92rem}
+    .save-grace__m{font-size:.84rem;color:var(--muted);margin-top:.15rem;line-height:1.45}
+    .save-card{display:flex;flex-wrap:wrap;align-items:center;gap:.85rem;padding:.7rem .8rem;border:1px solid var(--line);border-radius:14px;background:var(--line-soft)}
+    .save-card__ico{position:relative;width:44px;height:44px;flex:0 0 auto;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.15rem;color:#fff;background:linear-gradient(135deg,#3a4152,#242a36);overflow:hidden}
+    .save-card__ico img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .save-card__main{flex:1 1 auto;min-width:0}
+    .save-card__name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .save-card__meta{font-size:.82rem;color:var(--muted);margin-top:.12rem}
+    .save-card__size{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
+    .save-card__act{display:flex;gap:.3rem;align-items:center;flex:0 0 auto}
+    .save-card__btn{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:color .15s,border-color .15s}
+    .save-card__btn:hover{color:var(--ink,#fff);border-color:var(--muted)}
+    .save-card__btn:disabled{opacity:.6;cursor:default}
+    .save-dl-spin{animation:save-dl-rot .7s linear infinite}
+    @keyframes save-dl-rot{to{transform:rotate(360deg)}}
+    .save-card__btn--danger:hover{color:#ff6b6b;border-color:#ff6b6b}
+    /* Accordéon de détails : morphing ouverture/fermeture (hauteur + fondu + glissement) */
+    .save-details{flex-basis:100%;display:flex;flex-direction:column;gap:.3rem;max-height:0;opacity:0;overflow:hidden;transform:translateY(-6px);transition:max-height .40s cubic-bezier(.16,1,.3,1),opacity .30s ease,transform .40s cubic-bezier(.16,1,.3,1),margin-top .30s ease,padding-top .30s ease}
+    .save-details.open{max-height:640px;opacity:1;transform:none;margin-top:.55rem;padding-top:.55rem;border-top:1px dashed var(--line)}
+    .save-details .save-field{opacity:0;transform:translateY(4px);animation:nxFieldIn .32s cubic-bezier(.16,1,.3,1) forwards}
+    .save-details.open .save-field:nth-child(1){animation-delay:.04s}
+    .save-details.open .save-field:nth-child(2){animation-delay:.08s}
+    .save-details.open .save-field:nth-child(3){animation-delay:.12s}
+    .save-details.open .save-field:nth-child(4){animation-delay:.16s}
+    .save-details.open .save-field:nth-child(5){animation-delay:.20s}
+    .save-details.open .save-field:nth-child(n+6){animation-delay:.24s}
+    @keyframes nxFieldIn{to{opacity:1;transform:none}}
+    /* Apparition en cascade des cartes de save */
+    .save-card{animation:nxCardIn .42s cubic-bezier(.16,1,.3,1) both}
+    @keyframes nxCardIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
+    .save-card__btn i{transition:transform .35s cubic-bezier(.16,1,.3,1)}
+    @media (prefers-reduced-motion: reduce){
+      .save-details{transition:none}.save-details .save-field,.save-card{animation:none;opacity:1;transform:none}
+    }
+    .save-details__none,.save-details__loading{font-size:.82rem;color:var(--muted)}
+    .save-field{display:flex;justify-content:space-between;gap:.8rem;font-size:.86rem}
+    .save-field__k{color:var(--muted)}
+    .save-field__v{font-weight:600;font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;gap:.4rem}
+    .save-field__img{width:26px;height:26px;object-fit:contain;border-radius:5px;background:rgba(255,255,255,.06);flex:0 0 auto}
+    /* Popup de confirmation custom (remplace le confirm() natif moche) */
+    .nx-confirm{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(4,6,10,.62);backdrop-filter:blur(4px);opacity:0;transition:opacity .18s var(--ease,ease)}
+    .nx-confirm.show{opacity:1}
+    .nx-confirm__box{width:min(94vw,430px);background:var(--card,#12151c);border:1px solid var(--line);border-radius:16px;padding:1.35rem 1.35rem 1.15rem;box-shadow:0 24px 60px rgba(0,0,0,.5);transform:translateY(10px) scale(.98);transition:transform .18s var(--ease,ease)}
+    .nx-confirm.show .nx-confirm__box{transform:none}
+    .nx-confirm__title{display:flex;align-items:center;gap:.55rem;font-weight:700;font-size:1.05rem;margin-bottom:.55rem}
+    .nx-confirm__title i{color:var(--accent)}
+    .nx-confirm__box.danger .nx-confirm__title i{color:#ff6b6b}
+    .nx-confirm__msg{color:var(--muted);font-size:.92rem;line-height:1.5;margin-bottom:1.2rem}
+    .nx-confirm__actions{display:flex;justify-content:flex-end;gap:.6rem}
+  </style>
 </head>
 <body>
   <div class="backdrop" aria-hidden="true">
@@ -119,6 +182,19 @@
             <p class="hint" style="margin-top:0.7rem" data-i18n="acc.friendsHint">Partage ton friend code pour que tes amis t'ajoutent — vous vous retrouverez en ligne dans vos parties.</p>
           </div>
         </div>
+      </div>
+
+      <div class="panel" style="margin-top:1.5rem" id="saves-panel" hidden>
+        <div class="panel__h"><h2 data-i18n="save.title">Sauvegardes cloud</h2><i class="ph ph-cloud-arrow-up" aria-hidden="true"></i></div>
+        <div class="saves-quota" id="saves-quota" hidden>
+          <div class="saves-quota__top">
+            <span class="saves-quota__used" id="saves-quota-used">—</span>
+            <span class="saves-quota__badge" id="saves-quota-badge" hidden></span>
+          </div>
+          <div class="saves-quota__bar"><div class="saves-quota__fill" id="saves-quota-fill"></div></div>
+        </div>
+        <div class="saves" id="saves-list"><div class="empty" data-i18n="save.loading">Chargement de tes sauvegardes…</div></div>
+        <p class="hint" style="margin-top:0.85rem" data-i18n="save.hint">Tes sauvegardes suivent ton compte : elles sont envoyées dans le cloud à la fin de tes parties et restaurées sur une nouvelle machine.</p>
       </div>
 
       <div class="panel" style="margin-top:1.5rem">
@@ -465,7 +541,10 @@
       $('kv-pid').textContent=a.pid;
       $('kv-email').textContent=isGuest?T('acc.guestEmail','Compte invité (aucun e-mail)'):a.email;
       paintDiscord(a);
-      $('card-chip').textContent=isGuest?T('acc.guest','INVITÉ'):T('acc.member','MEMBRE');
+      // Booster du serveur Discord → badge rose « MEMBRE BOOSTER » ; sinon MEMBRE / INVITÉ.
+      const _chip=$('card-chip');
+      if(a.isBooster){ _chip.setAttribute('data-i18n','acc.memberBooster'); _chip.textContent=T('acc.memberBooster','MEMBRE BOOSTER'); _chip.style.color='#ff6ec7'; _chip.style.borderColor='#ff6ec7'; }
+      else { const _mk=isGuest?'acc.guest':'acc.member'; _chip.setAttribute('data-i18n',_mk); _chip.textContent=T(_mk,isGuest?'INVITÉ':'MEMBRE'); _chip.style.color=''; _chip.style.borderColor=''; }
       try { $('kv-since').textContent=new Date(a.created_at).toLocaleDateString(LOC(),{year:'numeric',month:'long',day:'numeric'}); }
       catch(_){ $('kv-since').textContent='—'; }
     }
@@ -624,6 +703,8 @@
     /* ---- historique ---- */
     function fmtHours(sec){ const h=(sec||0)/3600; if(h<1) return Math.max(1,Math.round((sec||0)/60))+' min'; return (h>=10?Math.round(h):h.toFixed(1))+' h'; }
     function fmtDate(s){ if(!s) return ''; try { return new Date(s).toLocaleDateString(LOC(),{day:'numeric',month:'short',year:'numeric'}); } catch(_){ return ''; } }
+    /* Date + heure exacte (pour l'horodatage précis des sauvegardes cloud). */
+    function fmtDateTime(s){ if(!s) return ''; try { const d=new Date(s); return d.toLocaleDateString(LOC(),{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString(LOC(),{hour:'2-digit',minute:'2-digit'}); } catch(_){ return ''; } }
     function renderHistoryInto(w, history, emptyMsg){
       if(!history || !history.length){ w.innerHTML='<div class="empty">'+escapeHtml(emptyMsg)+'</div>'; return; }
       w.innerHTML='';
@@ -642,6 +723,147 @@
         const { history }=await NX.history();
         renderHistoryInto($('history'), history, T('acc.historyEmpty',"Aucun historique pour l'instant — ton temps de jeu apparaîtra ici après tes parties (synchronisé automatiquement depuis l'émulateur)."));
       } catch(_){ $('history').innerHTML='<div class="empty">'+escapeHtml(T('acc.historyErr',"Impossible de charger l'historique."))+'</div>'; }
+    }
+
+    /* Popup de confirmation custom — remplace confirm(). Renvoie une Promise<bool>. */
+    function nxConfirm(message, opts){
+      opts = opts || {};
+      return new Promise(resolve=>{
+        const ov=document.createElement('div'); ov.className='nx-confirm';
+        ov.innerHTML=
+          '<div class="nx-confirm__box'+(opts.danger?' danger':'')+'" role="dialog" aria-modal="true">'
+          +'<div class="nx-confirm__title"><i class="ph '+(opts.danger?'ph-warning-circle':'ph-question')+'" aria-hidden="true"></i>'+escapeHtml(opts.title||T('confirm.title','Confirmation'))+'</div>'
+          +'<div class="nx-confirm__msg">'+escapeHtml(message)+'</div>'
+          +'<div class="nx-confirm__actions">'
+          +'<button class="btn btn--soft btn--sm" data-cancel type="button">'+escapeHtml(opts.cancel||T('confirm.cancel','Annuler'))+'</button>'
+          +'<button class="btn '+(opts.danger?'btn--danger':'btn--primary')+' btn--sm" data-ok type="button">'+escapeHtml(opts.ok||T('confirm.ok','Confirmer'))+'</button>'
+          +'</div></div>';
+        document.body.appendChild(ov);
+        requestAnimationFrame(()=>ov.classList.add('show'));
+        const done=(v)=>{ document.removeEventListener('keydown',onKey); ov.classList.remove('show'); setTimeout(()=>ov.remove(),180); resolve(v); };
+        const onKey=(e)=>{ if(e.key==='Escape'){ e.preventDefault(); done(false);} else if(e.key==='Enter'){ e.preventDefault(); done(true);} };
+        ov.querySelector('[data-ok]').addEventListener('click',()=>done(true));
+        ov.querySelector('[data-cancel]').addEventListener('click',()=>done(false));
+        ov.addEventListener('click',e=>{ if(e.target===ov) done(false); });
+        document.addEventListener('keydown',onKey);
+        setTimeout(()=>{ const b=ov.querySelector('[data-ok]'); if(b) b.focus(); },60);
+      });
+    }
+
+    /* ===================== Sauvegardes cloud ===================== */
+    function fmtBytes(n){
+      n=Number(n)||0;
+      if(n<1024) return n+' o';
+      if(n<1024*1024) return (n/1024).toFixed(n<10*1024?1:0)+' Ko';
+      return (n/1024/1024).toFixed(2)+' Mo';
+    }
+    function saveIconHtml(e){
+      const letter=escapeHtml((((e.name||e.titleId||'?').trim()[0])||'?').toUpperCase());
+      // Priorité : jaquette serveur (/api/gamemedia) > icône Switch de l'émulateur (base64) > tuile.
+      const cover = e.titleId ? '/api/gamemedia/'+encodeURIComponent(e.titleId)+'/cover' : '';
+      const appIcon = e.icon ? imgSrc(e.icon) : '';
+      const primary = cover || appIcon;
+      const fb = (cover && appIcon) ? appIcon : '';
+      const img = primary
+        ? '<img src="'+escapeHtml(primary)+'" alt="" loading="lazy" data-fb="'+escapeHtml(fb)+'" onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.dataset.fb=\'\';}else{this.remove();}">'
+        : '';
+      return '<div class="save-card__ico"><span>'+letter+'</span>'+img+'</div>';
+    }
+    async function loadSaves(){
+      const panel=$('saves-panel'); if(!panel) return;
+      const isGuest=(ACC&&(ACC.email||'').toLowerCase().endsWith('@nextendo.local'));
+      if(isGuest){ panel.hidden=true; return; }   // les invités n'ont pas de saves cloud
+      panel.hidden=false;
+      const list=$('saves-list'), quota=$('saves-quota');
+      try{
+        const r=await NX.getSaves();
+        const saves=r.saves||[];
+        const used=$('saves-quota-used'), badge=$('saves-quota-badge'), fill=$('saves-quota-fill');
+        // Gate cloud-save : compte non éligible (e-mail non vérifié ou Discord non lié) → message
+        // d'activation localisé, sans liste ni jauge (l'envoi et le téléchargement sont bloqués).
+        if(r.eligible===false){
+          quota.hidden=true;
+          const gm=(r.reasonCode==='email')
+            ? T('save.gateEmail','Vérifie ton adresse e-mail pour activer les sauvegardes dans le cloud.')
+            : T('save.gateDiscord','Lie ton compte à Discord pour activer les sauvegardes dans le cloud.');
+          list.innerHTML='<div class="empty">'+escapeHtml(gm)+'</div>';
+          return;
+        }
+        // Quota : X / 5 Mo (10 Mo pour les boosters — jauge rose + badge « Booster »).
+        quota.hidden=false;
+        const limit=r.limit||5*1024*1024;
+        const pct=Math.max(0,Math.min(100,Math.round((r.totalSize/limit)*100)));
+        used.textContent=T('save.used','{u} / {t}',{u:fmtBytes(r.totalSize),t:fmtBytes(limit)});
+        if(r.isBooster){
+          badge.hidden=false; badge.textContent=T('save.boosterBadge','Booster · 10 Mo');
+          fill.className='saves-quota__fill booster';
+        } else {
+          badge.hidden=true;
+          fill.className='saves-quota__fill'+(pct>=85?' warn':'');
+        }
+        fill.style.width=pct+'%';
+        // Bannière compte à rebours (downgrade booster en dépassement) : l'utilisateur a jusqu'à
+        // r.graceUntil pour repasser sous 5 Mo, sinon la save la plus lourde est supprimée auto.
+        let graceHtml='';
+        if(r.graceUntil){
+          graceHtml='<div class="save-grace"><i class="ph ph-warning-circle" aria-hidden="true"></i><div>'
+            +'<div class="save-grace__t">'+escapeHtml(T('save.graceTitle','Limite de 5 Mo dépassée'))+'</div>'
+            +'<div class="save-grace__m">'+escapeHtml(T('save.graceMsg',"Suite à la perte du statut booster, tu as jusqu'au {w} pour supprimer une sauvegarde et repasser sous 5 Mo — sinon la plus lourde sera supprimée automatiquement.",{w:fmtDateTime(r.graceUntil)}))+'</div>'
+            +'</div></div>';
+        }
+        // Liste
+        if(!saves.length){ list.innerHTML=graceHtml+'<div class="empty">'+escapeHtml(T('save.empty',"Aucune sauvegarde dans le cloud pour l'instant — elles apparaîtront ici après tes parties."))+'</div>'; return; }
+        list.innerHTML=graceHtml;
+        saves.forEach(e=>{
+          const name=e.name||T('gm.defaultName','Jeu');
+          const meta=e.updatedAt?T('save.updatedOn','Sauvegardé le {d}',{d:fmtDateTime(e.updatedAt)}):'';
+          const card=document.createElement('div'); card.className='save-card';
+          card.innerHTML=
+            saveIconHtml(e)
+            +'<div class="save-card__main"><div class="save-card__name">'+escapeHtml(name)+'</div><div class="save-card__meta">'+escapeHtml(meta)+'</div></div>'
+            +'<span class="save-card__size">'+escapeHtml(fmtBytes(e.size))+'</span>'
+            +'<div class="save-card__act">'
+            +'<button class="save-card__btn" data-details type="button" title="'+escapeHtml(T('save.details','Détails'))+'" aria-label="'+escapeHtml(T('save.details','Détails'))+'"><i class="ph ph-caret-down"></i></button>'
+            +'<button class="save-card__btn" data-dl type="button" title="'+escapeHtml(T('save.download','Télécharger le fichier'))+'" aria-label="'+escapeHtml(T('save.download','Télécharger le fichier'))+'"><i class="ph ph-download-simple"></i></button>'
+            +'<button class="save-card__btn save-card__btn--danger" data-del type="button" title="'+escapeHtml(T('save.delete','Supprimer'))+'" aria-label="'+escapeHtml(T('save.delete','Supprimer'))+'"><i class="ph ph-trash"></i></button>'
+            +'</div>'
+            +'<div class="save-details"></div>';
+          const dbtn=card.querySelector('[data-details]'), dbox=card.querySelector('.save-details'); let loaded=false;
+          dbtn.addEventListener('click', async ()=>{
+            const open=!dbox.classList.contains('open');
+            dbox.classList.toggle('open', open);
+            dbtn.querySelector('i').className = open ? 'ph ph-caret-up' : 'ph ph-caret-down';
+            if(open && !loaded){
+              loaded=true; dbox.innerHTML='<span class="save-details__loading">'+escapeHtml(T('save.parsing','Analyse…'))+'</span>';
+              try{
+                const p=await NX.saveParsed(e.titleId); const fields=(p&&p.fields)||[];
+                if(!fields.length){ dbox.innerHTML='<span class="save-details__none">'+escapeHtml(T('save.noPreview','Aperçu du contenu indisponible pour ce jeu.'))+'</span>'; }
+                else { dbox.innerHTML=fields.map(f=>{ const im=f.img?'<img class="save-field__img" src="'+escapeHtml(f.img)+'" alt="" loading="lazy" onerror="this.remove()">':''; return '<div class="save-field"><span class="save-field__k">'+escapeHtml(T('save.field.'+f.k,f.k))+'</span><span class="save-field__v">'+im+escapeHtml(f.v)+'</span></div>'; }).join(''); }
+              }catch(_){ dbox.innerHTML='<span class="save-details__none">'+escapeHtml(T('save.parseErr','Analyse impossible.'))+'</span>'; }
+            }
+          });
+          card.querySelector('[data-dl]').addEventListener('click', async ()=>{
+            const b=card.querySelector('[data-dl]'), ic=b.querySelector('i'), prev=ic.className;
+            ic.className='ph ph-circle-notch save-dl-spin'; b.disabled=true;
+            try{
+              const blob=await NX.downloadSave(e.titleId);
+              const url=URL.createObjectURL(blob);
+              const a=document.createElement('a'); a.href=url;
+              a.download=(String(name).replace(/[^\w .()\-]+/g,'_').trim()||e.titleId)+'.zip';
+              document.body.appendChild(a); a.click(); a.remove();
+              setTimeout(()=>URL.revokeObjectURL(url),1500);
+              NX.toast(T('save.toastDownloaded','Sauvegarde téléchargée'));
+            }catch(err){ NX.toast(err.message||T('save.dlErr','Téléchargement impossible.')); }
+            finally{ ic.className=prev; b.disabled=false; }
+          });
+          card.querySelector('[data-del]').addEventListener('click', async ()=>{
+            if(!(await nxConfirm(T('save.confirmDelete','Supprimer la sauvegarde cloud de {g} ? Cette action est définitive.',{g:name}), {title:name, ok:T('save.delete','Supprimer'), danger:true}))) return;
+            try{ await NX.deleteSave(e.titleId); NX.toast(T('save.toastDeleted','Sauvegarde supprimée')); loadSaves(); }
+            catch(err){ NX.toast(err.message); }
+          });
+          list.appendChild(card);
+        });
+      }catch(_){ quota.hidden=true; list.innerHTML='<div class="empty">'+escapeHtml(T('save.loadErr','Impossible de charger tes sauvegardes.'))+'</div>'; }
     }
 
     /* ===================== éditeur ===================== */
@@ -860,19 +1082,19 @@
       document.querySelectorAll('#game-modal [data-gclose]').forEach(el=>el.addEventListener('click', closeGameModal));
       $('fm-remove').addEventListener('click', async ()=>{
         if(!FRIEND_MODAL_PID) return;
-        if(!confirm(T('fr.confirmRemove','Retirer cet ami de ta liste ?'))) return;
+        if(!(await nxConfirm(T('fr.confirmRemove','Retirer cet ami de ta liste ?'), {title:T('fr.remove','Retirer'), ok:T('fr.remove','Retirer'), danger:true}))) return;
         try { await NX.removeFriend(FRIEND_MODAL_PID); NX.toast(T('fr.toastRemoved','Ami supprimé')); closeFriendModal(); loadFriends(); }
         catch(err){ NX.toast(err.message); }
       });
       $('fm-block').addEventListener('click', async ()=>{
         if(!FRIEND_MODAL_PID) return;
-        if(!confirm(T('fr.confirmBlock',"Bloquer ce joueur ? Il sera retiré de tes amis et ne pourra plus t'envoyer de demande."))) return;
+        if(!(await nxConfirm(T('fr.confirmBlock',"Bloquer ce joueur ? Il sera retiré de tes amis et ne pourra plus t'envoyer de demande."), {title:T('fr.block','Bloquer'), ok:T('fr.block','Bloquer'), danger:true}))) return;
         try { await NX.blockFriend(FRIEND_MODAL_PID); NX.toast(T('fr.toastBlocked','Joueur bloqué')); closeFriendModal(); loadFriends(); }
         catch(err){ NX.toast(err.message); }
       });
-      loadFriends(); loadHistory();
+      loadFriends(); loadHistory(); loadSaves();
       // Changement de langue : rafraîchit l'identité et les listes rendues en JS.
-      document.addEventListener('nx:lang', ()=>{ try{ if(ACC) paintIdentity(ACC); }catch(_){}; loadFriends(); loadHistory(); });
+      document.addEventListener('nx:lang', ()=>{ try{ if(ACC) paintIdentity(ACC); }catch(_){}; loadFriends(); loadHistory(); loadSaves(); });
     })();
   </script>
 </body>

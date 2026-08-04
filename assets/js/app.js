@@ -52,6 +52,25 @@ const NX = {
   history()                           { return this.api("/api/history", null, "GET"); },
   gameInfo(titleId, name)             { return this.api("/api/gameinfo?title_id=" + encodeURIComponent(titleId||"") + "&name=" + encodeURIComponent(name||""), null, "GET"); },
 
+  /* sauvegardes cloud : liste + quota, aperçu du contenu (parsé), suppression, téléchargement */
+  getSaves()            { return this.api("/api/saves", null, "GET"); },
+  saveParsed(titleId)   { return this.api("/api/save/" + encodeURIComponent(titleId) + "/parsed?lang=" + encodeURIComponent((window.NXI18N && NXI18N.lang && NXI18N.lang()) || "en"), null, "GET"); },
+  deleteSave(titleId)   { return this.api("/api/save/" + encodeURIComponent(titleId), null, "DELETE"); },
+  // Télécharge le fichier de sauvegarde brut (le blob stocké = un zip du dossier save Switch).
+  // Réponse binaire → on ne passe pas par api() (qui parse du JSON) mais par un fetch dédié.
+  async downloadSave(titleId) {
+    const opts = { method: "GET", headers: {}, credentials: "same-origin" };
+    if (this.token) opts.headers["Authorization"] = "Bearer " + this.token;
+    const res = await fetch("/api/save/" + encodeURIComponent(titleId), opts);
+    if (res.status === 204) throw new Error("Aucune sauvegarde dans le cloud.");
+    if (!res.ok) {
+      let msg = "Erreur réseau (" + res.status + ")";
+      try { const d = await res.json(); if (d && d.error) msg = d.error; } catch (_) {}
+      throw new Error(msg);
+    }
+    return await res.blob();
+  },
+
   /* e-mail : vérification + réinitialisation du mot de passe */
   forgot(email)          { return this.api("/api/forgot", { email }); },
   reset(token, password) { return this.api("/api/reset", { token, password }); },
