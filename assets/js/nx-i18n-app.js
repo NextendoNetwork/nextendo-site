@@ -69,7 +69,8 @@
     /* --- amis (rich presence, modale ami) --- */
     "fr.defaultName": "Friend", "fr.playtime": "Playtime", "fr.gamesPlayed": "Games played",
     "fr.favGame": "Favorite game", "fr.lastActivity": "Last activity", "fr.loading": "Loading…",
-    "fr.block": "Block", "fr.remove": "Remove",
+    "fr.block": "Block", "fr.remove": "Remove", "fr.showMore": "See more",
+    "fr.favorite": "Favorite",
     "fr.inGameShort": "In game…", "fr.inGameName": "In game · {name}", "fr.inGame": "In game",
     "fr.online": "online", "fr.offline": "offline",
     "fr.wantsToAdd": "wants to add you", "fr.accept": "Accept", "fr.decline": "Decline",
@@ -195,7 +196,8 @@
     /* --- amis (rich presence, modale ami) --- */
     "fr.defaultName": "Ami", "fr.playtime": "Temps de jeu", "fr.gamesPlayed": "Jeux joués",
     "fr.favGame": "Jeu favori", "fr.lastActivity": "Dernière activité", "fr.loading": "Chargement…",
-    "fr.block": "Bloquer", "fr.remove": "Supprimer",
+    "fr.block": "Bloquer", "fr.remove": "Supprimer", "fr.showMore": "Voir plus",
+    "fr.favorite": "Favori",
     "fr.inGameShort": "En jeu…", "fr.inGameName": "En jeu · {name}", "fr.inGame": "En jeu",
     "fr.online": "en ligne", "fr.offline": "hors ligne",
     "fr.wantsToAdd": "veut t'ajouter", "fr.accept": "Accepter", "fr.decline": "Refuser",
