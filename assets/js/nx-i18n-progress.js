@@ -8,10 +8,11 @@
     "progress.detail.mario-kart":   "Worldwide online races, lounges and friends",
     "progress.detail.splatoon-2":   "8-player Turf War, friends and Salmon Run",
     "progress.detail.smash":        "Online arenas and friends",
+    "progress.detail.luigis-mansion-3": "Fully online, including friend rooms",
     "progress.detail.animal-crossing": "Island visits between friends",
     "progress.detail.mario-strikers": "Matchmaking and online clubs",
     "progress.detail.minecraft":      "Connecting to the online server",
-    "progress.detail.mario-party":    "The game starts correctly",
+    "progress.detail.mario-party":    "Solo online lobby working",
     "progress.detail.splatoon-3":     "The game starts correctly",
     "progress.detail.mario-maker-2":  "In preparation"
   });
@@ -19,10 +20,11 @@
     "progress.detail.mario-kart":   "Courses en ligne mondiales, salons et amis",
     "progress.detail.splatoon-2":   "Turf War à 8, amis et Salmon Run",
     "progress.detail.smash":        "Arènes en ligne et amis",
+    "progress.detail.luigis-mansion-3": "Entièrement en ligne, salons entre amis compris",
     "progress.detail.animal-crossing": "Visites d'île entre amis",
     "progress.detail.mario-strikers": "Matchmaking et clubs en ligne",
     "progress.detail.minecraft":      "Connexion au serveur en ligne",
-    "progress.detail.mario-party":    "Le jeu démarre correctement",
+    "progress.detail.mario-party":    "Salon en ligne solo fonctionnel",
     "progress.detail.splatoon-3":     "Le jeu démarre correctement",
     "progress.detail.mario-maker-2":  "En préparation"
   });
@@ -30,10 +32,11 @@
     "progress.detail.mario-kart":   "Carreras en línea mundiales, salones y amigos",
     "progress.detail.splatoon-2":   "Turf War a 8, amigos y Salmon Run",
     "progress.detail.smash":        "Arenas en línea y amigos",
+    "progress.detail.luigis-mansion-3": "Totalmente en línea, incluidas las salas entre amigos",
     "progress.detail.animal-crossing": "Visitas a islas entre amigos",
     "progress.detail.mario-strikers": "Matchmaking y clubs en línea",
     "progress.detail.minecraft":      "Conexión al servidor en línea",
-    "progress.detail.mario-party":    "El juego funciona correctamente",
+    "progress.detail.mario-party":    "Sala en línea (individual) funcional",
     "progress.detail.splatoon-3":     "El juego funciona correctamente",
     "progress.detail.mario-maker-2":  "En preparación"
   });
@@ -41,10 +44,11 @@
     "progress.detail.mario-kart":   "Corridas online mundiais, salões e amigos",
     "progress.detail.splatoon-2":   "Turf War com 8, amigos e Salmon Run",
     "progress.detail.smash":        "Arenas online e amigos",
+    "progress.detail.luigis-mansion-3": "Totalmente online, incluindo salas entre amigos",
     "progress.detail.animal-crossing": "Visitas à ilha entre amigos",
     "progress.detail.mario-strikers": "Matchmaking e clubes online",
     "progress.detail.minecraft":      "Conexão ao servidor online",
-    "progress.detail.mario-party":    "O jogo inicia corretamente",
+    "progress.detail.mario-party":    "Sala online (individual) funcional",
     "progress.detail.splatoon-3":     "O jogo inicia corretamente",
     "progress.detail.mario-maker-2":  "Em preparação"
   });
@@ -52,10 +56,11 @@
     "progress.detail.mario-kart":   "Weltweite Online-Rennen, Lounges und Freunde",
     "progress.detail.splatoon-2":   "8-Spieler-Turf War, Freunde und Salmon Run",
     "progress.detail.smash":        "Online-Arenen und Freunde",
+    "progress.detail.luigis-mansion-3": "Vollständig online, inklusive Freundesräume",
     "progress.detail.animal-crossing": "Inselbesuche zwischen Freunden",
     "progress.detail.mario-strikers": "Matchmaking und Online-Clans",
     "progress.detail.minecraft":      "Verbindung zum Online-Server",
-    "progress.detail.mario-party":    "Das Spiel startet korrekt",
+    "progress.detail.mario-party":    "Online-Lobby (Solo) funktioniert",
     "progress.detail.splatoon-3":     "Das Spiel startet korrekt",
     "progress.detail.mario-maker-2":  "In Vorbereitung"
   });
@@ -63,10 +68,11 @@
     "progress.detail.mario-kart":   "Gare online mondiali, sale e amici",
     "progress.detail.splatoon-2":   "Turf War a 8, amici e Salmon Run",
     "progress.detail.smash":        "Arenes online e amici",
+    "progress.detail.luigis-mansion-3": "Completamente online, incluse le stanze tra amici",
     "progress.detail.animal-crossing": "Visite all'isola tra amici",
     "progress.detail.mario-strikers": "Matchmaking e club online",
     "progress.detail.minecraft":      "Connessione al server online",
-    "progress.detail.mario-party":    "Il gioco si avvia correttamente",
+    "progress.detail.mario-party":    "Lobby online (solo) funzionante",
     "progress.detail.splatoon-3":     "Il gioco si avvia correttamente",
     "progress.detail.mario-maker-2":  "In preparazione"
   });
@@ -74,10 +80,11 @@
     "progress.detail.mario-kart":   "Мировые онлайн-гонки, лаунжи и друзья",
     "progress.detail.splatoon-2":   "Turf War на 8, друзья и Salmon Run",
     "progress.detail.smash":        "Онлайн-арены и друзья",
+    "progress.detail.luigis-mansion-3": "Полностью онлайн, включая комнаты для друзей",
     "progress.detail.animal-crossing": "Посещения островов между друзьями",
     "progress.detail.mario-strikers": "Матчмейкинг и онлайн-кланы",
     "progress.detail.minecraft":      "Подключение к онлайн-серверу",
-    "progress.detail.mario-party":    "Игра запускается корректно",
+    "progress.detail.mario-party":    "Онлайн-лобби (соло) работает",
     "progress.detail.splatoon-3":     "Игра запускается корректно",
     "progress.detail.mario-maker-2":  "В подготовке"
   });
@@ -85,10 +92,11 @@
     "progress.detail.mario-kart":   "全球在线比赛、休息室和好友",
     "progress.detail.splatoon-2":   "8人鹰击现场、好友和沙鹅跑",
     "progress.detail.smash":        "在线竞技场和好友",
+    "progress.detail.luigis-mansion-3": "完整线上功能，包含好友房间",
     "progress.detail.animal-crossing": "好友之间的岛屿访问",
     "progress.detail.mario-strikers": "匹配和在线俱乐部",
     "progress.detail.minecraft":      "连接到在线服务器",
-    "progress.detail.mario-party":    "游戏正常启动",
+    "progress.detail.mario-party":    "在线大厅可用（单人）",
     "progress.detail.splatoon-3":     "游戏正常启动",
     "progress.detail.mario-maker-2":  "准备中"
   });
@@ -96,10 +104,11 @@
     "progress.detail.mario-kart":   "世界中のオンラインレース、ラウンジ、フレンド",
     "progress.detail.splatoon-2":   "8人ターフウォー、フレンド、サルモンラン",
     "progress.detail.smash":        "オンラインアリーナとフレンド",
+    "progress.detail.luigis-mansion-3": "フレンドの部屋を含め、オンラインは全て動作",
     "progress.detail.animal-crossing": "フレンド間の島訪問",
     "progress.detail.mario-strikers": "マッチメイキングとオンラインクラブ",
     "progress.detail.minecraft":      "オンラインサーバーへの接続",
-    "progress.detail.mario-party":    "ゲームが正常に起動します",
+    "progress.detail.mario-party":    "オンラインロビー動作（ソロ）",
     "progress.detail.splatoon-3":     "ゲームが正常に起動します",
     "progress.detail.mario-maker-2":  "準備中"
   });
@@ -107,10 +116,11 @@
     "progress.detail.mario-kart":   "سباقات عالمية عبر الإنترنت، غرف وأصدقاء",
     "progress.detail.splatoon-2":   "حرب الأراضي بثمانية، الأصدقاء وركد السلمندر",
     "progress.detail.smash":        "الصحون عبر الإنترنت والأصدقاء",
+    "progress.detail.luigis-mansion-3": "متاح بالكامل عبر الإنترنت، بما في ذلك غرف الأصدقاء",
     "progress.detail.animal-crossing": "زيارات جزر بين الأصدقاء",
     "progress.detail.mario-strikers": "التوافق والنوادي عبر الإنترنت",
     "progress.detail.minecraft":      "الاتصال بخادم عبر الإنترنت",
-    "progress.detail.mario-party":    "اللعبة تبدأ بشكل صحيح",
+    "progress.detail.mario-party":    "ردهة الإنترنت تعمل (فردي)",
     "progress.detail.splatoon-3":     "اللعبة تبدأ بشكل صحيح",
     "progress.detail.mario-maker-2":  "قيد التحضير"
   });
