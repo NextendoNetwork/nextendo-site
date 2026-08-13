@@ -1,26 +1,21 @@
 /* ==========================================================================
    Nextendo Network — client compte (vanilla JS, sans build).
    Parle au backend nextendo-account via /api/* (même origine).
-   Auth = cookie HttpOnly (setTokenCookie côté serveur). Le jeton n'est plus
-   conservé dans localStorage (XSS-safe). On lit encore l'ancien localStorage
-   pour les sessions existantes, mais on n'y écrit plus.
+   Auth = jeton Bearer signé, conservé dans localStorage.
    ========================================================================== */
 const NX = {
+  tokenKey: "nx_token",
   nexKey: "nx_nex_token",
   turnstileToken: "", // verrou anti-relais : jeton Turnstile, posé par les pages login/register
 
-  // Retourne l'ancien token localStorage s'il existe (compat ascendante).
-  // Les nouveaux sessions utilisent le cookie HttpOnly — on n'écrit plus ici.
-  get token() { return localStorage.getItem("nx_token") || ""; },
-
+  get token() { return localStorage.getItem(this.tokenKey) || ""; },
+  set token(t) { t ? localStorage.setItem(this.tokenKey, t) : localStorage.removeItem(this.tokenKey); },
   get nexToken() { return localStorage.getItem(this.nexKey) || ""; },
   set nexToken(t) { t ? localStorage.setItem(this.nexKey, t) : localStorage.removeItem(this.nexKey); },
 
   async api(path, body, method = "POST") {
-    const opts = { method, headers: {}, credentials: "same-origin" };
+    const opts = { method, headers: {} };
     if (body) { opts.headers["Content-Type"] = "application/json"; opts.body = JSON.stringify(body); }
-    // Envoie l'ancien token localStorage si présent (compat ascendante) ;
-    // le serveur tokenFromRequest() checke d'abord le header, puis le cookie.
     if (this.token) opts.headers["Authorization"] = "Bearer " + this.token;
     if (this.turnstileToken) opts.headers["Cf-Turnstile-Response"] = this.turnstileToken;
     const res = await fetch(path, opts);
@@ -30,11 +25,11 @@ const NX = {
     return data;
   },
 
-  // Conserve le nex_token (pour l'écosystème NEX) ; le web token est désormais
-  // dans un cookie HttpOnly posé par le serveur — plus besoin de le stocker ici.
-  save(r) { if (r && r.nex_token) this.nexToken = r.nex_token; return r; },
+  // Conserve la session renvoyée par register/login/guest.
+  save(r) { if (r && r.token) this.token = r.token; if (r && r.nex_token) this.nexToken = r.nex_token; return r; },
 
-  register(username, email, password) { return this.api("/api/register", { username, email, password }).then(r => this.save(r)); },
+  // country : code ISO alpha-2, obligatoire depuis qu'on affiche un drapeau en jeu.
+  register(username, email, password, country) { return this.api("/api/register", { username, email, password, country }).then(r => this.save(r)); },
   login(login, password)              { return this.api("/api/login", { login, password }).then(r => this.save(r)); },
   guest(username)                     { return this.api("/api/guest", { username }).then(r => this.save(r)); },
   me()                                { return this.api("/api/me", null, "GET"); },
@@ -45,6 +40,7 @@ const NX = {
   declineFriend(pid)                  { return this.api("/api/friends/decline", { pid }); },
   removeFriend(pid)                   { return this.api("/api/friends/remove", { pid }); },
   blockFriend(pid)                    { return this.api("/api/friends/block", { pid }); },
+  setFavorite(pid, favorite)          { return this.api("/api/friends/favorite", { pid, favorite }); },
   friendHistory(pid)                  { return this.api("/api/friends/history?pid=" + encodeURIComponent(pid), null, "GET"); },
   available(u)                        { return this.api("/api/username-available?username=" + encodeURIComponent(u), null, "GET"); },
   setUsername(username)               { return this.api("/api/username", { username }, "PUT"); },
@@ -52,14 +48,14 @@ const NX = {
   history()                           { return this.api("/api/history", null, "GET"); },
   gameInfo(titleId, name)             { return this.api("/api/gameinfo?title_id=" + encodeURIComponent(titleId||"") + "&name=" + encodeURIComponent(name||""), null, "GET"); },
 
-  /* sauvegardes cloud : liste + quota, aperçu du contenu (parsé), suppression, téléchargement */
+  /* sauvegardes cloud : liste + quota, aperçu du contenu (parsé), suppression */
   getSaves()            { return this.api("/api/saves", null, "GET"); },
   saveParsed(titleId)   { return this.api("/api/save/" + encodeURIComponent(titleId) + "/parsed?lang=" + encodeURIComponent((window.NXI18N && NXI18N.lang && NXI18N.lang()) || "en"), null, "GET"); },
   deleteSave(titleId)   { return this.api("/api/save/" + encodeURIComponent(titleId), null, "DELETE"); },
   // Télécharge le fichier de sauvegarde brut (le blob stocké = un zip du dossier save Switch).
   // Réponse binaire → on ne passe pas par api() (qui parse du JSON) mais par un fetch dédié.
   async downloadSave(titleId) {
-    const opts = { method: "GET", headers: {}, credentials: "same-origin" };
+    const opts = { method: "GET", headers: {} };
     if (this.token) opts.headers["Authorization"] = "Bearer " + this.token;
     const res = await fetch("/api/save/" + encodeURIComponent(titleId), opts);
     if (res.status === 204) throw new Error("Aucune sauvegarde dans le cloud.");
@@ -83,7 +79,24 @@ const NX = {
   revokeSession(id)            { return this.api("/api/sessions/revoke", { id }); },
   revokeAllSessions()          { return this.api("/api/sessions/revoke-all", {}); },
 
-  logout() { localStorage.removeItem("nx_token"); this.nexToken = ""; location.href = "/"; },
+  /* espace admin (réservé aux e-mails admin côté serveur) */
+  adminCheck()         { return this.api("/api/admin/check", null, "GET"); },
+  adminUsers()         { return this.api("/api/admin/users", null, "GET"); },
+  adminStats()         { return this.api("/api/admin/stats", null, "GET"); },
+  // Signalements envoyés depuis l'émulateur : code d'erreur + log au moment où ça casse,
+  // avec le pseudo Nextendo ET Discord pour savoir à qui répondre.
+  adminReports()       { return this.api("/api/admin/reports", null, "GET"); },
+  adminReportHandled(id, handled) {
+    return this.api("/api/admin/reports?id=" + encodeURIComponent(id) + "&handled=" + (handled ? "true" : "false"), {});
+  },
+  adminDeleteUser(pid) { return this.api("/api/admin/delete-user", { pid }); },
+  // Ban : supprime le compte ET réserve e-mail/IP/code ami/Discord (pas de recréation), efface le
+  // cloud + l'historique, et bannit du Discord si le compte y est lié.
+  adminBan(pid, reason)  { return this.api("/api/admin/ban", { pid, reason }); },
+  // Déban : libère e-mail/IP/code ami/Discord et lève le ban Discord. Le compte reste supprimé.
+  adminUnban(pid)        { return this.api("/api/admin/unban", { pid }); },
+
+  logout() { this.token = ""; this.nexToken = ""; location.href = "/"; },
 
   // Petit toast (copie, etc.)
   toast(text) {

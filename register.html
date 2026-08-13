@@ -13,7 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=9" />
+  <link rel="stylesheet" href="assets/css/style.css?v=11" />
   <link rel="stylesheet" href="assets/css/nx-ui.css?v=2" />
 </head>
 <body>
@@ -80,6 +80,11 @@
             <span class="fld__hint" data-i18n="register.emailHint">C'est avec cet e-mail que tu te connecteras.</span>
           </div>
           <div class="fld">
+            <label for="country" data-i18n="acc.country">Pays</label>
+            <div id="country"></div>
+            <span class="fld__hint" data-i18n="register.countryHint">C'est le drapeau qui s'affichera à côté de ton nom dans les jeux en ligne. Modifiable ensuite.</span>
+          </div>
+          <div class="fld">
             <label for="password" data-i18n="form.password">Mot de passe</label>
             <div class="pw">
               <input class="input" id="password" type="password" autocomplete="new-password" data-i18n-attr="placeholder:register.passwordPh" placeholder="Au moins 8 caractères" required />
@@ -124,6 +129,7 @@
     </div>
   </div>
 
+  <script src="/assets/js/nx-country.js" defer></script>
   <script src="assets/js/app.js?v=6"></script>
   <script src="assets/js/nx-ui.js?v=3"></script>
   <script src="assets/js/nx-i18n.js?v=1"></script>
@@ -190,9 +196,14 @@
     // jauge de force + règles obligatoires (helper partagé dans app.js) -> () => bool
     const pwOk = wirePwMeter(pw, document.getElementById('pw-meter'), document.getElementById('pw-label'), document.getElementById('pw-reqs'));
 
+    const countryHost = document.getElementById('country');
+    let countrySel = null;   // composant monte plus bas (liste chargee depuis l'API)
     const userOk  = () => reUser.test(u.value.trim());
     const emailOk = () => /.+@.+\..+/.test(email.value.trim());
     const matchOk = () => pw2.value.length > 0 && pw.value === pw2.value;
+    // Pays obligatoire : sans lui le joueur n'aurait pas de drapeau en jeu et
+    // devrait y revenir plus tard depuis son espace perso.
+    const countryOk = () => !!(countrySel && countrySel.value);
 
     function refresh(){
       p2hint.className = 'fld__hint';
@@ -200,7 +211,7 @@
         if (matchOk()){ p2hint.textContent = T('register.pwMatch', 'Les mots de passe correspondent.'); p2hint.classList.add('ok'); }
         else { p2hint.textContent = T('register.pwNoMatch', 'Les mots de passe ne correspondent pas.'); p2hint.classList.add('bad'); }
       } else { p2hint.textContent = T('register.password2Hint', 'Les deux mots de passe doivent être identiques.'); }
-      submit.disabled = !(userOk() && emailOk() && pwOk() && matchOk());
+      submit.disabled = !(userOk() && emailOk() && pwOk() && matchOk() && countryOk());
     }
 
     u.addEventListener('input', () => {
@@ -213,6 +224,14 @@
       refresh();
     });
     [pw, pw2, email].forEach((el) => el.addEventListener('input', refresh));
+    // Menu maison : recherche + vrais drapeaux, libelles traduits par le navigateur.
+    // nx-country.js est charge en `defer` : il s'execute APRES ce script en
+    // ligne. Appeler NXCountry tout de suite levait une erreur et le champ ne
+    // s'affichait pas du tout. On attend donc qu'il soit la.
+    (function mountCountry(){
+      if (window.NXCountry) { countrySel = NXCountry.mount(countryHost, { onChange: refresh, onReady: refresh }); refresh(); }
+      else setTimeout(mountCountry, 30);
+    })();
     refresh();
 
     document.getElementById('vm-continue').addEventListener('click', () => location.href = '/compte');
@@ -224,7 +243,7 @@
       try {
         const addr = email.value.trim();
         NX.turnstileToken = await nxAwaitTurnstile(2500);
-        await NX.register(u.value.trim(), addr, pw.value);
+        await NX.register(u.value.trim(), addr, pw.value, countrySel.value);
         document.getElementById('vm-email').textContent = addr;   // compte créé + connecté
         document.getElementById('verify-modal').hidden = false;   // -> invite à confirmer l'e-mail
       } catch (err) {

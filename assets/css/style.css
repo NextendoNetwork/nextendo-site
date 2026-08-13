@@ -538,6 +538,41 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .kv__k { color: var(--muted); font-size: 0.92rem; }
 .kv__v { font-weight: 500; font-size: 0.95rem; text-align: right; word-break: break-word; }
 .kv__v.mono { font-size: 0.9rem; }
+/* Pays du compte : un menu deroulant discret, aligne a droite comme les autres
+   valeurs de la fiche d'identite, et une note d'etat sous la ligne. */
+.input--inline { display: inline-block; width: auto; max-width: 15rem; padding: 0.35rem 0.5rem; font-size: 0.92rem; }
+.kv__note { display: block; margin-top: 0.3rem; font-size: 0.82rem; color: var(--muted); font-weight: 400; }
+.kv__note.ok { color: var(--ok, #6ee7a8); }
+.kv__note.bad { color: var(--bad, #ff8f8f); }
+
+/* Menu deroulant du pays (assets/js/nx-country.js). Un <select> natif ne sait
+   pas afficher d'image dans ses options, et Windows rend les drapeaux emoji en
+   deux lettres : d'ou ce composant maison, avec recherche. */
+.nxc { position: relative; display: inline-block; text-align: left; min-width: 15rem; max-width: 100%; }
+.nxc__btn { display: flex; align-items: center; gap: 0.55rem; width: 100%; padding: 0.45rem 0.6rem;
+  border: 1px solid var(--line); border-radius: 0.6rem; background: var(--surface, rgba(255,255,255,0.04));
+  color: inherit; font: inherit; font-size: 0.93rem; cursor: pointer; }
+.nxc__btn:hover, .nxc.is-open .nxc__btn { border-color: var(--accent, #4cc9f0); }
+.nxc__btnLabel { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.nxc__btnLabel--ph { color: var(--muted); }
+.nxc__chev { flex: none; opacity: 0.6; font-size: 0.9rem; }
+.nxc__flag { flex: none; width: 20px; height: 15px; object-fit: cover; border-radius: 2px;
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.35); background: rgba(255,255,255,0.06); }
+.nxc__panel { position: absolute; z-index: 60; top: calc(100% + 4px); left: 0; right: 0; min-width: 16rem;
+  border: 1px solid var(--line); border-radius: 0.7rem; background: var(--bg-elev, #10161f);
+  box-shadow: 0 14px 38px rgba(0,0,0,0.45); overflow: hidden; }
+.nxc__search { width: 100%; padding: 0.5rem 0.7rem; border: 0; border-bottom: 1px solid var(--line-soft);
+  background: transparent; color: inherit; font: inherit; font-size: 0.9rem; outline: none; }
+.nxc__list { max-height: 16rem; overflow-y: auto; margin: 0; padding: 0.25rem; list-style: none; }
+.nxc__opt { display: flex; align-items: center; gap: 0.55rem; padding: 0.4rem 0.5rem;
+  border-radius: 0.45rem; cursor: pointer; font-size: 0.92rem; }
+.nxc__opt.is-active { background: color-mix(in oklch, var(--accent, #4cc9f0) 22%, transparent); }
+.nxc__opt.is-sel { font-weight: 600; }
+.nxc__none { padding: 0.7rem 0.6rem; color: var(--muted); font-size: 0.9rem; }
+/* Dans la fiche d'identite, la valeur est alignee a droite : le panneau doit
+   s'ouvrir vers la gauche pour ne pas deborder du panneau. */
+.kv__v .nxc { min-width: 13rem; }
+.kv__v .nxc__panel { left: auto; right: 0; }
 
 .copy-btn { font-size: 0.78rem; font-weight: 600; color: var(--primary-bright); border: 1px solid color-mix(in oklch, var(--primary) 30%, transparent); border-radius: var(--r-pill); padding: 0.28rem 0.7rem; transition: background 0.2s var(--ease), color 0.2s var(--ease); }
 .copy-btn:hover { background: var(--primary); color: oklch(0.18 0.03 235); border-color: transparent; }
