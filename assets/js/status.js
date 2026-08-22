@@ -13,8 +13,11 @@
   var GAMES = [
     { name: "Mario Kart 8 Deluxe", ids: ["0100152000022000"] },
     { name: "Splatoon 2", ids: ["0100f8f0000a2000", "01003bc0000a0000", "01003c700009c800"] },
+    { name: "Splatoon 3", ids: ["0100c2500fc20000"] },
     { name: "Super Smash Bros. Ultimate", ids: ["01006a800016e000"] },
-    { name: "Animal Crossing: New Horizons", ids: ["01006f8002326000"] }
+    { name: "Animal Crossing: New Horizons", ids: ["01006f8002326000"] },
+    { name: "Luigi's Mansion 3", ids: ["0100dca0064a6000"] },
+    { name: "Minecraft: Nintendo Switch Edition", ids: ["01006bd001e06000"] }
   ];
 
   var POLL_MS = 15000;
