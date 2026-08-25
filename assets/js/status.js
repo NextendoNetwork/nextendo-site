@@ -17,7 +17,9 @@
     { name: "Super Smash Bros. Ultimate", ids: ["01006a800016e000"] },
     { name: "Animal Crossing: New Horizons", ids: ["01006f8002326000"] },
     { name: "Luigi's Mansion 3", ids: ["0100dca0064a6000"] },
-    { name: "Minecraft: Nintendo Switch Edition", ids: ["01006bd001e06000"] }
+    { name: "Minecraft: Nintendo Switch Edition", ids: ["01006bd001e06000"] },
+    { name: "ARMS", ids: ["01009b500007c000"] },
+    { name: "Mario Tennis Aces", ids: ["0100bde00862a000"] }
   ];
 
   var POLL_MS = 15000;
