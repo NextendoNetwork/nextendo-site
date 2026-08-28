@@ -191,7 +191,7 @@
     const pw2 = document.getElementById('password2');
     const p2hint = document.getElementById('p2hint');
     const submit = document.getElementById('submit');
-    const reUser = /^[A-Za-z0-9_\-]{3,16}$/;
+    const reUser = /^[A-Za-z0-9_\-\p{Hiragana}\p{Katakana}]{3,16}$/u;
 
     // jauge de force + règles obligatoires (helper partagé dans app.js) -> () => bool
     const pwOk = wirePwMeter(pw, document.getElementById('pw-meter'), document.getElementById('pw-label'), document.getElementById('pw-reqs'));
