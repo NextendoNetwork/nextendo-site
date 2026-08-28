@@ -1029,7 +1029,7 @@
 
 
       // (add support for Hiragana, Katakana and flag /u):
-      const reUser = /^[A-Za-z0-9_\-\p{Hiragana}\p{Katakana}]{3,16}$/u;
+      const reUser = /^[A-Za-z0-9_\-\p{Script=Hiragana}\p{Script=Katakana}]{3,16}$/u;
     $('save-profile').addEventListener('click', async ()=>{
       const m=$('edit-msg'); hideMsg(m);
       const btn=$('save-profile'); btn.disabled=true; const prev=btn.textContent; btn.textContent=T('ed.saving','Enregistrement…');
