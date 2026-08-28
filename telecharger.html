@@ -30,6 +30,14 @@
     .dl-note h3 { margin:0 0 .4rem; }
     .dl-note p { color:var(--muted); margin:0 0 1.05rem; }
     .dl-legal { margin-top:2rem; font-size:.78rem; color:var(--faint); }
+    /* Une section secondaire : meme grille que la principale, precedee d'un titre et d'une
+       phrase qui dit a qui elle s'adresse. Le trait la separe sans peser comme une carte. */
+    .dl-sec { margin-top:2.8rem; padding-top:2.4rem; border-top:1px solid var(--line-soft); }
+    .dl-sec h2 { margin:0 0 .35rem; font-size:1.35rem; }
+    .dl-sec__lede { color:var(--muted); margin:0; max-width:62ch; }
+    .dl-sec .dl-version { margin:1rem 0 1.2rem; }
+    .dl-sec__more { margin-top:1rem; font-size:.85rem; color:var(--muted); }
+    .dl-sec__more a { color:var(--primary-bright); }
   </style>
 </head>
 <body>
@@ -78,19 +86,19 @@
       <div class="dl-version" id="dl-version" data-i18n="download.loading">Recherche de la dernière version…</div>
 
       <div class="dl-grid" id="dl-grid">
-        <a class="dl-card" data-platform="win" href="https://github.com/NextendoNetwork/Ryujinx-Nextendo/releases/latest" target="_blank" rel="noopener">
+        <a class="dl-card" data-src="ryu" data-platform="win" href="https://github.com/NextendoNetwork/Ryujinx-Nextendo/releases/latest" target="_blank" rel="noopener">
           <i class="ph ph-windows-logo dl-card__icon" aria-hidden="true"></i>
           <span class="dl-card__os">Windows</span>
           <span class="dl-card__meta">.zip <span class="dl-card__size"></span></span>
           <span class="dl-card__btn"><i class="ph ph-download-simple" aria-hidden="true"></i> <span data-i18n="download.button">Télécharger</span></span>
         </a>
-        <a class="dl-card" data-platform="linux" href="https://github.com/NextendoNetwork/Ryujinx-Nextendo/releases/latest" target="_blank" rel="noopener">
+        <a class="dl-card" data-src="ryu" data-platform="linux" href="https://github.com/NextendoNetwork/Ryujinx-Nextendo/releases/latest" target="_blank" rel="noopener">
           <i class="ph ph-linux-logo dl-card__icon" aria-hidden="true"></i>
           <span class="dl-card__os">Linux</span>
           <span class="dl-card__meta">.tar.gz <span class="dl-card__size"></span></span>
           <span class="dl-card__btn"><i class="ph ph-download-simple" aria-hidden="true"></i> <span data-i18n="download.button">Télécharger</span></span>
         </a>
-        <a class="dl-card" data-platform="mac" href="https://github.com/NextendoNetwork/Ryujinx-Nextendo/releases/latest" target="_blank" rel="noopener">
+        <a class="dl-card" data-src="ryu" data-platform="mac" href="https://github.com/NextendoNetwork/Ryujinx-Nextendo/releases/latest" target="_blank" rel="noopener">
           <i class="ph ph-apple-logo dl-card__icon" aria-hidden="true"></i>
           <span class="dl-card__os">macOS</span>
           <span class="dl-card__meta">universal · .tar.gz <span class="dl-card__size"></span></span>
@@ -101,6 +109,48 @@
       <p class="dl-fallback" id="dl-fallback" hidden>
         <a href="https://github.com/NextendoNetwork/Ryujinx-Nextendo/releases/latest" target="_blank" rel="noopener" data-i18n="download.fallback">Voir toutes les versions sur GitHub →</a>
       </p>
+
+      <section class="dl-sec" aria-labelledby="citron-title">
+        <h2 id="citron-title" data-i18n="download.citron.h">Citron Nextendo</h2>
+        <p class="dl-sec__lede" data-i18n="download.citron.p">Un second émulateur, préconfiguré lui aussi pour le réseau. Compilé chaque nuit : plus récent que Ryujinx, mais moins éprouvé.</p>
+        <div class="dl-version" id="dl-citron-version" data-i18n="download.loading">Recherche de la dernière version…</div>
+        <div class="dl-grid">
+          <a class="dl-card" data-src="citron" data-platform="win" href="https://github.com/NextendoNetwork/citron-nextendo/releases" target="_blank" rel="noopener">
+            <i class="ph ph-windows-logo dl-card__icon" aria-hidden="true"></i>
+            <span class="dl-card__os">Windows</span>
+            <span class="dl-card__meta">.zip <span class="dl-card__size"></span></span>
+            <span class="dl-card__btn"><i class="ph ph-download-simple" aria-hidden="true"></i> <span data-i18n="download.button">Télécharger</span></span>
+          </a>
+          <a class="dl-card" data-src="citron" data-platform="linux" href="https://github.com/NextendoNetwork/citron-nextendo/releases" target="_blank" rel="noopener">
+            <i class="ph ph-linux-logo dl-card__icon" aria-hidden="true"></i>
+            <span class="dl-card__os">Linux</span>
+            <span class="dl-card__meta">.AppImage <span class="dl-card__size"></span></span>
+            <span class="dl-card__btn"><i class="ph ph-download-simple" aria-hidden="true"></i> <span data-i18n="download.button">Télécharger</span></span>
+          </a>
+        </div>
+        <p class="dl-sec__more" data-i18n="download.citron.mac">Pas de version macOS pour l'instant.</p>
+      </section>
+
+      <section class="dl-sec" aria-labelledby="app-title">
+        <h2 id="app-title" data-i18n="download.app.h">L'application compagnon</h2>
+        <p class="dl-sec__lede" data-i18n="download.app.p">Sur iPhone : tes amis, qui est en ligne et à quoi il joue, tes sauvegardes et ton historique. Elle n'est pas sur l'App Store — deux façons de l'installer.</p>
+        <div class="dl-version" id="dl-app-version" data-i18n="download.loading">Recherche de la dernière version…</div>
+        <div class="dl-grid">
+          <a class="dl-card" data-src="app" data-platform="deb" href="https://github.com/NextendoNetwork/Nextendo-App-Ios/releases/latest" target="_blank" rel="noopener">
+            <i class="ph ph-device-mobile dl-card__icon" aria-hidden="true"></i>
+            <span class="dl-card__os" data-i18n="download.app.jb">iPhone jailbreaké</span>
+            <span class="dl-card__meta">.deb · Filza <span class="dl-card__size"></span></span>
+            <span class="dl-card__btn"><i class="ph ph-download-simple" aria-hidden="true"></i> <span data-i18n="download.button">Télécharger</span></span>
+          </a>
+          <a class="dl-card" data-src="app" data-platform="ipa" href="https://github.com/NextendoNetwork/Nextendo-App-Ios/releases/latest" target="_blank" rel="noopener">
+            <i class="ph ph-device-mobile dl-card__icon" aria-hidden="true"></i>
+            <span class="dl-card__os" data-i18n="download.app.side">iPhone, sans jailbreak</span>
+            <span class="dl-card__meta">.ipa · AltStore <span class="dl-card__size"></span></span>
+            <span class="dl-card__btn"><i class="ph ph-download-simple" aria-hidden="true"></i> <span data-i18n="download.button">Télécharger</span></span>
+          </a>
+        </div>
+        <p class="dl-sec__more"><a href="https://github.com/NextendoNetwork/Nextendo-App-Ios/releases/latest" target="_blank" rel="noopener" data-i18n="download.app.more">Archive signée et instructions détaillées sur GitHub →</a></p>
+      </section>
 
       <div class="dl-note">
         <h3 data-i18n="download.switch.h">Sur une vraie Switch (CFW)</h3>
@@ -153,8 +203,8 @@
 
   <script src="assets/js/app.js?v=2" defer></script>
   <script src="assets/js/nx-ui.js?v=3" defer></script>
-  <script src="assets/js/nx-i18n.js?v=2" defer></script>
-  <script src="assets/js/nx-i18n-more.js?v=3" defer></script>
-  <script src="assets/js/download.js?v=2" defer></script>
+  <script src="assets/js/nx-i18n.js?v=3" defer></script>
+  <script src="assets/js/nx-i18n-more.js?v=4" defer></script>
+  <script src="assets/js/download.js?v=3" defer></script>
 </body>
 </html>

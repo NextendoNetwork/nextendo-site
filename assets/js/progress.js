@@ -9,6 +9,8 @@
 
   // detail = what works today (not what's missing). pct 0–100.
   var ITEMS = [
+    { name: "PAC-MAN 99", pct: 100, detailKey: "progress.detail.pacman-99", detail: "Parties completes a 99 joueurs" },
+    { name: "SUPER MARIO BROS. 35", pct: 100, detailKey: "progress.detail.smb35", detail: "Parties completes a 35 joueurs" },
     { name: "Luigi's Mansion 3", pct: 100, detailKey: "progress.detail.luigis-mansion-3", detail: "Entièrement en ligne, salons entre amis compris" },
     { name: "ARMS", pct: 100, detailKey: "progress.detail.arms", detail: "Entièrement en ligne" },
     { name: "Mario Tennis Aces", pct: 95, detailKey: "progress.detail.mario-tennis-aces", detail: "Matchs en ligne, salons et amis" },
@@ -17,10 +19,10 @@
     { name: "Super Smash Bros. Ultimate", pct: 84, detailKey: "progress.detail.smash", detail: "Arènes en ligne et amis" },
     { name: "Splatoon 3", pct: 78, detailKey: "progress.detail.splatoon-3", detail: "Parties en ligne, salons privés, Salmon Run et festivals" }, // manque : matchs tricolores, dessins de la place, stabilite des parties
     { name: "Animal Crossing: New Horizons", pct: 73, detailKey: "progress.detail.animal-crossing", detail: "Visites d'île entre amis" },
+    { name: "Super Mario Maker 2", pct: 70, detailKey: "progress.detail.mario-maker-2", detail: "Course World, publication, records du monde et commentaires" },  // manque : versus, coopératif, mode sans fin
     { name: "Mario Strikers: Battle League", pct: 56, detailKey: "progress.detail.mario-strikers", detail: "Matchmaking et clubs en ligne" },
     { name: "Minecraft", pct: 51, detailKey: "progress.detail.minecraft", detail: "Connexion au serveur en ligne" },
-    { name: "Mario Party Jamboree", pct: 45, detailKey: "progress.detail.mario-party", detail: "Salon en ligne solo fonctionnel" },
-    { name: "Super Mario Maker 2", pct: 16, detailKey: "progress.detail.mario-maker-2", detail: "En préparation" }
+    { name: "Mario Party Jamboree", pct: 45, detailKey: "progress.detail.mario-party", detail: "Salon en ligne solo fonctionnel" }
   ];
 
   var list = document.getElementById("progress-list");

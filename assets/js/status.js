@@ -19,7 +19,10 @@
     { name: "Luigi's Mansion 3", ids: ["0100dca0064a6000"] },
     { name: "Minecraft: Nintendo Switch Edition", ids: ["01006bd001e06000"] },
     { name: "ARMS", ids: ["01009b500007c000"] },
-    { name: "Mario Tennis Aces", ids: ["0100bde00862a000"] }
+    { name: "Mario Tennis Aces", ids: ["0100bde00862a000"] },
+    { name: "Super Mario Maker 2", ids: ["01009b90006dc000"] },
+    { name: "PAC-MAN 99", ids: ["0100ad9012510000"] },
+    { name: "SUPER MARIO BROS. 35", ids: ["0100277011f1a000"] }
   ];
 
   var POLL_MS = 15000;

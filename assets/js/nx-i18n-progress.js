@@ -16,7 +16,9 @@
     "progress.detail.minecraft":      "Connecting to the online server",
     "progress.detail.mario-party":    "Solo online lobby working",
     "progress.detail.splatoon-3":     "Online matches, private rooms, Salmon Run and Splatfests",
-    "progress.detail.mario-maker-2":  "In preparation"
+    "progress.detail.mario-maker-2":  "Course World, publishing, world records and comments",
+    "progress.detail.pacman-99":  "Full 99-player matches",
+    "progress.detail.smb35":  "Full 35-player matches"
   });
   A("fr", { "progress.title": "Progression", "progress.lede": "L'avancement de chaque jeu. Plusieurs sont déjà jouables, mais pas encore à 100 % — les cas restants sont indiqués par leur pourcentage.",
     "progress.detail.mario-kart":   "Courses en ligne mondiales, salons et amis",
@@ -30,7 +32,9 @@
     "progress.detail.minecraft":      "Connexion au serveur en ligne",
     "progress.detail.mario-party":    "Salon en ligne solo fonctionnel",
     "progress.detail.splatoon-3":     "Parties en ligne, salons privés, Salmon Run et festivals",
-    "progress.detail.mario-maker-2":  "En préparation"
+    "progress.detail.mario-maker-2":  "Course World, publication, records du monde et commentaires",
+    "progress.detail.pacman-99":  "Parties completes a 99 joueurs",
+    "progress.detail.smb35":  "Parties completes a 35 joueurs"
   });
   A("es", { "progress.title": "Progreso", "progress.lede": "El avance de cada juego. Varios ya se pueden jugar, pero aún no están al 100 %; los casos restantes se muestran con su porcentaje.",
     "progress.detail.mario-kart":   "Carreras en línea mundiales, salones y amigos",
@@ -44,7 +48,9 @@
     "progress.detail.minecraft":      "Conexión al servidor en línea",
     "progress.detail.mario-party":    "Sala en línea (individual) funcional",
     "progress.detail.splatoon-3":     "Partidas en línea, salas privadas, Salmon Run y festivales",
-    "progress.detail.mario-maker-2":  "En preparación"
+    "progress.detail.mario-maker-2":  "Mundo de Cursos, publicación, récords mundiales y comentarios",
+    "progress.detail.pacman-99":  "Partidas completas a 99 jugadores",
+    "progress.detail.smb35":  "Partidas completas a 35 jugadores"
   });
   A("pt", { "progress.title": "Progresso", "progress.lede": "O andamento de cada jogo. Vários já são jogáveis, mas ainda não estão a 100% — os casos restantes são mostrados pela porcentagem.",
     "progress.detail.mario-kart":   "Corridas online mundiais, salões e amigos",
@@ -58,7 +64,9 @@
     "progress.detail.minecraft":      "Conexão ao servidor online",
     "progress.detail.mario-party":    "Sala online (individual) funcional",
     "progress.detail.splatoon-3":     "Partidas online, salas privadas, Salmon Run e festivais",
-    "progress.detail.mario-maker-2":  "Em preparação"
+    "progress.detail.mario-maker-2":  "Mundo de Cursos, publicação, recordes mundiais e comentários",
+    "progress.detail.pacman-99":  "Partidas completas com 99 jogadores",
+    "progress.detail.smb35":  "Partidas completas com 35 jogadores"
   });
   A("de", { "progress.title": "Fortschritt", "progress.lede": "Der Fortschritt jedes Spiels. Viele sind bereits spielbar, aber noch nicht zu 100 % fertig — die verbleibenden Fälle werden per Prozentsatz angezeigt.",
     "progress.detail.mario-kart":   "Weltweite Online-Rennen, Lounges und Freunde",
@@ -72,7 +80,9 @@
     "progress.detail.minecraft":      "Verbindung zum Online-Server",
     "progress.detail.mario-party":    "Online-Lobby (Solo) funktioniert",
     "progress.detail.splatoon-3":     "Online-Matches, private Räume, Salmon Run und Splatfeste",
-    "progress.detail.mario-maker-2":  "In Vorbereitung"
+    "progress.detail.mario-maker-2":  "Kurswelt, Veröffentlichen, Weltrekorde und Kommentare",
+    "progress.detail.pacman-99":  "Vollständige Partien mit 99 Spielern",
+    "progress.detail.smb35":  "Vollständige Partien mit 35 Spielern"
   });
   A("it", { "progress.title": "Avanzamento", "progress.lede": "L'avanzamento di ogni gioco. Diversi sono già giocabili, ma non ancora al 100% — i casi rimanenti sono indicati con la percentuale.",
     "progress.detail.mario-kart":   "Gare online mondiali, sale e amici",
@@ -86,7 +96,9 @@
     "progress.detail.minecraft":      "Connessione al server online",
     "progress.detail.mario-party":    "Lobby online (solo) funzionante",
     "progress.detail.splatoon-3":     "Partite online, stanze private, Salmon Run e festival",
-    "progress.detail.mario-maker-2":  "In preparazione"
+    "progress.detail.mario-maker-2":  "Mondo Corsi, pubblicazione, record mondiali e commenti",
+    "progress.detail.pacman-99":  "Partite complete a 99 giocatori",
+    "progress.detail.smb35":  "Partite complete a 35 giocatori"
   });
   A("ru", { "progress.title": "Прогресс", "progress.lede": "Прогресс по каждой игре. Многие уже играбельны, но ещё не готовы на 100% — оставшиеся случаи показаны в процентах.",
     "progress.detail.mario-kart":   "Мировые онлайн-гонки, лаунжи и друзья",
@@ -100,7 +112,9 @@
     "progress.detail.minecraft":      "Подключение к онлайн-серверу",
     "progress.detail.mario-party":    "Онлайн-лобби (соло) работает",
     "progress.detail.splatoon-3":     "Онлайн-матчи, приватные комнаты, Salmon Run и фестивали",
-    "progress.detail.mario-maker-2":  "В подготовке"
+    "progress.detail.mario-maker-2":  "Мир курсов, публикация, мировые рекорды и комментарии",
+    "progress.detail.pacman-99":  "Полные матчи на 99 игроков",
+    "progress.detail.smb35":  "Полные матчи на 35 игроков"
   });
   A("zh", { "progress.title": "进度", "progress.lede": "每款游戏的进度。有些已经可以游玩，但尚未完全完成——其余情况以百分比显示。",
     "progress.detail.mario-kart":   "全球在线比赛、休息室和好友",
@@ -114,7 +128,9 @@
     "progress.detail.minecraft":      "连接到在线服务器",
     "progress.detail.mario-party":    "在线大厅可用（单人）",
     "progress.detail.splatoon-3":     "在线对战、私人房间、鲑鱼跑和祭典",
-    "progress.detail.mario-maker-2":  "准备中"
+    "progress.detail.mario-maker-2":  "关卡世界、发布、世界纪录和评论",
+    "progress.detail.pacman-99":  "99 人完整对战",
+    "progress.detail.smb35":  "35 人完整对战"
   });
   A("ja", { "progress.title": "進捗状況", "progress.lede": "各ゲームの進捗状況。多くはすでにプレイ可能ですが、まだ100%ではありません。残りの状況はパーセンテージで表示されます。",
     "progress.detail.mario-kart":   "世界中のオンラインレース、ラウンジ、フレンド",
@@ -128,7 +144,9 @@
     "progress.detail.minecraft":      "オンラインサーバーへの接続",
     "progress.detail.mario-party":    "オンラインロビー動作（ソロ）",
     "progress.detail.splatoon-3":     "オンライン対戦、プライベートマッチ、サーモンラン、フェス",
-    "progress.detail.mario-maker-2":  "準備中"
+    "progress.detail.mario-maker-2":  "コースワールド、投稿、世界記録、コメント",
+    "progress.detail.pacman-99":  "99人フルマッチ",
+    "progress.detail.smb35":  "35人フルマッチ"
   });
   A("ar", { "progress.title": "التقدّم", "progress.lede": "مدى تقدّم كل لعبة. العديد منها قابل للعب بالفعل، لكنه لم يكتمل بنسبة 100% بعد — تُعرض الحالات المتبقية بنسبتها المئوية.",
     "progress.detail.mario-kart":   "سباقات عالمية عبر الإنترنت، غرف وأصدقاء",
@@ -142,6 +160,8 @@
     "progress.detail.minecraft":      "الاتصال بخادم عبر الإنترنت",
     "progress.detail.mario-party":    "ردهة الإنترنت تعمل (فردي)",
     "progress.detail.splatoon-3":     "مباريات عبر الإنترنت وغرف خاصة وسالمون ران والمهرجانات",
-    "progress.detail.mario-maker-2":  "قيد التحضير"
+    "progress.detail.mario-maker-2":  "عالم المراحل والنشر والأرقام القياسية والتعليقات",
+    "progress.detail.pacman-99":  "مباريات كاملة بـ99 لاعباً",
+    "progress.detail.smb35":  "مباريات كاملة بـ35 لاعباً"
   });
 })();

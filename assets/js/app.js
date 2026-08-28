@@ -81,7 +81,16 @@ const NX = {
 
   /* espace admin (réservé aux e-mails admin côté serveur) */
   adminCheck()         { return this.api("/api/admin/check", null, "GET"); },
-  adminUsers()         { return this.api("/api/admin/users", null, "GET"); },
+  // Pagination et recherche côté serveur : sans paramètres, le serveur renvoie
+  // les 50 premiers. Demander la liste entière dépassait le délai de Cloudflare.
+  adminUsers(opts)     {
+    const p = new URLSearchParams();
+    if (opts && opts.q) p.set("q", opts.q);
+    if (opts && opts.offset) p.set("offset", opts.offset);
+    if (opts && opts.limit) p.set("limit", opts.limit);
+    const qs = p.toString();
+    return this.api("/api/admin/users" + (qs ? "?" + qs : ""), null, "GET");
+  },
   adminStats()         { return this.api("/api/admin/stats", null, "GET"); },
   // Signalements envoyés depuis l'émulateur : code d'erreur + log au moment où ça casse,
   // avec le pseudo Nextendo ET Discord pour savoir à qui répondre.
