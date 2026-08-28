@@ -28,9 +28,11 @@
   var list = document.getElementById("progress-list");
   var ring = document.getElementById("progress-ring");
   var pctEl = document.getElementById("progress-pct");
+  var playableCountEl = document.getElementById("playable-games-count");
   if (!list) { return; }
 
   var sum = 0;
+  var playableCount = 0;
   var frag = document.createDocumentFragment();
   var detailRefs = [];
 
@@ -38,6 +40,7 @@
     var pct = Math.max(0, Math.min(100, Number(it.pct) || 0));
     sum += pct;
     var done = pct >= 100;
+    if (done) { playableCount += 1; }
 
     var row = document.createElement("div");
     row.className = "progress-item" + (done ? " is-done" : "");
@@ -87,6 +90,7 @@
   var overall = ITEMS.length ? Math.round(sum / ITEMS.length) : 0;
   if (ring) { ring.style.setProperty("--p", String(overall)); }
   if (pctEl) { pctEl.textContent = overall + "%"; }
+  if (playableCountEl) { playableCountEl.textContent = String(playableCount); }
 
   if (detailRefs.length && typeof window.addEventListener === "function") {
     document.addEventListener("nx:lang", function () {
