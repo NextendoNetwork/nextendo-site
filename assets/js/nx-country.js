@@ -69,7 +69,10 @@
       .catch(function () { return []; });
   }
 
-  function T_(key, fb) { return (w.T ? w.T(key, fb) : fb); }
+  function T_(key, fb) {
+    var v = w.NXI18N && typeof w.NXI18N.t === 'function' ? w.NXI18N.t(key) : null;
+    return (v == null || v === '') ? fb : v;
+  }
 
   /* mount(host, opts) remplace `host` par le composant.
      opts : { value, lang, onChange(code) }

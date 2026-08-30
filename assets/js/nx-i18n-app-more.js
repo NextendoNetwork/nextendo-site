@@ -64,7 +64,7 @@
     "acc.resetPw": "Restablecer contraseña", "acc.changeEmail": "Cambiar correo", "acc.mySessions": "Mis sesiones", "acc.adminSpace": "Área de administración",
     "acc.identity": "Identidad de red", "acc.pseudo": "Apodo", "acc.pid": "ID de red (PID)",
     "country.search": "Buscar…", "country.none": "No se encontró ningún país",
-    "acc.country": "País", "acc.countryUnknown": "Desconocido", "acc.countrySaving": "Guardando…", "acc.countrySaved": "Guardado.", "acc.countryFail": "No se pudo guardar.", "country.choose": "Elige tu país…", "register.countryHint": "Es la bandera que aparecerá junto a tu nombre en los juegos en línea. Puedes cambiarla después.",
+    "acc.country": "País", "acc.countryUnknown": "Desconocido", "acc.countrySaving": "Guardando…", "acc.countrySaved": "Guardado.", "acc.countryFail": "No se pudo guardar.", "country.choose": "Elige tu país…", "register.countryHint": "Esta es la bandera que se mostrará junto a tu nombre en los juegos en línea. Puedes cambiarla después.",
     "acc.discord": "Discord", "acc.memberSince": "Miembro desde",
     "acc.friends": "Amigos", "acc.friendsLoading": "Cargando tus amigos…", "acc.add": "Añadir",
     "acc.friendsHint": "Comparte tu friend code para que tus amigos puedan añadirte: os encontraréis en línea en vuestros juegos.",
