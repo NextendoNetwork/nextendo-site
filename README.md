@@ -4,7 +4,7 @@
 
 # nextendo-site
 
-The **[nextendo.network](https://nextendo.network)** website — the front door to Nextendo Network. Accounts, friends, profile and presence.
+The **[nextendo.network](https://nextendo.network)** website: the front door to Nextendo Network. Accounts, friends, profile and presence.
 
 [![Discord](https://img.shields.io/badge/Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.gg/XPfeCMwnzQ)
 [![Visit](https://img.shields.io/badge/Visit-nextendo.network-3EE8C8?style=for-the-badge)](https://nextendo.network)
@@ -16,10 +16,10 @@ The **[nextendo.network](https://nextendo.network)** website — the front door 
 
 ## What's here
 
-- **Create an account** — a Nextendo identity with a permanent friend code, usable on the emulator and on a real Switch.
-- **Friends & presence** — add friends by code, see who's online.
-- **Your profile** — nickname, avatar, and your game history.
-- **Account & security** — email verification, password reset, and active-session management.
+- **Create an account**: a Nextendo identity with a permanent friend code, usable on the emulator and on a real Switch.
+- **Friends & presence**: add friends by code, see who's online.
+- **Your profile**: nickname, avatar, and your game history.
+- **Account & security**: email verification, password reset, and active-session management.
 
 ## Stack
 
@@ -31,10 +31,10 @@ The **[nextendo.network](https://nextendo.network)** website — the front door 
 
 ## License
 
-This website's source is available under the **[PolyForm Shield License 1.0.0](LICENSE.md)** — you may read, use, modify, and self-host it, but not use it to provide a product that competes with Nextendo Network.
+This website's source is available under the **[PolyForm Shield License 1.0.0](LICENSE.md)**, you may read, use, modify, and self-host it, but not use it to provide a product that competes with Nextendo Network.
 
 ---
 
 <div align="center">
-<sub><b>Nextendo Network Team</b> · Kazuals — founder &amp; developer</sub>
+<sub><b>Nextendo Network Team</b> · Kazuals, founder &amp; developer</sub>
 </div>
