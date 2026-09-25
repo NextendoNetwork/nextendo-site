@@ -1,0 +1,629 @@
+Nextendo Network brings Switch online play back: accounts, friends, presence and matchmaking, on Ryujinx, Citron or a Switch with CFW.
+Nextendo Network home
+Main navigation
+Games
+Team
+Developers
+My account, {0}
+Open menu
+Close menu
+Switch online play isn't going dark.
+Nextendo Network is an alternative to the official online services: your own account, friends, presence and matchmaking, on Ryujinx, Citron or a Switch with CFW.
+Download the emulator
+players online right now
+What's new
+The Nextendo app is out on iPhone and Android: friends, activity and saves in your pocket.
+Citron Nextendo joins Ryujinx: two emulators, one account.
+Your picture and username now sync between your Switch, the site and the app.
+Online games
+All servers
+How much of each game's online play works today.
+Overall progress: {0}%
+overall
+Done
+Full {0}-player matches
+Fully online, friend lobbies included
+Online matches, friend rooms and multiplayer
+Online hunts, lobbies and full multiplayer
+Worldwide races, rooms and friends
+{0}-player Turf War, friends and Salmon Run
+Online battles, private rooms, Salmon Run and Splatfests
+Online play and friend rooms
+Island visits with friends
+Course World, uploads, world records and comments
+Online matchmaking and clubs
+Solo online lobby works
+The project
+Nextendo is a second home for Switch online play: an independent network that keeps your games connected, free and ad-free, run by and for the community.
+Your game talks to our servers just like it talked to Nintendo’s.
+Ryujinx, Citron or a Switch with CFW. The game itself is not modified.
+Your Nextendo account
+It stands in for the Nintendo account: identity, friends and a signed token.
+The match
+Our servers find your opponents, then the match runs directly between players.
+Your friends, everywhere
+One username, one permanent friend code and a single friend list for all your games. See who is playing what, and join in.
+Free, for real
+A volunteer project. No subscription, no ads.
+Your data stays yours
+Only what the service needs to run. No tracking, no selling.
+Where to play
+All downloads
+Emulator
+Set up for the network, on Windows, Linux and macOS.
+Another emulator, the same account.
+Console
+3D Nintendo Switch
+Switch with CFW
+Turn on the Nextendo profile. Fully reversible.
+Phone
+Nextendo for iPhone
+Your friends, your activity and your saves.
+Nextendo for Android
+The same app, on Android.
+Online in four steps
+On an emulator or a real Switch with CFW. Your Nextendo account is the key, and everything is reversible.
+Free, in three fields. You get a permanent username and friend code right away.
+Get Ryujinx or Citron Nextendo
+The emulator builds set up for the network. On a Switch with CFW, turn on the Nextendo profile instead.
+Downloads
+Sign in to Nextendo Network
+In Ryujinx: Actions, then Nextendo Network sign-in, then type your e-mail and password.
+Launch Mario Kart 8, Splatoon or Smash Ultimate, open the online menu and meet the community.
+Network status
+Updating…
+players connected
+Meet the Team
+Nextendo runs on volunteer work. These are the people keeping it online.
+Project owner
+Main Citron & Nextendo developer
+Developer & lead designer
+Main Prelude developer
+Main Splatoon 3 developer
+Super cool guy & server tester
+Main Demonware developer
+Frequently asked questions
+No. Nextendo is an independent community project, with no affiliation, sponsorship or endorsement from Nintendo Co., Ltd.
+Nextendo doesn't distribute games, ROMs or keys. It only provides network services: you stay responsible for your own copies.
+Ryujinx Nextendo and Citron Nextendo, plus a real Switch running custom firmware. More may follow as the community contributes.
+Only what the service needs to run. No tracking, no selling. The code is open, so you can check it.
+Code, translations, compatibility testing or moderation: everything helps. Join the repository and the community server to start.
+Ready to reconnect your Switch?
+Follow the development, join the community and start your first online match.
+Sign in
+Network
+Switch online play, given back to the community.
+Nextendo on Discord
+Nextendo on X
+Nextendo on TikTok
+Nextendo on GitHub
+Site links
+Help
+Account
+© {0} Nextendo Network. Independent community project, not affiliated with Nintendo Co., Ltd.
+“Nintendo Switch”, “Ryujinx”, “Citron” and “Prelude” belong to their respective owners. No games or ROMs are provided.
+{0} online
+Updated at {0}
+Your profile picture
+Your friend code
+Activity
+Play time
+Friends online
+See all games
+No cloud saves yet. Save from Ryujinx or your Switch while signed in, and your saves will show up here.
+Cloud saves need a verified e-mail and a linked Discord account. Server boosters get 10 MB instead of 5 MB.
+One account everywhere. Sign in once on each device.
+Actions, then Nextendo Network sign-in.
+Emulation, then Nextendo Network, then Sign in.
+Turn on the Nextendo profile, then link your account from the console.
+Nextendo app
+Tap Sign in with Nextendo on iPhone or Android.
+Add a friend
+Send request
+Search friends
+Filter friends
+All
+Favorites
+Friend list pages
+Friend requests
+Received
+Sent
+Username
+change
+E-mail
+Change e-mail
+Admin space
+Sign out
+Change picture
+3 to 16 letters, numbers, - or _. It is also your sign-in name.
+New e-mail address
+Your friends, history and cloud saves are deleted for good. This cannot be undone.
+Delete for good
+Copy friend code
+Add to favorites
+Remove from favorites
+Remove friend
+All your games
+Search your games
+Sort games
+Most recent
+Most played
+A to Z
+Screenshots
+The live page reads what's inside the save (progress, stats) from /api/save/<game>/parsed.
+Delete this cloud save?
+The copy of
+stored on Nextendo is deleted. The save on your console or emulator is not touched.
+Not verified
+linked on {0}
+Search a country
+Member since {0}
+{0} h
+{0} min
+Last game played
+{0} min ago
+{0} h ago
+{0} day ago
+{0} days ago
+on {0}
+Played {0}
+{0}, saved {1}
+{0} games
+See all {0} games
+{0} of {1} MB
+No pending requests. Share your friend code so other players can add you.
+You have no requests waiting for an answer.
+Show {0} more
+Show fewer
+Background color {0}
+Playing {0}
+Playing {0} on {1}
+a game
+Online on {0}
+Connected to Nextendo
+Connected to Nextendo on {0}
+Add {0} to favorites
+Remove {0} from favorites
+Previous page
+Page {0}
+Next page
+First page
+Last page
+Sign in to Nextendo Network, create an account or reset your password.
+Welcome back
+Sign in to pick up your friends, your saves and your games where you left them.
+Use the e-mail and password of your Nextendo account.
+Sign-ups are closed for now. Follow the Discord to know when they reopen.
+Username (display name)
+3 to 16 letters, numbers, - or _.
+Use 3 to 16 letters, numbers, - or _.
+E-mail address
+At least 8 characters, one digit.
+Remember me
+New to Nextendo?
+Check your e-mail
+Back to sign in
+Nothing after a few minutes? Check your spam folder.
+Join Nextendo
+Three quick steps and you're playing online with one identity for every game and device.
+Create your account
+Link your emulator or console
+Free, no ads. Your username and friend code are yours for good.
+Already a member?
+Forgot password
+It happens
+Enter your e-mail and we'll send you a link to choose a new password.
+Get the link
+Choose a new password
+Sign in again
+Reset your password
+We'll e-mail you a reset link that works for one hour.
+Remembered it?
+Choose a new Nextendo password.
+A fresh password.
+Choose something long and unique. You'll be signed out everywhere else.
+Use at least 8 characters and type it twice the same.
+At least 8 characters.
+Type it again
+Save the password
+Password changed
+Your other sessions were signed out. Sign in again with your new password.
+Choose a username of 3 to 16 letters, numbers, - or _.
+Enter a valid e-mail address.
+Enter your password.
+Enter your e-mail and password.
+The two passwords don't match.
+Your password needs at least 8 characters and one digit.
+Check your password: at least 8 characters, typed twice the same.
+Too short
+Fair
+Good
+Signing in…
+is available.
+is already taken.
+Verify e-mail
+Confirm your e-mail address.
+One last step.
+Confirming your e-mail protects your account and unlocks cloud saves.
+Checking your confirmation link.
+E-mail verified
+Your address is confirmed. You can now use cloud saves once your Discord is linked.
+Link a device
+Approve a sign-in from another device.
+Sign in without a password.
+You scanned a Nextendo QR code. Check the digits shown on the other screen, then approve.
+Link this device
+Chrome on Windows
+wants to sign in to your account
+Type the 4 digits shown on that screen.
+{0}-digit code
+Digit {0}
+That's not me
+Approve
+Open in the Nextendo app
+Device signed in
+The other screen is now signed in to your account. You can close this page.
+See my devices
+Sign-in refused
+Nothing was signed in. If you didn't scan this code yourself, change your password.
+Change my password
+My devices
+See and sign out the devices connected to your account.
+Every device signed in to your account. Sign out anything you don't recognize.
+Where you're signed in
+{0} devices
+{0} device
+Sign out everywhere else
+Preview devices: the live page lists your real sessions.
+This device
+This browser, active now
+Current
+Windows, {0} minutes ago
+Linked console, {0} hours ago
+iPhone, yesterday
+Sign out this device?
+will need to sign in again.
+Sign out everywhere else?
+Every device except this one is signed out, including consoles and emulators.
+Sign out all
+Live status of every Nextendo game server.
+Live health of every game server, refreshed every {0} seconds.
+Checking the network…
+Game servers
+{0} players online across {1} game servers.
+We can't reach the network right now
+The status check failed. It will retry in {0} seconds.
+Download Ryujinx Nextendo, Citron Nextendo and the Nextendo app.
+Everything you need to play online with your Nextendo account. Versions below are read live from GitHub.
+The emulator build set up for the network. Sign in from Actions, then Nextendo Network sign-in.
+See every version on GitHub
+Another emulator, the same account. Nightly builds.
+Friends, activity, cloud saves and QR sign-in, on your phone.
+iPhone, jailbreak (.deb)
+iPhone (.ipa)
+Android (.apk)
+Nextendo also works on a Switch running custom firmware. Everything is reversible.
+Install the Nextendo profile
+It redirects the console's online services to Nextendo.
+Link your account
+Sign in from the console with your Nextendo e-mail and password.
+Open any supported game's online mode.
+Prelude on GitHub
+{0} MB, v{1}
+Not in this release yet
+See releases on GitHub
+Nextendo administration.
+Administrator area
+Preview with sample data: the live page reads the admin API with an admin session.
+Network figures
+Reported players
+{0} reported players
+Search (username, PID, reason, reporter)…
+Search reported players
+Auto-refresh
+Refreshed
+Reports refreshed (preview)
+reports
+report
+{0} ×{1}
+Cheating
+Offensive picture
+Offensive username
+Griefing
+Harassment
+Offensive username or picture
+Ban evasion
+Other
+by {0} different people
+by {0} person
+See the {0} reports
+See the {0} report
+in {0}, by {1}, {2} ago
+{0} d
+Dismiss the reports
+Reports on {0} dismissed
+{0}–{1} of {2} (total {3})
+Filter (nickname, e-mail, Discord, friend code, PID, IP)…
+Filter users
+Show
+Actions
+● online
+User list pages
+Deleted {0} ago by {1}
+Account owner
+No account deleted yet.
+No account matches this filter.
+No reported player matches.
+The player is signed out everywhere and can't sign in again until unbanned.
+Reason
+Note for the team (optional)
+loses their friends, history and cloud saves for good. This can't be undone.
+{0} unbanned
+{0} banned for {1}
+{0} deleted
+{0} banned (preview)
+{0} unbanned (preview)
+{0} deleted (preview)
+{0} signed out (preview)
+{0} created (preview)
+(preview)
+Nextendo Developers
+Build on Nextendo: OAuth sign-in, friends, presence, cloud saves and API keys.
+Nextendo Developers home
+New application
+Give your games and emulators a new dimension.
+Sign-in with Nextendo, friends and presence, cloud saves and live game data, through one OAuth 2.0 application.
+Start building
+Read the docs
+Social SDK and friends
+Read the player's friend list and who is online, with their consent.
+Back up and restore saves on the player's Nextendo quota.
+Rich Presence and lobbies
+Show what the player is doing and let friends join the game.
+OAuth 2.0 and PKCE
+Standard sign-in. Players type their password on nextendo.network, never in your app.
+Create an application, add a redirect URI, and your players can sign in within minutes.
+Create an application
+Developer space
+Nextendo GitHub
+Application settings
+Your applications, the guides and everything to connect to Nextendo.
+Recent applications
+See all applications
+Guides and resources
+Step-by-step integration for desktop and mobile emulators.
+Redirect URIs and loopback
+Dynamic 127.0.0.1:port/callback ports for desktop apps, custom schemes for mobile.
+Join the official Discord to talk with other developers.
+Search an application…
+Search an application
+Sort applications
+Name, A to Z
+Breadcrumb
+Unsaved changes
+Careful, you have unsaved changes.
+Save changes
+Changes saved
+Changes reverted
+Create a new application
+Give it a name and a description. You can set the rest (icon, permissions, redirects) once the application exists.
+My Nextendo emulator
+Description
+What your application does.
+Security model
+Public application (desktop / mobile, PKCE)
+For desktop emulators (Ryujinx) and mobile apps. No client secret to keep or leak.
+Create the application
+Delete the application
+This deletes
+, its keys and its members. Players signed in with it are signed out. This can't be undone.
+Type the application's name to confirm:
+No applications yet.
+Create one to get a client ID for OAuth sign-in.
+No applications yet. Create one to get a client ID for OAuth sign-in.
+{0} created
+Public client
+General information
+Installation
+General & redirects
+URL generator
+Bot & API keys
+Application testers
+Danger zone
+The name and icon players see when they sign in with your application.
+Upload an icon
+Remove the icon
+Description (maximum {0} characters)
+Client ID
+Client secret
+Copy client ID
+Client ID copied
+Reset the client secret
+New secret generated: save to keep it
+Shown once: copy it now, then save
+For desktop emulators and mobile apps: no client secret to keep or leak. Turn off for a server that can keep a secret.
+Terms of service (URL)
+Privacy policy (URL)
+Installation and authorization
+The link that starts the sign-in, and how to plug it into your application.
+OAuth 2.0 authorization link
+Link regenerated from the current settings
+Test the authorization live
+Integration guide for developers
+Create a code verifier
+A random 43 to 128 character string, kept by your app. Its SHA-256, base64url-encoded, is the code challenge.
+Open the authorization link
+In the system browser, with your code_challenge. The player signs in on nextendo.network.
+Catch the redirect
+Nextendo redirects to your redirect URI with ?code=. On desktop, listen on 127.0.0.1 with any free port.
+Exchange the code
+POST /oauth/token with the code and the code_verifier. You get an access token and a refresh token.
+OAuth2 redirects and scopes
+Nextendo only redirects to the addresses listed here. For desktop apps,
+accepts any port.
+Redirect URI {0}
+Add a redirect
+OAuth2 URL generator
+Tick the scopes your application needs, pick a redirect, and copy the link.
+Redirect
+Generated URL
+Bot & Nextendo API keys
+A bot token calls the Nextendo API as your application, without a player.
+Bot user of {0}
+Token
+Hide
+Reset the token
+API permissions
+Network statistics
+Splatoon rotations and sessions
+Public ModStore catalog
+Supported official titles
+Player profile (username, friend code, avatar)
+Friend list and presence
+Live activity and game status
+Player cloud saves
+Matchmaking and game lobbies
+Player's ModStore favorites
+Administrator console
+Internal authentication
+Audit logs and diagnostics
+Documentation and code samples
+Send the token as
+Read the documentation
+Rich Presence and game status
+What your players' friends see while they use your application. The preview updates as you type.
+Default title or game
+Activity details / mode
+Simulated connection status
+Playing
+Away
+Show the elapsed time in the activity
+In the lobby
+via {0}
+Join the game
+Rich Presence API integration guide
+Copy cURL
+cURL command
+Copied to the clipboard
+{0} copied to the clipboard
+Testers and collaborators
+Members can sign in with the application before it's public, and edit it depending on their role.
+Invite a member (by Nextendo username)
+Nextendo username
+Invite
+Invite by e-mail
+Type an e-mail address to invite by e-mail
+Application members
+{0} member
+{0} members
+Owner
+Tester
+Invited
+Removes the keys, the bot and the members. Players signed in with it are signed out.
+Account not found
+Enter a full friend code, like SW-1234-5678-9012.
+That's your own friend code.
+Request sent to {0}.
+Game details are unavailable right now.
+Loading game details…
+No eShop details for this game.
+No game matches “{0}”.
+Your games will show up here once you play online.
+No games yet
+Not played yet
+No activity yet
+No details
+Server booster
+Download starts on the live site
+Cloud save deleted
+Country changed to {0}
+Verification e-mail sent to {0}
+your address
+{0} removed from your friends
+{0} blocked
+Resend the e-mail
+Players
+Player
+Size
+Title ID
+Last upload
+Yesterday
+Language
+{0} KB
+{0} MB
+{0} of {1}
+player
+Join this application?
+You were invited to join the application {0} as a tester. Accept to sign in with it before it's public.
+Not now
+Accept the invitation
+Invitation accepted (preview)
+Ryujinx Nextendo and Citron Nextendo
+Two emulators set up for the network, on Windows, Linux and macOS, with the same account.
+On iPhone and Android: your friends, your activity and your saves.
+3D computer
+3D iPhone and Android phone
+Where to find Nextendo
+Companion app
+Independent community project, not affiliated with Nintendo Co., Ltd. “Nintendo Switch”, “Ryujinx”, “Citron” and “Prelude” belong to their respective owners. No games or ROMs are provided.
+Follow Nextendo
+Supported games
+Co-op, Versus Ops fully done
+Room ID & Matchmaking finalized
+Friend Lobbies by Search & Matchmaking
+Pit Stop, Wumpa Challenges & Economy finished
+Quickmatch, Emulator friend lobbies
+an emulator
+Avatar gallery (Nintendo and custom)
+Character
+Background
+Frame
+Filter by game
+Clear this layer
+All ({0})
+Nintendo Switch ({0})
+Custom / Nextendo ({0})
+In game
+Right now
+Loading…
+No preview for this game.
+Preview unavailable right now.
+Download started
+resend the e-mail
+link on Discord
+Nintendo Switch, default ({0})
+Preview
+Profile picture
+Profile picture preview
+Profile updated.
+Avatar layers
+Choose an avatar
+: layer a character, background, and frame
+3 to 16 characters: letters, digits, _ or -.
+Invalid username: 3 to 16 characters (letters, digits, _ or -).
+Actions, then connect to the Nextendo Network.
+Admin area
+Check your new inbox to confirm the change.
+Citron Nextendo
+Cloud saves require a verified e-mail and a linked Discord account. Server boosters get 10 MB instead of 5 MB.
+Delete permanently
+Discord
+Enable the Nextendo profile, then link your account from the console.
+Friends list pages
+My account, Nextendo Network
+No cloud saves yet. Save from Ryujinx or your Switch while signed in, and your saves will appear here.
+No deletion: preview.
+One account everywhere. Sign in once per device.
+Remove from friends
+Ryujinx Nextendo
+SW-0000-0000-0000
+Search friends…
+Search through your games
+Signed out.
+We sent you a link to reset your password.
+Your friends, history and cloud saves will be deleted permanently. This cannot be undone.
+edit
+stored on Nextendo will be deleted. The save on your console or emulator is untouched.
+Choose a country
+Account permanently deleted.
+Buy on the Nintendo eShop

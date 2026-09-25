@@ -1,92 +1,110 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="dark" />
-  <title data-i18n="forgot.metaTitle">Mot de passe oublié — Nextendo Network</title>
-  <meta name="description" data-i18n-attr="content:forgot.metaDesc" content="Réinitialise le mot de passe de ton compte Nextendo Network : on t'envoie un lien sécurisé par e-mail." />
-  <meta name="robots" content="noindex" />
-
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=11" />
-  <link rel="stylesheet" href="assets/css/nx-ui.css?v=2" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Forgot password, Nextendo Network</title>
+<meta name="description" content="Sign in to Nextendo Network, create an account or reset your password.">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/rework.css?v=20260925d">
+<link rel="stylesheet" href="assets/css/pages.css?v=20260925d">
+<link rel="stylesheet" href="assets/css/auth.css?v=20260925d">
+<script src="assets/js/i18n.js?v=20260925d"></script>
 </head>
-<body>
-  <div class="backdrop" aria-hidden="true">
-    <div class="field field--a"></div>
-    <div class="field field--b"></div>
-    <div class="grid-veil"></div>
-  </div>
+<body data-page="auth" data-mode="reset">
+<a class="saut" href="#contenu">Skip to content</a>
 
-  <header class="nav" id="nav">
-    <div class="shell nav__inner">
-      <a class="brand" href="/" aria-label="Nextendo Network, accueil">
-        <img class="brand__mark" src="assets/favicon.svg" alt="" width="30" height="30" />
-        <span class="brand__word">Nextendo<span class="brand__dim"> Network</span></span>
-      </a>
-      <div class="nav__end">
-        <a class="ghost-link" href="/login" data-i18n="nav.login">Se connecter</a>
-        <a class="btn btn--soft btn--sm" href="/register" data-i18n="nav.register">Créer un compte</a>
+<div id="nx-barre"></div>
+
+<main id="contenu" class="coquille">
+
+  <!-- Left: the aurora hero (ScanVerse AuthHero) -->
+  <section class="heros-auth" aria-labelledby="heros-titre">
+    <canvas id="aurore" aria-hidden="true"></canvas>
+    <div class="heros-voile" aria-hidden="true"></div>
+    <div class="heros-contenu entre" id="heros-contenu">
+      <a class="heros-marque" href="index.html"><img src="assets/img/nextendo.png" alt="" width="34" height="34"><span>Nextendo <em>Network</em></span></a>
+      <div>
+        <h1 id="heros-titre" class="heros-titre"></h1>
+        <p id="heros-sous" class="heros-sous"></p>
+      </div>
+      <ol class="heros-etapes" id="heros-etapes"></ol>
+    </div>
+  </section>
+
+  <!-- Right: one card that morphs between modes (Maison Olena LoginCard) -->
+  <section class="colonne-form">
+    <div class="carte-auth mode-reset" id="carte">
+      <div class="carte-vue carte-vue--form">
+        <header class="carte-tete">
+          <h2 id="carte-h"></h2>
+          <p id="carte-p"></p>
+        </header>
+        <p class="message message--erreur" id="fermees" hidden>Sign-ups are closed for now. Follow the Discord to know when they reopen.</p>
+        <p class="message message--erreur" id="message" role="alert" hidden></p>
+        <form id="form" novalidate>
+          <div class="pli pli--register">
+            <label class="champ">Username (display name)
+              <input id="pseudo" autocomplete="username" placeholder="Inkling_Pro" maxlength="16" data-requis="register">
+              <small id="pseudo-texte">3 to 16 letters, numbers, - or _.</small>
+            </label>
+          </div>
+          <label class="champ">E-mail address<input id="email" type="email" autocomplete="email" placeholder="you@example.com" data-requis="toujours" required></label>
+          <div class="pli pli--register">
+            <div class="champ"><span id="pays-label">Country</span><div class="pays" id="pays" aria-labelledby="pays-label"></div></div>
+          </div>
+          <div class="pli pli--mdp">
+            <div class="champ">
+              <label for="mdp">Password</label>
+              <div class="mot-de-passe"><input id="mdp" type="password" autocomplete="current-password" placeholder="••••••••" data-requis="login register"><button type="button" class="voir-mdp voir" aria-label="Show password"><svg class="o1" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><svg class="o2" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6C3.8 8.3 2 12 2 12s3.6 7 10 7a9.6 9.6 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+            </div>
+            <div class="pli pli--register pli--force">
+              <div class="force-piste"><i id="force-barre"></i></div>
+              <small id="force-texte"></small>
+            </div>
+          </div>
+          <div class="pli pli--register">
+            <div class="champ">
+              <label for="mdp2">Confirm password</label>
+              <div class="mot-de-passe"><input id="mdp2" type="password" autocomplete="new-password" placeholder="••••••••" data-requis="register"><button type="button" class="voir-mdp voir" aria-label="Show password"><svg class="o1" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><svg class="o2" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6C3.8 8.3 2 12 2 12s3.6 7 10 7a9.6 9.6 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+            </div>
+          </div>
+          <div class="pli pli--login">
+            <div class="extras">
+              <label class="se-souvenir"><input type="checkbox" checked> Remember me</label>
+              <a class="lien" href="forgot.html" data-vers="reset">Forgot password?</a>
+            </div>
+          </div>
+          <div class="ts" id="ts"></div>
+          <button type="submit" class="bouton bouton--plein bouton-auth" id="envoyer"><span></span></button>
+          <div class="separateur"><span id="separateur"></span></div>
+          <button type="button" class="bouton bouton--verre bouton-auth" id="autre"></button>
+        </form>
+      </div>
+      <div class="carte-vue carte-vue--fin" aria-live="polite">
+        <span class="grand-icone grand-icone--orange"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <h2 id="fin-titre">Check your e-mail</h2>
+        <p class="petit"><span id="fin-texte-1"></span><strong id="fin-email"></strong><span id="fin-texte-2"></span></p>
+        <a class="bouton bouton--plein" href="compte.html">Continue to my account</a>
+        <button type="button" class="bouton bouton--verre" id="recommencer">Back to sign in</button>
+        <p class="note">Nothing after a few minutes? Check your spam folder.</p>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main id="main"><div class="shell">
-    <section class="auth">
-      <div class="auth__aside">
-        <span class="auth__tag"><span class="status__dot" aria-hidden="true"></span> <span data-i18n="forgot.tag">ça arrive à tout le monde</span></span>
-        <h1 class="auth__title" data-i18n="forgot.asideTitle">Mot de passe oublié ?</h1>
-        <p class="auth__lede" data-i18n="forgot.asideLede">Entre l'adresse e-mail de ton compte. On t'envoie un lien sécurisé pour choisir un nouveau mot de passe — il expire dans une heure.</p>
-        <div class="auth__points">
-          <div class="auth__point"><span class="ck"><i class="ph ph-check" aria-hidden="true"></i></span> <span data-i18n="forgot.point1">Lien à usage unique, valable 1 heure</span></div>
-          <div class="auth__point"><span class="ck"><i class="ph ph-check" aria-hidden="true"></i></span> <span data-i18n="forgot.point2">Ton friend code et tes amis sont conservés</span></div>
-          <div class="auth__point"><span class="ck"><i class="ph ph-check" aria-hidden="true"></i></span> <span data-i18n="forgot.point3">Aucune autre donnée n'est touchée</span></div>
-        </div>
-      </div>
+</main>
 
-      <div class="auth__card">
-        <h2 data-i18n="forgot.cardTitle">Réinitialiser</h2>
-        <p class="sub" data-i18n="forgot.cardSub">On t'envoie un lien de réinitialisation par e-mail.</p>
-        <div id="msg" class="msg"></div>
-        <form id="form" novalidate>
-          <div class="fld">
-            <label for="email" data-i18n="form.email">Adresse e-mail</label>
-            <input class="input" id="email" type="email" autocomplete="email" inputmode="email" data-i18n-attr="placeholder:form.emailPh" placeholder="toi@exemple.com" required />
-          </div>
-          <button class="btn btn--primary btn--block btn--lg" id="submit" type="submit"><span data-i18n="forgot.submit">Envoyer le lien</span> <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i></button>
-        </form>
-        <div class="auth__foot"><span data-i18n="forgot.footText">Tu t'en souviens finalement ?</span> <a href="/login" data-i18n="forgot.footLink">Se connecter</a></div>
-      </div>
-    </section>
-  </div></main>
+<div id="nx-pied"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-  <script src="assets/js/app.js?v=5"></script>
-  <script src="assets/js/nx-ui.js?v=3"></script>
-  <script src="assets/js/nx-i18n.js?v=3"></script>
-  <script src="assets/js/nx-i18n-more.js?v=4"></script>
-  <script src="assets/js/nx-i18n-pages.js?v=1"></script>
-  <script src="assets/js/nx-i18n-pages-more.js?v=1"></script>
-  <script>
-    const msg = document.getElementById('msg');
-    const T = (k, fb) => (window.NXI18N && NXI18N.t(k)) || fb;
-    document.getElementById('form').addEventListener('submit', async (e) => {
-      e.preventDefault(); hideMsg(msg);
-      const btn = document.getElementById('submit');
-      btn.disabled = true; btn.textContent = T('forgot.loading', 'Envoi…');
-      try {
-        await NX.forgot(document.getElementById('email').value.trim());
-        showMsg(msg, T('forgot.sent', "Si un compte existe pour cette adresse, un lien de réinitialisation vient d'être envoyé. Regarde ta boîte mail (et les spams)."), 'ok');
-        btn.textContent = T('forgot.done', 'Lien envoyé ✓');
-      } catch (err) {
-        showMsg(msg, err.message, 'err');
-        btn.disabled = false; btn.innerHTML = '<span>' + T('forgot.submit', 'Envoyer le lien') + '</span> <i class="ph ph-paper-plane-tilt" aria-hidden="true"></i>';
-      }
-    });
-  </script>
+<script src="assets/js/nx.js?v=20260925d" defer></script>
+<script src="assets/js/commun.js?v=20260925d" defer></script>
+<script src="assets/js/pages.js?v=20260925d" defer></script>
+<script src="assets/js/auth.js?v=20260925d" defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=nxTurnstileOnload" async defer></script>
+<script src="assets/js/effets.js?v=20260925d" defer></script>
 </body>
 </html>

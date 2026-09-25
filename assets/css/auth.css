@@ -1,0 +1,103 @@
+/* Sign in / register / forgot: ScanVerse layout (aurora hero + form column) with the Maison
+   Olena morph (one card, fields folding with max-height, title fading up). */
+
+/* Real Cloudflare Turnstile human check, above the submit button. */
+.ts { display: flex; justify-content: center; margin: 4px 0 12px; min-height: 65px; }
+.ts:empty { min-height: 0; margin: 0; }
+
+.coquille {
+  max-width: var(--largeur); display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: 14px; min-height: calc(100vh - 110px); align-items: stretch;
+}
+
+/* --- Hero --------------------------------------------------------------------------------- */
+
+.heros-auth {
+  position: relative; overflow: hidden; border-radius: 28px; isolation: isolate; display: flex; align-items: center;
+  padding: clamp(28px, 5vw, 64px);
+  background: radial-gradient(120% 80% at 30% 20%, #6b2566 0%, #2a1650 38%, #140b30 70%, #0c0a1d 100%);
+  border: 1px solid var(--plaque-bord);
+}
+#aurore { position: absolute; inset: 0; width: 100%; height: 100%; z-index: -2; opacity: 0; transition: opacity 1.2s ease; }
+#aurore.est-pret { opacity: 1; }
+.heros-voile { position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(12, 10, 29, 0) 35%, rgba(12, 10, 29, 0.7) 100%); pointer-events: none; }
+.heros-contenu { display: grid; gap: 30px; max-width: 26rem; }
+.heros-contenu.entre { animation: monte 0.45s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes monte { from { opacity: 0; transform: translateY(12px); } }
+.heros-marque { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-family: var(--titre); font-weight: 800; font-size: 1.15rem; }
+.heros-marque em { font-style: normal; color: var(--horizon); }
+.heros-titre { font-size: clamp(2.2rem, 4.2vw, 3.2rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.02; }
+.heros-titre .mot { display: inline-block; white-space: nowrap; }
+.heros-titre .lettre { display: inline-block; opacity: 0; transform: translateY(0.45em); animation: lettre 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+@keyframes lettre { to { opacity: 1; transform: none; } }
+.heros-sous { margin-top: 12px; color: rgba(243, 236, 255, 0.72); line-height: 1.6; }
+.heros-etapes { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.etape-puce {
+  display: flex; align-items: center; gap: 12px; padding: 10px 14px; border-radius: 14px;
+  background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); color: rgba(243, 236, 255, 0.72);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+}
+.etape-num { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; flex: none; font-family: var(--titre); font-weight: 700; font-size: 0.85rem; background: rgba(255, 255, 255, 0.1); }
+.etape-puce.est-active { color: #fff; background: rgba(255, 53, 83, 0.16); border-color: rgba(255, 53, 83, 0.45); }
+.etape-puce.est-active .etape-num { background: var(--rouge-logo); color: #fff; }
+.heros-lien { justify-self: start; color: rgba(243, 236, 255, 0.7); text-decoration: none; font-weight: 700; font-size: 0.95rem; }
+.heros-lien:hover { color: #fff; }
+
+/* --- Form column -------------------------------------------------------------------------- */
+
+.colonne-form { display: grid; align-items: center; justify-items: center; padding: 10px 0; }
+.carte-auth {
+  position: relative; width: min(100%, 470px); padding: clamp(24px, 4vw, 36px); border-radius: 28px;
+  background: var(--plaque); border: 1px solid var(--plaque-bord);
+  backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+  transition: min-height 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.carte-vue--form { display: grid; gap: 16px; }
+.carte-tete h2 { font-size: 1.7rem; font-weight: 800; letter-spacing: -0.02em; animation: monte 0.4s ease both; }
+.carte-tete p { color: var(--texte-doux); margin-top: 6px; animation: monte 0.4s ease both; animation-delay: 40ms; }
+#form { display: grid; gap: 14px; }
+
+/* The morph: every folding block animates max-height, opacity and margin with Olena's curve. */
+.pli {
+  max-height: 0; opacity: 0; overflow: hidden; margin-top: -14px; pointer-events: none;
+  transition: max-height 0.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.45s cubic-bezier(0.25, 1, 0.5, 1), margin 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+}
+.mode-register .pli--register, .mode-login .pli--login, .mode-login .pli--mdp, .mode-register .pli--mdp {
+  max-height: 170px; opacity: 1; margin-top: 0; pointer-events: auto;
+}
+.mode-register .pli--mdp .pli--force { max-height: 50px; }
+.pli--force { display: grid; gap: 6px; padding-top: 8px; }
+/* A fold inside a fold never pulls its parent up: the closed strength meter must not clip the password field. */
+.pli .pli { margin-top: 0; }
+.pays { overflow: visible; }
+.mode-register .pli--register:has(.pays.est-ouvert) { overflow: visible; max-height: 420px; }
+.force-piste { height: 5px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+.force-piste i { display: block; height: 100%; width: 0; border-radius: inherit; transition: width 0.4s cubic-bezier(0.25, 1, 0.5, 1), background-color 0.3s; }
+#force-texte { font-size: 0.85rem; color: #a99dc4; }
+.extras { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.se-souvenir { display: inline-flex; align-items: center; gap: 8px; color: var(--texte-doux); cursor: pointer; }
+.se-souvenir input { accent-color: var(--horizon); width: 16px; height: 16px; }
+.voir .o2 { display: none; }
+.voir.est-visible .o1 { display: none; }
+.voir.est-visible .o2 { display: block; }
+.bouton-auth { width: 100%; min-height: 52px; }
+.separateur { display: flex; align-items: center; gap: 12px; color: var(--texte-doux); font-size: 0.9rem; }
+.separateur::before, .separateur::after { content: ""; flex: 1; height: 1px; background: var(--carte-bord); }
+
+/* End screen (register / reset sent): the form slides out, the confirmation slides in. */
+.carte-vue--fin { display: none; gap: 16px; }
+.carte-auth.est-fini .carte-vue--form { display: none; }
+.carte-auth.est-fini .carte-vue--fin { display: grid; animation: glisse 0.32s cubic-bezier(0.22, 1, 0.36, 1) both; }
+@keyframes glisse { from { opacity: 0; transform: translateX(24px); } }
+.carte-vue--form { animation: glisse 0.32s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+@media (max-width: 900px) {
+  .coquille { grid-template-columns: 1fr; min-height: 0; }
+  .heros-auth { min-height: 300px; }
+  .heros-contenu { gap: 18px; }
+  .heros-etapes { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pli, .carte-auth, .force-piste i { transition: none; }
+  .heros-contenu.entre, .heros-titre .lettre, .carte-tete h2, .carte-tete p, .carte-vue--form, .carte-auth.est-fini .carte-vue--fin { animation: none; opacity: 1; transform: none; }
+}

@@ -1,256 +1,110 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="dark" />
-  <title data-i18n="register.metaTitle">Créer un compte — Nextendo Network</title>
-  <meta name="description" data-i18n-attr="content:register.metaDesc" content="Crée ton compte Nextendo Network : une identité réseau, un friend code, et le online de tes jeux Switch sur Ryujinx." />
-  <meta name="robots" content="noindex" />
-
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=11" />
-  <link rel="stylesheet" href="assets/css/nx-ui.css?v=2" />
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Create an account, Nextendo Network</title>
+<meta name="description" content="Sign in to Nextendo Network, create an account or reset your password.">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/rework.css?v=20260925d">
+<link rel="stylesheet" href="assets/css/pages.css?v=20260925d">
+<link rel="stylesheet" href="assets/css/auth.css?v=20260925d">
+<script src="assets/js/i18n.js?v=20260925d"></script>
 </head>
-<body>
-  <div class="backdrop" aria-hidden="true">
-    <div class="field field--a"></div>
-    <div class="field field--b"></div>
-    <div class="grid-veil"></div>
-  </div>
+<body data-page="auth" data-mode="register">
+<a class="saut" href="#contenu">Skip to content</a>
 
-  <header class="nav" id="nav">
-    <div class="shell nav__inner">
-      <a class="brand" href="/" aria-label="Nextendo Network, accueil">
-        <img class="brand__mark" src="assets/favicon.svg" alt="" width="30" height="30" />
-        <span class="brand__word">Nextendo<span class="brand__dim"> Network</span></span>
-      </a>
-      <div class="nav__end">
-        <a class="ghost-link" href="/" data-i18n="nav.home">Accueil</a>
-        <a class="btn btn--soft btn--sm" href="/login" data-i18n="nav.login">Se connecter</a>
+<div id="nx-barre"></div>
+
+<main id="contenu" class="coquille">
+
+  <!-- Left: the aurora hero (ScanVerse AuthHero) -->
+  <section class="heros-auth" aria-labelledby="heros-titre">
+    <canvas id="aurore" aria-hidden="true"></canvas>
+    <div class="heros-voile" aria-hidden="true"></div>
+    <div class="heros-contenu entre" id="heros-contenu">
+      <a class="heros-marque" href="index.html"><img src="assets/img/nextendo.png" alt="" width="34" height="34"><span>Nextendo <em>Network</em></span></a>
+      <div>
+        <h1 id="heros-titre" class="heros-titre"></h1>
+        <p id="heros-sous" class="heros-sous"></p>
       </div>
+      <ol class="heros-etapes" id="heros-etapes"></ol>
     </div>
-  </header>
+  </section>
 
-  <main id="main"><div class="shell">
-    <section class="auth">
-      <div class="auth__aside">
-        <span class="auth__tag"><span class="status__dot" aria-hidden="true"></span> <span data-i18n="register.tag">gratuit, pour toujours</span></span>
-        <h1 class="auth__title" data-i18n="register.asideTitle">Ton identité, sur le réseau.</h1>
-        <p class="auth__lede" data-i18n="register.asideLede">Un compte Nextendo te donne un friend code permanent, une liste d'amis et le jeu en ligne sur tous les titres compatibles.</p>
-        <div class="auth__points">
-          <div class="auth__point"><span class="ck"><i class="ph ph-check" aria-hidden="true"></i></span> <span data-i18n="register.point1">Confirme ton e-mail en un clic, aucune pub</span></div>
-          <div class="auth__point"><span class="ck"><i class="ph ph-check" aria-hidden="true"></i></span> <span data-i18n-html="register.point2">Un seul compte pour Ryujinx <em>et</em> ta Switch</span></div>
-          <div class="auth__point"><span class="ck"><i class="ph ph-check" aria-hidden="true"></i></span> <span data-i18n="register.point3">Tes amis et ta présence en ligne te suivent</span></div>
-        </div>
-        <div class="member-card" style="margin-top:1.8rem;max-width:24rem">
-          <div class="member-card__top">
-            <span class="member-card__brand"><img src="assets/favicon.svg" alt="" /> NEXTENDO</span>
-            <span class="member-card__chip" data-i18n="register.chip">NOUVEAU</span>
-          </div>
-          <div class="member-card__label" data-i18n="member.label">Friend code</div>
-          <div class="member-card__code" id="preview-fc">SW-••••-••••-••••</div>
-          <div class="member-card__foot">
-            <div class="member-card__name" id="preview-name"><span data-i18n="register.previewName">TonPseudo</span><span data-i18n="member.pseudo">Pseudo</span></div>
-            <div class="member-card__sig" aria-hidden="true"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="auth__card">
-        <h2 data-i18n="register.cardTitle">Créer un compte</h2>
-        <p class="sub" data-i18n="register.cardSub">Trois champs, et c'est en ligne.</p>
-        <div id="closed-notice" hidden style="padding:.95rem 1.1rem;border:1px solid var(--line);border-radius:.75rem;background:color-mix(in oklch, var(--signal) 14%, transparent);line-height:1.5" data-i18n-html="register.closedNotice">
-          <strong>Inscriptions temporairement fermées.</strong><br>On finalise la nouvelle version de Nextendo Network — la création de compte rouvrira très bientôt. Reviens dans quelques jours&nbsp;!
-        </div>
-        <div id="msg" class="msg"></div>
+  <!-- Right: one card that morphs between modes (Maison Olena LoginCard) -->
+  <section class="colonne-form">
+    <div class="carte-auth mode-register" id="carte">
+      <div class="carte-vue carte-vue--form">
+        <header class="carte-tete">
+          <h2 id="carte-h"></h2>
+          <p id="carte-p"></p>
+        </header>
+        <p class="message message--erreur" id="fermees" hidden>Sign-ups are closed for now. Follow the Discord to know when they reopen.</p>
+        <p class="message message--erreur" id="message" role="alert" hidden></p>
         <form id="form" novalidate>
-          <div class="fld">
-            <label for="username" data-i18n="register.username">Pseudo (nom affiché)</label>
-            <input class="input" id="username" autocomplete="username" data-i18n-attr="placeholder:register.usernamePh" placeholder="Inkling_Pro" minlength="3" maxlength="16" required />
-            <span class="fld__hint" id="uhint" data-i18n="register.usernameHint">3 à 16 caractères. Ton pseudo peut être partagé — ton friend code te distingue.</span>
+          <div class="pli pli--register">
+            <label class="champ">Username (display name)
+              <input id="pseudo" autocomplete="username" placeholder="Inkling_Pro" maxlength="16" data-requis="register">
+              <small id="pseudo-texte">3 to 16 letters, numbers, - or _.</small>
+            </label>
           </div>
-          <div class="fld">
-            <label for="email" data-i18n="form.email">E-mail</label>
-            <input class="input" id="email" type="email" autocomplete="email" data-i18n-attr="placeholder:form.emailPh" placeholder="toi@exemple.com" required />
-            <span class="fld__hint" data-i18n="register.emailHint">C'est avec cet e-mail que tu te connecteras.</span>
+          <label class="champ">E-mail address<input id="email" type="email" autocomplete="email" placeholder="you@example.com" data-requis="toujours" required></label>
+          <div class="pli pli--register">
+            <div class="champ"><span id="pays-label">Country</span><div class="pays" id="pays" aria-labelledby="pays-label"></div></div>
           </div>
-          <div class="fld">
-            <label for="country" data-i18n="acc.country">Pays</label>
-            <div id="country"></div>
-            <span class="fld__hint" data-i18n="register.countryHint">C'est le drapeau qui s'affichera à côté de ton nom dans les jeux en ligne. Modifiable ensuite.</span>
-          </div>
-          <div class="fld">
-            <label for="password" data-i18n="form.password">Mot de passe</label>
-            <div class="pw">
-              <input class="input" id="password" type="password" autocomplete="new-password" data-i18n-attr="placeholder:register.passwordPh" placeholder="Au moins 8 caractères" required />
-              <button type="button" class="pw__eye" data-eye="password" data-i18n-attr="aria-label:form.showPw" aria-label="Afficher le mot de passe"><i class="ph ph-eye"></i></button>
+          <div class="pli pli--mdp">
+            <div class="champ">
+              <label for="mdp">Password</label>
+              <div class="mot-de-passe"><input id="mdp" type="password" autocomplete="current-password" placeholder="••••••••" data-requis="login register"><button type="button" class="voir-mdp voir" aria-label="Show password"><svg class="o1" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><svg class="o2" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6C3.8 8.3 2 12 2 12s3.6 7 10 7a9.6 9.6 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
             </div>
-            <div class="pw-meter" id="pw-meter" data-level="-1"><i></i><i></i><i></i><i></i></div>
-            <div class="pw-meter__label" id="pw-label" aria-live="polite"></div>
-            <ul class="pw-reqs" id="pw-reqs">
-              <li data-req="len" data-i18n="register.reqLen">Au moins 8 caractères</li>
-              <li data-req="digit" data-i18n="register.reqDigit">Au moins un chiffre</li>
-              <li data-req="special" data-i18n="register.reqSpecial">Au moins un caractère spécial (! @ # $ …)</li>
-            </ul>
-          </div>
-          <div class="fld">
-            <label for="password2" data-i18n="register.password2">Confirme le mot de passe</label>
-            <div class="pw">
-              <input class="input" id="password2" type="password" autocomplete="new-password" data-i18n-attr="placeholder:register.password2Ph" placeholder="Retape ton mot de passe" required />
-              <button type="button" class="pw__eye" data-eye="password2" data-i18n-attr="aria-label:form.showPw" aria-label="Afficher le mot de passe"><i class="ph ph-eye"></i></button>
+            <div class="pli pli--register pli--force">
+              <div class="force-piste"><i id="force-barre"></i></div>
+              <small id="force-texte"></small>
             </div>
-            <span class="fld__hint" id="p2hint" data-i18n="register.password2Hint">Les deux mots de passe doivent être identiques.</span>
           </div>
-          <!-- verrou anti-relais (Cloudflare Turnstile) : rendu uniquement si une sitekey est configurée -->
-          <div id="ts" style="margin:4px 0 2px"></div>
-          <button class="btn btn--primary btn--block btn--lg" id="submit" type="submit" disabled><span data-i18n="register.submit">Créer mon compte</span> <i class="ph ph-arrow-right" aria-hidden="true"></i></button>
+          <div class="pli pli--register">
+            <div class="champ">
+              <label for="mdp2">Confirm password</label>
+              <div class="mot-de-passe"><input id="mdp2" type="password" autocomplete="new-password" placeholder="••••••••" data-requis="register"><button type="button" class="voir-mdp voir" aria-label="Show password"><svg class="o1" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><svg class="o2" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 3l18 18M10.6 5.1A10 10 0 0 1 12 5c6.4 0 10 7 10 7a17 17 0 0 1-3.2 4M6.6 6.6C3.8 8.3 2 12 2 12s3.6 7 10 7a9.6 9.6 0 0 0 5.4-1.6M9.9 9.9a3 3 0 0 0 4.2 4.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></button></div>
+            </div>
+          </div>
+          <div class="pli pli--login">
+            <div class="extras">
+              <label class="se-souvenir"><input type="checkbox" checked> Remember me</label>
+              <a class="lien" href="forgot.html" data-vers="reset">Forgot password?</a>
+            </div>
+          </div>
+          <div class="ts" id="ts"></div>
+          <button type="submit" class="bouton bouton--plein bouton-auth" id="envoyer"><span></span></button>
+          <div class="separateur"><span id="separateur"></span></div>
+          <button type="button" class="bouton bouton--verre bouton-auth" id="autre"></button>
         </form>
-        <div class="auth__foot"><span data-i18n="register.footText">Déjà un compte ?</span> <a href="/login" data-i18n="register.footLink">Se connecter</a></div>
       </div>
-    </section>
-  </div></main>
-
-  <!-- Popup : vérifie ton adresse e-mail (après création) -->
-  <div class="modal" id="verify-modal" hidden>
-    <div class="modal__backdrop"></div>
-    <div class="modal__panel modal__panel--sm" role="dialog" aria-modal="true" aria-labelledby="vm-title">
-      <div class="modal__ic"><i class="ph ph-envelope-simple-open" aria-hidden="true"></i></div>
-      <h2 id="vm-title" data-i18n="register.vmTitle">Vérifie ton adresse e-mail</h2>
-      <p data-i18n-html="register.vmBody">On vient d'envoyer un lien de confirmation à <span class="mono" id="vm-email">ton adresse</span>. Clique dessus pour confirmer ton e-mail — ça sécurise ton compte et te permet de récupérer ton mot de passe si tu l'oublies.</p>
-      <p class="fld__hint" data-i18n="register.vmHint">Pas reçu ? Regarde dans les spams, ou renvoie le lien depuis ton espace compte.</p>
-      <div class="modal__foot" style="justify-content:center;border:0">
-        <button class="btn btn--primary" id="vm-continue"><span data-i18n="register.vmContinue">Continuer vers mon compte</span> <i class="ph ph-arrow-right" aria-hidden="true"></i></button>
+      <div class="carte-vue carte-vue--fin" aria-live="polite">
+        <span class="grand-icone grand-icone--orange"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <h2 id="fin-titre">Check your e-mail</h2>
+        <p class="petit"><span id="fin-texte-1"></span><strong id="fin-email"></strong><span id="fin-texte-2"></span></p>
+        <a class="bouton bouton--plein" href="compte.html">Continue to my account</a>
+        <button type="button" class="bouton bouton--verre" id="recommencer">Back to sign in</button>
+        <p class="note">Nothing after a few minutes? Check your spam folder.</p>
       </div>
     </div>
-  </div>
+  </section>
 
-  <script src="/assets/js/nx-country.js" defer></script>
-  <script src="assets/js/app.js?v=6"></script>
-  <script src="assets/js/nx-ui.js?v=3"></script>
-  <script src="assets/js/nx-i18n.js?v=3"></script>
-  <script src="assets/js/nx-i18n-more.js?v=4"></script>
-  <script src="assets/js/nx-i18n-pages.js?v=1"></script>
-  <script src="assets/js/nx-i18n-pages-more.js?v=1"></script>
-  <!-- Turnstile (verrou anti-relais). Laisse la sitekey vide tant que ce n'est pas configuré → inscription normale (fail-open). -->
-  <script>
-    window.NEXTENDO_TURNSTILE_SITEKEY = "0x4AAAAAAD7S4rKlUZb5jrS1"; // sitekey Cloudflare Turnstile (publique)
-    window.__nxTsToken = ""; // dernier token résolu, posé par le callback (évite la course getResponse au submit)
-    window.nxTurnstileOnload = function () {
-      if (window.NEXTENDO_TURNSTILE_SITEKEY && window.turnstile) {
-        turnstile.render('#ts', {
-          sitekey: window.NEXTENDO_TURNSTILE_SITEKEY, theme: 'auto',
-          callback: function (t) { window.__nxTsToken = t || ''; },
-          'expired-callback': function () { window.__nxTsToken = ''; try { turnstile.reset('#ts'); } catch (e) {} },
-          'error-callback': function () { window.__nxTsToken = ''; return true; }
-        });
-      }
-    };
-  </script>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=nxTurnstileOnload" async defer></script>
-  <script>
-    const msg = document.getElementById('msg');
-    if (NX.token) location.replace('/compte');
-    const T = (k, fb) => (window.NXI18N && NXI18N.t(k)) || fb;
+</main>
 
-    // Récupère le token Turnstile en attendant brièvement que le widget résolve. Renvoie ''
-    // si le widget est absent/bloqué (adblock, extension vie privée) — le serveur laisse alors
-    // passer (missing-token = fail-open), donc l'inscription n'est jamais verrouillée par le captcha.
-    async function nxAwaitTurnstile(maxMs) {
-      if (!window.NEXTENDO_TURNSTILE_SITEKEY || !window.turnstile) return '';
-      const deadline = Date.now() + (maxMs || 2500);
-      let tok = window.__nxTsToken || '';
-      if (!tok) { try { tok = turnstile.getResponse() || ''; } catch (e) {} }
-      while (!tok && Date.now() < deadline) {
-        await new Promise(r => setTimeout(r, 150));
-        tok = window.__nxTsToken || '';
-        if (!tok) { try { tok = turnstile.getResponse() || ''; } catch (e) {} }
-      }
-      return tok || '';
-    }
+<div id="nx-pied"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    // Gel de relance : si les inscriptions sont fermées côté serveur, on masque le
-    // formulaire et on affiche l'avis (le backend renvoie de toute façon 403).
-    fetch('/api/site-config').then(r => r.json()).then(cfg => {
-      if (cfg && cfg.registration_open === false) {
-        document.getElementById('closed-notice').hidden = false;
-        const f = document.getElementById('form'); if (f) f.hidden = true;
-      }
-    }).catch(() => {});
-
-    const form = document.getElementById('form');
-    const u = document.getElementById('username');
-    const email = document.getElementById('email');
-    const uhint = document.getElementById('uhint');
-    const previewName = document.getElementById('preview-name');
-    const pw = document.getElementById('password');
-    const pw2 = document.getElementById('password2');
-    const p2hint = document.getElementById('p2hint');
-    const submit = document.getElementById('submit');
-    const reUser = /^[A-Za-z0-9_\-]{3,16}$/;
-
-    // jauge de force + règles obligatoires (helper partagé dans app.js) -> () => bool
-    const pwOk = wirePwMeter(pw, document.getElementById('pw-meter'), document.getElementById('pw-label'), document.getElementById('pw-reqs'));
-
-    const countryHost = document.getElementById('country');
-    let countrySel = null;   // composant monte plus bas (liste chargee depuis l'API)
-    const userOk  = () => reUser.test(u.value.trim());
-    const emailOk = () => /.+@.+\..+/.test(email.value.trim());
-    const matchOk = () => pw2.value.length > 0 && pw.value === pw2.value;
-    // Pays obligatoire : sans lui le joueur n'aurait pas de drapeau en jeu et
-    // devrait y revenir plus tard depuis son espace perso.
-    const countryOk = () => !!(countrySel && countrySel.value);
-
-    function refresh(){
-      p2hint.className = 'fld__hint';
-      if (pw2.value){
-        if (matchOk()){ p2hint.textContent = T('register.pwMatch', 'Les mots de passe correspondent.'); p2hint.classList.add('ok'); }
-        else { p2hint.textContent = T('register.pwNoMatch', 'Les mots de passe ne correspondent pas.'); p2hint.classList.add('bad'); }
-      } else { p2hint.textContent = T('register.password2Hint', 'Les deux mots de passe doivent être identiques.'); }
-      submit.disabled = !(userOk() && emailOk() && pwOk() && matchOk() && countryOk());
-    }
-
-    u.addEventListener('input', () => {
-      const v = u.value.trim();
-      previewName.firstChild.textContent = v || T('register.previewName', 'TonPseudo');
-      uhint.className = 'fld__hint';
-      if (v && !reUser.test(v)) { uhint.textContent = T('register.usernameHintBad', '3 à 16 caractères : lettres, chiffres, _ ou -.'); uhint.classList.add('bad'); }
-      else if (v) { uhint.textContent = '« ' + v + ' » — ' + T('register.usernameHintOk', 'parfait. Ton friend code te distinguera.'); uhint.classList.add('ok'); }
-      else { uhint.textContent = T('register.usernameHint', '3 à 16 caractères. Ton pseudo peut être partagé — ton friend code te distingue.'); }
-      refresh();
-    });
-    [pw, pw2, email].forEach((el) => el.addEventListener('input', refresh));
-    // Menu maison : recherche + vrais drapeaux, libelles traduits par le navigateur.
-    // nx-country.js est charge en `defer` : il s'execute APRES ce script en
-    // ligne. Appeler NXCountry tout de suite levait une erreur et le champ ne
-    // s'affichait pas du tout. On attend donc qu'il soit la.
-    (function mountCountry(){
-      if (window.NXCountry) { countrySel = NXCountry.mount(countryHost, { onChange: refresh, onReady: refresh }); refresh(); }
-      else setTimeout(mountCountry, 30);
-    })();
-    refresh();
-
-    document.getElementById('vm-continue').addEventListener('click', () => location.href = '/compte');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault(); hideMsg(msg);
-      if (submit.disabled) return;
-      submit.disabled = true; submit.textContent = T('register.loading', 'Création…');
-      try {
-        const addr = email.value.trim();
-        NX.turnstileToken = await nxAwaitTurnstile(2500);
-        await NX.register(u.value.trim(), addr, pw.value, countrySel.value);
-        document.getElementById('vm-email').textContent = addr;   // compte créé + connecté
-        document.getElementById('verify-modal').hidden = false;   // -> invite à confirmer l'e-mail
-      } catch (err) {
-        showMsg(msg, err.message, 'err');
-        submit.disabled = false; submit.innerHTML = '<span>' + T('register.submit', 'Créer mon compte') + '</span> <i class="ph ph-arrow-right" aria-hidden="true"></i>';
-      }
-    });
-  </script>
+<script src="assets/js/nx.js?v=20260925d" defer></script>
+<script src="assets/js/commun.js?v=20260925d" defer></script>
+<script src="assets/js/pages.js?v=20260925d" defer></script>
+<script src="assets/js/auth.js?v=20260925d" defer></script>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=nxTurnstileOnload" async defer></script>
+<script src="assets/js/effets.js?v=20260925d" defer></script>
 </body>
 </html>

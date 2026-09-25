@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Link a device, Nextendo Network</title>
+<meta name="description" content="Approve a sign-in from another device.">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/rework.css?v=20260925d">
+<link rel="stylesheet" href="assets/css/pages.css?v=20260925d">
+<script src="assets/js/i18n.js?v=20260925d"></script>
+</head>
+<body data-page="lier">
+<a class="saut" href="#contenu">Skip to content</a>
+
+<div id="nx-barre"></div>
+
+<main id="contenu" class="">
+
+  <section class="plaque auth" aria-labelledby="titre-lier">
+    <div class="auth-ciel">
+      <div class="contenu"><h1>Sign in without a password.</h1><p>You scanned a Nextendo QR code. Check the digits shown on the other screen, then approve.</p></div>
+    </div>
+    <div class="auth-form">
+      <div class="auth-etape" id="etape-code">
+        <h2 id="titre-lier">Link this device</h2>
+        <div class="appareil"><span class="appareil-ico"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M11 18h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span><div><strong>Chrome on Windows</strong><div class="petit">wants to sign in to your account</div></div></div>
+        <p class="petit">Type the 4 digits shown on that screen.</p>
+        <div class="chiffres" role="group" aria-label="4-digit code">
+          <input inputmode="numeric" maxlength="1" aria-label="Digit 1" autocomplete="one-time-code"><input inputmode="numeric" maxlength="1" aria-label="Digit 2"><input inputmode="numeric" maxlength="1" aria-label="Digit 3"><input inputmode="numeric" maxlength="1" aria-label="Digit 4">
+        </div>
+        <div class="ligne-boutons">
+          <button type="button" class="bouton bouton--verre" id="refuser">That's not me</button>
+          <button type="button" class="bouton bouton--plein" id="approuver" disabled>Approve</button>
+        </div>
+        <a class="lien" href="nextendo://lier">Open in the Nextendo app</a>
+      </div>
+      <div class="auth-etape" id="etape-lie" hidden>
+        <span class="grand-icone"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <h2>Device signed in</h2>
+        <p class="petit">The other screen is now signed in to your account. You can close this page.</p>
+        <a class="bouton bouton--verre" href="sessions.html">See my devices</a>
+      </div>
+      <div class="auth-etape" id="etape-refuse" hidden>
+        <span class="grand-icone grand-icone--orange"><svg viewBox="0 0 24 24" width="34" height="34" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="m4 7 8 6 8-6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg></span>
+        <h2>Sign-in refused</h2>
+        <p class="petit">Nothing was signed in. If you didn't scan this code yourself, change your password.</p>
+        <a class="bouton bouton--verre" href="reset.html">Change my password</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="nx-pied"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/nx.js?v=20260925d" defer></script>
+<script src="assets/js/commun.js?v=20260925d" defer></script>
+<script src="assets/js/pages.js?v=20260925d" defer></script>
+<script src="assets/js/effets.js?v=20260925d" defer></script>
+</body>
+</html>

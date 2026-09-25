@@ -1,0 +1,629 @@
+1	Nextendo Network riporta il gioco online su Switch: account, amici, presenza e matchmaking, su Ryujinx, Citron o una Switch con CFW.
+2	Home di Nextendo Network
+3	Navigazione principale
+4	Giochi
+5	Team
+6	Sviluppatori
+7	Il mio account, {0}
+8	Apri il menu
+9	Chiudi il menu
+10	Il gioco online su Switch non si spegne.
+11	Nextendo Network è un'alternativa ai servizi online ufficiali: il tuo account, amici, presenza e matchmaking, su Ryujinx, Citron o una Switch con CFW.
+12	Scarica l'emulatore
+13	giocatori online adesso
+14	Novità
+15	L'app Nextendo è uscita su iPhone e Android: amici, attività e salvataggi in tasca.
+16	Citron Nextendo si unisce a Ryujinx: due emulatori, un solo account.
+17	La tua foto e il tuo nome utente ora si sincronizzano tra Switch, sito e app.
+18	Giochi online
+19	Tutti i server
+20	Quanto dell'online di ogni gioco funziona oggi.
+21	Progresso complessivo: {0}%
+22	complessivo
+23	Fatto
+24	Partite complete a {0} giocatori
+25	Completamente online, lobby con amici incluse
+26	Partite online, stanze con amici e multigiocatore
+27	Cacce online, lobby e multigiocatore completo
+28	Gare mondiali, stanze e amici
+29	Mischie mollusche a {0} giocatori, amici e Salmon Run
+30	Battaglie online, stanze private, Salmon Run e Splatfest
+31	Gioco online e stanze con amici
+32	Visite alle isole con gli amici
+33	Course World, caricamenti, record mondiali e commenti
+34	Matchmaking online e club
+35	La lobby online in solitario funziona
+36	Il progetto
+37	Nextendo è una seconda casa per il gioco online su Switch: una rete indipendente che tiene connessi i tuoi giochi, gratis e senza pubblicità, fatta dalla community per la community.
+38	Il tuo gioco parla con i nostri server proprio come parlava con quelli di Nintendo.
+39	Ryujinx, Citron o una Switch con CFW. Il gioco in sé non viene modificato.
+40	Il tuo account Nextendo
+41	Sostituisce l'account Nintendo: identità, amici e un token firmato.
+42	La partita
+43	I nostri server trovano i tuoi avversari, poi la partita si gioca direttamente tra i giocatori.
+44	I tuoi amici, ovunque
+45	Un nome utente, un codice amico permanente e un'unica lista amici per tutti i tuoi giochi. Guarda chi sta giocando a cosa e unisciti.
+46	Gratis, davvero
+47	Un progetto di volontari. Niente abbonamento, niente pubblicità.
+48	I tuoi dati restano tuoi
+49	Solo ciò che serve al servizio per funzionare. Nessun tracciamento, nessuna vendita.
+50	Dove giocare
+51	Tutti i download
+52	Emulatore
+53	Configurato per la rete, su Windows, Linux e macOS.
+54	Un altro emulatore, lo stesso account.
+55	Console
+56	Nintendo Switch in 3D
+57	Switch con CFW
+58	Attiva il profilo Nextendo. Completamente reversibile.
+59	Telefono
+60	Nextendo per iPhone
+61	I tuoi amici, la tua attività e i tuoi salvataggi.
+62	Nextendo per Android
+63	La stessa app, su Android.
+64	Online in quattro passi
+65	Su un emulatore o su una vera Switch con CFW. Il tuo account Nextendo è la chiave, e tutto è reversibile.
+66	Gratis, in tre campi. Ottieni subito un nome utente e un codice amico permanenti.
+67	Scarica Ryujinx o Citron Nextendo
+68	Le build dell'emulatore configurate per la rete. Su una Switch con CFW, attiva invece il profilo Nextendo.
+69	Download
+70	Accedi a Nextendo Network
+71	In Ryujinx: Azioni, poi Accesso a Nextendo Network, poi inserisci e-mail e password.
+72	Avvia Mario Kart 8, Splatoon o Smash Ultimate, apri il menu online e incontra la community.
+73	Stato della rete
+74	Aggiornamento…
+75	giocatori connessi
+76	Il team
+77	Nextendo va avanti grazie al volontariato. Ecco le persone che lo tengono online.
+78	Proprietario del progetto
+79	Sviluppatore principale di Citron e Nextendo
+80	Sviluppatrice e lead designer
+81	Sviluppatore principale di Prelude
+82	Sviluppatore principale di Splatoon 3
+83	Tipo super simpatico e tester dei server
+84	Sviluppatore principale di Demonware
+85	Domande frequenti
+86	No. Nextendo è un progetto comunitario indipendente, senza affiliazione, sponsorizzazione o approvazione di Nintendo Co., Ltd.
+87	Nextendo non distribuisce giochi, ROM o chiavi. Fornisce solo servizi di rete: sei tu il responsabile delle tue copie.
+88	Ryujinx Nextendo e Citron Nextendo, più una vera Switch con firmware personalizzato. Altri potranno arrivare con i contributi della community.
+89	Solo ciò che serve al servizio per funzionare. Nessun tracciamento, nessuna vendita. Il codice è aperto, quindi puoi verificarlo.
+90	Codice, traduzioni, test di compatibilità o moderazione: tutto aiuta. Unisciti al repository e al server della community per iniziare.
+91	Pronto a riconnettere la tua Switch?
+92	Segui lo sviluppo, unisciti alla community e inizia la tua prima partita online.
+93	Accedi
+94	Network
+95	Il gioco online su Switch, restituito alla community.
+96	Nextendo su Discord
+97	Nextendo su X
+98	Nextendo su TikTok
+99	Nextendo su GitHub
+100	Link del sito
+101	Aiuto
+102	Account
+103	© {0} Nextendo Network. Progetto comunitario indipendente, non affiliato a Nintendo Co., Ltd.
+104	«Nintendo Switch», «Ryujinx», «Citron» e «Prelude» appartengono ai rispettivi proprietari. Non vengono forniti giochi né ROM.
+105	{0} online
+106	Aggiornato alle {0}
+107	La tua foto profilo
+108	Il tuo codice amico
+109	Attività
+110	Tempo di gioco
+111	Amici online
+112	Vedi tutti i giochi
+113	Ancora nessun salvataggio nel cloud. Salva da Ryujinx o dalla tua Switch mentre hai effettuato l'accesso e i tuoi salvataggi compariranno qui.
+114	I salvataggi nel cloud richiedono un'e-mail verificata e un account Discord collegato. I booster del server hanno 10 MB invece di 5 MB.
+115	Un solo account ovunque. Accedi una volta su ogni dispositivo.
+116	Azioni, poi Accesso a Nextendo Network.
+117	Emulazione, poi Nextendo Network, poi Accedi.
+118	Attiva il profilo Nextendo, poi collega il tuo account dalla console.
+119	App Nextendo
+120	Tocca Accedi con Nextendo su iPhone o Android.
+121	Aggiungi un amico
+122	Invia richiesta
+123	Cerca amici
+124	Filtra amici
+125	Tutti
+126	Preferiti
+127	Pagine della lista amici
+128	Richieste di amicizia
+129	Ricevute
+130	Inviate
+131	Nome utente
+132	modifica
+133	E-mail
+134	Cambia e-mail
+135	Area admin
+136	Esci
+137	Cambia foto
+138	Da 3 a 16 lettere, numeri, - o _. È anche il tuo nome di accesso.
+139	Nuovo indirizzo e-mail
+140	I tuoi amici, la cronologia e i salvataggi nel cloud vengono eliminati per sempre. Non si può annullare.
+141	Elimina per sempre
+142	Copia il codice amico
+143	Aggiungi ai preferiti
+144	Rimuovi dai preferiti
+145	Rimuovi amico
+146	Tutti i tuoi giochi
+147	Cerca tra i tuoi giochi
+148	Ordina i giochi
+149	Più recenti
+150	Più giocati
+151	Dalla A alla Z
+152	Screenshot
+153	La pagina reale legge il contenuto del salvataggio (progressi, statistiche) da /api/save/<game>/parsed.
+154	Eliminare questo salvataggio nel cloud?
+155	La copia di
+156	salvata su Nextendo viene eliminata. Il salvataggio sulla tua console o sul tuo emulatore non viene toccato.
+157	Non verificato
+158	collegato il {0}
+159	Cerca un paese
+160	Membro dal {0}
+161	{0} h
+162	{0} min
+163	Ultimo gioco avviato
+164	{0} min fa
+165	{0} h fa
+166	{0} giorno fa
+167	{0} giorni fa
+168	il {0}
+169	Giocato {0}
+170	{0}, salvato {1}
+171	{0} giochi
+172	Vedi tutti i {0} giochi
+173	{0} di {1} MB
+174	Nessuna richiesta in sospeso. Condividi il tuo codice amico perché altri giocatori possano aggiungerti.
+175	Non hai richieste in attesa di risposta.
+176	Mostra altri {0}
+177	Mostra meno
+178	Colore di sfondo {0}
+179	Sta giocando a {0}
+180	Sta giocando a {0} su {1}
+181	un gioco
+182	Online su {0}
+183	Connesso a Nextendo
+184	Connesso a Nextendo su {0}
+185	Aggiungi {0} ai preferiti
+186	Rimuovi {0} dai preferiti
+187	Pagina precedente
+188	Pagina {0}
+189	Pagina successiva
+190	Prima pagina
+191	Ultima pagina
+192	Accedi a Nextendo Network, crea un account o reimposta la password.
+193	Bentornato
+194	Accedi per ritrovare amici, salvataggi e giochi dove li hai lasciati.
+195	Usa l'e-mail e la password del tuo account Nextendo.
+196	Le iscrizioni sono chiuse per ora. Segui il Discord per sapere quando riaprono.
+197	Nome utente (nome visualizzato)
+198	Da 3 a 16 lettere, numeri, - o _.
+199	Usa da 3 a 16 lettere, numeri, - o _.
+200	Indirizzo e-mail
+201	Almeno 8 caratteri, con un numero.
+202	Ricordami
+203	Nuovo su Nextendo?
+204	Controlla la tua e-mail
+205	Torna all'accesso
+206	Niente dopo qualche minuto? Controlla la cartella spam.
+207	Unisciti a Nextendo
+208	Tre passi veloci e giochi online con un'unica identità per ogni gioco e dispositivo.
+209	Crea il tuo account
+210	Collega il tuo emulatore o la tua console
+211	Gratis, senza pubblicità. Il tuo nome utente e il tuo codice amico sono tuoi per sempre.
+212	Sei già membro?
+213	Password dimenticata
+214	Capita
+215	Inserisci la tua e-mail e ti mandiamo un link per scegliere una nuova password.
+216	Ricevi il link
+217	Scegli una nuova password
+218	Accedi di nuovo
+219	Reimposta la password
+220	Ti mandiamo per e-mail un link di reimpostazione valido per un'ora.
+221	Te la sei ricordata?
+222	Scegli una nuova password Nextendo.
+223	Una password nuova.
+224	Scegli qualcosa di lungo e unico. Verrai disconnesso ovunque altrove.
+225	Usa almeno 8 caratteri e scrivila due volte uguale.
+226	Almeno 8 caratteri.
+227	Scrivila di nuovo
+228	Salva la password
+229	Password cambiata
+230	Le tue altre sessioni sono state chiuse. Accedi di nuovo con la nuova password.
+231	Scegli un nome utente da 3 a 16 lettere, numeri, - o _.
+232	Inserisci un indirizzo e-mail valido.
+233	Inserisci la password.
+234	Inserisci e-mail e password.
+235	Le due password non corrispondono.
+236	La password deve avere almeno 8 caratteri e un numero.
+237	Controlla la password: almeno 8 caratteri, scritta due volte uguale.
+238	Troppo corta
+239	Discreta
+240	Buona
+241	Accesso in corso…
+242	è disponibile.
+243	è già in uso.
+244	Verifica e-mail
+245	Conferma il tuo indirizzo e-mail.
+246	Un ultimo passo.
+247	Confermare l'e-mail protegge il tuo account e sblocca i salvataggi nel cloud.
+248	Controllo del link di conferma.
+249	E-mail verificata
+250	Il tuo indirizzo è confermato. Ora puoi usare i salvataggi nel cloud appena colleghi Discord.
+251	Collega un dispositivo
+252	Approva un accesso da un altro dispositivo.
+253	Accedi senza password.
+254	Hai scansionato un codice QR Nextendo. Controlla le cifre mostrate sull'altro schermo, poi approva.
+255	Collega questo dispositivo
+256	Chrome su Windows
+257	vuole accedere al tuo account
+258	Inserisci le 4 cifre mostrate su quello schermo.
+259	Codice a {0} cifre
+260	Cifra {0}
+261	Non sono io
+262	Approva
+263	Apri nell'app Nextendo
+264	Dispositivo connesso
+265	L'altro schermo ora ha effettuato l'accesso al tuo account. Puoi chiudere questa pagina.
+266	Vedi i miei dispositivi
+267	Accesso rifiutato
+268	Non è stato effettuato nessun accesso. Se non hai scansionato tu questo codice, cambia la password.
+269	Cambia la mia password
+270	I miei dispositivi
+271	Vedi e disconnetti i dispositivi collegati al tuo account.
+272	Tutti i dispositivi collegati al tuo account. Disconnetti quelli che non riconosci.
+273	Dove hai effettuato l'accesso
+274	{0} dispositivi
+275	{0} dispositivo
+276	Esci da tutti gli altri
+277	Dispositivi di esempio: la pagina reale elenca le tue sessioni reali.
+278	Questo dispositivo
+279	Questo browser, attivo ora
+280	Attuale
+281	Windows, {0} minuti fa
+282	Console collegata, {0} ore fa
+283	iPhone, ieri
+284	Disconnettere questo dispositivo?
+285	dovrà accedere di nuovo.
+286	Uscire da tutti gli altri?
+287	Tutti i dispositivi tranne questo vengono disconnessi, console ed emulatori compresi.
+288	Disconnetti tutti
+289	Stato in tempo reale di ogni server di gioco Nextendo.
+290	Lo stato in tempo reale di ogni server di gioco, aggiornato ogni {0} secondi.
+291	Controllo della rete…
+292	Server di gioco
+293	{0} giocatori online su {1} server di gioco.
+294	Non riusciamo a raggiungere la rete in questo momento
+295	Il controllo non è riuscito. Nuovo tentativo tra {0} secondi.
+296	Scarica Ryujinx Nextendo, Citron Nextendo e l'app Nextendo.
+297	Tutto ciò che ti serve per giocare online con il tuo account Nextendo. Le versioni qui sotto sono lette in tempo reale da GitHub.
+298	La build dell'emulatore configurata per la rete. Accedi da Azioni, poi Accesso a Nextendo Network.
+299	Vedi tutte le versioni su GitHub
+300	Un altro emulatore, lo stesso account. Build nightly.
+301	Amici, attività, salvataggi nel cloud e accesso con QR, sul tuo telefono.
+302	iPhone, jailbreak (.deb)
+303	iPhone (.ipa)
+304	Android (.apk)
+305	Nextendo funziona anche su una Switch con firmware personalizzato. Tutto è reversibile.
+306	Installa il profilo Nextendo
+307	Reindirizza i servizi online della console verso Nextendo.
+308	Collega il tuo account
+309	Accedi dalla console con l'e-mail e la password del tuo account Nextendo.
+310	Apri la modalità online di qualsiasi gioco supportato.
+311	Prelude su GitHub
+312	{0} MB, v{1}
+313	Non ancora in questa release
+314	Vedi le release su GitHub
+315	Amministrazione di Nextendo.
+316	Area amministratore
+317	Anteprima con dati di esempio: la pagina reale legge l'API admin con una sessione admin.
+318	Numeri della rete
+319	Giocatori segnalati
+320	{0} giocatori segnalati
+321	Cerca (nome utente, PID, motivo, segnalatore)…
+322	Cerca giocatori segnalati
+323	Aggiornamento automatico
+324	Aggiornato
+325	Segnalazioni aggiornate (anteprima)
+326	segnalazioni
+327	segnalazione
+328	{0} ×{1}
+329	Imbrogli
+330	Foto offensiva
+331	Nome utente offensivo
+332	Griefing
+333	Molestie
+334	Nome utente o foto offensivi
+335	Elusione del ban
+336	Altro
+337	da {0} persone diverse
+338	da {0} persona
+339	Vedi le {0} segnalazioni
+340	Vedi la segnalazione
+341	in {0}, da {1}, {2} fa
+342	{0} g
+343	Archivia le segnalazioni
+344	Segnalazioni su {0} archiviate
+345	{0}–{1} di {2} (totale {3})
+346	Filtra (nickname, e-mail, Discord, codice amico, PID, IP)…
+347	Filtra utenti
+348	Mostra
+349	Azioni
+350	● online
+351	Pagine della lista utenti
+352	Eliminato {0} fa da {1}
+353	Titolare dell'account
+354	Ancora nessun account eliminato.
+355	Nessun account corrisponde a questo filtro.
+356	Nessun giocatore segnalato corrisponde.
+357	Il giocatore viene disconnesso ovunque e non può più accedere finché non viene sbannato.
+358	Motivo
+359	Nota per il team (facoltativa)
+360	perde per sempre amici, cronologia e salvataggi nel cloud. Non si può annullare.
+361	{0} sbannato
+362	{0} bannato per {1}
+363	{0} eliminato
+364	{0} bannato (anteprima)
+365	{0} sbannato (anteprima)
+366	{0} eliminato (anteprima)
+367	{0} disconnesso (anteprima)
+368	{0} creata (anteprima)
+369	(anteprima)
+370	Nextendo Developers
+371	Sviluppa con Nextendo: accesso OAuth, amici, presenza, salvataggi nel cloud e chiavi API.
+372	Home di Nextendo Developers
+373	Nuova applicazione
+374	Dai una nuova dimensione ai tuoi giochi ed emulatori.
+375	Accesso con Nextendo, amici e presenza, salvataggi nel cloud e dati di gioco in tempo reale, con un'unica applicazione OAuth 2.0.
+376	Inizia a sviluppare
+377	Leggi la documentazione
+378	SDK social e amici
+379	Leggi la lista amici del giocatore e chi è online, con il suo consenso.
+380	Esegui il backup e ripristina i salvataggi nella quota Nextendo del giocatore.
+381	Rich Presence e lobby
+382	Mostra cosa sta facendo il giocatore e lascia che gli amici si uniscano alla partita.
+383	OAuth 2.0 e PKCE
+384	Accesso standard. I giocatori inseriscono la password su nextendo.network, mai nella tua app.
+385	Crea un'applicazione, aggiungi un URI di reindirizzamento e i tuoi giocatori potranno accedere in pochi minuti.
+386	Crea un'applicazione
+387	Spazio sviluppatori
+388	GitHub di Nextendo
+389	Impostazioni dell'applicazione
+390	Le tue applicazioni, le guide e tutto per connetterti a Nextendo.
+391	Applicazioni recenti
+392	Vedi tutte le applicazioni
+393	Guide e risorse
+394	Integrazione passo passo per emulatori desktop e mobile.
+395	URI di reindirizzamento e loopback
+396	Porte dinamiche 127.0.0.1:port/callback per le app desktop, schemi personalizzati per il mobile.
+397	Unisciti al Discord ufficiale per parlare con altri sviluppatori.
+398	Cerca un'applicazione…
+399	Cerca un'applicazione
+400	Ordina le applicazioni
+401	Nome, dalla A alla Z
+402	Percorso di navigazione
+403	Modifiche non salvate
+404	Attenzione, hai modifiche non salvate.
+405	Salva le modifiche
+406	Modifiche salvate
+407	Modifiche annullate
+408	Crea una nuova applicazione
+409	Dagli un nome e una descrizione. Il resto (icona, permessi, reindirizzamenti) lo imposti quando l'applicazione esiste.
+410	Il mio emulatore Nextendo
+411	Descrizione
+412	Cosa fa la tua applicazione.
+413	Modello di sicurezza
+414	Applicazione pubblica (desktop / mobile, PKCE)
+415	Per emulatori desktop (Ryujinx) e app mobile. Nessun client secret da custodire o da far trapelare.
+416	Crea l'applicazione
+417	Elimina l'applicazione
+418	Questo elimina
+419	, le sue chiavi e i suoi membri. I giocatori che hanno effettuato l'accesso con essa vengono disconnessi. Non si può annullare.
+420	Inserisci il nome dell'applicazione per confermare:
+421	Ancora nessuna applicazione.
+422	Creane una per ottenere un client ID per l'accesso OAuth.
+423	Ancora nessuna applicazione. Creane una per ottenere un client ID per l'accesso OAuth.
+424	{0} creata
+425	Client pubblico
+426	Informazioni generali
+427	Installazione
+428	Generale e reindirizzamenti
+429	Generatore di URL
+430	Bot e chiavi API
+431	Tester dell'applicazione
+432	Zona pericolosa
+433	Il nome e l'icona che i giocatori vedono quando accedono con la tua applicazione.
+434	Carica un'icona
+435	Rimuovi l'icona
+436	Descrizione (massimo {0} caratteri)
+437	Client ID
+438	Client secret
+439	Copia il client ID
+440	Client ID copiato
+441	Reimposta il client secret
+442	Nuovo secret generato: salva per mantenerlo
+443	Mostrato una sola volta: copialo ora, poi salva
+444	Per emulatori desktop e app mobile: nessun client secret da custodire o da far trapelare. Disattiva per un server in grado di custodire un secret.
+445	Termini di servizio (URL)
+446	Informativa sulla privacy (URL)
+447	Installazione e autorizzazione
+448	Il link che avvia l'accesso e come integrarlo nella tua applicazione.
+449	Link di autorizzazione OAuth 2.0
+450	Link rigenerato dalle impostazioni attuali
+451	Prova l'autorizzazione dal vivo
+452	Guida all'integrazione per sviluppatori
+453	Crea un code verifier
+454	Una stringa casuale da 43 a 128 caratteri, conservata dalla tua app. Il suo SHA-256, codificato in base64url, è il code challenge.
+455	Apri il link di autorizzazione
+456	Nel browser di sistema, con il tuo code_challenge. Il giocatore accede su nextendo.network.
+457	Intercetta il reindirizzamento
+458	Nextendo reindirizza al tuo URI di reindirizzamento con ?code=. Su desktop, resta in ascolto su 127.0.0.1 con una porta libera qualsiasi.
+459	Scambia il codice
+460	POST /oauth/token con il codice e il code_verifier. Ottieni un access token e un refresh token.
+461	Reindirizzamenti e scope OAuth2
+462	Nextendo reindirizza solo agli indirizzi elencati qui. Per le app desktop,
+463	accetta qualsiasi porta.
+464	URI di reindirizzamento {0}
+465	Aggiungi un reindirizzamento
+466	Generatore di URL OAuth2
+467	Seleziona gli scope che servono alla tua applicazione, scegli un reindirizzamento e copia il link.
+468	Reindirizzamento
+469	URL generato
+470	Bot e chiavi API di Nextendo
+471	Un token bot chiama l'API di Nextendo come la tua applicazione, senza un giocatore.
+472	Utente bot di {0}
+473	Token
+474	Nascondi
+475	Reimposta il token
+476	Permessi API
+477	Statistiche della rete
+478	Rotazioni e sessioni di Splatoon
+479	Catalogo pubblico del ModStore
+480	Titoli ufficiali supportati
+481	Profilo del giocatore (nome utente, codice amico, avatar)
+482	Lista amici e presenza
+483	Attività dal vivo e stato di gioco
+484	Salvataggi nel cloud del giocatore
+485	Matchmaking e lobby di gioco
+486	Preferiti ModStore del giocatore
+487	Console di amministrazione
+488	Autenticazione interna
+489	Log di audit e diagnostica
+490	Documentazione ed esempi di codice
+491	Invia il token come
+492	Leggi la documentazione
+493	Rich Presence e stato di gioco
+494	Cosa vedono gli amici dei tuoi giocatori mentre usano la tua applicazione. L'anteprima si aggiorna mentre scrivi.
+495	Titolo o gioco predefinito
+496	Dettagli dell'attività / modalità
+497	Stato di connessione simulato
+498	In gioco
+499	Assente
+500	Mostra il tempo trascorso nell'attività
+501	Nella lobby
+502	tramite {0}
+503	Unisciti alla partita
+504	Guida all'integrazione dell'API Rich Presence
+505	Copia cURL
+506	Comando cURL
+507	Copiato negli appunti
+508	{0} copiato negli appunti
+509	Tester e collaboratori
+510	I membri possono accedere con l'applicazione prima che sia pubblica e modificarla in base al loro ruolo.
+511	Invita un membro (tramite nome utente Nextendo)
+512	Nome utente Nextendo
+513	Invita
+514	Invita via e-mail
+515	Inserisci un indirizzo e-mail per invitare via e-mail
+516	Membri dell'applicazione
+517	{0} membro
+518	{0} membri
+519	Proprietario
+520	Tester
+521	Invitato
+522	Rimuove le chiavi, il bot e i membri. I giocatori che hanno effettuato l'accesso con essa vengono disconnessi.
+523	Account non trovato
+524	Inserisci un codice amico completo, come SW-1234-5678-9012.
+525	È il tuo codice amico.
+526	Richiesta inviata a {0}.
+527	I dettagli del gioco non sono disponibili al momento.
+528	Caricamento dei dettagli del gioco…
+529	Nessun dettaglio eShop per questo gioco.
+530	Nessun gioco corrisponde a «{0}».
+531	I tuoi giochi compariranno qui quando giocherai online.
+532	Ancora nessun gioco
+533	Non ancora giocato
+534	Ancora nessuna attività
+535	Nessun dettaglio
+536	Booster del server
+537	Il download parte sul sito reale
+538	Salvataggio nel cloud eliminato
+539	Paese cambiato in {0}
+540	E-mail di verifica inviata a {0}
+541	il tuo indirizzo
+542	{0} rimosso dai tuoi amici
+543	{0} bloccato
+544	Invia di nuovo l'e-mail
+545	Giocatori
+546	Giocatore
+547	Dimensione
+548	Title ID
+549	Ultimo caricamento
+550	Ieri
+551	Lingua
+552	{0} KB
+553	{0} MB
+554	{0} di {1}
+555	giocatore
+556	Unirti a questa applicazione?
+557	Sei stato invitato a unirti all'applicazione {0} come tester. Accetta per accedere con essa prima che sia pubblica.
+558	Non ora
+559	Accetta l'invito
+560	Invito accettato (anteprima)
+561	Ryujinx Nextendo e Citron Nextendo
+562	Due emulatori configurati per la rete, su Windows, Linux e macOS, con lo stesso account.
+563	Su iPhone e Android: i tuoi amici, la tua attività e i tuoi salvataggi.
+564	Computer in 3D
+565	iPhone e telefono Android in 3D
+566	Dove trovare Nextendo
+567	App di accompagnamento
+568	Progetto comunitario indipendente, non affiliato a Nintendo Co., Ltd. «Nintendo Switch», «Ryujinx», «Citron» e «Prelude» appartengono ai rispettivi proprietari. Non vengono forniti giochi né ROM.
+569	Segui Nextendo
+570	Giochi supportati
+571	Cooperativa e Versus Ops completati
+572	Codice stanza e matchmaking finalizzati
+573	Lobby tra amici tramite ricerca e matchmaking
+574	Pit Stop, sfide Wumpa ed economia completati
+575	Partita rapida e lobby tra amici su emulatore
+576	un emulatore
+577	Galleria avatar (Nintendo e personalizzati)
+578	Personaggio
+579	Sfondo
+580	Cornice
+581	Filtra per gioco
+582	Svuota questo livello
+583	Tutti ({0})
+584	Nintendo Switch ({0})
+585	Custom / Nextendo ({0})
+586	In gioco
+587	Adesso
+588	Caricamento…
+589	Nessuna anteprima per questo gioco.
+590	Anteprima al momento non disponibile.
+591	Download avviato
+592	reinvia l'e-mail
+593	collega su Discord
+594	Nintendo Switch, predefinito ({0})
+595	Anteprima
+596	Foto profilo
+597	Anteprima della foto profilo
+598	Profilo aggiornato.
+599	Livelli dell'avatar
+600	Scegli un avatar
+601	: combina un personaggio, uno sfondo e una cornice
+602	Da 3 a 16 caratteri: lettere, cifre, _ o -.
+603	Nome utente non valido: da 3 a 16 caratteri (lettere, cifre, _ o -).
+604	Actions, poi connettiti a Nextendo Network.
+605	Area amministrazione
+606	Controlla la tua nuova casella e-mail per confermare la modifica.
+607	Citron Nextendo
+608	I salvataggi cloud richiedono un'e-mail verificata e un account Discord collegato. I booster del server hanno 10 MB invece di 5 MB.
+609	Elimina definitivamente
+610	Discord
+611	Attiva il profilo Nextendo, poi collega il tuo account dalla console.
+612	Pagine della lista amici
+613	Il mio account, Nextendo Network
+614	Nessun salvataggio cloud per ora. Salva da Ryujinx o dalla tua Switch dopo aver effettuato l'accesso e i salvataggi appariranno qui.
+615	Nessuna eliminazione: anteprima.
+616	Un solo account ovunque. Accedi una volta per dispositivo.
+617	Rimuovi dagli amici
+618	Ryujinx Nextendo
+619	SW-0000-0000-0000
+620	Cerca amici…
+621	Cerca tra i tuoi giochi
+622	Disconnesso.
+623	Ti abbiamo inviato un link per reimpostare la password.
+624	I tuoi amici, la cronologia e i salvataggi cloud saranno eliminati definitivamente. L'operazione è irreversibile.
+625	modifica
+626	memorizzato su Nextendo sarà eliminato. Il salvataggio sulla console o sull'emulatore non viene toccato.
+627	Scegli un paese
+628	Account eliminato definitivamente.
+629	Acquista sul Nintendo eShop

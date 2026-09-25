@@ -1,1136 +1,361 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="dark" />
-  <title data-i18n="acc.metaTitle">Mon compte — Nextendo Network</title>
-  <meta name="robots" content="noindex" />
-
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=11" />
-  <link rel="stylesheet" href="assets/css/nx-ui.css?v=2" />
-  <style>
-    /* Sauvegardes cloud — espace perso */
-    .saves-quota{margin-bottom:1rem}
-    .saves-quota__top{display:flex;justify-content:space-between;align-items:center;gap:.6rem;margin-bottom:.45rem}
-    .saves-quota__used{font-size:.9rem;color:var(--muted);font-variant-numeric:tabular-nums}
-    .saves-quota__badge{font-size:.72rem;font-weight:700;letter-spacing:.02em;color:#ff6ec7;border:1px solid #ff6ec7;border-radius:999px;padding:.12rem .5rem;white-space:nowrap}
-    .saves-quota__bar{height:8px;border-radius:6px;background:var(--line);overflow:hidden}
-    .saves-quota__fill{height:100%;width:0;border-radius:6px;background:linear-gradient(90deg,#4f8cff,#7c5cff);transition:width .4s var(--ease,ease)}
-    .saves-quota__fill.warn{background:linear-gradient(90deg,#ff9d3d,#ff5d5d)}
-    .saves-quota__fill.booster{background:linear-gradient(90deg,#ff6ec7,#b06cff)}
-    .saves{display:flex;flex-direction:column;gap:.55rem}
-    .save-grace{display:flex;gap:.7rem;align-items:flex-start;padding:.7rem .85rem;margin-bottom:.2rem;border:1px solid #ff9d3d55;border-radius:14px;background:linear-gradient(90deg,#ff9d3d1a,#ff5d5d0f)}
-    .save-grace>i{color:#ff9d3d;font-size:1.25rem;flex:0 0 auto;margin-top:.05rem}
-    .save-grace__t{font-weight:700;color:#ffb765;font-size:.92rem}
-    .save-grace__m{font-size:.84rem;color:var(--muted);margin-top:.15rem;line-height:1.45}
-    .save-card{display:flex;flex-wrap:wrap;align-items:center;gap:.85rem;padding:.7rem .8rem;border:1px solid var(--line);border-radius:14px;background:var(--line-soft)}
-    .save-card__ico{position:relative;width:44px;height:44px;flex:0 0 auto;border-radius:11px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.15rem;color:#fff;background:linear-gradient(135deg,#3a4152,#242a36);overflow:hidden}
-    .save-card__ico img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-    .save-card__main{flex:1 1 auto;min-width:0}
-    .save-card__name{font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-    .save-card__meta{font-size:.82rem;color:var(--muted);margin-top:.12rem}
-    .save-card__size{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums;white-space:nowrap}
-    .save-card__act{display:flex;gap:.3rem;align-items:center;flex:0 0 auto}
-    .save-card__btn{width:34px;height:34px;display:inline-flex;align-items:center;justify-content:center;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--muted);cursor:pointer;transition:color .15s,border-color .15s}
-    .save-card__btn:hover{color:var(--ink,#fff);border-color:var(--muted)}
-    .save-card__btn:disabled{opacity:.6;cursor:default}
-    .save-dl-spin{animation:save-dl-rot .7s linear infinite}
-    @keyframes save-dl-rot{to{transform:rotate(360deg)}}
-    .save-card__btn--danger:hover{color:#ff6b6b;border-color:#ff6b6b}
-    /* Accordéon de détails : morphing ouverture/fermeture (hauteur + fondu + glissement) */
-    .save-details{flex-basis:100%;display:flex;flex-direction:column;gap:.3rem;max-height:0;opacity:0;overflow:hidden;transform:translateY(-6px);transition:max-height .40s cubic-bezier(.16,1,.3,1),opacity .30s ease,transform .40s cubic-bezier(.16,1,.3,1),margin-top .30s ease,padding-top .30s ease}
-    .save-details.open{max-height:640px;opacity:1;transform:none;margin-top:.55rem;padding-top:.55rem;border-top:1px dashed var(--line)}
-    .save-details .save-field{opacity:0;transform:translateY(4px);animation:nxFieldIn .32s cubic-bezier(.16,1,.3,1) forwards}
-    .save-details.open .save-field:nth-child(1){animation-delay:.04s}
-    .save-details.open .save-field:nth-child(2){animation-delay:.08s}
-    .save-details.open .save-field:nth-child(3){animation-delay:.12s}
-    .save-details.open .save-field:nth-child(4){animation-delay:.16s}
-    .save-details.open .save-field:nth-child(5){animation-delay:.20s}
-    .save-details.open .save-field:nth-child(n+6){animation-delay:.24s}
-    @keyframes nxFieldIn{to{opacity:1;transform:none}}
-    /* Apparition en cascade des cartes de save */
-    .save-card{animation:nxCardIn .42s cubic-bezier(.16,1,.3,1) both}
-    @keyframes nxCardIn{from{opacity:0;transform:translateY(10px) scale(.985)}to{opacity:1;transform:none}}
-    .save-card__btn i{transition:transform .35s cubic-bezier(.16,1,.3,1)}
-    @media (prefers-reduced-motion: reduce){
-      .save-details{transition:none}.save-details .save-field,.save-card{animation:none;opacity:1;transform:none}
-    }
-    .save-details__none,.save-details__loading{font-size:.82rem;color:var(--muted)}
-    .save-field{display:flex;justify-content:space-between;gap:.8rem;font-size:.86rem}
-    .save-field__k{color:var(--muted)}
-    .save-field__v{font-weight:600;font-variant-numeric:tabular-nums;display:inline-flex;align-items:center;gap:.4rem}
-    .save-field__img{width:26px;height:26px;object-fit:contain;border-radius:5px;background:rgba(255,255,255,.06);flex:0 0 auto}
-    /* Popup de confirmation custom (remplace le confirm() natif moche) */
-    .nx-confirm{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:1rem;background:rgba(4,6,10,.62);backdrop-filter:blur(4px);opacity:0;transition:opacity .18s var(--ease,ease)}
-    .nx-confirm.show{opacity:1}
-    .nx-confirm__box{width:min(94vw,430px);background:var(--card,#12151c);border:1px solid var(--line);border-radius:16px;padding:1.35rem 1.35rem 1.15rem;box-shadow:0 24px 60px rgba(0,0,0,.5);transform:translateY(10px) scale(.98);transition:transform .18s var(--ease,ease)}
-    .nx-confirm.show .nx-confirm__box{transform:none}
-    .nx-confirm__title{display:flex;align-items:center;gap:.55rem;font-weight:700;font-size:1.05rem;margin-bottom:.55rem}
-    .nx-confirm__title i{color:var(--accent)}
-    .nx-confirm__box.danger .nx-confirm__title i{color:#ff6b6b}
-    .nx-confirm__msg{color:var(--muted);font-size:.92rem;line-height:1.5;margin-bottom:1.2rem}
-    .nx-confirm__actions{display:flex;justify-content:flex-end;gap:.6rem}
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>My account, Nextendo Network</title>
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/rework.css?v=20260925d">
+<link rel="stylesheet" href="assets/css/compte.css?v=20260925e">
+<script src="assets/js/i18n.js?v=20260925d"></script>
 </head>
-<body>
-  <div class="backdrop" aria-hidden="true">
-    <div class="field field--a"></div>
-    <div class="field field--b"></div>
-    <div class="grid-veil"></div>
-  </div>
+<body class="page-compte" data-page="compte" data-attente="donnees">
+<a class="saut" href="#contenu">Skip to content</a>
 
-  <header class="nav" id="nav">
-    <div class="shell nav__inner">
-      <a class="brand" href="/" aria-label="Nextendo Network, accueil">
-        <img class="brand__mark" src="assets/favicon.svg" alt="" width="30" height="30" />
-        <span class="brand__word">Nextendo<span class="brand__dim"> Network</span></span>
-      </a>
-      <div class="nav__end">
-        <a class="ghost-link" href="/"><i class="ph ph-house" aria-hidden="true"></i> <span data-i18n="nav.home">Accueil</span></a>
-        <button class="btn btn--soft btn--sm" id="logout"><i class="ph ph-sign-out" aria-hidden="true"></i> <span data-i18n="profile.logout">Déconnexion</span></button>
+<div id="nx-barre"></div>
+
+<main id="contenu" class="grille-compte">
+
+  <!-- Member card: the banner is only a backdrop; only the photo overlaps it -->
+  <section class="plaque membre" aria-labelledby="membre-pseudo">
+    <div class="membre-ciel" aria-hidden="true"></div>
+    <div class="membre-corps">
+      <img class="membre-photo" id="membre-photo" src="" alt="Your profile picture" width="128" height="128">
+      <div class="membre-texte">
+        <h1 id="membre-pseudo">…</h1>
+        <p class="presence" id="presence"><span class="presence-point" aria-hidden="true"></span><span id="presence-texte">…</span></p>
+        <ul class="puces" id="puces"></ul>
+      </div>
+      <div class="membre-actions">
+        <div class="code-ami">
+          <span class="petit">Your friend code</span>
+          <button type="button" id="copier-code" class="code-bouton">
+            <strong id="code-ami">…</strong>
+            <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg>
+            <span class="sr">Copy</span>
+          </button>
+        </div>
+        <button type="button" class="bouton bouton--verre" data-ouvre="dlg-profil">Edit profile</button>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main id="main"><div class="shell">
-    <section class="account">
-      <div class="account__head">
-        <div class="account__id">
-          <div class="account__avatar" id="avatar">…</div>
-          <div class="account__txt">
-            <span class="account__live"><span class="status__dot" aria-hidden="true"></span> <span data-i18n="acc.live">connecté à Nextendo</span></span>
-            <div class="account__hi"><h1 id="acc-greet"><span class="skeleton" data-i18n="acc.greetLoading">chargement…</span></h1></div>
-          </div>
-          <button class="btn btn--soft btn--sm account__edit" id="edit-profile"><i class="ph ph-pencil-simple" aria-hidden="true"></i> <span data-i18n="acc.editProfile">Éditer le profil</span></button>
-        </div>
+  <div class="colonne">
+    <section class="plaque" aria-labelledby="titre-activite">
+      <h2 id="titre-activite" class="titre-plaque">Activity</h2>
+      <div class="maintenant" id="maintenant"></div>
+      <dl class="compteurs">
+        <div><dt>Play time</dt><dd id="c-temps">…</dd></div>
+        <div><dt>Games played</dt><dd id="c-jeux">…</dd></div>
+        <div><dt>Friends</dt><dd id="c-amis">…</dd></div>
+        <div><dt>Friends online</dt><dd id="c-enligne" class="vert">…</dd></div>
+      </dl>
+    </section>
+
+    <section class="plaque" aria-labelledby="titre-historique">
+      <div class="entete-plaque">
+        <h2 id="titre-historique" class="titre-plaque">Game history</h2>
+        <span class="petit" id="historique-compte"></span>
+      </div>
+      <ul class="historique" id="historique"></ul>
+      <button type="button" class="bouton bouton--verre bouton--large" id="voir-tout" hidden>See all games</button>
+    </section>
+
+    <section class="plaque" aria-labelledby="titre-sauvegardes">
+      <div class="entete-plaque">
+        <h2 id="titre-sauvegardes" class="titre-plaque">Cloud saves</h2>
+        <span class="quota-texte" id="quota-texte">…</span>
+      </div>
+      <div class="quota" aria-hidden="true"><i id="quota-barre"></i></div>
+      <ul class="sauvegardes" id="sauvegardes"></ul>
+      <p class="vide-bloc" id="sauvegardes-vide">No cloud saves yet. Save from Ryujinx or your Switch while signed in, and your saves will appear here.</p>
+      <p class="note">Cloud saves require a verified e-mail and a linked Discord account. Server boosters get 10 MB instead of 5 MB.</p>
+    </section>
+
+    <section class="plaque" aria-labelledby="titre-brancher">
+      <div class="entete-plaque">
+        <h2 id="titre-brancher" class="titre-plaque">Connect this account</h2>
+        <a class="pastille-lien" href="telecharger.html">Downloads</a>
+      </div>
+      <p class="intro">One account everywhere. Sign in once per device.</p>
+      <ul class="branchements">
+        <li><strong>Ryujinx Nextendo</strong><span>Actions, then connect to the Nextendo Network.</span></li>
+        <li><strong>Citron Nextendo</strong><span>Emulation, then Nextendo Network, then Sign in.</span></li>
+        <li><strong>Switch with CFW</strong><span>Enable the Nextendo profile, then link your account from the console.</span></li>
+        <li><strong>Nextendo app</strong><span>Tap Sign in with Nextendo on iPhone or Android.</span></li>
+      </ul>
+    </section>
+  </div>
+
+  <div class="colonne">
+    <section class="plaque" aria-labelledby="titre-amis">
+      <div class="entete-plaque">
+        <h2 id="titre-amis" class="titre-plaque">Friends <span class="compte-amis" id="compte-amis"></span></h2>
       </div>
 
-      <!-- Bannière : e-mail non vérifié (masquée par défaut, affichée au chargement si besoin) -->
-      <div class="banner banner--warn" id="verify-banner" hidden>
-        <span class="banner__i"><i class="ph ph-warning-circle" aria-hidden="true"></i></span>
-        <span class="banner__t" data-i18n-html="acc.verifyBanner"><b>Confirme ton adresse e-mail.</b> On t'a envoyé un lien de vérification à ta création de compte. Sans ça, tu ne pourras pas récupérer ton mot de passe en cas d'oubli.</span>
-        <span class="banner__a"><button class="btn btn--soft btn--sm" id="resend-verify"><i class="ph ph-paper-plane-tilt"></i> <span data-i18n="acc.resend">Renvoyer l'e-mail</span></button></span>
-      </div>
-
-      <div class="account__grid">
-        <div>
-          <div class="member-card">
-            <div class="member-card__top">
-              <span class="member-card__brand"><img src="assets/favicon.svg" alt="" /> NEXTENDO</span>
-              <span class="member-card__chip" id="card-chip" data-i18n="acc.member">MEMBRE</span>
-            </div>
-            <div class="member-card__label" data-i18n="member.label">Friend code</div>
-            <div class="member-card__code" id="fc">SW-••••-••••-••••</div>
-            <div class="member-card__foot">
-              <div class="member-card__name"><span id="card-name">…</span><span data-i18n="member.pseudo">Pseudo</span></div>
-              <div class="member-card__pic" id="mc-pic"><div class="member-card__sig" aria-hidden="true"></div></div>
-            </div>
-          </div>
-
-          <div class="panel" style="margin-top:1.1rem">
-            <div class="callout">
-              <div class="callout__h"><i class="ph ph-plug" aria-hidden="true" style="color:var(--accent)"></i> <span data-i18n="acc.plugTitle">Brancher ce compte</span></div>
-              <p class="hint" style="margin-bottom:0.7rem" data-i18n-html="acc.plugRyujinx"><b>Sur Ryujinx&nbsp;:</b> ouvre <b>Actions → Connexion Nextendo Network</b>, entre tes identifiants, puis lance un jeu compatible et va dans son menu en ligne.</p>
-              <p class="hint" data-i18n-html="acc.plugSwitch"><b>Sur Switch (CFW)&nbsp;:</b> active le profil <b>Nextendo</b> (redirection DNS), connecte ce compte, et joue. Ta photo de profil et ton pseudo te suivent.</p>
-            </div>
-          </div>
-
-          <div class="panel" style="margin-top:1.1rem" id="security-panel">
-            <div class="panel__h"><h2 data-i18n="acc.security">Sécurité</h2><i class="ph ph-lock-key" aria-hidden="true"></i></div>
-            <p class="hint" style="margin-bottom:0.85rem" data-i18n="acc.securityIntro">Gère ton mot de passe, ton adresse e-mail et les appareils connectés à ton compte.</p>
-            <div class="sec-actions">
-              <button class="btn btn--soft btn--sm" id="reset-pw"><i class="ph ph-key" aria-hidden="true"></i> <span data-i18n="acc.resetPw">Réinitialiser le mot de passe</span></button>
-              <button class="btn btn--soft btn--sm" id="change-email"><i class="ph ph-at" aria-hidden="true"></i> <span data-i18n="acc.changeEmail">Changer d'e-mail</span></button>
-              <a class="btn btn--soft btn--sm" href="/sessions"><i class="ph ph-devices" aria-hidden="true"></i> <span data-i18n="acc.mySessions">Mes sessions</span></a>
-              <a class="btn btn--soft btn--sm" href="/admin" id="admin-link" hidden><i class="ph ph-shield-star" aria-hidden="true"></i> <span data-i18n="acc.adminSpace">Espace admin</span></a>
-            </div>
-            <div class="sec-actions" style="margin-top:0.8rem;border-top:1px solid var(--line-soft,rgba(255,255,255,.07));padding-top:0.85rem">
-              <button class="btn btn--danger btn--sm" id="delete-account"><i class="ph ph-trash" aria-hidden="true"></i> <span data-i18n="acc.deleteAccount">Supprimer mon compte</span></button>
-            </div>
-          </div>
+      <form class="ajout" id="form-ajout" autocomplete="off">
+        <label for="code-ajout">Add a friend</label>
+        <div class="ajout-ligne">
+          <input id="code-ajout" name="code" inputmode="numeric" placeholder="SW-0000-0000-0000" maxlength="17" aria-describedby="ajout-etat">
+          <button type="submit" class="bouton bouton--plein">Send request</button>
         </div>
+        <p class="ajout-etat" id="ajout-etat" role="status"></p>
+      </form>
 
-        <div>
-          <div class="panel">
-            <div class="panel__h"><h2 data-i18n="acc.identity">Identité réseau</h2><i class="ph ph-identification-card" aria-hidden="true"></i></div>
-            <div class="kv">
-              <div class="kv__row"><span class="kv__k" data-i18n="acc.pseudo">Pseudo</span><span class="kv__v" id="kv-name">…</span></div>
-              <div class="kv__row"><span class="kv__k" data-i18n="member.label">Friend code</span>
-                <span class="kv__v inline-copy"><span class="mono" id="kv-fc">SW-…</span><button class="copy-btn" data-copy="fc" data-i18n="acc.copy">copier</button></span>
-              </div>
-              <div class="kv__row"><span class="kv__k" data-i18n="acc.pid">Identifiant réseau (PID)</span><span class="kv__v mono" id="kv-pid">…</span></div>
-              <div class="kv__row"><span class="kv__k" data-i18n="acc.country">Pays</span>
-                <span class="kv__v"><span id="kv-country"></span> <span class="kv__note" id="country-note"></span></span>
-              </div>
-              <div class="kv__row"><span class="kv__k" data-i18n="form.email">E-mail</span><span class="kv__v"><span id="kv-email">…</span> <span class="email-chip" id="email-chip" hidden></span></span></div>
-              <div class="kv__row"><span class="kv__k" data-i18n="acc.discord">Discord</span><span class="kv__v" id="kv-discord">…</span></div>
-              <div class="kv__row"><span class="kv__k" data-i18n="acc.memberSince">Membre depuis</span><span class="kv__v" id="kv-since">…</span></div>
-            </div>
-          </div>
-
-          <div class="panel">
-            <div class="panel__h"><h2 data-i18n="acc.friends">Amis</h2><i class="ph ph-users-three" aria-hidden="true"></i></div>
-            <div id="requests"></div>
-            <div class="friends" id="friends"><div class="empty" data-i18n="acc.friendsLoading">Chargement de tes amis…</div></div>
-            <form class="add-friend" id="add-friend">
-              <input class="input" id="fc-input" placeholder="SW-0000-0000-0000" autocomplete="off" />
-              <button class="btn btn--primary" type="submit" data-i18n="acc.add">Ajouter</button>
-            </form>
-            <p class="hint" style="margin-top:0.7rem" data-i18n="acc.friendsHint">Partage ton friend code pour que tes amis t'ajoutent — vous vous retrouverez en ligne dans vos parties.</p>
-          </div>
+      <div class="outils-amis">
+        <label class="recherche">
+          <span class="sr">Search friends</span>
+          <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          <input type="search" id="recherche" placeholder="Search friends…" autocomplete="off">
+        </label>
+        <div class="filtres" role="tablist" aria-label="Filter friends">
+          <button type="button" role="tab" aria-selected="true" data-filtre="tous">All</button>
+          <button type="button" role="tab" aria-selected="false" data-filtre="enligne">Online</button>
+          <button type="button" role="tab" aria-selected="false" data-filtre="favoris">Favorites</button>
         </div>
       </div>
+      <ul class="amis" id="amis" aria-live="polite"></ul>
+      <nav class="pages" id="pages" aria-label="Friends list pages"></nav>
+    </section>
 
-      <div class="panel" style="margin-top:1.5rem" id="saves-panel" hidden>
-        <div class="panel__h"><h2 data-i18n="save.title">Sauvegardes cloud</h2><i class="ph ph-cloud-arrow-up" aria-hidden="true"></i></div>
-        <div class="saves-quota" id="saves-quota" hidden>
-          <div class="saves-quota__top">
-            <span class="saves-quota__used" id="saves-quota-used">—</span>
-            <span class="saves-quota__badge" id="saves-quota-badge" hidden></span>
-          </div>
-          <div class="saves-quota__bar"><div class="saves-quota__fill" id="saves-quota-fill"></div></div>
-        </div>
-        <div class="saves" id="saves-list"><div class="empty" data-i18n="save.loading">Chargement de tes sauvegardes…</div></div>
-        <p class="hint" style="margin-top:0.85rem" data-i18n="save.hint">Tes sauvegardes suivent ton compte : elles sont envoyées dans le cloud à la fin de tes parties et restaurées sur une nouvelle machine.</p>
+    <section class="plaque" aria-labelledby="titre-demandes">
+      <h2 id="titre-demandes" class="titre-plaque">Friend requests</h2>
+      <h3 class="sous-titre">Received</h3>
+      <ul class="demandes" id="recues"></ul>
+      <h3 class="sous-titre">Sent</h3>
+      <ul class="demandes" id="envoyees"></ul>
+      <button type="button" class="plus" id="plus-envoyees" hidden></button>
+    </section>
+
+    <section class="plaque identite" aria-labelledby="titre-identite">
+      <div class="entete-plaque">
+        <h2 id="titre-identite" class="titre-plaque">Network identity</h2>
+        <svg class="entete-icone" viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="11" r="2.2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M6 16c.6-1.5 1.7-2.2 3-2.2s2.4.7 3 2.2M14 10h4M14 13.5h3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
       </div>
-
-      <div class="panel" style="margin-top:1.5rem">
-        <div class="panel__h"><h2 data-i18n="acc.history">Historique de jeu</h2><i class="ph ph-clock-counter-clockwise" aria-hidden="true"></i></div>
-        <div class="history" id="history"><div class="empty" data-i18n="acc.historyLoading">Chargement de l'historique…</div></div>
+      <dl class="lignes">
+        <div><dt>Username</dt><dd><strong id="i-pseudo">…</strong><button type="button" class="pilule" data-ouvre="dlg-profil">edit</button></dd></div>
+        <div><dt>Friend code</dt><dd><strong class="mono" id="i-code">…</strong><button type="button" class="pilule" id="i-copier">copy</button></dd></div>
+        <div><dt>Network ID (PID)</dt><dd><strong class="mono" id="i-pid">…</strong></dd></div>
+        <div><dt id="pays-label">Country</dt><dd><div class="pays" id="pays"></div></dd></div>
+        <div><dt>E-mail</dt><dd><strong id="i-email">…</strong><span class="badge" id="i-verifie"></span></dd></div>
+        <div><dt>Discord</dt><dd id="i-discord">…</dd></div>
+        <div><dt>Member since</dt><dd><strong id="i-depuis">…</strong></dd></div>
+      </dl>
+      <h3 class="sous-titre sous-titre--securite">Security</h3>
+      <div class="actions-compte">
+        <button type="button" class="bouton bouton--verre" id="btn-reinitialiser-mdp">Reset password</button>
+        <button type="button" class="bouton bouton--verre" data-ouvre="dlg-email">Change e-mail</button>
+        <a class="bouton bouton--verre" href="sessions.html">My sessions</a>
+      </div>
+      <div class="actions-compte actions-compte--admin" id="lien-admin" hidden>
+        <a class="bouton bouton--verre" href="admin.html">Admin area</a>
+      </div>
+      <div class="zone-danger">
+        <button type="button" class="bouton bouton--sortie" id="btn-deconnexion">Sign out</button>
+        <button type="button" class="bouton bouton--danger" data-ouvre="dlg-supprimer">Delete my account</button>
       </div>
     </section>
-  </div></main>
+  </div>
+</main>
 
-  <!-- Modal : éditer le profil -->
-  <div class="modal" id="edit-modal" hidden>
-    <div class="modal__backdrop" data-close></div>
-    <div class="modal__panel modal__panel--editor" role="dialog" aria-modal="true" aria-labelledby="edit-title">
-      <div class="modal__head">
-        <h2 id="edit-title" data-i18n="ed.title">Éditer le profil</h2>
-        <button class="modal__x" data-close data-i18n-attr="aria-label:form.close" aria-label="Fermer"><i class="ph ph-x"></i></button>
-      </div>
-      <div class="modal__body">
-        <div id="edit-msg" class="msg"></div>
+<div id="nx-pied"></div>
 
-        <div class="editor">
-          <div class="editor__preview">
-            <canvas id="avatar-canvas" width="256" height="256" data-i18n-attr="aria-label:ed.previewAria" aria-label="Aperçu de la photo de profil"></canvas>
-            <span data-i18n="ed.preview">Aperçu</span>
-          </div>
-          <div class="editor__controls">
-            <div class="fld">
-              <label for="edit-pseudo" data-i18n="ed.pseudo">Pseudo</label>
-              <input class="input" id="edit-pseudo" maxlength="16" autocomplete="off" />
-              <span class="fld__hint" data-i18n="ed.pseudoHint">3 à 16 caractères — lettres, chiffres, _ ou -.</span>
-            </div>
-            <div class="fld">
-              <label data-i18n="ed.bgColor">Couleur de fond</label>
-              <div class="swatches" id="swatches"></div>
-              <div class="cpick" id="cpick" hidden>
-                <div class="cpick__sv" id="cpick-sv"><div class="cpick__sv-thumb" id="cpick-sv-thumb"></div></div>
-                <div class="cpick__hue" id="cpick-hue"><div class="cpick__hue-thumb" id="cpick-hue-thumb"></div></div>
-                <div class="cpick__row"><span class="cpick__prev" id="cpick-prev"></span><input class="input cpick__hex" id="cpick-hex" maxlength="7" spellcheck="false" data-i18n-attr="aria-label:ed.hexAria" aria-label="Code couleur hexadécimal"></div>
-              </div>
-            </div>
-          </div>
+<!-- Dialogs -->
+<dialog id="dlg-profil" class="dialogue dialogue--profil" aria-labelledby="dlg-profil-titre">
+  <form method="dialog" class="dialogue-corps" data-sauve="Profile updated.">
+    <div class="entete-plaque" style="margin-bottom:0">
+      <h2 id="dlg-profil-titre">Edit profile</h2>
+      <button type="button" class="fermer-x fermer-x--plat" data-ferme aria-label="Close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+
+    <div class="editeur-haut">
+      <div class="editeur-apercu">
+        <div class="profil-apercu" id="profil-apercu">
+          <img id="profil-photo" src="" alt="Profile picture preview" width="128" height="128">
         </div>
-
-        <div class="icon-picker">
-          <div class="modal__sub" data-i18n-html="ed.photoSub">Photo de profil <span class="ip-hint">— superpose un personnage, un fond et un cadre</span></div>
-          <div class="ip-head">
-            <div class="ip-tabs" id="ip-tabs"></div>
-            <div class="ip-head__r">
-              <button class="ip-clear" id="ip-clear" type="button" hidden><i class="ph ph-x"></i> <span data-i18n="ed.remove">Retirer</span></button>
-              <select class="input ip-game" id="ip-game" data-i18n-attr="aria-label:ed.filterGame" aria-label="Filtrer par jeu"></select>
-            </div>
-          </div>
-          <div class="avatar-grid ip-grid" id="avatar-grid"></div>
-        </div>
+        <span class="apercu-label">Preview</span>
       </div>
-      <div class="modal__foot">
-        <button class="btn btn--soft" data-close data-i18n="form.cancel">Annuler</button>
-        <button class="btn btn--primary" id="save-profile" data-i18n="ed.save">Enregistrer</button>
+      <div class="editeur-champs">
+        <label class="champ">Username
+          <input id="profil-pseudo" maxlength="16" pattern="[A-Za-z0-9_-]{3,16}" required autocomplete="off">
+          <small>3 to 16 characters: letters, digits, _ or -.</small>
+        </label>
+        <fieldset class="couleurs">
+          <legend>Background color</legend>
+          <div id="couleurs"></div>
+        </fieldset>
       </div>
     </div>
-  </div>
 
-  <!-- Modal : profil d'un ami -->
-  <div class="modal" id="friend-modal" hidden>
-    <div class="modal__backdrop" data-fclose></div>
-    <div class="modal__panel modal__panel--profile" role="dialog" aria-modal="true" aria-labelledby="fm-name">
-      <button class="modal__x fm-hero__x" data-fclose aria-label="Fermer"><i class="ph ph-x"></i></button>
-      <div class="fm-hero" id="fm-hero">
-        <div class="fm-pic" id="fm-pic" aria-hidden="true"></div>
-        <div class="fm-hero__id">
-          <h2 id="fm-name" data-i18n="fr.defaultName">Ami</h2>
-          <div class="fm-hero__meta">
-            <span class="fm-badge" id="fm-status"></span>
-            <span class="fm-code" id="fm-code">—</span>
-          </div>
+    <fieldset class="avatar-choix">
+      <legend>Profile picture <span class="ip-indice">: layer a character, background, and frame</span></legend>
+      <div class="ip-barre">
+        <div class="avatar-onglets" role="tablist" aria-label="Avatar layers">
+          <button type="button" role="tab" data-calque="char" aria-selected="true"><span class="onglet-texte">Character</span><span class="onglet-point" aria-hidden="true"></span></button>
+          <button type="button" role="tab" data-calque="bg" aria-selected="false"><span class="onglet-texte">Background</span><span class="onglet-point" aria-hidden="true"></span></button>
+          <button type="button" role="tab" data-calque="frame" aria-selected="false"><span class="onglet-texte">Frame</span><span class="onglet-point" aria-hidden="true"></span></button>
+        </div>
+        <div class="ip-barre-droite">
+          <button type="button" class="ip-clear-btn" id="avatar-vider" hidden>Clear this layer</button>
+          <select id="avatar-jeu" class="ip-select" aria-label="Filter by game"></select>
         </div>
       </div>
-      <div class="modal__body">
-        <div class="fm-stats">
-          <div class="fm-stat"><i class="ph ph-clock-user"></i><div><span class="fm-stat__v" id="fm-total">—</span><span class="fm-stat__k" data-i18n="fr.playtime">Temps de jeu</span></div></div>
-          <div class="fm-stat"><i class="ph ph-game-controller"></i><div><span class="fm-stat__v" id="fm-games">—</span><span class="fm-stat__k" data-i18n="fr.gamesPlayed">Jeux joués</span></div></div>
-          <div class="fm-stat"><i class="ph ph-star"></i><div><span class="fm-stat__v fm-stat__v--sm" id="fm-fav">—</span><span class="fm-stat__k" data-i18n="fr.favGame">Jeu favori</span></div></div>
-          <div class="fm-stat"><i class="ph ph-calendar-blank"></i><div><span class="fm-stat__v fm-stat__v--sm" id="fm-since">—</span><span class="fm-stat__k" data-i18n="acc.memberSince">Membre depuis</span></div></div>
-        </div>
-        <div class="kv">
-          <div class="kv__row"><span class="kv__k" data-i18n="acc.pid">Identifiant réseau (PID)</span><span class="kv__v" id="fm-pid">—</span></div>
-          <div class="kv__row"><span class="kv__k" data-i18n="fr.lastActivity">Dernière activité</span><span class="kv__v" id="fm-last">—</span></div>
-        </div>
-        <div>
-          <div class="modal__sub" data-i18n="acc.history">Historique de jeu</div>
-          <div class="history" id="fm-history"><div class="empty" data-i18n="fr.loading">Chargement…</div></div>
-        </div>
+      <div class="avatar-grille" id="avatar-grille" role="listbox" aria-label="Choose an avatar"></div>
+    </fieldset>
+
+    <canvas id="avatar-toile" width="256" height="256" hidden></canvas>
+    <input type="file" accept="image/*" id="profil-fichier" hidden>
+    <button type="button" id="profil-retirer" hidden></button>
+
+    <div class="ligne-boutons fin">
+      <button value="annuler" class="bouton bouton--verre" formnovalidate>Cancel</button>
+      <button value="ok" class="bouton bouton--plein" id="save-profile">Save</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlg-email" class="dialogue" aria-labelledby="dlg-email-titre">
+  <form method="dialog" class="dialogue-corps" data-sauve="Check your new inbox to confirm the change.">
+    <h2 id="dlg-email-titre">Change e-mail</h2>
+    <label class="champ">New e-mail address<input type="email" required autocomplete="email"></label>
+    <label class="champ">Your current password<input type="password" required autocomplete="current-password"></label>
+    <div class="ligne-boutons fin">
+      <button value="annuler" class="bouton bouton--verre" formnovalidate>Cancel</button>
+      <button value="ok" class="bouton bouton--plein">Change e-mail</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlg-supprimer" class="dialogue" aria-labelledby="dlg-supprimer-titre">
+  <form method="dialog" class="dialogue-corps" id="form-supprimer">
+    <h2 id="dlg-supprimer-titre">Delete my account</h2>
+    <p>Your friends, history and cloud saves will be deleted permanently. This cannot be undone.</p>
+    <label class="champ">Your password, to confirm<input type="password" id="suppr-mdp" required autocomplete="current-password"></label>
+    <div class="ligne-boutons fin">
+      <button value="annuler" class="bouton bouton--verre" formnovalidate>Cancel</button>
+      <button value="ok" class="bouton bouton--danger" id="btn-confirmer-suppr">Delete permanently</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="dlg-ami" class="dialogue dialogue--large" aria-labelledby="fm-nom">
+  <div class="fiche">
+    <div class="fiche-ciel" aria-hidden="true"></div>
+    <button type="button" class="fermer-x" data-ferme aria-label="Close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    <div class="fiche-tete">
+      <img class="fiche-photo" id="fm-photo" src="" alt="" width="104" height="104">
+      <div class="fiche-titre">
+        <h2 id="fm-nom">…</h2>
+        <p class="presence" id="fm-presence"><span class="presence-point" aria-hidden="true"></span><span id="fm-etat"></span></p>
       </div>
-      <div class="modal__foot">
-        <button class="btn btn--danger" id="fm-block"><i class="ph ph-prohibit"></i> <span data-i18n="fr.block">Bloquer</span></button>
-        <button class="btn btn--soft" id="fm-remove"><i class="ph ph-user-minus"></i> <span data-i18n="fr.remove">Supprimer</span></button>
-        <button class="btn btn--soft" data-fclose data-i18n="form.close">Fermer</button>
-      </div>
+      <button type="button" class="code-bouton" id="fm-code"><strong></strong><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg><span class="sr">Copy friend code</span></button>
+    </div>
+    <dl class="fiche-stats">
+      <div><dt>Play time</dt><dd id="fm-temps">…</dd></div>
+      <div><dt>Games played</dt><dd id="fm-jeux">…</dd></div>
+      <div><dt>Favorite game</dt><dd id="fm-favori-jeu">…</dd></div>
+      <div><dt>Member since</dt><dd id="fm-depuis">…</dd></div>
+      <div><dt>Network ID (PID)</dt><dd class="mono" id="fm-pid">…</dd></div>
+      <div><dt>Last activity</dt><dd id="fm-derniere">…</dd></div>
+    </dl>
+    <h3 class="sous-titre">Game history</h3>
+    <ul class="historique historique--fiche" id="fm-historique"></ul>
+    <div class="fiche-actions">
+      <button type="button" class="bouton bouton--verre" id="fm-favori">Add to favorites</button>
+      <span class="espace"></span>
+      <button type="button" class="bouton bouton--sortie" id="fm-retirer">Remove from friends</button>
+      <button type="button" class="bouton bouton--danger" id="fm-bloquer">Block</button>
     </div>
   </div>
+</dialog>
 
-  <!-- Modal : fiche d'un jeu (façon Discord) -->
-  <div class="modal" id="game-modal" hidden>
-    <div class="modal__backdrop" data-gclose></div>
-    <div class="modal__panel modal__panel--game" role="dialog" aria-modal="true" aria-labelledby="gm-name">
-      <button class="modal__x gm-head__x" data-gclose aria-label="Fermer"><i class="ph ph-x"></i></button>
-      <!-- en-tête : art flou + jaquette + badge + titre + genres -->
-      <header class="gm-head" id="gm-head">
-        <div class="gm-head__bg" id="gm-headbg"></div>
-        <div class="gm-head__row">
-          <div class="gm-cover" id="gm-cover" aria-hidden="true"></div>
-          <div class="gm-head__id">
-            <span class="gm-badge" id="gm-badge" hidden></span>
-            <h2 id="gm-name" data-i18n="gm.defaultName">Jeu</h2>
-            <div class="gm-sub" id="gm-sub"></div>
-          </div>
-        </div>
-      </header>
-      <!-- corps 2 colonnes -->
-      <div class="gm-body">
-        <div class="gm-main">
-          <div class="gm-media" id="gm-media" hidden>
-            <div class="gm-stage" id="gm-stage"></div>
-            <div class="gm-thumbs" id="gm-thumbs"></div>
-          </div>
-          <p class="gm-desc" id="gm-desc"></p>
-        </div>
-        <aside class="gm-side">
-          <div class="gm-block gm-prog">
-            <div class="modal__sub" data-i18n="gm.yourProgress">Ta progression</div>
-            <div class="gm-prog__row"><i class="ph ph-clock-user"></i><div><b id="gm-playtime">—</b><span data-i18n="gm.playtimeOf">de jeu</span></div></div>
-            <div class="gm-prog__row"><i class="ph ph-calendar-blank"></i><div><b id="gm-lastplayed">—</b><span data-i18n="gm.lastSession">dernière partie</span></div></div>
-          </div>
-          <div class="gm-block gm-details">
-            <div class="modal__sub" data-i18n="gm.details">Détails</div>
-            <div class="gm-drow"><span class="gm-dk" data-i18n="gm.genres">Genres</span><span class="gm-dv" id="gm-genres">—</span></div>
-            <div class="gm-drow"><span class="gm-dk" data-i18n="gm.publisher">Éditeur</span><span class="gm-dv" id="gm-publisher">—</span></div>
-            <div class="gm-drow"><span class="gm-dk" data-i18n="gm.developer">Développeur</span><span class="gm-dv" id="gm-developer">—</span></div>
-            <div class="gm-drow"><span class="gm-dk" data-i18n="gm.release">Date de sortie</span><span class="gm-dv" id="gm-release">—</span></div>
-            <div class="gm-drow"><span class="gm-dk" data-i18n="gm.platforms">Plateformes</span><span class="gm-dv gm-icons" id="gm-platforms">—</span></div>
-            <div class="gm-drow" id="gm-links-row" hidden><span class="gm-dk" data-i18n="gm.links">Liens</span><span class="gm-dv gm-icons" id="gm-links"></span></div>
-            <div class="gm-drow" id="gm-meta-row" hidden><span class="gm-dk" data-i18n="gm.metacritic">Métacritique</span><span class="gm-dv" id="gm-metacritic"></span></div>
-          </div>
-        </aside>
+<dialog id="dlg-jeux" class="dialogue dialogue--large" aria-labelledby="jeux-titre">
+  <div class="dialogue-corps">
+    <div class="entete-plaque">
+      <h2 id="jeux-titre">All your games <span class="compte-amis" id="jeux-compte"></span></h2>
+      <button type="button" class="fermer-x fermer-x--plat" data-ferme aria-label="Close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+    <label class="recherche">
+      <span class="sr">Search through your games</span>
+      <svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      <input type="search" id="jeux-recherche" placeholder="Search through your games" autocomplete="off">
+    </label>
+    <div class="tri" role="group" aria-label="Sort games">
+      <button type="button" aria-pressed="true" data-tri="recent">Most recent</button>
+      <button type="button" aria-pressed="false" data-tri="temps">Most played</button>
+      <button type="button" aria-pressed="false" data-tri="nom">A to Z</button>
+    </div>
+    <ul class="historique historique--tout" id="jeux-liste"></ul>
+  </div>
+</dialog>
+
+<dialog id="dlg-jeu" class="dialogue dialogue--jeu" aria-labelledby="gm-nom">
+  <div class="jeu">
+    <div class="jeu-tete">
+      <div class="jeu-fond" id="gm-fond" aria-hidden="true"></div>
+      <img class="jeu-icone" id="gm-icone" src="" alt="" width="96" height="96">
+      <div class="jeu-titre">
+        <h2 id="gm-nom">…</h2>
+        <p class="petit" id="gm-sous"></p>
       </div>
-      <div class="modal__foot">
-        <button class="btn btn--soft" data-gclose data-i18n="form.close">Fermer</button>
+      <button type="button" class="fermer-x" data-ferme aria-label="Close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+    </div>
+    <div class="jeu-corps">
+      <div class="jeu-media">
+        <div class="jeu-scene"><img id="gm-scene" src="" alt=""></div>
+        <div class="jeu-vignettes" id="gm-vignettes" role="group" aria-label="Screenshots"></div>
+        <p class="jeu-accroche" id="gm-accroche"></p>
+        <p class="jeu-desc" id="gm-desc"></p>
       </div>
+      <aside class="jeu-cote">
+        <a class="bouton bouton--plein jeu-achat" id="gm-achat" href="https://www.nintendo.com/" target="_blank" rel="noopener noreferrer" hidden>
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M3 4h2.2l2.1 11.2a1.5 1.5 0 0 0 1.5 1.2h8.4a1.5 1.5 0 0 0 1.5-1.1L20.5 8H6.1" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.5" cy="20" r="1.4" fill="currentColor"/><circle cx="17" cy="20" r="1.4" fill="currentColor"/></svg>
+          <span>Buy on the Nintendo eShop</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <section class="jeu-bloc">
+          <h3 id="gm-progres-titre">Your progress</h3>
+          <div class="jeu-progres">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 7v5l3 2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <div><strong id="gm-temps">…</strong><span>played</span></div>
+          </div>
+          <div class="jeu-progres">
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="3.5" y="5" width="17" height="15" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 10h17M8 3v4M16 3v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            <div><strong id="gm-derniere">…</strong><span>last session</span></div>
+          </div>
+        </section>
+        <section class="jeu-bloc">
+          <h3>Details</h3>
+          <dl class="lignes lignes--serrees" id="gm-details"></dl>
+        </section>
+      </aside>
     </div>
   </div>
+</dialog>
 
-  <!-- Modal : changer d'adresse e-mail -->
-  <div class="modal" id="email-modal" hidden>
-    <div class="modal__backdrop" data-eclose></div>
-    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="em-title" style="max-width:27rem">
-      <div class="modal__head">
-        <h2 id="em-title" data-i18n="em.title">Changer d'adresse e-mail</h2>
-        <button class="modal__x" data-eclose data-i18n-attr="aria-label:form.close" aria-label="Fermer"><i class="ph ph-x"></i></button>
-      </div>
-      <div class="modal__body">
-        <div id="em-msg" class="msg"></div>
-        <p class="hint" style="margin-bottom:0.9rem" data-i18n="em.intro">Ta nouvelle adresse devra être confirmée par e-mail. En attendant, ton compte redevient « non vérifié ».</p>
-        <div class="fld">
-          <label for="em-new" data-i18n="em.new">Nouvelle adresse e-mail</label>
-          <input class="input" id="em-new" type="email" autocomplete="email" data-i18n-attr="placeholder:em.newPh" placeholder="nouvelle@exemple.com" />
-        </div>
-        <div class="fld">
-          <label for="em-pw" data-i18n="em.currentPw">Ton mot de passe actuel</label>
-          <div class="pw">
-            <input class="input" id="em-pw" type="password" autocomplete="current-password" data-i18n-attr="placeholder:em.currentPwPh" placeholder="pour confirmer que c'est bien toi" />
-            <button type="button" class="pw__eye" data-eye="em-pw" data-i18n-attr="aria-label:form.showPw" aria-label="Afficher le mot de passe"><i class="ph ph-eye"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="modal__foot">
-        <button class="btn btn--soft" data-eclose data-i18n="form.cancel">Annuler</button>
-        <button class="btn btn--primary" id="em-save" data-i18n="em.save">Changer l'e-mail</button>
-      </div>
-    </div>
+<dialog id="dlg-sauvegarde" class="dialogue dialogue--large" aria-labelledby="sv-titre">
+  <div class="dialogue-corps">
+    <div class="entete-plaque"><h2 id="sv-titre">…</h2><button type="button" class="fermer-x fermer-x--plat" data-ferme aria-label="Close"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button></div>
+    <dl class="lignes" id="sv-details"></dl>
   </div>
+</dialog>
 
-  <!-- Modal : suppression du compte (confirmée par mot de passe) -->
-  <div class="modal" id="delete-modal" hidden>
-    <div class="modal__backdrop" data-dclose></div>
-    <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="del-title" style="max-width:29rem">
-      <div class="modal__head">
-        <h2 id="del-title" data-i18n="del.title">Supprimer mon compte</h2>
-        <button class="modal__x" data-dclose data-i18n-attr="aria-label:form.close" aria-label="Fermer"><i class="ph ph-x"></i></button>
-      </div>
-      <div class="modal__body">
-        <div id="del-msg" class="msg"></div>
-        <p class="hint" data-i18n-html="del.warn">Cette action est <b>irréversible</b>. Ton pseudo, ton PID, ton e-mail et ton Discord sont libérés, tu es retiré de la liste d'amis de tout le monde, et tu perds l'accès. Un enregistrement « supprimé » est conservé pour la modération.</p>
-        <div class="fld" style="margin-top:0.9rem">
-          <label for="del-pw" data-i18n="del.pw">Ton mot de passe, pour confirmer</label>
-          <div class="pw">
-            <input class="input" id="del-pw" type="password" autocomplete="current-password" data-i18n-attr="placeholder:del.pwPh" placeholder="mot de passe" />
-            <button type="button" class="pw__eye" data-eye="del-pw" data-i18n-attr="aria-label:form.showPw" aria-label="Afficher le mot de passe"><i class="ph ph-eye"></i></button>
-          </div>
-        </div>
-      </div>
-      <div class="modal__foot">
-        <button class="btn btn--soft" data-dclose data-i18n="form.cancel">Annuler</button>
-        <button class="btn btn--danger" id="del-save"><i class="ph ph-trash"></i> <span data-i18n="del.confirm">Supprimer définitivement</span></button>
-      </div>
-    </div>
+<dialog id="dlg-sauvegarde-suppr" class="dialogue" aria-labelledby="svs-titre">
+  <div class="dialogue-corps">
+    <h2 id="svs-titre">Delete this cloud save?</h2>
+    <p>The copy of <strong id="svs-nom"></strong> stored on Nextendo will be deleted. The save on your console or emulator is untouched.</p>
+    <div class="ligne-fin"><button type="button" class="bouton bouton--verre" data-ferme>Cancel</button><button type="button" class="bouton bouton--danger" id="svs-ok">Delete</button></div>
   </div>
+</dialog>
 
-  <script src="/assets/js/nx-country.js" defer></script>
-  <script src="assets/js/app.js?v=8"></script>
-  <script src="assets/js/nx-ui.js?v=3"></script>
-  <script src="assets/js/nx-i18n.js?v=3"></script>
-  <script src="assets/js/nx-i18n-more.js?v=4"></script>
-  <script src="assets/js/nx-i18n-app.js?v=3"></script>
-  <script src="assets/js/nx-i18n-app-more.js?v=3"></script>
-  <script>
-    const $ = (id) => document.getElementById(id);
-    // helpers i18n : T(clé, secours, {vars}) + locale date selon la langue courante
-    const T = (k, fb, vars) => { let s = (window.NXI18N && NXI18N.t(k)); if (s == null) s = fb; if (vars) for (const p in vars) s = String(s).split('{'+p+'}').join(vars[p]); return s; };
-    const LOCS = { en:'en-US', fr:'fr-FR', es:'es-ES', pt:'pt-BR', de:'de-DE', it:'it-IT', ru:'ru-RU', zh:'zh-CN', ja:'ja-JP', ar:'ar' };
-    const LOC = () => LOCS[(window.NXI18N && NXI18N.lang && NXI18N.lang()) || 'fr'] || 'fr-FR';
-    $('logout').addEventListener('click', () => NX.logout());
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-    /* ---- suppression du compte (danger, confirmée par mot de passe) ---- */
-    (function(){
-      const dModal=$('delete-modal'); if(!dModal) return;
-      const dMsg=$('del-msg');
-      const openD=()=>{ dMsg.textContent=''; dMsg.className='msg'; $('del-pw').value=''; dModal.hidden=false; setTimeout(()=>$('del-pw').focus(),50); };
-      const closeD=()=>{ dModal.hidden=true; };
-      $('delete-account').addEventListener('click', openD);
-      dModal.querySelectorAll('[data-dclose]').forEach(el=>el.addEventListener('click', closeD));
-      document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !dModal.hidden) closeD(); });
-      $('del-save').addEventListener('click', async ()=>{
-        const pw=$('del-pw').value;
-        if(!pw){ dMsg.textContent=T('del.needPw','Entre ton mot de passe pour confirmer.'); dMsg.className='msg err'; return; }
-        const b=$('del-save'); b.disabled=true;
-        try {
-          await NX.api('/api/delete-account', { password: pw });
-          NX.toast(T('del.done','Compte supprimé. À bientôt.'));
-          setTimeout(()=>NX.logout(), 1000);
-        } catch(err){
-          dMsg.textContent=(err&&err.message)||T('del.err','Échec de la suppression.'); dMsg.className='msg err';
-          b.disabled=false;
-        }
-      });
-    })();
-    function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
-    function initial(name){ return (name||'?').trim().charAt(0).toUpperCase(); }
-    const ICONS = ['ph-game-controller','ph-ghost','ph-rocket','ph-star','ph-cat','ph-dog','ph-alien','ph-robot','ph-skull','ph-heart','ph-lightning','ph-fire','ph-crown','ph-diamond','ph-planet','ph-sword','ph-shield','ph-paw-print','ph-bird','ph-flower','ph-smiley','ph-soccer-ball','ph-trophy','ph-sparkle'];
-    const COLORS = ['#1ca9e0','#e4404a','#36ce73','#8b5cf6','#f59e0b','#ec4899','#14b8a6','#eab308','#6366f1','#ef7c3a','#22d3ee','#64748b'];
-    const DEF_ICON = 'ph-game-controller', DEF_COLOR = '#1ca9e0';
-    function normIcon(ic){ if(!ic) return DEF_ICON; if(ic.indexOf('img:')===0 || ic.indexOf('ph-')===0) return ic; return 'ph-'+ic; }
-
-    /* ---- avatar : composition canvas (256x256 JPEG, comme Ryujinx) ---- */
-    let phReady = null;
-    function ensurePhosphor(){ if(!phReady) phReady = (document.fonts && document.fonts.load) ? document.fonts.load('150px "Phosphor"').catch(()=>{}) : Promise.resolve(); return phReady; }
-    function iconChar(cls){
-      const p=document.createElement('i'); p.className='ph '+cls; p.style.cssText='position:absolute;left:-9999px;font-family:"Phosphor"';
-      document.body.appendChild(p); let c=getComputedStyle(p,'::before').content||''; document.body.removeChild(p);
-      c=c.replace(/^["']|["']$/g,''); return (c && c!=='none' && c!=='normal') ? c : '';
-    }
-    const _imgCache = {};
-    function loadImg(src){ if(_imgCache[src]) return Promise.resolve(_imgCache[src]); return new Promise(res=>{ const i=new Image(); i.onload=()=>{ _imgCache[src]=i; res(i); }; i.onerror=()=>res(null); i.src=src; }); }
-    // 'img:<payload>' — payload avec '/' => /assets/<payload> (icônes NSO), sinon => /assets/avatars/<payload> (firmware)
-    function avatarImgUrl(payload){ return payload.indexOf('/')>=0 ? '/assets/'+payload : '/assets/avatars/'+payload; }
-    // Compose en CALQUES : couleur de fond -> image de fond -> personnage -> cadre (chacun 256x256, transparence respectée)
-    async function composeAvatar(canvas, e){
-      const ctx=canvas.getContext('2d'); ctx.clearRect(0,0,256,256);
-      ctx.fillStyle=e.color||DEF_COLOR; ctx.fillRect(0,0,256,256);
-      for(const layer of [e.bg, e.char, e.frame]){
-        if(!layer) continue;
-        const img=await loadImg(avatarImgUrl(layer));
-        if(img) ctx.drawImage(img,0,0,256,256);
-      }
-    }
-    function canvasB64(canvas){ return (canvas.toDataURL('image/jpeg',0.9).split(',')[1])||''; }
-    async function drawB64(canvas, b64){
-      const ctx=canvas.getContext('2d'); ctx.clearRect(0,0,256,256);
-      if(!b64){ ctx.fillStyle=DEF_COLOR; ctx.fillRect(0,0,256,256); return; }
-      const img=await loadImg(imgSrc(b64));
-      if(img){ const s=Math.max(256/img.width,256/img.height),w=img.width*s,h=img.height*s; ctx.drawImage(img,(256-w)/2,(256-h)/2,w,h); }
-      else { ctx.fillStyle=DEF_COLOR; ctx.fillRect(0,0,256,256); }
-    }
-    // Ces images viennent d'AUTRES membres (pp d'un ami, icône de jeu de son historique) et
-    // finissent dans des attributs src et des styles. On n'accepte donc QUE du base64 : une
-    // valeur contenant un guillemet ou une parenthèse est rejetée plutôt que rendue.
-    const RE_B64 = /^[A-Za-z0-9+/=\s]*$/;
-    function imgSrc(b64){
-      const v = String(b64 || '');
-      if(!v) return '';
-      if(v.indexOf('data:image/') === 0){ const c = v.indexOf(','); return (c > 0 && RE_B64.test(v.slice(c+1))) ? v : ''; }
-      return RE_B64.test(v) ? 'data:image/jpeg;base64,'+v : '';
-    }
-
-    function setAvatar(image, name){
-      const src=imgSrc(image);
-      if(src){ const e=escapeHtml(src); $('avatar').innerHTML='<img src="'+e+'" alt="">'; $('mc-pic').innerHTML='<img src="'+e+'" alt="">'; }
-      else { $('avatar').textContent=initial(name); $('mc-pic').innerHTML='<div class="member-card__sig" aria-hidden="true"></div>'; }
-    }
-
-    /* ===================== color picker custom (HSV) ===================== */
-    const cp = { h:200, s:1, v:1 };
-    function hsvToRgb(h,s,v){ const c=v*s, x=c*(1-Math.abs((h/60)%2-1)), m=v-c; let a; if(h<60)a=[c,x,0];else if(h<120)a=[x,c,0];else if(h<180)a=[0,c,x];else if(h<240)a=[0,x,c];else if(h<300)a=[x,0,c];else a=[c,0,x]; return a.map(z=>Math.round((z+m)*255)); }
-    function rgbToHex(r,g,b){ return '#'+[r,g,b].map(x=>x.toString(16).padStart(2,'0')).join(''); }
-    function hexToRgb(h){ const m=/^#?([0-9a-fA-F]{6})$/.exec((h||'').trim()); if(!m) return null; const n=parseInt(m[1],16); return [(n>>16)&255,(n>>8)&255,n&255]; }
-    function rgbToHsv(r,g,b){ r/=255;g/=255;b/=255; const mx=Math.max(r,g,b),mn=Math.min(r,g,b),d=mx-mn; let h=0; if(d){ if(mx===r)h=((g-b)/d)%6; else if(mx===g)h=(b-r)/d+2; else h=(r-g)/d+4; h=(h*60+360)%360; } return [h, mx?d/mx:0, mx]; }
-    function cpHex(){ const a=hsvToRgb(cp.h,cp.s,cp.v); return rgbToHex(a[0],a[1],a[2]); }
-    function cpRender(){
-      $('cpick-sv').style.setProperty('--ch', cp.h);
-      $('cpick-sv-thumb').style.left=(cp.s*100)+'%'; $('cpick-sv-thumb').style.top=((1-cp.v)*100)+'%';
-      $('cpick-hue-thumb').style.left=(cp.h/360*100)+'%';
-      const hex=cpHex(); $('cpick-prev').style.background=hex;
-      if(document.activeElement!==$('cpick-hex')) $('cpick-hex').value=hex.toUpperCase();
-      ed.color=hex; ed.dirty=true; renderPreview(); markSel();
-    }
-    function cpSet(hex){ const rgb=hexToRgb(hex); if(!rgb) return; const v=rgbToHsv(rgb[0],rgb[1],rgb[2]); cp.h=v[0]; cp.s=v[1]; cp.v=v[2]; cpRender(); }
-    function cpBindDrag(el, fn){ let on=false; el.addEventListener('pointerdown', e=>{ on=true; try{el.setPointerCapture(e.pointerId);}catch(_){ } fn(e); e.preventDefault(); }); el.addEventListener('pointermove', e=>{ if(on) fn(e); }); el.addEventListener('pointerup', ()=>{ on=false; }); el.addEventListener('lostpointercapture', ()=>{ on=false; }); }
-    cpBindDrag($('cpick-sv'), e=>{ const r=$('cpick-sv').getBoundingClientRect(); cp.s=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width)); cp.v=1-Math.min(1,Math.max(0,(e.clientY-r.top)/r.height)); cpRender(); });
-    cpBindDrag($('cpick-hue'), e=>{ const r=$('cpick-hue').getBoundingClientRect(); cp.h=Math.min(1,Math.max(0,(e.clientX-r.left)/r.width))*360; cpRender(); });
-    $('cpick-hex').addEventListener('input', e=>{ if(hexToRgb(e.target.value)) cpSet(e.target.value); });
-
-    /* ===================== état ===================== */
-    let ACC = null, PROFILE = {};
-    // Calques de l'avatar : bg (fond) / char (personnage) / frame (cadre) = payloads ('icons/..' ou 'avatar_..') ou null. dirty=true dès qu'on touche un calque/couleur.
-    const ed = { color:DEF_COLOR, bg:null, char:null, frame:null, currentImage:'', dirty:false };
-
-    // Le compte Discord lié, tel que le bot de vérif l'a poussé sur nos serveurs. On montre le
-    // PSEUDO (pas l'identifiant numérique) : c'est ce qu'on lit sur le serveur.
-
-    // Pays du compte : rempli depuis /api/country, libelles traduits par le
-    // navigateur. Enregistre au changement — pas de bouton, pas d'etat a suivre.
-    async function paintCountry(a){
-      const host = $('kv-country'), note = $('country-note');
-      if (!host) return;
-      const save = async (code) => {
-        if (!code) return;
-        note.textContent = T('acc.countrySaving','Enregistrement…'); note.className='kv__note';
-        try {
-          const r = await NX.api('/api/country', { country: code });
-          if (r && r.account) ACC = r.account;
-          note.textContent = T('acc.countrySaved','Enregistré.'); note.className='kv__note ok';
-        } catch (err) {
-          note.textContent = err.message || T("acc.countryFail", "Échec de l'enregistrement."); note.className="kv__note bad";
-        }
-      };
-      // Meme precaution qu'a l'inscription : nx-country.js est differe. Ici on
-      // passe apres la requete du compte, donc il est charge en pratique, mais
-      // une reponse en cache pourrait le devancer.
-      for (let i = 0; i < 60 && !window.NXCountry; i++) await new Promise(r => setTimeout(r, 30));
-      if (!window.NXCountry) return;
-      NXCountry.mount(host, { value: a.country || '', onChange: save });
-      if (!a.country) { note.textContent = T('acc.countryUnknown','Inconnu'); note.className='kv__note bad'; }
-      else { note.textContent=''; note.className='kv__note'; }
-    }
-
-    function paintDiscord(a){
-      const el=$('kv-discord'); if(!el) return;
-      if(a.discord){
-        let since='';
-        try { if(a.discord_linked_at) since=' <span class="email-chip ok">'+escapeHtml(T('acc.discordLinkedOn','lié le {d}',{d:new Date(a.discord_linked_at).toLocaleDateString(LOC(),{day:'2-digit',month:'2-digit',year:'numeric'})}))+'</span>'; }
-        catch(_){}
-        el.innerHTML='<span class="mono">'+escapeHtml(a.discord)+'</span>'+since;
-      } else {
-        el.innerHTML='<span style="opacity:.7">'+escapeHtml(T('acc.noDiscord','Aucun compte lié'))+'</span> <a class="ghost-link" href="https://discord.gg/XPfeCMwnzQ" target="_blank" rel="noopener" style="font-size:.8rem"><i class="ph ph-discord-logo" aria-hidden="true"></i> '+escapeHtml(T('acc.linkDiscord','Lier sur le Discord'))+'</a>';
-      }
-    }
-
-    function paintIdentity(a){
-      const isGuest=(a.email||'').toLowerCase().endsWith('@nextendo.local');
-      const g=$('acc-greet'); if(g){ g.textContent=T('acc.hi','Salut, {name}.',{name:a.username}); }
-      $('fc').textContent=a.friend_code; $('kv-fc').textContent=a.friend_code;
-      $('card-name').textContent=a.username; $('kv-name').textContent=a.username;
-      $('kv-pid').textContent=a.pid;
-      // Pays : le drapeau affiche a cote du joueur dans les jeux en ligne.
-      // Les comptes crees avant cette option n'en ont pas : la liste s'ouvre
-      // alors sur « Choisis ton pays… » et le note l'explique.
-      paintCountry(a);
-      $('kv-email').textContent=isGuest?T('acc.guestEmail','Compte invité (aucun e-mail)'):a.email;
-      paintDiscord(a);
-      // Booster du serveur Discord → badge rose « MEMBRE BOOSTER » ; sinon MEMBRE / INVITÉ.
-      const _chip=$('card-chip');
-      if(a.isBooster){ _chip.setAttribute('data-i18n','acc.memberBooster'); _chip.textContent=T('acc.memberBooster','MEMBRE BOOSTER'); _chip.style.color='#ff6ec7'; _chip.style.borderColor='#ff6ec7'; }
-      else { const _mk=isGuest?'acc.guest':'acc.member'; _chip.setAttribute('data-i18n',_mk); _chip.textContent=T(_mk,isGuest?'INVITÉ':'MEMBRE'); _chip.style.color=''; _chip.style.borderColor=''; }
-      try { $('kv-since').textContent=new Date(a.created_at).toLocaleDateString(LOC(),{year:'numeric',month:'long',day:'numeric'}); }
-      catch(_){ $('kv-since').textContent='—'; }
-    }
-
-    /* ---- amis ---- */
-    // Rendu de la pp d'un ami/demande : image composée > avatar galerie (firmware/icône) > initiale.
-    function friendAvatarHtml(f){
-      // ÉCHAPPEMENT OBLIGATOIRE : f.image vient d'un AUTRE membre (profil, ou simple
-      // demande d'ami non acceptée). Sans ça, un guillemet dans la valeur sort de
-      // l'attribut et exécute du script dans la session de celui qui regarde.
-      if(f.image) return '<img src="'+escapeHtml(imgSrc(f.image))+'" alt="">';
-      const av=f.avatar||'';
-      if(av.indexOf('img:')===0) return '<img src="'+escapeHtml(avatarImgUrl(av.slice(4)))+'" alt="">';
-      if(av.indexOf('ph-')===0) return '<i class="ph '+escapeHtml(av)+'"></i>';
-      return escapeHtml(initial(f.name||f.username));
-    }
-    // La couleur doit être validée, pas seulement échappée : échapper n'empêche pas
-    // d'injecter d'AUTRES déclarations CSS (position:fixed, background-image distante…).
-    function friendAvStyle(f){ const c=(f.color && /^#[0-9a-fA-F]{6}$/.test(f.color))?f.color:''; return (!f.image && f.avatar && f.avatar.indexOf('img:')!==0 && c) ? ' style="background:'+c+'"' : ''; }
-    /* ---- rich presence : résout app_id -> nom du jeu (caché) + libellé de statut ----
-       Le serveur renvoie presence:{status, app_id, app_detail}. status>0 = en ligne ;
-       app_id présent = en jeu -> on affiche « En jeu · <nom du jeu> » (nom résolu async). */
-    const GAME_NAME_CACHE={};
-    function resolveGameName(appId, cb){
-      const id=(appId||'').toLowerCase(); if(!id) return cb(null);
-      if(id in GAME_NAME_CACHE) return cb(GAME_NAME_CACHE[id]);
-      NX.gameInfo(id).then(g=>{ const n=(g&&g.name)||null; GAME_NAME_CACHE[id]=n; cb(n); }).catch(()=>{ GAME_NAME_CACHE[id]=null; cb(null); });
-    }
-    function presenceInfo(f){ const p=(f&&f.presence)||{}; const online=Number(p.status)>0; return { online, inGame: online && !!p.app_id, appId:p.app_id||'', detail:(p.app_detail||'').trim() }; }
-    function fillGameLabel(el, pi){ if(!el||!pi.inGame) return; el.textContent = pi.detail || T('fr.inGameShort','En jeu…'); resolveGameName(pi.appId, name=>{ el.textContent = name ? T('fr.inGameName','En jeu · {name}',{name:name}) : (pi.detail || T('fr.inGame','En jeu')); }); }
-
-    function friendRow(f){
-      const pi=presenceInfo(f);
-      const row=document.createElement('div'); row.className='friend friend--click'; row.setAttribute('role','button'); row.tabIndex=0;
-      const dotCls = pi.inGame ? 'on playing' : (pi.online ? 'on' : '');
-      const stCls  = pi.inGame ? 'friend__status friend__status--game' : 'friend__status';
-      const stTxt  = pi.online ? (pi.inGame ? T('fr.inGameShort','En jeu…') : T('fr.online','en ligne')) : T('fr.offline','hors ligne');
-      row.innerHTML='<div class="friend__av"'+friendAvStyle(f)+'>'+friendAvatarHtml(f)+'</div><div class="friend__main"><div class="friend__name">'+escapeHtml(f.name||f.username)+'</div><div class="friend__code">'+escapeHtml(f.friend_code||'')+'</div></div><div class="'+stCls+'"><span class="friend__dot '+dotCls+'"></span><span class="friend__st-txt">'+stTxt+'</span></div><button class="friend__fav'+(f.favorite?' friend__fav--on':'')+'" type="button" title="'+escapeHtml(T('fr.favorite','Favori'))+'" aria-label="'+escapeHtml(T('fr.favorite','Favori'))+'" tabindex="-1">★</button><i class="ph ph-caret-right friend__go" aria-hidden="true"></i>';
-      if(pi.inGame) fillGameLabel(row.querySelector('.friend__st-txt'), pi);
-      const favBtn=row.querySelector('.friend__fav');
-      if(favBtn) favBtn.addEventListener('click', async (e)=>{ e.stopPropagation(); const on=!favBtn.classList.contains('friend__fav--on'); favBtn.classList.toggle('friend__fav--on', on); f.favorite=on; try{ await NX.setFavorite(f.pid, on); }catch(_){ favBtn.classList.toggle('friend__fav--on', !on); f.favorite=!on; } });
-      row.addEventListener('click', ()=>openFriendModal(f));
-      row.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openFriendModal(f); } });
-      return row;
-    }
-    function requestRow(f){
-      const row=document.createElement('div'); row.className='friend';
-      row.innerHTML='<div class="friend__av"'+friendAvStyle(f)+'>'+friendAvatarHtml(f)+'</div><div class="friend__main"><div class="friend__name">'+escapeHtml(f.name||f.username)+'</div><div class="friend__code">'+escapeHtml(T('fr.wantsToAdd',"veut t'ajouter"))+'</div></div><div style="display:flex;gap:0.4rem"><button class="btn btn--primary btn--sm" data-accept="'+f.pid+'">'+escapeHtml(T('fr.accept','Accepter'))+'</button><button class="btn btn--soft btn--sm" data-decline="'+f.pid+'">'+escapeHtml(T('fr.decline','Refuser'))+'</button></div>';
-      return row;
-    }
-
-    /* ---- modale profil d'un ami (détails + historique + supprimer/bloquer) ---- */
-    let FRIEND_MODAL_PID = null;
-    function openFriendModal(f){
-      FRIEND_MODAL_PID = f.pid;
-      const pi=presenceInfo(f);
-      $('fm-name').textContent=f.name||f.username;
-      $('fm-code').textContent=f.friend_code||'—';
-      $('fm-pid').textContent=f.pid;
-      $('fm-status').className='fm-badge '+(pi.inGame?'fm-badge--game':(pi.online?'fm-badge--on':'fm-badge--off'));
-      $('fm-status').innerHTML='<span class="friend__dot '+(pi.inGame?'on playing':(pi.online?'on':''))+'"></span><span class="fm-st-txt">'+(pi.online?(pi.inGame?T('fr.inGameShort','En jeu…'):T('fr.online','en ligne')):T('fr.offline','hors ligne'))+'</span>';
-      if(pi.inGame) fillGameLabel($('fm-status').querySelector('.fm-st-txt'), pi);
-      // photo + couleur d'accent de l'ami (teinte l'en-tête)
-      const accent=(f.color && /^#[0-9a-fA-F]{6}$/.test(f.color))?f.color:'#1ca9e0';
-      const pic=$('fm-pic'); pic.style.background=''; pic.innerHTML=friendAvatarHtml(f);
-      if(!f.image && f.avatar && f.avatar.indexOf('img:')!==0 && f.color) pic.style.background=f.color;
-      $('friend-modal').style.setProperty('--fm-accent', accent);
-      let since='—'; try{ if(f.created_at) since=new Date(f.created_at).toLocaleDateString(LOC(),{month:'short',year:'numeric'}); }catch(_){}
-      $('fm-since').textContent=since;
-      ['fm-total','fm-games','fm-fav','fm-last'].forEach(id=>$(id).textContent='…');
-      $('fm-history').innerHTML='<div class="empty">'+escapeHtml(T('acc.historyLoading',"Chargement de l'historique…"))+'</div>';
-      $('friend-modal').hidden=false;
-      NX.friendHistory(f.pid).then(({history})=>{
-        history=history||[];
-        const total=history.reduce((s,h)=>s+(Number(h.seconds)||0),0);
-        const fav=history.slice().sort((a,b)=>(Number(b.seconds)||0)-(Number(a.seconds)||0))[0];
-        $('fm-total').textContent=history.length?fmtHours(total):T('fr.zeroMin','0 min');
-        $('fm-games').textContent=history.length;
-        $('fm-fav').textContent=fav?(fav.name||T('gm.defaultName','Jeu')):'—';
-        $('fm-last').textContent=(history.length&&history[0].last_played)?fmtDate(history[0].last_played):'—';
-        renderHistoryInto($('fm-history'), history, T('fr.noHistory',"Cet ami n'a pas encore d'historique de jeu public."));
-      }).catch(()=>{ ['fm-total','fm-games','fm-fav','fm-last'].forEach(id=>$(id).textContent='—'); $('fm-history').innerHTML='<div class="empty">'+escapeHtml(T('acc.historyErr',"Impossible de charger l'historique."))+'</div>'; });
-    }
-    function closeFriendModal(){ $('friend-modal').hidden=true; FRIEND_MODAL_PID=null; }
-
-    /* ---- modale d'un jeu (fiche façon Discord : bannière, jaquette, infos) ---- */
-    const GM_LINK_ICON={ website:'ph-globe', wikipedia:'ph-book-open-text', youtube:'ph-youtube-logo', x:'ph-x-logo', twitter:'ph-x-logo', twitch:'ph-twitch-logo', instagram:'ph-instagram-logo', reddit:'ph-reddit-logo', discord:'ph-discord-logo', eshop:'ph-storefront', facebook:'ph-facebook-logo' };
-    function safeUrl(u){ return /^https?:\/\//i.test(u||'')?u:'#'; }
-    function gmMetaClass(n){ return n>=75?'hi':n>=50?'mid':'lo'; }
-    function gmStage(url){ $('gm-stage').style.backgroundImage=url?('url('+url+')'):''; }
-    function openGameModal(h){
-      const tid=(h.title_id||'').toLowerCase();
-      const cover=$('gm-cover'), head=$('gm-head');
-      $('gm-name').textContent=h.name||T('gm.defaultName','Jeu');
-      $('gm-sub').textContent=''; $('gm-desc').textContent=''; $('gm-badge').hidden=true;
-      ['gm-genres','gm-publisher','gm-developer','gm-release'].forEach(id=>$(id).textContent='…');
-      $('gm-platforms').textContent='…'; $('gm-links-row').hidden=true; $('gm-meta-row').hidden=true;
-      $('gm-media').hidden=true; $('gm-thumbs').innerHTML=''; gmStage('');
-      head.style.setProperty('--gm-accent','#1ca9e0'); $('gm-headbg').style.backgroundImage='';
-      cover.style.backgroundImage=h.icon?('url('+imgSrc(h.icon)+')'):'';
-      $('gm-playtime').textContent=fmtHours(h.seconds);
-      $('gm-lastplayed').textContent=h.last_played?fmtDate(h.last_played):'—';
-      $('game-modal').hidden=false;
-      NX.gameInfo(tid, h.name).then(g=>{
-        if(!g) return;
-        $('gm-name').textContent=g.name||h.name||T('gm.defaultName','Jeu');
-        const acc=(g.accent && /^#[0-9a-fA-F]{6}$/.test(g.accent))?g.accent:'#1ca9e0';
-        head.style.setProperty('--gm-accent', acc);
-        if(g.hero) $('gm-headbg').style.backgroundImage='url('+g.hero+')';
-        if(g.cover) cover.style.backgroundImage='url('+g.cover+')';
-        if(g.metacritic){ const b=$('gm-badge'); b.hidden=false; b.className='gm-badge gm-badge--'+gmMetaClass(g.metacritic); b.innerHTML='<i class="ph ph-star-four"></i>'+g.metacritic+' Metascore'; }
-        $('gm-sub').textContent=(g.genres||[]).join(' · ');
-        $('gm-desc').textContent=g.description||'';
-        $('gm-genres').textContent=(g.genres||[]).join(', ')||'—';
-        $('gm-publisher').textContent=g.publisher||'—';
-        $('gm-developer').textContent=g.developer||'—';
-        $('gm-release').textContent=g.release_date||'—';
-        $('gm-platforms').innerHTML='<span class="gm-plat"><i class="ph ph-game-controller"></i>'+escapeHtml((g.platforms&&g.platforms[0])||'Nintendo Switch')+'</span>';
-        const links=g.links||[];
-        if(links.length){ $('gm-links-row').hidden=false; $('gm-links').innerHTML=links.map(l=>'<a href="'+escapeHtml(safeUrl(l.url))+'" target="_blank" rel="noopener" title="'+escapeHtml(l.type||'')+'"><i class="ph '+(GM_LINK_ICON[l.type]||'ph-link-simple')+'"></i></a>').join(''); }
-        if(g.metacritic){ $('gm-meta-row').hidden=false; const m=$('gm-metacritic'); m.className='gm-dv gm-meta gm-meta--'+gmMetaClass(g.metacritic); m.textContent=g.metacritic; }
-        const shots=[]; if(g.hero) shots.push(g.hero); (g.screenshots||[]).forEach(s=>shots.push(s));
-        if(shots.length){
-          $('gm-media').hidden=false; gmStage(shots[0]);
-          $('gm-thumbs').innerHTML=shots.map((s,i)=>'<button class="gm-thumb'+(i===0?' sel':'')+'" style="background-image:url('+s+')" data-shot="'+i+'" aria-label="'+escapeHtml(T('gm.screenshotAria','Aperçu {n}',{n:i+1}))+'"></button>').join('');
-          $('gm-thumbs').querySelectorAll('.gm-thumb').forEach(b=>b.addEventListener('click',()=>{ gmStage(shots[Number(b.dataset.shot)]); $('gm-thumbs').querySelectorAll('.gm-thumb').forEach(x=>x.classList.remove('sel')); b.classList.add('sel'); }));
-        }
-      }).catch(()=>{ ['gm-genres','gm-publisher','gm-developer','gm-release'].forEach(id=>$(id).textContent='—'); $('gm-platforms').textContent='Nintendo Switch'; });
-    }
-    function closeGameModal(){ $('game-modal').hidden=true; }
-    async function loadFriends(){
-      try {
-        const { friends, requests }=await NX.friends();
-        const rw=$('requests'); rw.innerHTML='';
-        (requests||[]).forEach(r=>{ const row=requestRow(r); rw.appendChild(row);
-          row.querySelector('[data-accept]').addEventListener('click', async e=>{ await NX.acceptFriend(Number(e.target.dataset.accept)); NX.toast(T('fr.toastAdded','Ami ajouté')); loadFriends(); });
-          row.querySelector('[data-decline]').addEventListener('click', async e=>{ await NX.declineFriend(Number(e.target.dataset.decline)); loadFriends(); });
-        });
-        const w=$('friends'); w.innerHTML='';
-        if(!friends || !friends.length){ w.innerHTML='<div class="empty">'+escapeHtml(T('fr.empty',"Aucun ami pour l'instant. Ajoute le friend code d'un autre joueur."))+'</div>'; return; }
-        // N'affiche que les premiers amis ; « Voir plus » révèle le reste (évite une liste
-        // interminable quand on a beaucoup d'amis).
-        const FRIENDS_SHOWN=8;
-        friends.slice(0,FRIENDS_SHOWN).forEach(f=>w.appendChild(friendRow(f)));
-        if(friends.length>FRIENDS_SHOWN){
-          const more=document.createElement('button');
-          more.type='button'; more.className='btn btn--soft btn--sm';
-          more.style.cssText='margin-top:0.7rem;width:100%';
-          more.textContent=T('fr.showMore','Voir plus')+' ('+(friends.length-FRIENDS_SHOWN)+')';
-          more.addEventListener('click',()=>{ friends.slice(FRIENDS_SHOWN).forEach(f=>w.insertBefore(friendRow(f),more)); more.remove(); });
-          w.appendChild(more);
-        }
-      } catch(_){ $('friends').innerHTML='<div class="empty">'+escapeHtml(T('fr.loadErr','Impossible de charger tes amis.'))+'</div>'; }
-    }
-
-    /* ---- historique ---- */
-    function fmtHours(sec){ const h=(sec||0)/3600; if(h<1) return Math.max(1,Math.round((sec||0)/60))+' min'; return (h>=10?Math.round(h):h.toFixed(1))+' h'; }
-    function fmtDate(s){ if(!s) return ''; try { return new Date(s).toLocaleDateString(LOC(),{day:'numeric',month:'short',year:'numeric'}); } catch(_){ return ''; } }
-    /* Date + heure exacte (pour l'horodatage précis des sauvegardes cloud). */
-    function fmtDateTime(s){ if(!s) return ''; try { const d=new Date(s); return d.toLocaleDateString(LOC(),{day:'numeric',month:'short',year:'numeric'})+' · '+d.toLocaleTimeString(LOC(),{hour:'2-digit',minute:'2-digit'}); } catch(_){ return ''; } }
-    function renderHistoryInto(w, history, emptyMsg){
-      if(!history || !history.length){ w.innerHTML='<div class="empty">'+escapeHtml(emptyMsg)+'</div>'; return; }
-      w.innerHTML='';
-      history.forEach(h=>{
-        // h.icon peut venir de l'historique d'un AMI (modale de profil) : même échappement.
-        const ico=h.icon?'<img src="'+escapeHtml(imgSrc(h.icon))+'" alt="">':'<i class="ph ph-game-controller"></i>';
-        const el=document.createElement('div'); el.className='history-card history-card--click'; el.setAttribute('role','button'); el.tabIndex=0;
-        el.innerHTML='<div class="history-card__ico">'+ico+'</div><div class="history-card__main"><div class="history-card__name">'+escapeHtml(h.name||T('gm.defaultName','Jeu'))+'</div><div class="history-card__time">'+escapeHtml(T('acc.played','{t} jouées',{t:fmtHours(h.seconds)}))+'</div><div class="history-card__meta">'+(h.last_played?escapeHtml(T('acc.playedOn','joué le {d}',{d:fmtDate(h.last_played)})):'')+'</div></div><i class="ph ph-caret-right history-card__go" aria-hidden="true"></i>';
-        el.addEventListener('click', ()=>openGameModal(h));
-        el.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openGameModal(h); } });
-        w.appendChild(el);
-      });
-    }
-    async function loadHistory(){
-      try {
-        const { history }=await NX.history();
-        renderHistoryInto($('history'), history, T('acc.historyEmpty',"Aucun historique pour l'instant — ton temps de jeu apparaîtra ici après tes parties (synchronisé automatiquement depuis l'émulateur)."));
-      } catch(_){ $('history').innerHTML='<div class="empty">'+escapeHtml(T('acc.historyErr',"Impossible de charger l'historique."))+'</div>'; }
-    }
-
-    /* Popup de confirmation custom — remplace confirm(). Renvoie une Promise<bool>. */
-    function nxConfirm(message, opts){
-      opts = opts || {};
-      return new Promise(resolve=>{
-        const ov=document.createElement('div'); ov.className='nx-confirm';
-        ov.innerHTML=
-          '<div class="nx-confirm__box'+(opts.danger?' danger':'')+'" role="dialog" aria-modal="true">'
-          +'<div class="nx-confirm__title"><i class="ph '+(opts.danger?'ph-warning-circle':'ph-question')+'" aria-hidden="true"></i>'+escapeHtml(opts.title||T('confirm.title','Confirmation'))+'</div>'
-          +'<div class="nx-confirm__msg">'+escapeHtml(message)+'</div>'
-          +'<div class="nx-confirm__actions">'
-          +'<button class="btn btn--soft btn--sm" data-cancel type="button">'+escapeHtml(opts.cancel||T('confirm.cancel','Annuler'))+'</button>'
-          +'<button class="btn '+(opts.danger?'btn--danger':'btn--primary')+' btn--sm" data-ok type="button">'+escapeHtml(opts.ok||T('confirm.ok','Confirmer'))+'</button>'
-          +'</div></div>';
-        document.body.appendChild(ov);
-        requestAnimationFrame(()=>ov.classList.add('show'));
-        const done=(v)=>{ document.removeEventListener('keydown',onKey); ov.classList.remove('show'); setTimeout(()=>ov.remove(),180); resolve(v); };
-        const onKey=(e)=>{ if(e.key==='Escape'){ e.preventDefault(); done(false);} else if(e.key==='Enter'){ e.preventDefault(); done(true);} };
-        ov.querySelector('[data-ok]').addEventListener('click',()=>done(true));
-        ov.querySelector('[data-cancel]').addEventListener('click',()=>done(false));
-        ov.addEventListener('click',e=>{ if(e.target===ov) done(false); });
-        document.addEventListener('keydown',onKey);
-        setTimeout(()=>{ const b=ov.querySelector('[data-ok]'); if(b) b.focus(); },60);
-      });
-    }
-
-    /* ===================== Sauvegardes cloud ===================== */
-    function fmtBytes(n){
-      n=Number(n)||0;
-      if(n<1024) return n+' o';
-      if(n<1024*1024) return (n/1024).toFixed(n<10*1024?1:0)+' Ko';
-      return (n/1024/1024).toFixed(2)+' Mo';
-    }
-    function saveIconHtml(e){
-      const letter=escapeHtml((((e.name||e.titleId||'?').trim()[0])||'?').toUpperCase());
-      // Priorité : jaquette serveur (/api/gamemedia) > icône Switch de l'émulateur (base64) > tuile.
-      const cover = e.titleId ? '/api/gamemedia/'+encodeURIComponent(e.titleId)+'/cover' : '';
-      const appIcon = e.icon ? imgSrc(e.icon) : '';
-      const primary = cover || appIcon;
-      const fb = (cover && appIcon) ? appIcon : '';
-      const img = primary
-        ? '<img src="'+escapeHtml(primary)+'" alt="" loading="lazy" data-fb="'+escapeHtml(fb)+'" onerror="if(this.dataset.fb){this.src=this.dataset.fb;this.dataset.fb=\'\';}else{this.remove();}">'
-        : '';
-      return '<div class="save-card__ico"><span>'+letter+'</span>'+img+'</div>';
-    }
-    async function loadSaves(){
-      const panel=$('saves-panel'); if(!panel) return;
-      const isGuest=(ACC&&(ACC.email||'').toLowerCase().endsWith('@nextendo.local'));
-      if(isGuest){ panel.hidden=true; return; }   // les invités n'ont pas de saves cloud
-      panel.hidden=false;
-      const list=$('saves-list'), quota=$('saves-quota');
-      try{
-        const r=await NX.getSaves();
-        const saves=r.saves||[];
-        const used=$('saves-quota-used'), badge=$('saves-quota-badge'), fill=$('saves-quota-fill');
-        // Gate cloud-save : compte non éligible (e-mail non vérifié ou Discord non lié) → message
-        // d'activation localisé, sans liste ni jauge (l'envoi et le téléchargement sont bloqués).
-        if(r.eligible===false){
-          quota.hidden=true;
-          const gm=(r.reasonCode==='email')
-            ? T('save.gateEmail','Vérifie ton adresse e-mail pour activer les sauvegardes dans le cloud.')
-            : T('save.gateDiscord','Lie ton compte à Discord pour activer les sauvegardes dans le cloud.');
-          list.innerHTML='<div class="empty">'+escapeHtml(gm)+'</div>';
-          return;
-        }
-        // Quota : X / 5 Mo (10 Mo pour les boosters — jauge rose + badge « Booster »).
-        quota.hidden=false;
-        const limit=r.limit||5*1024*1024;
-        const pct=Math.max(0,Math.min(100,Math.round((r.totalSize/limit)*100)));
-        used.textContent=T('save.used','{u} / {t}',{u:fmtBytes(r.totalSize),t:fmtBytes(limit)});
-        if(r.isBooster){
-          badge.hidden=false; badge.textContent=T('save.boosterBadge','Booster · 10 Mo');
-          fill.className='saves-quota__fill booster';
-        } else {
-          badge.hidden=true;
-          fill.className='saves-quota__fill'+(pct>=85?' warn':'');
-        }
-        fill.style.width=pct+'%';
-        // Bannière compte à rebours (downgrade booster en dépassement) : l'utilisateur a jusqu'à
-        // r.graceUntil pour repasser sous 5 Mo, sinon la save la plus lourde est supprimée auto.
-        let graceHtml='';
-        if(r.graceUntil){
-          graceHtml='<div class="save-grace"><i class="ph ph-warning-circle" aria-hidden="true"></i><div>'
-            +'<div class="save-grace__t">'+escapeHtml(T('save.graceTitle','Limite de 5 Mo dépassée'))+'</div>'
-            +'<div class="save-grace__m">'+escapeHtml(T('save.graceMsg',"Suite à la perte du statut booster, tu as jusqu'au {w} pour supprimer une sauvegarde et repasser sous 5 Mo — sinon la plus lourde sera supprimée automatiquement.",{w:fmtDateTime(r.graceUntil)}))+'</div>'
-            +'</div></div>';
-        }
-        // Liste
-        if(!saves.length){ list.innerHTML=graceHtml+'<div class="empty">'+escapeHtml(T('save.empty',"Aucune sauvegarde dans le cloud pour l'instant — elles apparaîtront ici après tes parties."))+'</div>'; return; }
-        list.innerHTML=graceHtml;
-        saves.forEach(e=>{
-          const name=e.name||T('gm.defaultName','Jeu');
-          const meta=e.updatedAt?T('save.updatedOn','Sauvegardé le {d}',{d:fmtDateTime(e.updatedAt)}):'';
-          const card=document.createElement('div'); card.className='save-card';
-          card.innerHTML=
-            saveIconHtml(e)
-            +'<div class="save-card__main"><div class="save-card__name">'+escapeHtml(name)+'</div><div class="save-card__meta">'+escapeHtml(meta)+'</div></div>'
-            +'<span class="save-card__size">'+escapeHtml(fmtBytes(e.size))+'</span>'
-            +'<div class="save-card__act">'
-            +'<button class="save-card__btn" data-details type="button" title="'+escapeHtml(T('save.details','Détails'))+'" aria-label="'+escapeHtml(T('save.details','Détails'))+'"><i class="ph ph-caret-down"></i></button>'
-            +'<button class="save-card__btn" data-dl type="button" title="'+escapeHtml(T('save.download','Télécharger le fichier'))+'" aria-label="'+escapeHtml(T('save.download','Télécharger le fichier'))+'"><i class="ph ph-download-simple"></i></button>'
-            +'<button class="save-card__btn save-card__btn--danger" data-del type="button" title="'+escapeHtml(T('save.delete','Supprimer'))+'" aria-label="'+escapeHtml(T('save.delete','Supprimer'))+'"><i class="ph ph-trash"></i></button>'
-            +'</div>'
-            +'<div class="save-details"></div>';
-          const dbtn=card.querySelector('[data-details]'), dbox=card.querySelector('.save-details'); let loaded=false;
-          dbtn.addEventListener('click', async ()=>{
-            const open=!dbox.classList.contains('open');
-            dbox.classList.toggle('open', open);
-            dbtn.querySelector('i').className = open ? 'ph ph-caret-up' : 'ph ph-caret-down';
-            if(open && !loaded){
-              loaded=true; dbox.innerHTML='<span class="save-details__loading">'+escapeHtml(T('save.parsing','Analyse…'))+'</span>';
-              try{
-                const p=await NX.saveParsed(e.titleId); const fields=(p&&p.fields)||[];
-                if(!fields.length){ dbox.innerHTML='<span class="save-details__none">'+escapeHtml(T('save.noPreview','Aperçu du contenu indisponible pour ce jeu.'))+'</span>'; }
-                else { dbox.innerHTML=fields.map(f=>{ const im=f.img?'<img class="save-field__img" src="'+escapeHtml(f.img)+'" alt="" loading="lazy" onerror="this.remove()">':''; return '<div class="save-field"><span class="save-field__k">'+escapeHtml(T('save.field.'+f.k,f.k))+'</span><span class="save-field__v">'+im+escapeHtml(f.v)+'</span></div>'; }).join(''); }
-              }catch(_){ dbox.innerHTML='<span class="save-details__none">'+escapeHtml(T('save.parseErr','Analyse impossible.'))+'</span>'; }
-            }
-          });
-          card.querySelector('[data-dl]').addEventListener('click', async ()=>{
-            const b=card.querySelector('[data-dl]'), ic=b.querySelector('i'), prev=ic.className;
-            ic.className='ph ph-circle-notch save-dl-spin'; b.disabled=true;
-            try{
-              const blob=await NX.downloadSave(e.titleId);
-              const url=URL.createObjectURL(blob);
-              const a=document.createElement('a'); a.href=url;
-              a.download=(String(name).replace(/[^\w .()\-]+/g,'_').trim()||e.titleId)+'.zip';
-              document.body.appendChild(a); a.click(); a.remove();
-              setTimeout(()=>URL.revokeObjectURL(url),1500);
-              NX.toast(T('save.toastDownloaded','Sauvegarde téléchargée'));
-            }catch(err){ NX.toast(err.message||T('save.dlErr','Téléchargement impossible.')); }
-            finally{ ic.className=prev; b.disabled=false; }
-          });
-          card.querySelector('[data-del]').addEventListener('click', async ()=>{
-            if(!(await nxConfirm(T('save.confirmDelete','Supprimer la sauvegarde cloud de {g} ? Cette action est définitive.',{g:name}), {title:name, ok:T('save.delete','Supprimer'), danger:true}))) return;
-            try{ await NX.deleteSave(e.titleId); NX.toast(T('save.toastDeleted','Sauvegarde supprimée')); loadSaves(); }
-            catch(err){ NX.toast(err.message); }
-          });
-          list.appendChild(card);
-        });
-      }catch(_){ quota.hidden=true; list.innerHTML='<div class="empty">'+escapeHtml(T('save.loadErr','Impossible de charger tes sauvegardes.'))+'</div>'; }
-    }
-
-    /* ===================== éditeur ===================== */
-    function buildPickers(){
-      const sw=$('swatches'); sw.innerHTML='';
-      COLORS.forEach(c=>{ const b=document.createElement('button'); b.type='button'; b.className='swatch'; b.dataset.color=c; b.style.background=c; b.title=c; b.addEventListener('click',()=>{ if($('cpick').hidden){ ed.color=c; ed.dirty=true; markSel(); renderPreview(); } else cpSet(c); }); sw.appendChild(b); });
-      const custom=document.createElement('button'); custom.type='button'; custom.className='swatch swatch--custom'; custom.title=T('ed.customColor','Couleur personnalisée');
-      custom.innerHTML='<i class="ph ph-sliders-horizontal"></i>';
-      custom.addEventListener('click',()=>{ const p=$('cpick'); p.hidden=!p.hidden; if(!p.hidden) cpSet(ed.color); }); sw.appendChild(custom);
-    }
-    /* ---- compositeur d'avatar à CALQUES : Personnage / Fond / Cadre (superposés) ---- */
-    const LAYERS = [
-      { key:'char',  cat:'characters',  labelKey:'ed.layerChar',  label:'Personnage', icon:'ph-user' },
-      { key:'bg',    cat:'backgrounds', labelKey:'ed.layerBg',    label:'Fond',       icon:'ph-image' },
-      { key:'frame', cat:'frames',      labelKey:'ed.layerFrame', label:'Cadre',      icon:'ph-frame-corners' },
-    ];
-    const FW_GAME = '__fw__', CUSTOM_GAME = '__custom__';
-    let MAN = null, FIRMWARE = [], CUSTOM = [];
-    const ip = { layer:'char', game:'', items:[], shown:0 };
-
-    async function loadImageAvatars(){
-      const [mf, fw] = await Promise.all([
-        fetch('/assets/icons/manifest.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null),
-        fetch('/assets/avatars/manifest.json',{cache:'no-cache'}).then(r=>r.ok?r.json():null).catch(()=>null),
-      ]);
-      MAN = mf || { byCat:{}, games:[] };
-      FIRMWARE = (fw && fw.avatars) || [];
-      CUSTOM = (fw && fw.custom) || [];
-      ipBuildTabs();
-      ipSelectLayer('char');
-      $('avatar-grid').addEventListener('scroll', ()=>{
-        const g=$('avatar-grid'); if(g.scrollTop+g.clientHeight >= g.scrollHeight-280) ipRenderMore();
-      });
-      $('ip-game').addEventListener('change', e=>{ ip.game=e.target.value; ipApply(); });
-      $('ip-clear').addEventListener('click', ()=>{ ed[ip.layer]=null; ed.dirty=true; markSel(); renderPreview(); });
-    }
-    function ipBuildTabs(){
-      const bar=$('ip-tabs'); bar.innerHTML='';
-      LAYERS.forEach(l=>{
-        const b=document.createElement('button'); b.type='button'; b.className='ip-tab'; b.dataset.layer=l.key;
-        b.innerHTML='<i class="ph '+l.icon+'"></i><span>'+escapeHtml(T(l.labelKey,l.label))+'</span><i class="ph ph-check-circle ip-tab__dot"></i>';
-        b.addEventListener('click',()=>ipSelectLayer(l.key));
-        bar.appendChild(b);
-      });
-    }
-    function ipSelectLayer(key){
-      ip.layer=key; ip.game='';
-      const cat=LAYERS.find(l=>l.key===key).cat;
-      document.querySelectorAll('#ip-tabs .ip-tab').forEach(b=>b.classList.toggle('on', b.dataset.layer===key));
-      // remplir le filtre par jeu (+ pseudo-jeu "Nintendo Switch" pour les 147 firmware sur le calque Personnage)
-      const sel=$('ip-game');
-      const map=(MAN.byCat&&MAN.byCat[cat])||{};
-      const order={}, names={}; (MAN.games||[]).forEach((g,i)=>{ order[g.id]=i; names[g.id]=g.name; });
-      const gids=Object.keys(map).sort((a,b)=>(order[a]??999)-(order[b]??999));
-      let tot=gids.reduce((n,g)=>n+map[g].length,0);
-      if(key==='char') tot+=FIRMWARE.length+CUSTOM.length;
-      let html='<option value="">'+escapeHtml(T('ed.optAll','Tous ({n})',{n:tot}))+'</option>';
-      if(key==='char' && CUSTOM.length) html+='<option value="'+CUSTOM_GAME+'">'+escapeHtml(T('ed.optCustom','Custom / Nextendo ({n})',{n:CUSTOM.length}))+'</option>';
-      if(key==='char' && FIRMWARE.length) html+='<option value="'+FW_GAME+'">'+escapeHtml(T('ed.optFirmware','Nintendo Switch — défaut ({n})',{n:FIRMWARE.length}))+'</option>';
-      gids.forEach(g=>{ html+='<option value="'+g+'">'+escapeHtml(names[g]||g)+' ('+map[g].length+')</option>'; });
-      sel.innerHTML=html;
-      ipApply();
-    }
-    function ipApply(){
-      ip.items=[]; ip.shown=0;
-      const cat=LAYERS.find(l=>l.key===ip.layer).cat;
-      const transparent = cat!=='backgrounds';
-      // avatars "prêts" (calque Personnage) : custom Nextendo (opaques) puis firmware Switch (transparents)
-      if(ip.layer==='char'){
-        if(ip.game==='' || ip.game===CUSTOM_GAME) CUSTOM.forEach(fn=> ip.items.push({p:fn, url:'/assets/avatars/'+fn, t:false}));
-        if(ip.game==='' || ip.game===FW_GAME)     FIRMWARE.forEach(fn=> ip.items.push({p:fn, url:'/assets/avatars/'+fn, t:true}));
-      }
-      if(ip.game!==FW_GAME && ip.game!==CUSTOM_GAME){
-        const map=(MAN.byCat&&MAN.byCat[cat])||{};
-        const order={}; (MAN.games||[]).forEach((g,i)=>order[g.id]=i);
-        const gids=Object.keys(map).sort((a,b)=>(order[a]??999)-(order[b]??999));
-        gids.forEach(gid=>{ if(ip.game && gid!==ip.game) return;
-          map[gid].forEach(fn=> ip.items.push({p:'icons/'+gid+'/'+cat+'/'+fn, url:'/assets/icons/'+gid+'/'+cat+'/'+fn, t:transparent}));
-        });
-      }
-      const g=$('avatar-grid'); g.innerHTML='';
-      if(!ip.items.length){ g.innerHTML='<div class="empty" style="grid-column:1/-1">'+escapeHtml(T('ed.nothingHere','Rien ici.'))+'</div>'; markSel(); return; }
-      g.scrollTop=0; ipRenderMore(); ipRenderMore(); markSel();
-    }
-    function ipRenderMore(){
-      const g=$('avatar-grid'); if(ip.shown>=ip.items.length) return;
-      const cur=ed[ip.layer];
-      const end=Math.min(ip.shown+120, ip.items.length);
-      const frag=document.createDocumentFragment();
-      for(let i=ip.shown;i<end;i++){ const it=ip.items[i];
-        const b=document.createElement('button'); b.type='button';
-        b.className='avatar-opt avatar-opt--img'+(it.t?' avatar-opt--t':'')+(it.p===cur?' sel':'');
-        b.dataset.p=it.p;
-        b.innerHTML='<img src="'+it.url+'" alt="" loading="lazy" decoding="async">';
-        b.addEventListener('click',()=>{ ed[ip.layer]=(ed[ip.layer]===it.p)?null:it.p; ed.dirty=true; markSel(); renderPreview(); });
-        frag.appendChild(b);
-      }
-      ip.shown=end; g.appendChild(frag);
-    }
-    function markSel(){
-      const cur=ed[ip.layer];
-      document.querySelectorAll('#avatar-grid .avatar-opt').forEach(b=>b.classList.toggle('sel', b.dataset.p===cur && cur!=null));
-      document.querySelectorAll('#swatches .swatch[data-color]').forEach(b=>b.classList.toggle('sel', b.dataset.color.toLowerCase()===(ed.color||'').toLowerCase()));
-      document.querySelectorAll('#ip-tabs .ip-tab').forEach(b=>b.classList.toggle('has', !!ed[b.dataset.layer]));
-      const cl=$('ip-clear'); if(cl) cl.hidden=!cur;
-    }
-    function anyLayer(){ return !!(ed.bg||ed.char||ed.frame); }
-    function renderPreview(){ const c=$('avatar-canvas'); if(anyLayer()||ed.dirty) composeAvatar(c, ed); else drawB64(c, ed.currentImage); }
-
-    function openEditor(){
-      $('edit-msg').className='msg'; $('cpick').hidden=true;
-      $('edit-pseudo').value=ACC.username;
-      ed.currentImage=PROFILE.image||'';
-      ed.color=PROFILE.color || DEF_COLOR;
-      ed.bg=ed.char=ed.frame=null; ed.dirty=false;
-      // restaure les calques depuis l'avatar sauvegardé : JSON {bg,char,frame} ou legacy 'img:<payload>' (= personnage)
-      const a=PROFILE.avatar||'';
-      if(a.charAt(0)==='{'){ try{ const o=JSON.parse(a); ed.bg=o.bg||null; ed.char=o.char||null; ed.frame=o.frame||null; }catch(_){} }
-      else if(a.indexOf('img:')===0){ ed.char=a.slice(4); }
-      if(MAN) ipSelectLayer('char'); else markSel();
-      renderPreview();
-      $('edit-modal').hidden=false; document.body.style.overflow='hidden';
-    }
-    function closeEditor(){ $('edit-modal').hidden=true; document.body.style.overflow=''; }
-    $('edit-profile').addEventListener('click', openEditor);
-    document.querySelectorAll('#edit-modal [data-close]').forEach(el=>el.addEventListener('click', closeEditor));
-    document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('edit-modal').hidden) closeEditor(); });
-
-    const reUser=/^[A-Za-z0-9_\-]{3,16}$/;
-    $('save-profile').addEventListener('click', async ()=>{
-      const m=$('edit-msg'); hideMsg(m);
-      const btn=$('save-profile'); btn.disabled=true; const prev=btn.textContent; btn.textContent=T('ed.saving','Enregistrement…');
-      try {
-        const pseudo=$('edit-pseudo').value.trim();
-        if(pseudo && pseudo!==ACC.username){
-          if(!reUser.test(pseudo)) throw new Error(T('ed.badPseudo','Pseudo invalide : 3 à 16 caractères (lettres, chiffres, _ ou -).'));
-          const r=await NX.setUsername(pseudo); ACC=r.account; paintIdentity(ACC);
-        }
-        let image, avatar;
-        if(anyLayer() || ed.dirty){ // calques/couleur touchés -> on compose les calques
-          await composeAvatar($('avatar-canvas'), ed);
-          image=canvasB64($('avatar-canvas'));
-          avatar=anyLayer() ? JSON.stringify({bg:ed.bg||undefined, char:ed.char||undefined, frame:ed.frame||undefined}) : '';
-        } else { // rien touché -> on GARDE la photo actuelle (ne pas l'écraser)
-          image=PROFILE.image||''; avatar=PROFILE.avatar||'';
-        }
-        // le pseudo du compte est l'unique nom : on l'écrit aussi dans Profile.Name (jeu + site alignés)
-        const body={ name:($('edit-pseudo').value.trim()||ACC.username), mii:PROFILE.mii||'', image:image, color:ed.color, avatar:avatar };
-        const pr=await NX.putProfile(body); PROFILE=pr.profile||body;
-        localStorage.setItem('nx_color', ed.color);
-        setAvatar(PROFILE.image, ACC.username);
-        NX.toast(T('ed.toastSaved','Profil mis à jour')); closeEditor();
-      } catch(err){ showMsg(m, err.message, 'err'); }
-      finally { btn.disabled=false; btn.textContent=prev; }
-    });
-
-    /* ===================== init ===================== */
-    buildPickers(); loadImageAvatars(); ensurePhosphor();
-    (async ()=>{
-      if(!NX.token){ location.replace('/login'); return; }
-      try { ({ account: ACC }=await NX.me()); } catch(_){ NX.token=''; location.replace('/login'); return; }
-      paintIdentity(ACC);
-      /* sécurité / e-mail : chip vérifié, bannière si non vérifié, boutons renvoyer + réinitialiser */
-      (function security(){
-        const isGuest=(ACC.email||'').toLowerCase().endsWith('@nextendo.local');
-        if(isGuest){ const sp=$('security-panel'); if(sp) sp.hidden=true; return; }
-        const chip=$('email-chip'); chip.hidden=false;
-        if(ACC.email_verified){ chip.className='email-chip ok'; chip.innerHTML='<i class="ph ph-seal-check"></i> '+escapeHtml(T('acc.verified','vérifié')); }
-        else { chip.className='email-chip no'; chip.innerHTML='<i class="ph ph-warning"></i> '+escapeHtml(T('acc.unverified','non vérifié')); $('verify-banner').hidden=false; }
-        $('resend-verify').addEventListener('click', async e=>{
-          const b=e.currentTarget; b.disabled=true;
-          try { await NX.resendVerification(); NX.toast(T('acc.toastResent','E-mail de vérification renvoyé — regarde ta boîte mail.')); }
-          catch(err){ NX.toast(err.message); } finally { b.disabled=false; }
-        });
-        $('reset-pw').addEventListener('click', async e=>{
-          const b=e.currentTarget; b.disabled=true;
-          try { await NX.forgot(ACC.email); NX.toast(T('acc.toastResetSent','Lien de réinitialisation envoyé à {email}.',{email:ACC.email})); }
-          catch(err){ NX.toast(err.message); } finally { b.disabled=false; }
-        });
-        // changer d'e-mail (modal)
-        const emModal=$('email-modal');
-        const closeEm=()=>{ emModal.hidden=true; };
-        $('change-email').addEventListener('click', ()=>{ $('em-msg').className='msg'; $('em-new').value=''; $('em-pw').value=''; emModal.hidden=false; });
-        emModal.querySelectorAll('[data-eclose]').forEach(el=>el.addEventListener('click', closeEm));
-        document.addEventListener('keydown', e=>{ if(e.key==='Escape' && !emModal.hidden) closeEm(); });
-        // Espace admin : révèle le lien uniquement si le compte connecté est admin.
-        NX.adminCheck().then(r=>{ if(r && r.admin){ const a=$('admin-link'); if(a) a.hidden=false; } }).catch(()=>{});
-        $('em-save').addEventListener('click', async ()=>{
-          const m=$('em-msg'); hideMsg(m);
-          const email=$('em-new').value.trim(), pw=$('em-pw').value;
-          if(!/.+@.+\..+/.test(email)){ showMsg(m,T('em.invalidEmail','Adresse e-mail invalide.'),'err'); return; }
-          if(!pw){ showMsg(m,T('em.needPw','Entre ton mot de passe actuel pour confirmer.'),'err'); return; }
-          const b=$('em-save'); b.disabled=true; const prev=b.textContent; b.textContent=T('em.changing','Changement…');
-          try {
-            const r=await NX.changeEmail(email, pw);
-            ACC=r.account||ACC; paintIdentity(ACC);
-            chip.className='email-chip no'; chip.innerHTML='<i class="ph ph-warning"></i> '+escapeHtml(T('acc.unverified','non vérifié')); $('verify-banner').hidden=false;
-            NX.toast(T('em.toastChanged','E-mail changé — confirme-le via le lien envoyé à {email}.',{email:email}));
-            closeEm();
-          } catch(err){ showMsg(m, err.message, 'err'); }
-          finally { b.disabled=false; b.textContent=prev; }
-        });
-      })();
-      try { const { profile }=await NX.profile(); PROFILE=profile||{}; } catch(_){ PROFILE={}; }
-      setAvatar(PROFILE.image, ACC.username);
-      document.querySelectorAll('[data-copy="fc"]').forEach(b=>b.addEventListener('click', async ()=>{
-        try { await navigator.clipboard.writeText(ACC.friend_code); NX.toast(T('acc.fcCopied','Friend code copié')); } catch(_){ NX.toast(T('acc.copyFail','Copie impossible')); }
-      }));
-      $('add-friend').addEventListener('submit', async e=>{
-        e.preventDefault(); const input=$('fc-input'); const code=input.value.trim(); if(!code) return;
-        const b=e.target.querySelector('button'); b.disabled=true;
-        try { await NX.addFriend(code); NX.toast(T('fr.requestSent','Demande envoyée')); input.value=''; loadFriends(); }
-        catch(err){ NX.toast(err.message); } finally { b.disabled=false; }
-      });
-      document.querySelectorAll('#friend-modal [data-fclose]').forEach(el=>el.addEventListener('click', closeFriendModal));
-      document.querySelectorAll('#game-modal [data-gclose]').forEach(el=>el.addEventListener('click', closeGameModal));
-      $('fm-remove').addEventListener('click', async ()=>{
-        if(!FRIEND_MODAL_PID) return;
-        if(!(await nxConfirm(T('fr.confirmRemove','Retirer cet ami de ta liste ?'), {title:T('fr.remove','Retirer'), ok:T('fr.remove','Retirer'), danger:true}))) return;
-        try { await NX.removeFriend(FRIEND_MODAL_PID); NX.toast(T('fr.toastRemoved','Ami supprimé')); closeFriendModal(); loadFriends(); }
-        catch(err){ NX.toast(err.message); }
-      });
-      $('fm-block').addEventListener('click', async ()=>{
-        if(!FRIEND_MODAL_PID) return;
-        if(!(await nxConfirm(T('fr.confirmBlock',"Bloquer ce joueur ? Il sera retiré de tes amis et ne pourra plus t'envoyer de demande."), {title:T('fr.block','Bloquer'), ok:T('fr.block','Bloquer'), danger:true}))) return;
-        try { await NX.blockFriend(FRIEND_MODAL_PID); NX.toast(T('fr.toastBlocked','Joueur bloqué')); closeFriendModal(); loadFriends(); }
-        catch(err){ NX.toast(err.message); }
-      });
-      loadFriends(); loadHistory(); loadSaves();
-      // Changement de langue : rafraîchit l'identité et les listes rendues en JS.
-      document.addEventListener('nx:lang', ()=>{ try{ if(ACC) paintIdentity(ACC); }catch(_){}; loadFriends(); loadHistory(); loadSaves(); });
-    })();
-  </script>
+<script src="assets/js/nx.js?v=20260925d" defer></script>
+<script src="assets/js/commun.js?v=20260925d" defer></script>
+<script src="assets/js/compte.js?v=20260925d" defer></script>
+<script src="assets/js/effets.js?v=20260925d" defer></script>
 </body>
 </html>

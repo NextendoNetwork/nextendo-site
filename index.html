@@ -1,371 +1,247 @@
-<!DOCTYPE html>
-<html lang="fr">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="color-scheme" content="dark" />
-  <title data-i18n="index.metaTitle">Nextendo Network, le online de la Switch rendu à la communauté</title>
-  <meta name="description" data-i18n-attr="content:index.metaDesc" content="Nextendo Network réimplémente les services en ligne de la Nintendo Switch pour l'émulateur Ryujinx. Comptes, jeu en ligne, amis et communautés." />
-
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
-  <link rel="stylesheet" href="assets/css/style.css?v=11" />
-  <link rel="stylesheet" href="assets/css/nx-ui.css?v=2" />
-  <style>
-    .progress { display:grid; grid-template-columns:auto 1fr; gap:2.5rem; align-items:center; margin-top:2rem; }
-    .progress__ring { position:relative; width:132px; height:132px; border-radius:50%; display:grid; place-items:center; flex:0 0 auto;
-      background: conic-gradient(var(--primary) calc(var(--p,0) * 1%), var(--surface-2) 0); }
-    .progress__ring::before { content:""; position:absolute; inset:13px; border-radius:50%; background:var(--bg-deep); }
-    .progress__pct { position:relative; z-index:1; font-family:var(--mono); font-weight:600; font-size:1.55rem; color:var(--ink); }
-    .progress__list { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:1rem 2.5rem; }
-    .progress-item { display:flex; align-items:center; gap:.7rem; font-size:.92rem; }
-    .progress-item__ic { width:20px; height:20px; flex:0 0 auto; display:grid; place-items:center; font-size:1.2rem; color:var(--faint); }
-    .progress-item.is-done .progress-item__ic { color:var(--signal); }
-    .progress-item__dot { width:9px; height:9px; border-radius:50%; background:var(--accent); }
-    .progress-item__main { flex:1; min-width:0; display:flex; flex-direction:column; gap:.1rem; }
-    .progress-item__name { color:var(--ink); font-weight:500; }
-    .progress-item__detail { font-size:.76rem; color:var(--faint); line-height:1.3; }
-    .progress-item__pct { font-family:var(--mono); font-size:.82rem; color:var(--faint); align-self:center; }
-    @media (max-width:720px) { .progress { grid-template-columns:1fr; gap:1.5rem; justify-items:start; } }
-    @media (max-width:560px) { .progress__list { grid-template-columns:1fr; } }
-  </style>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval' https://cdn.jsdelivr.net https://static.cloudflareinsights.com 'sha256-wevbidzM7oJAdXJ02hrmKKWhH7EtE+tNQ+860ebip4c='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://flagcdn.com; connect-src 'self' blob: data: https://api.github.com https://cdn.jsdelivr.net https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nextendo Network</title>
+<meta name="description" content="Nextendo Network brings Switch online play back: accounts, friends, presence and matchmaking, on Ryujinx, Citron or a Switch with CFW.">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/rework.css?v=20260925d">
+<script type="importmap">
+{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"},
+ "integrity":{
+  "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js":"sha384-61S/Nu32S3E5+n+KpCOTb2eRYps6fVKm+9Gz1QBvSePFthb46f063Aa/qe/lykFZ",
+  "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/loaders/GLTFLoader.js":"sha384-oxY9vSeh7Mrt5WmhN8xfWoDRnmoW9krEiRBY7vJKaK90jMUidM0fhbUwcblpBgTu",
+  "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/environments/RoomEnvironment.js":"sha384-ZGqh+dJjt6z9NHsWYYt+TPDFj8y+2If7naI6a6AkkyNZyH51CVS3HTWFh0njp4k6",
+  "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/utils/BufferGeometryUtils.js":"sha384-jHGXS4+FuVOBnZkNme2ury3Ccg5DWDLYK22xX/WGdZCZsjRM4J+3n6Qc4CXx1Hjf",
+  "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/libs/meshopt_decoder.module.js":"sha384-zhZjnxc+3j2IeX2itXt+5CnnC0YleVRvu5EOaj733tRp38E9hBPnZjweEWX2kN7y"}}
+</script>
+<script src="assets/js/i18n.js?v=20260925d"></script>
 </head>
-<body>
-  <a class="skip-link" href="#main" data-i18n="skip">Aller au contenu</a>
+<body data-page="accueil">
+<a class="saut" href="#contenu">Skip to content</a>
 
-  <!-- Morphism backdrop: morphing field + canvas signal mesh -->
-  <div class="backdrop" aria-hidden="true">
-    <div class="field field--a"></div>
-    <div class="field field--b"></div>
-    <div class="grid-veil"></div>
-  </div>
+<div id="nx-barre"></div>
 
-  <header class="nav" id="nav">
-    <div class="shell nav__inner">
-      <a class="brand" href="#top" aria-label="Nextendo Network, accueil">
-        <img class="brand__mark" src="assets/favicon.svg" alt="" width="30" height="30" />
-        <span class="brand__word">Nextendo<span class="brand__dim"> Network</span></span>
+<main id="contenu">
+
+  <!-- 1. Le hero : le soleil Nextendo sur l'horizon, puis l'état du réseau et les nouveautés -->
+  <section class="plaque plaque--hero" aria-labelledby="titre-hero">
+    <div class="horizon">
+      <div class="ciel" aria-hidden="true">
+        <span class="halo"></span>
+        <img class="soleil" src="assets/img/nextendo.png" alt="">
+        <svg class="collines" viewBox="0 0 1200 260" preserveAspectRatio="none">
+          <path class="c1" d="M0 150 C 140 90 260 120 380 105 S 640 60 780 100 S 1050 70 1200 110 L1200 260 L0 260 Z"/>
+          <path class="c2" d="M0 190 C 180 150 300 175 460 160 S 760 130 900 165 S 1100 150 1200 170 L1200 260 L0 260 Z"/>
+          <path class="c3" d="M0 225 C 200 205 420 222 600 212 S 980 200 1200 218 L1200 260 L0 260 Z"/>
+        </svg>
+      </div>
+      <div class="hero-texte">
+        <h1 id="titre-hero">Switch online play isn't going dark.</h1>
+        <p>Nextendo Network is an alternative to the official online services: your own account, friends, presence and matchmaking, on Ryujinx, Citron or a Switch with CFW.</p>
+        <div class="actions">
+          <a class="bouton bouton--plein bord-etoile" href="register.html">Create my account</a>
+          <a class="bouton bouton--verre" href="telecharger.html">Download the emulator</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-bas">
+      <a class="pouls" href="status.html">
+        <span class="pouls-point" aria-hidden="true"></span>
+        <span class="pouls-texte">
+          <strong id="pouls-total">…</strong>
+          <span>players online right now</span>
+        </span>
       </a>
-
-      <nav class="nav__links" id="navlinks" aria-label="Navigation principale">
-        <a href="#features" data-i18n="nav.features">Fonctionnalités</a>
-        <a href="#architecture" data-i18n="nav.architecture">Architecture</a>
-        <a href="/telecharger" data-i18n="nav.download">Télécharger</a>
-        <a href="/status" data-i18n="nav.status">Statut</a>
-        <a href="#faq" data-i18n="nav.faq">FAQ</a>
-      </nav>
-
-      <div class="nav__end">
-        <a class="ghost-link ghost-link--icon" href="https://github.com/NextendoNetwork" target="_blank" rel="noopener" aria-label="GitHub"><i class="ph ph-github-logo" aria-hidden="true"></i></a>
-        <a class="ghost-link ghost-link--icon" href="https://discord.gg/XPfeCMwnzQ" target="_blank" rel="noopener" aria-label="Discord"><i class="ph ph-discord-logo" aria-hidden="true"></i></a>
-        <a class="ghost-link" href="/login"><i class="ph ph-sign-in" aria-hidden="true"></i> <span data-i18n="nav.login">Connexion</span></a>
-        <a class="btn btn--primary btn--sm" href="/register" data-i18n="nav.register">Créer un compte</a>
-        <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navlinks">
-          <span></span><span></span>
-        </button>
+      <div class="nouveautes">
+        <h2>What's new</h2>
+        <ul>
+          <li><a href="telecharger.html">The Nextendo app is out on iPhone and Android: friends, activity and saves in your pocket.</a></li>
+          <li><a href="telecharger.html">Citron Nextendo joins Ryujinx: two emulators, one account.</a></li>
+          <li><a href="compte.html">Your picture and username now sync between your Switch, the site and the app.</a></li>
+        </ul>
       </div>
     </div>
-  </header>
+  </section>
 
-  <main id="main">
-    <span id="top"></span>
+  <!-- 2. Les jeux, comme une carte : six jaquettes avec le nombre de joueurs en direct -->
+  <section class="plaque" id="jeux" aria-labelledby="titre-jeux">
+    <div class="entete">
+      <h2 id="titre-jeux">Online games</h2>
+      <a class="pastille-lien" href="status.html">All servers</a>
+    </div>
+    <ul class="jaquettes" id="jaquettes">
+      <!-- rempli par rework.js ; ces six cartes servent de repli sans réseau -->
+    </ul>
+  </section>
 
-    <!-- HERO -->
-    <section class="hero" aria-labelledby="hero-title">
-      <div class="shell hero__grid">
-        <div class="hero__copy">
-          <p class="status" data-reveal>
-            <span class="status__dot" aria-hidden="true"></span>
-            <span data-i18n="hero.status">Réseau opérationnel</span>
-          </p>
-
-          <h1 class="hero__title" id="hero-title" data-reveal data-i18n-html="hero.title">
-            Un réseau <span class="hl">indépendant</span> pour votre Switch.
-          </h1>
-
-          <p class="hero__lede" data-reveal data-i18n="hero.lede">
-            Nextendo Network réimplémente les services en ligne de la Switch
-            pour l'émulateur Ryujinx.
-          </p>
-
-          <div class="hero__cta" data-reveal>
-            <a class="btn btn--primary" href="/register">
-              <span data-i18n="hero.cta1">Créer mon compte</span>
-              <i class="ph ph-arrow-right" aria-hidden="true"></i>
-            </a>
-            <a class="btn btn--ghost" href="#install" data-i18n="hero.cta2">Comment ça marche</a>
-          </div>
-        </div>
+  <!-- 2b. La progression de chaque jeu, comme la section Progression du vrai site -->
+  <section class="plaque" id="progres" aria-labelledby="titre-progres">
+    <div class="entete">
+      <h2 id="titre-progres">Progress</h2>
+      <p class="petit-texte">How much of each game's online play works today.</p>
+    </div>
+    <div class="progres-grille">
+      <div class="anneau" id="anneau" role="img" aria-label="Overall progress">
+        <span class="anneau-valeur"><strong id="anneau-pct">0%</strong><small>overall</small></span>
       </div>
-    </section>
+      <ul class="progres-liste" id="progres-liste"></ul>
+    </div>
+  </section>
 
-    <!-- STATEMENT -->
-    <section class="statement shell" aria-label="Le problème">
-      <p class="statement__text" data-reveal data-i18n-html="statement">
-        Quand un service officiel ferme, le jeu en ligne meurt avec lui.
-        <span class="statement__soft">Nextendo le fait revivre, proprement et au grand jour.</span>
-      </p>
-    </section>
+  <!-- 3. La phrase du projet -->
+  <section class="bandeau" aria-label="The project">
+    <img src="assets/img/nextendo.png" alt="" width="56" height="56">
+    <p>Nextendo is a second home for Switch online play: an independent network that keeps your games connected, free and ad-free, run by and for the community.</p>
+    <div class="defile" role="region" aria-label="Supported games"><ul class="defile-piste" id="defile-jeux"></ul></div>
+  </section>
 
-    <!-- FEATURES -->
-    <section class="section shell" id="features" aria-labelledby="features-title">
-      <header class="head">
-        <h2 class="head__title" id="features-title" data-reveal data-i18n="features.title">Le online, réécrit proprement.</h2>
-        <p class="head__lede" data-reveal data-i18n="features.lede">Une pile claire et soignée, pensée pour durer. Pas une copie obscure des serveurs d'origine.</p>
-      </header>
-
-      <div class="bento">
-        <article class="cell cell--feature cell--lead" data-reveal data-spotlight>
-          <div class="cell__body">
-            <i class="ph ph-identification-card cell__ico" aria-hidden="true"></i>
-            <h3 data-i18n="feat.accounts.h">Comptes communautaires</h3>
-            <p data-i18n="feat.accounts.p">Une identité indépendante des serveurs officiels. Gardez vos amis et votre présence en ligne d'un jeu à l'autre.</p>
-          </div>
-        </article>
-
-        <article class="cell cell--feature" data-reveal data-spotlight>
-          <i class="ph ph-globe-hemisphere-west cell__ico" aria-hidden="true"></i>
-          <h3 data-i18n="feat.online.h">Jeu en ligne</h3>
-          <p data-i18n="feat.online.p">Mario Kart 8 Deluxe, Splatoon 2, Super Smash Bros. Ultimate&nbsp;: les modes multijoueurs, depuis Ryujinx ou votre Switch.</p>
-        </article>
-
-        <article class="cell cell--feature" data-reveal data-spotlight>
-          <i class="ph ph-users-three cell__ico" aria-hidden="true"></i>
-          <h3 data-i18n="feat.friends.h">Amis et présence</h3>
-          <p data-i18n="feat.friends.p">Voyez qui est en ligne, à quoi ils jouent, et rejoignez la partie.</p>
-        </article>
-
-        <article class="cell cell--feature" data-reveal data-spotlight>
-          <i class="ph ph-hand-heart cell__ico" aria-hidden="true"></i>
-          <h3 data-i18n="feat.community.h">Communautaire</h3>
-          <p data-i18n="feat.community.p">Un projet à but non lucratif, fait par et pour la communauté.</p>
-        </article>
-
-        <article class="cell cell--feature" data-reveal data-spotlight>
-          <i class="ph ph-shield-check cell__ico" aria-hidden="true"></i>
-          <h3 data-i18n="feat.privacy.h">Vie privée</h3>
-          <p data-i18n="feat.privacy.p">Pas de pistage, pas de revente. Vos parties restent les vôtres.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- ARCHITECTURE -->
-    <section class="section shell" id="architecture" aria-labelledby="arch-title">
-      <header class="head">
-        <h2 class="head__title" id="arch-title" data-reveal data-i18n="arch.title">Comment Nextendo vous connecte.</h2>
-        <p class="head__lede" data-reveal data-i18n="arch.lede">Votre jeu parle à nos serveurs comme il parlait à ceux d'origine. On gère l'identité, les amis et le matchmaking — la partie, elle, se joue en direct entre joueurs.</p>
-      </header>
-
-      <div class="flow" data-reveal>
-        <div class="node">
-          <i class="ph ph-game-controller node__ico" aria-hidden="true"></i>
-          <h3 data-i18n="arch.game.h">Votre jeu</h3>
-          <p data-i18n="arch.game.p">Ryujinx ou une Switch en CFW. Le jeu n'est pas modifié.</p>
+  <!-- 4. Le fonctionnement : une grande carte, puis une grande et deux petites -->
+  <section class="plaque" id="fonctionnement" aria-labelledby="titre-fonctionnement">
+    <article class="carte carte--large carte--chemin">
+      <h2 id="titre-fonctionnement">Your game talks to our servers just like it talked to Nintendo’s.</h2>
+      <ol class="chemin">
+        <li><strong>Your game</strong><span>Ryujinx, Citron or a Switch with CFW. The game itself is not modified.</span></li>
+        <li><strong>Your Nextendo account</strong><span>It stands in for the Nintendo account: identity, friends and a signed token.</span></li>
+        <li><strong>The match</strong><span>Our servers find your opponents, then the match runs directly between players.</span></li>
+      </ol>
+    </article>
+    <div class="mosaique">
+      <article class="carte carte--haute carte--amis">
+        <div class="pile" aria-hidden="true">
+          <img src="/api/game-icon/0100152000022000.jpg" alt="">
+          <img src="/api/game-icon/0100c2500fc20000.jpg" alt="">
+          <img src="/api/game-icon/01006a800016e000.jpg" alt="">
+          <img src="/api/game-icon/01006f8002326000.jpg" alt="">
+          <img src="/api/game-icon/01009b90006dc000.jpg" alt="">
         </div>
+        <h3>Your friends, everywhere</h3>
+        <p>One username, one permanent friend code and a single friend list for all your games. See who is playing what, and join in.</p>
+      </article>
+      <article class="carte carte--gratuit">
+        <h3>Free, for real</h3>
+        <p>A volunteer project. No subscription, no ads.</p>
+      </article>
+      <article class="carte carte--prive">
+        <h3>Your data stays yours</h3>
+        <p>Only what the service needs to run. No tracking, no selling.</p>
+      </article>
+    </div>
+  </section>
 
-        <div class="wire" aria-hidden="true"><span class="wire__pulse"></span></div>
-
-        <div class="node node--key">
-          <i class="ph ph-identification-card node__ico" aria-hidden="true"></i>
-          <h3 data-i18n="arch.account.h">Compte Nextendo</h3>
-          <p data-i18n="arch.account.p">Votre identité et un jeton signé prennent la place des serveurs d'origine.</p>
-        </div>
-
-        <div class="wire" aria-hidden="true"><span class="wire__pulse wire__pulse--2"></span></div>
-
-        <div class="node">
-          <i class="ph ph-users-three node__ico" aria-hidden="true"></i>
-          <h3 data-i18n="arch.match.h">Matchmaking &amp; amis</h3>
-          <p data-i18n="arch.match.p">Nos serveurs ouverts vous appairent ; la partie passe ensuite en P2P entre joueurs.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- INSTALL -->
-    <section class="section shell" id="install" aria-labelledby="install-title">
-      <div class="install">
-        <div class="install__left">
-          <header class="head head--left">
-            <h2 class="head__title" id="install-title" data-reveal data-i18n="install.title">En ligne en quatre étapes.</h2>
-            <p class="head__lede" data-reveal data-i18n="install.lede">Sur l'émulateur Ryujinx ou sur une vraie Switch en CFW. Dans les deux cas, votre compte Nextendo est la clé — et tout est réversible.</p>
-          </header>
-
-          <div class="member-card" data-reveal style="margin-top:1.8rem">
-            <div class="member-card__top">
-              <span class="member-card__brand"><img src="assets/favicon.svg" alt="" /> NEXTENDO</span>
-              <span class="member-card__chip" data-i18n="member.chip">MEMBRE</span>
-            </div>
-            <div class="member-card__label" data-i18n="member.label">Friend code</div>
-            <div class="member-card__code">SW-4815-1623-0842</div>
-            <div class="member-card__foot">
-              <div class="member-card__name">Inkling_Pro<span data-i18n="member.pseudo">Pseudo</span></div>
-              <div class="member-card__sig" aria-hidden="true"></div>
-            </div>
-          </div>
-          <p class="hint" data-reveal style="margin-top:1rem" data-i18n="install.hint">Votre identité réseau : un pseudo, un friend code permanent, et vos amis — partagés entre tous vos jeux et vos appareils.</p>
-        </div>
-
-        <ol class="steps" data-reveal>
-          <li class="step">
-            <span class="step__n mono">01</span>
-            <div>
-              <h3 data-i18n="step1.h">Créez votre compte Nextendo</h3>
-              <p><span data-i18n="step1.p">Gratuit, en trois champs. Vous obtenez aussitôt un pseudo et un friend code permanents.</span> <a href="/register" style="color:var(--primary-bright)" data-i18n="step1.link">Créer mon compte →</a></p>
-            </div>
-          </li>
-          <li class="step">
-            <span class="step__n mono">02</span>
-            <div>
-              <h3 data-i18n="step2.h">Récupérez Ryujinx Nextendo</h3>
-              <p data-i18n="step2.p">La build de l'émulateur préconfigurée pour notre réseau. Sur une Switch CFW, activez plutôt le profil Nextendo (redirection DNS).</p>
-            </div>
-          </li>
-          <li class="step">
-            <span class="step__n mono">03</span>
-            <div>
-              <h3 data-i18n="step3.h">Connexion Nextendo Network</h3>
-              <p data-i18n-html="step3.p">Dans Ryujinx&nbsp;: <b>Actions → Connexion Nextendo Network</b>, puis entrez vos identifiants.</p>
-            </div>
-          </li>
-          <li class="step">
-            <span class="step__n mono">04</span>
-            <div>
-              <h3 data-i18n="step4.h">Jouez en ligne</h3>
-              <p data-i18n="step4.p">Lancez Mario Kart 8, Splatoon 2 ou Smash Ultimate, ouvrez le menu en ligne, et retrouvez la communauté.</p>
-            </div>
-          </li>
-        </ol>
-      </div>
-    </section>
-
-    <!-- FIGURES -->
-    <section class="section section--tight shell" aria-label="Le réseau en chiffres">
-      <div class="figures" data-reveal>
-        <div class="figure">
-          <span class="figure__n mono">3</span>
-          <span class="figure__l" data-i18n="fig1.l">Jeux jouables en ligne</span>
-        </div>
-        <div class="figure">
-          <span class="figure__n mono">1</span>
-          <span class="figure__l" data-i18n="fig2.l">Compte, tous vos jeux</span>
-        </div>
-        <div class="figure">
-          <span class="figure__n mono">100 %</span>
-          <span class="figure__l" data-i18n="fig3.l">Bénévole</span>
-        </div>
-        <div class="figure">
-          <span class="figure__n mono">0 €</span>
-          <span class="figure__l" data-i18n="fig4.l">Gratuit, sans pub</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- FAQ -->
-    <section class="section shell" id="progress" aria-labelledby="progress-title">
-      <header class="head head--left">
-        <h2 class="head__title" id="progress-title" data-i18n="progress.title">Progression</h2>
-        <p class="head__lede" data-i18n="progress.lede">L'avancement de chaque jeu. Plusieurs sont déjà jouables, mais pas encore à 100 % — les cas restants sont indiqués par leur pourcentage.</p>
-      </header>
-      <div class="progress">
-        <div class="progress__ring" id="progress-ring">
-          <span class="progress__pct" id="progress-pct">—</span>
-        </div>
-        <div class="progress__list" id="progress-list"></div>
-      </div>
-    </section>
-
-    <section class="section shell" id="faq" aria-labelledby="faq-title">
-      <header class="head head--left">
-        <h2 class="head__title" id="faq-title" data-reveal data-i18n="faq.title">Les questions qui reviennent.</h2>
-      </header>
-
-      <div class="faq" data-reveal>
-        <details class="qa" open>
-          <summary><span data-i18n="faq.q1">Nextendo est-il affilié à Nintendo ?</span><i class="ph ph-plus" aria-hidden="true"></i></summary>
-          <div class="qa__a"><p data-i18n="faq.a1">Non. C'est un projet communautaire indépendant. Aucune affiliation, sponsoring ou approbation de Nintendo Co., Ltd.</p></div>
-        </details>
-        <details class="qa">
-          <summary><span data-i18n="faq.q2">Faut-il fournir des jeux ?</span><i class="ph ph-plus" aria-hidden="true"></i></summary>
-          <div class="qa__a"><p data-i18n="faq.a2">Nextendo ne distribue ni jeux, ni ROMs, ni clés. Le projet ne fournit que des services réseau. Vous restez responsable de vos propres copies.</p></div>
-        </details>
-        <details class="qa">
-          <summary><span data-i18n="faq.q3">Quels émulateurs sont pris en charge ?</span><i class="ph ph-plus" aria-hidden="true"></i></summary>
-          <div class="qa__a"><p data-i18n="faq.a3">La priorité va à Ryujinx. D'autres environnements pourront suivre à mesure que la communauté contribue.</p></div>
-        </details>
-        <details class="qa">
-          <summary><span data-i18n="faq.q4">Que faites-vous de mes données ?</span><i class="ph ph-plus" aria-hidden="true"></i></summary>
-          <div class="qa__a"><p data-i18n="faq.a4">Le strict minimum pour faire fonctionner le service. Pas de pistage, pas de revente. Le code étant ouvert, vous pouvez le vérifier.</p></div>
-        </details>
-        <details class="qa">
-          <summary><span data-i18n="faq.q5">Comment contribuer ?</span><i class="ph ph-plus" aria-hidden="true"></i></summary>
-          <div class="qa__a"><p data-i18n="faq.a5">Code, traduction, tests de compatibilité ou modération : tout aide. Rejoignez le dépôt et le serveur communautaire pour commencer.</p></div>
-        </details>
-      </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="section shell" aria-labelledby="cta-title">
-      <div class="cta" data-reveal>
-        <div class="cta__field" aria-hidden="true"></div>
-        <h2 id="cta-title" data-i18n="cta.title">Prêt à rebrancher votre Switch ?</h2>
-        <p data-i18n="cta.lede">Suivez le développement, rejoignez la communauté, et lancez votre première partie en ligne.</p>
-        <div class="cta__actions">
-          <a class="btn btn--primary" href="/register" data-i18n="cta.b1">Créer mon compte</a>
-          <a class="btn btn--ghost" href="/login" data-i18n="cta.b2">Se connecter</a>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <footer class="footer">
-    <div class="shell footer__grid">
-      <div class="footer__brand">
-        <a class="brand" href="#top" aria-label="Nextendo Network, accueil">
-          <img class="brand__mark" src="assets/favicon.svg" alt="" width="28" height="28" />
-          <span class="brand__word">Nextendo<span class="brand__dim"> Network</span></span>
+  <!-- 5. Où jouer : trois plateformes, chacune avec son appareil en 3D -->
+  <section class="plaque" id="plateformes" aria-labelledby="titre-plateformes">
+    <div class="entete">
+      <h2 id="titre-plateformes">Where to find Nextendo</h2>
+      <a class="pastille-lien" href="telecharger.html">All downloads</a>
+    </div>
+    <ul class="plateformes">
+      <li>
+        <span class="type">Emulator</span>
+        <a class="plateforme plateforme--emu" href="telecharger.html">
+          <canvas class="plateforme-3d" data-modeles="assets/models/retro_computer.glb" data-opaque aria-label="3D computer" role="img"></canvas>
+          <span class="plateforme-logos"><img src="assets/img/plateformes/ryujinx.png" alt="" width="34" height="34"><img src="assets/img/plateformes/citron.png" alt="" width="34" height="34"></span>
+          <strong>Ryujinx Nextendo and Citron Nextendo</strong>
+          <span>Two emulators set up for the network, on Windows, Linux and macOS, with the same account.</span>
         </a>
-        <p class="footer__tag" data-i18n="footer.tag">Le online de la Switch, rendu à la communauté.</p>
+      </li>
+      <li>
+        <span class="type">Console</span>
+        <a class="plateforme plateforme--switch" href="telecharger.html">
+          <canvas class="plateforme-3d" data-modeles="assets/models/nintendo_switch.glb" data-y="0.45" aria-label="3D Nintendo Switch" role="img"></canvas>
+          <strong>Switch with CFW</strong>
+          <span>Turn on the Nextendo profile. Fully reversible.</span>
+        </a>
+      </li>
+      <li>
+        <span class="type">Companion app</span>
+        <a class="plateforme plateforme--tel" href="telecharger.html">
+          <canvas class="plateforme-3d" data-modeles="assets/models/iphone.glb|assets/models/samsung_s22_ultra.glb" data-orient="|90,0,0" aria-label="3D iPhone and Android phone" role="img"></canvas>
+          <span class="plateforme-logos"><img src="assets/img/plateformes/app-ios.png" alt="" width="34" height="34"></span>
+          <strong>Nextendo app</strong>
+          <span>On iPhone and Android: your friends, your activity and your saves.</span>
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <!-- 5b. En ligne en quatre etapes (vraie sequence : les numeros ont un sens) -->
+  <section class="plaque" id="etapes" aria-labelledby="titre-etapes">
+    <div class="entete">
+      <h2 id="titre-etapes">Online in four steps</h2>
+      <p class="petit-texte">On an emulator or a real Switch with CFW. Your Nextendo account is the key, and everything is reversible.</p>
+    </div>
+    <ol class="quatre-etapes">
+      <li><strong>Create your Nextendo account</strong><span>Free, in three fields. You get a permanent username and friend code right away.</span><a class="lien" href="register.html">Create my account</a></li>
+      <li><strong>Get Ryujinx or Citron Nextendo</strong><span>The emulator builds set up for the network. On a Switch with CFW, turn on the Nextendo profile instead.</span><a class="lien" href="telecharger.html">Downloads</a></li>
+      <li><strong>Sign in to Nextendo Network</strong><span>In Ryujinx: Actions, then Nextendo Network sign-in, then type your e-mail and password.</span></li>
+      <li><strong>Play online</strong><span>Launch Mario Kart 8, Splatoon or Smash Ultimate, open the online menu and meet the community.</span></li>
+    </ol>
+  </section>
+
+  <!-- 6. L'état du réseau, en direct -->
+  <section class="plaque plaque--etat" id="etat" aria-labelledby="titre-etat">
+    <div class="entete">
+      <h2 id="titre-etat">Network status</h2>
+      <p class="maj" id="etat-maj" aria-live="polite">Updating…</p>
+    </div>
+    <div class="etat">
+      <div class="etat-total">
+        <strong id="etat-total">…</strong>
+        <span>players connected</span>
       </div>
-
-      <nav class="footer__cols" aria-label="Pied de page">
-        <div>
-          <h4 data-i18n="footer.project">Projet</h4>
-          <a href="#features" data-i18n="nav.features">Fonctionnalités</a>
-          <a href="/telecharger" data-i18n="nav.download">Télécharger</a>
-          <a href="#install" data-i18n="nav.install">Installation</a>
-        </div>
-        <div>
-          <h4 data-i18n="footer.community">Communauté</h4>
-          <a href="https://github.com/NextendoNetwork" target="_blank" rel="noopener">GitHub</a>
-          <a href="https://discord.gg/XPfeCMwnzQ" target="_blank" rel="noopener">Discord</a>
-          <a href="#faq" data-i18n="nav.faq">FAQ</a>
-        </div>
-        <div>
-          <h4 data-i18n="footer.status">État</h4>
-          <a href="/status"><span class="status status--mini"><span class="status__dot" aria-hidden="true"></span><span data-i18n="footer.operational">Opérationnel</span></span></a>
-        </div>
-      </nav>
+      <ul class="barres" id="barres"></ul>
     </div>
+  </section>
 
-    <div class="shell footer__legal">
-      <p data-i18n="footer.legal">
-        Nextendo Network est un projet communautaire indépendant, sans aucune affiliation avec Nintendo Co., Ltd.
-        « Nintendo Switch » et « Ryujinx » appartiennent à leurs détenteurs respectifs.
-        Aucun jeu ni aucune ROM n'est fourni ou distribué.
-      </p>
-      <p class="footer__copy">© <span id="year">2026</span> <span data-i18n="footer.rights">Nextendo Network.</span></p>
+  <!-- 7. L'equipe -->
+  <section class="plaque" id="equipe" aria-labelledby="titre-equipe">
+    <div class="entete">
+      <h2 id="titre-equipe">Meet the Team</h2>
+      <p class="petit-texte">Nextendo runs on volunteer work. These are the people keeping it online.</p>
     </div>
-  </footer>
+    <ul class="equipe" id="equipe-liste"></ul>
+  </section>
 
-  <script src="assets/js/app.js?v=2" defer></script>
-  <script src="assets/js/nx-ui.js?v=3" defer></script>
-  <script src="assets/js/nx-i18n.js?v=3" defer></script>
-  <script src="assets/js/nx-i18n-more.js?v=4" defer></script>
-  <script src="assets/js/nx-i18n-progress.js?v=7" defer></script>
-  <script src="assets/js/main.js?v=2" defer></script>
-  <script src="assets/js/progress.js?v=9" defer></script>
+  <!-- 8. Questions frequentes -->
+  <section class="plaque" id="faq" aria-labelledby="titre-faq">
+    <h2 id="titre-faq" class="entete">Frequently asked questions</h2>
+    <div class="faq">
+      <details class="faq-q"><summary>Is Nextendo affiliated with Nintendo?</summary><p>No. Nextendo is an independent community project, with no affiliation, sponsorship or endorsement from Nintendo Co., Ltd.</p></details>
+      <details class="faq-q"><summary>Do I have to provide games?</summary><p>Nextendo doesn't distribute games, ROMs or keys. It only provides network services: you stay responsible for your own copies.</p></details>
+      <details class="faq-q"><summary>Which emulators are supported?</summary><p>Ryujinx Nextendo and Citron Nextendo, plus a real Switch running custom firmware. More may follow as the community contributes.</p></details>
+      <details class="faq-q"><summary>What do you do with my data?</summary><p>Only what the service needs to run. No tracking, no selling. The code is open, so you can check it.</p></details>
+      <details class="faq-q"><summary>How can I contribute?</summary><p>Code, translations, compatibility testing or moderation: everything helps. Join the repository and the community server to start.</p></details>
+    </div>
+  </section>
+
+  <!-- 9. Appel final -->
+  <section class="plaque appel-final" aria-labelledby="titre-appel">
+    <div>
+      <h2 id="titre-appel">Ready to reconnect your Switch?</h2>
+      <p class="petit-texte">Follow the development, join the community and start your first online match.</p>
+    </div>
+    <div class="actions">
+      <a class="bouton bouton--plein bord-etoile" href="register.html">Create my account</a>
+      <a class="bouton bouton--verre" href="login.html">Sign in</a>
+    </div>
+  </section>
+
+</main>
+
+<div id="nx-pied"></div>
+
+<script src="assets/js/nx.js?v=20260925d" defer></script>
+<script src="assets/js/commun.js?v=20260925d" defer></script>
+<script src="assets/js/rework.js?v=20260925d" defer></script>
+<script type="module" src="assets/js/plateformes3d.js?v=20260925d"></script>
+<script src="assets/js/effets.js?v=20260925d" defer></script>
 </body>
 </html>

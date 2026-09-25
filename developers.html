@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nextendo Developers</title>
+<meta name="description" content="Build on Nextendo: OAuth sign-in, friends, presence, cloud saves and API keys.">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/rework.css?v=20260925d">
+<link rel="stylesheet" href="assets/css/pages.css?v=20260925d">
+<link rel="stylesheet" href="assets/css/developers.css?v=20260925d">
+<script src="assets/js/i18n.js?v=20260925d"></script>
+</head>
+<body data-page="dev">
+<a class="saut" href="#contenu">Skip to content</a>
+
+<div id="nx-barre"></div>
+
+<main id="contenu" class="dev">
+
+  <!-- Landing -->
+  <section class="vue" id="vue-accueil" hidden>
+    <div class="plaque dev-heros">
+      <h1 class="page-titre">Give your games and emulators a new dimension.</h1>
+      <p class="page-intro">Sign-in with Nextendo, friends and presence, cloud saves and live game data, through one OAuth 2.0 application.</p>
+      <div class="ligne-boutons" style="max-width:420px;margin-top:20px">
+        <a class="bouton bouton--plein" href="#/espace">Start building</a>
+        <a class="bouton bouton--verre" href="https://wiki.nextendo.network/developers">Read the docs</a>
+      </div>
+    </div>
+    <div class="plaque">
+      <h2 class="titre-plaque">Why build on Nextendo?</h2>
+      <div class="atouts" id="atouts"></div>
+    </div>
+    <div class="plaque dev-appel">
+      <div>
+        <h3>Ready to connect your application?</h3>
+        <p class="petit">Create an application, add a redirect URI, and your players can sign in within minutes.</p>
+      </div>
+      <button type="button" class="bouton bouton--plein" data-nouvelle-appli>Create an application</button>
+    </div>
+  </section>
+
+  <!-- Developer space: sidebar + home / applications / application detail -->
+  <section class="vue espace" id="vue-espace" hidden>
+    <aside class="espace-cote">
+    <nav class="espace-menu" id="menu-espace" aria-label="Developer space">
+      <a href="#/espace" data-route="espace"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20h-5v-6H9v6H4z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>Home</a>
+      <a href="#/applis" data-route="applis"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="4" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="4" y="13" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="13" y="13" width="7" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>Applications</a>
+      <a href="https://github.com/NextendoNetwork"><svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="currentColor" d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.82-.26.82-.58l-.02-2.04c-3.34.73-4.04-1.61-4.04-1.61-.55-1.39-1.33-1.76-1.33-1.76-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.81 5.63-5.48 5.92.43.37.81 1.1.81 2.22l-.01 3.29c0 .32.21.7.82.58A12 12 0 0 0 12 .3"/></svg>Nextendo GitHub</a>
+    </nav>
+    <nav class="espace-menu menu-appli" id="menu-appli" aria-label="Application settings" hidden>
+      <a class="retour-applis" href="#/applis"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Applications</a>
+      <div class="menu-appli-tete" id="menu-appli-tete"></div>
+      <div id="onglets-v"></div>
+    </nav>
+    </aside>
+
+    <div class="espace-contenu">
+      <!-- Space home -->
+      <div class="sous-vue" id="sv-espace" hidden>
+        <div class="plaque">
+          <h1 class="page-titre" style="font-size:clamp(1.8rem,4vw,2.6rem)">Welcome, <span id="dev-nom">Developer</span></h1>
+          <p class="page-intro">Your applications, the guides and everything to connect to Nextendo.</p>
+        </div>
+        <div class="plaque">
+          <div class="entete-plaque">
+            <h2 class="titre-plaque">Recent applications</h2>
+            <a class="pastille-lien" href="#/applis">See all applications</a>
+          </div>
+          <div class="grille-applis" id="recentes"></div>
+        </div>
+        <div class="plaque">
+          <h2 class="titre-plaque">Guides and resources</h2>
+          <div class="guides">
+            <a class="guide" href="https://wiki.nextendo.network/developers"><strong>OAuth 2.0 PKCE</strong><p>Step-by-step integration for desktop and mobile emulators.</p></a>
+            <a class="guide" href="https://wiki.nextendo.network/developers"><strong>Redirect URIs and loopback</strong><p>Dynamic 127.0.0.1:port/callback ports for desktop apps, custom schemes for mobile.</p></a>
+            <a class="guide" href="https://discord.gg/XPfeCMwnzQ"><strong>Community</strong><p>Join the official Discord to talk with other developers.</p></a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Applications list -->
+      <div class="sous-vue" id="sv-applis" hidden>
+        <div class="plaque">
+          <div class="entete-plaque">
+            <h1 class="titre-plaque" style="font-size:1.8rem">Applications <span class="compteur-pastille" id="applis-compte">0</span></h1>
+            <button type="button" class="bouton bouton--plein petit-bouton" data-nouvelle-appli>New application</button>
+          </div>
+          <div class="outils">
+            <label class="recherche"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input type="search" id="applis-recherche" placeholder="Search an application…" aria-label="Search an application"></label>
+            <select class="tri-select" id="applis-tri" aria-label="Sort applications"><option value="recent">Most recent</option><option value="nom">Name, A to Z</option></select>
+          </div>
+          <div class="grille-applis" id="applis"></div>
+        </div>
+      </div>
+
+      <!-- Application detail -->
+      <div class="sous-vue" id="sv-appli" hidden>
+        <nav class="fil" aria-label="Breadcrumb"><a href="#/applis">Applications</a><span aria-hidden="true">›</span><strong id="ap-titre">…</strong></nav>
+        <div class="plaque panneaux" id="panneaux"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Unsaved changes bar (Discord-style) -->
+  <div class="barre-sauver" id="barre-sauver" role="region" aria-label="Unsaved changes" hidden>
+    <span>Careful, you have unsaved changes.</span>
+    <div class="ligne-boutons"><button type="button" class="bouton bouton--verre petit-bouton" id="annuler-modifs">Reset</button><button type="button" class="bouton bouton--plein petit-bouton" id="sauver-modifs">Save changes</button></div>
+  </div>
+</main>
+
+<div id="nx-pied"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<dialog id="dlg-nouvelle" class="dialogue" aria-labelledby="t-nouvelle">
+  <form class="dialogue-corps" id="form-nouvelle">
+    <h2 id="t-nouvelle">Create a new application</h2>
+    <p>Give it a name and a description. You can set the rest (icon, permissions, redirects) once the application exists.</p>
+    <label class="champ">Name *<input id="n-nom" maxlength="40" required placeholder="My Nextendo emulator"></label>
+    <label class="champ"><span class="champ-tete"><span>Description</span><small id="n-compte">0 / 400</small></span><textarea id="n-desc" maxlength="400" placeholder="What your application does."></textarea></label>
+    <div class="champ"><span>Security model</span>
+      <label class="modele"><input type="checkbox" id="n-publique" checked><span><strong>Public application (desktop / mobile, PKCE)</strong><small>For desktop emulators (Ryujinx) and mobile apps. No client secret to keep or leak.</small></span></label>
+    </div>
+    <div class="ligne-fin"><button type="button" class="bouton bouton--verre" data-ferme>Cancel</button><button type="submit" class="bouton bouton--plein">Create the application</button></div>
+  </form>
+</dialog>
+
+<dialog id="dlg-suppr" class="dialogue" aria-labelledby="t-suppr">
+  <div class="dialogue-corps">
+    <h2 id="t-suppr">Delete the application</h2>
+    <p>This deletes <strong id="suppr-nom"></strong>, its keys and its members. Players signed in with it are signed out. This can't be undone.</p>
+    <label class="champ">Type the application's name to confirm:<input id="suppr-saisie" autocomplete="off"></label>
+    <div class="ligne-fin"><button type="button" class="bouton bouton--verre" data-ferme>Cancel</button><button type="button" class="bouton bouton--danger" id="suppr-ok" disabled>Delete for good</button></div>
+  </div>
+</dialog>
+
+<script src="assets/js/nx.js?v=20260925d" defer></script>
+<script src="assets/js/commun.js?v=20260925d" defer></script>
+<script src="assets/js/pages.js?v=20260925d" defer></script>
+<script src="assets/js/developers.js?v=20260925d" defer></script>
+<script src="assets/js/effets.js?v=20260925d" defer></script>
+</body>
+</html>

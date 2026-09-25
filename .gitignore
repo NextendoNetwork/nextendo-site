@@ -5,5 +5,13 @@
 *.pem
 node_modules/
 
-# Panneau admin : jamais dans le repo public
+# Admin panel: never in the public repo
 admin.html
+assets/js/admin.js
+assets/css/admin.css
+
+# Local-only: preview server, launch checklist, account snapshots, model sources
+apercu.py
+PUBLICATION.md
+assets/data/
+outils/modeles-*/

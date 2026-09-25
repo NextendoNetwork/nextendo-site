@@ -20,6 +20,22 @@ The **[nextendo.network](https://nextendo.network)** website: the front door to 
 - **Friends & presence**: add friends by code, see who's online.
 - **Your profile**: nickname, avatar, and your game history.
 - **Account & security**: email verification, password reset, and active-session management.
+- **Game pages**: eShop details, screenshots, your play time, and a link to buy the game on the Nintendo eShop of your country.
+- **Network status & progress**: live player counts and how far online play has come, game by game.
+- **Nextendo Developers**: the portal to register an application that signs players in with their Nextendo account.
+- **10 languages**: English, French, Spanish, Portuguese, German, Italian, Russian, Chinese, Japanese and Arabic.
+
+## Translations
+
+The pages are written in English. `assets/js/i18n.js` translates the English text itself, using one dictionary per language in `assets/js/i18n/`.
+
+Those dictionaries are generated: edit the sources in `outils/i18n/` (`a_traduire.txt` holds one English string per line, `t_<lang>.txt` holds `<line number><TAB><translation>`), then run:
+
+```
+node outils/i18n/construire.js
+```
+
+Editing a file in `assets/js/i18n/` directly works until the next build, which rewrites it.
 
 ## Stack
 
