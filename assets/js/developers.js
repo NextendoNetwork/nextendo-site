@@ -75,8 +75,10 @@
   ];
   var ONGLETS = [
     ["general", "General information"], ["install", "Installation", "NEW"], ["oauth", "General & redirects"], ["urlgen", "URL generator"],
-    ["bot", "Bot & API keys", "NEW"], ["rp", "Rich Presence"], ["testeurs", "Application testers"], ["danger", "Danger zone"]
+    ["bot", "Bot & API keys", "NEW"], ["rp", "Rich Presence"], ["testeurs", "Application testers"]
   ];
+  // No "Danger zone": applications cannot be deleted from the portal. An old link to
+  // #/applis/<id>/danger lands on "General information".
 
   // --- Router ------------------------------------------------------------------------------
 
@@ -239,7 +241,7 @@
     var nav = $("onglets-v");
     nav.innerHTML = "";
     ONGLETS.forEach(function (o) {
-      var l = el("a", o[0] === "danger" ? "onglet-v onglet-v--danger" : "onglet-v");
+      var l = el("a", "onglet-v");
       l.href = "#/applis/" + a.id + "/" + o[0];
       l.textContent = o[1];
       if (o[2]) l.appendChild(el("span", "nouveau", o[2]));
@@ -594,34 +596,9 @@
       });
       chargerMembres();
       p.appendChild(ul);
-    },
-
-    danger: function (p, a) {
-      titre(p, "Danger zone");
-      var bloc = el("div", "danger-bloc");
-      var t = el("div"); t.append(el("strong", "", "Delete the application"), el("p", "petit", "Removes the keys, the bot and the members. Players signed in with it are signed out."));
-      var b = el("button", "bouton bouton--danger", "Delete the application"); b.type = "button";
-      b.addEventListener("click", function () {
-        $("suppr-nom").textContent = a.nom; $("suppr-saisie").value = ""; $("suppr-ok").disabled = true;
-        $("dlg-suppr").showModal(); $("suppr-saisie").focus();
-      });
-      bloc.append(t, b); p.appendChild(bloc);
     }
   };
 
-  $("suppr-saisie").addEventListener("input", function () { $("suppr-ok").disabled = $("suppr-saisie").value !== $("suppr-nom").textContent; });
-  $("suppr-ok").addEventListener("click", function () {
-    var nom = $("suppr-nom").textContent;
-    var id = brouillon.id;
-    var btn = $("suppr-ok");
-    btn.disabled = true;
-    NX.api("/api/developers/applications/" + encodeURIComponent(id), null, "DELETE").then(function () {
-      applis = applis.filter(function (x) { return x.id !== id; });
-      $("dlg-suppr").close();
-      toast(tf("{0} deleted", nom));
-      location.hash = "#/applis";
-    }).catch(function (e) { toast(erreur(e)); }).then(function () { btn.disabled = false; });
-  });
 
   // Invitation link from the e-mail (?invitation=<token>&app_id=<id>): confirm, then join the app.
   function invitation() {
