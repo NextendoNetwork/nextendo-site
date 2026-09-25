@@ -45,9 +45,9 @@
     { href: "index.html#jeux", texte: "Games", cle: "jeux" },
     { href: "index.html#progres", texte: "Progress", cle: "progres" },
     { href: "index.html#fonctionnement", texte: "How it works", cle: "fonctionnement" },
-    { href: "developers.html", texte: "Developers", cle: "dev" },
     { href: "index.html#equipe", texte: "Team", cle: "equipe" },
-    { href: "status.html", texte: "Status", cle: "etat" }
+    { href: "status.html", texte: "Status", cle: "etat" },
+    { href: "developers.html", texte: "Developers", cle: "dev" }
   ];
 
   // --- Navigation bar ----------------------------------------------------------------------
