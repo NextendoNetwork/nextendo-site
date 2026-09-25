@@ -117,7 +117,7 @@
     if (parts[0] === "espace") {
       charge().then(function () {
         montrer("espace", "espace");
-        dessinerCartes($("recentes"), applis.slice(0, 3), true);
+        dessinerCartes($("recentes"), applis.slice(0, 4), true);
       }).catch(function (e) {
         montrer("espace", "espace");
         $("recentes").innerHTML = "";
