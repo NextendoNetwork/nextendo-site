@@ -547,8 +547,12 @@
         compte.textContent = membres.length + (membres.length > 1 ? " members" : " member");
         membres.forEach(function (m) {
           var li = el("li", "membre-appli");
-          var ph = m.pid ? el("img") : el("span", "initiale", (m.nom || "?").charAt(0).toUpperCase());
-          if (m.pid) { ph.src = "/api/avatar?pid=" + m.pid; ph.alt = ""; }
+          var ph = m.pid ? el("img") : el("span", "initiale pp-defaut");
+          if (m.pid) {
+            ph.alt = "";
+            ph.addEventListener("error", function () { var d = el("span", "initiale pp-defaut"); ph.replaceWith(d); });
+            ph.src = "/api/avatar?pid=" + m.pid;
+          }
           var t = el("div"); t.append(el("strong", "", m.nom), el("small", "petit", m.role));
           li.append(ph, t);
           if (m.role !== "Owner") {

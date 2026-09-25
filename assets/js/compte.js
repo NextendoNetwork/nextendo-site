@@ -43,10 +43,11 @@
     return e;
   }
   function imgPhoto(pid, aPhoto, nom, cls) {
-    if (!aPhoto) { var s = el("span", "initiale", (nom || "?").trim().charAt(0).toUpperCase()); return s; }
+    var defaut = function () { var s = el("span", "initiale pp-defaut"); s.setAttribute("aria-hidden", "true"); return s; };
+    if (!aPhoto) return defaut();
     var img = el("img", cls || "");
     img.src = photo(pid); img.alt = ""; img.loading = "lazy";
-    img.onerror = function () { img.replaceWith(el("span", "initiale", (nom || "?").trim().charAt(0).toUpperCase())); };
+    img.onerror = function () { img.replaceWith(defaut()); };
     return img;
   }
 
@@ -714,9 +715,8 @@
   function ouvrirAmi(a) {
     etat.ami = a;
     var e = etatAmi(a);
-    // No photo on the account (404) -> the initial, as in the list, instead of an empty circle.
+    // No photo on the account (404) -> the default silhouette, as in the list.
     var sansPhoto = function () { $("fm-photo").hidden = true; $("fm-initiale").hidden = false; };
-    $("fm-initiale").textContent = (a.nom || "?").trim().charAt(0).toUpperCase();
     $("fm-initiale").hidden = true;
     $("fm-photo").hidden = false;
     $("fm-photo").onerror = sansPhoto;
