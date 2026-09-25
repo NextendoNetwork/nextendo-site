@@ -40,14 +40,14 @@
     statut: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M3 12h4l3-8 4 16 3-8h4"/></svg>'
   };
 
-  // Same order as the sections on the home page, so the underline moves forward while scrolling.
+  // Home page sections first, in their on-page order; the two separate pages come last.
   var LIENS = [
     { href: "index.html#jeux", texte: "Games", cle: "jeux" },
     { href: "index.html#progres", texte: "Progress", cle: "progres" },
     { href: "index.html#fonctionnement", texte: "How it works", cle: "fonctionnement" },
-    { href: "status.html", texte: "Status", cle: "etat" },
+    { href: "developers.html", texte: "Developers", cle: "dev" },
     { href: "index.html#equipe", texte: "Team", cle: "equipe" },
-    { href: "developers.html", texte: "Developers", cle: "dev" }
+    { href: "status.html", texte: "Status", cle: "etat" }
   ];
 
   // --- Navigation bar ----------------------------------------------------------------------
