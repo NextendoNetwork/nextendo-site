@@ -754,4 +754,6 @@ window.NXT["de"] = {"Skip to content":"Zum Inhalt springen",
 "stored on Nextendo will be deleted. The save on your console or emulator is untouched.":"auf Nextendo gespeichert, wird gelöscht. Der Spielstand auf deiner Konsole oder deinem Emulator bleibt unverändert.",
 "Choose a country":"Land wählen",
 "Account permanently deleted.":"Konto endgültig gelöscht.",
-"Buy on the Nintendo eShop":"Im Nintendo eShop kaufen"};
+"Buy on the Nintendo eShop":"Im Nintendo eShop kaufen",
+"None yet":"Noch keiner",
+"{0} hasn't played online yet.":"{0} hat noch nicht online gespielt."};

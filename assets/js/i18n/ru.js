@@ -754,4 +754,6 @@ window.NXT["ru"] = {"Skip to content":"Перейти к содержимому"
 "stored on Nextendo will be deleted. The save on your console or emulator is untouched.":"хранящееся на Nextendo, будет удалено. Сохранение на консоли или в эмуляторе не затрагивается.",
 "Choose a country":"Выберите страну",
 "Account permanently deleted.":"Аккаунт удалён навсегда.",
-"Buy on the Nintendo eShop":"Купить в Nintendo eShop"};
+"Buy on the Nintendo eShop":"Купить в Nintendo eShop",
+"None yet":"Пока нет",
+"{0} hasn't played online yet.":"{0} ещё не играл(а) по сети."};

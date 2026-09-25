@@ -628,3 +628,5 @@
 574	Pit Stop, défis Wumpa et économie terminés
 575	Partie rapide, salons entre amis sur émulateur
 629	Acheter sur le Nintendo eShop
+630	Aucun pour l'instant
+631	{0} n'a pas encore joué en ligne.

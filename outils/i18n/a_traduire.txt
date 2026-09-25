@@ -627,3 +627,5 @@ stored on Nextendo will be deleted. The save on your console or emulator is unto
 Choose a country
 Account permanently deleted.
 Buy on the Nintendo eShop
+None yet
+{0} hasn't played online yet.

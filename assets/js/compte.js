@@ -714,7 +714,13 @@
   function ouvrirAmi(a) {
     etat.ami = a;
     var e = etatAmi(a);
-    $("fm-photo").src = a.photo ? photo(a.pid) : "";
+    // No photo on the account (404) -> the initial, as in the list, instead of an empty circle.
+    var sansPhoto = function () { $("fm-photo").hidden = true; $("fm-initiale").hidden = false; };
+    $("fm-initiale").textContent = (a.nom || "?").trim().charAt(0).toUpperCase();
+    $("fm-initiale").hidden = true;
+    $("fm-photo").hidden = false;
+    $("fm-photo").onerror = sansPhoto;
+    if (a.photo) $("fm-photo").src = photo(a.pid); else { $("fm-photo").removeAttribute("src"); sansPhoto(); }
     $("fm-nom").textContent = a.nom;
     $("fm-etat").textContent = e.texte + (e.detail ? " \u00b7 " + e.detail : "");
     $("fm-etat").title = $("fm-etat").textContent;
@@ -735,12 +741,12 @@
       var hist = (a.historique || []).slice().sort(function (x, y) { return String(y.last_played).localeCompare(String(x.last_played)); });
       var total = hist.reduce(function (s, h) { return s + (h.seconds || 0); }, 0);
       var favori = hist.slice().sort(function (x, y) { return (y.seconds || 0) - (x.seconds || 0); })[0];
-      $("fm-temps").textContent = total ? duree(total) : "None yet";
+      $("fm-temps").textContent = total ? duree(total) : tf("None yet");
       $("fm-jeux").textContent = nf.format(hist.length);
-      $("fm-favori-jeu").textContent = favori ? favori.name || favori.title_id : "None yet";
+      $("fm-favori-jeu").textContent = favori ? favori.name || favori.title_id : tf("None yet");
       $("fm-derniere").textContent = hist.length ? ilYA(hist[0].last_played) : "No activity yet";
       ul.innerHTML = "";
-      if (!hist.length) ul.appendChild(el("li", "vide", a.nom + " hasn't played online yet."));
+      if (!hist.length) ul.appendChild(el("li", "vide", tf("{0} hasn't played online yet.", a.nom)));
       hist.forEach(function (h) { ul.appendChild(ligneJeu(h, a)); });
     };
     if (a.historique) { peindre(); return; }
@@ -750,10 +756,10 @@
     }).catch(function () {
       if (etat.ami === a && $("dlg-ami").open) {
         ul.innerHTML = "";
-        ul.appendChild(el("li", "vide", a.nom + " hasn't played online yet."));
-        $("fm-temps").textContent = "None yet";
+        ul.appendChild(el("li", "vide", tf("{0} hasn't played online yet.", a.nom)));
+        $("fm-temps").textContent = tf("None yet");
         $("fm-jeux").textContent = "0";
-        $("fm-favori-jeu").textContent = "None yet";
+        $("fm-favori-jeu").textContent = tf("None yet");
         $("fm-derniere").textContent = "No activity yet";
       }
     });

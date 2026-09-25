@@ -18,12 +18,20 @@
   // --- Live storage: the account server owns the applications ------------------------------
 
   var applis = [];
+  // Some logos are stored as bare base64 (no "data:" prefix): the browser cannot show that as an
+  // image. Recognise the format from its first bytes and add the prefix.
+  function logoUrl(v) {
+    v = String(v || "").trim();
+    var type = /^\/9j\//.test(v) ? "jpeg" : /^iVBOR/.test(v) ? "png" : /^R0lGOD/.test(v) ? "gif" : /^UklGR/.test(v) ? "webp" : "";
+    if (type) return "data:image/" + type + ";base64," + v;
+    return /^(data:image\/|https?:\/\/|\/)/.test(v) ? v : "";
+  }
   function norme(a) {
     var rp = a.rich_presence || {};
     return {
       id: a.client_id, nom: a.name || "Application", desc: a.description || "",
       publique: !!(a.is_public != null ? a.is_public : a.public),
-      secret: "", icone: a.logo_b64 || a.logo_url || a.logo || "",
+      secret: "", icone: logoUrl(a.logo_b64 || a.logo_url || a.logo),
       cgu: a.terms_url || "", confidentialite: a.privacy_url || "",
       redirections: (a.redirect_uris || []).slice(),
       permissions: (a.scopes || []).slice(),
@@ -155,7 +163,12 @@
   function icone(a, taille) {
     var s = el("span", "appli-ico");
     if (taille) { s.style.width = s.style.height = taille + "px"; }
-    if (a.icone) { var im = el("img"); im.src = a.icone; im.alt = ""; s.appendChild(im); } else s.textContent = a.nom.charAt(0).toUpperCase();
+    var lettre = function () { s.textContent = a.nom.charAt(0).toUpperCase(); };
+    if (a.icone) {
+      var im = el("img"); im.alt = "";
+      im.addEventListener("error", lettre);   // an unreadable logo shows the initial, not a broken image
+      im.src = a.icone; s.appendChild(im);
+    } else lettre();
     return s;
   }
   function dessinerCartes(hote, liste, recentes) {

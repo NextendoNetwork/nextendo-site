@@ -754,4 +754,6 @@ window.NXT["fr"] = {"Skip to content":"Aller au contenu",
 "Friend Lobbies by Search & Matchmaking":"Salons entre amis par recherche et matchmaking",
 "Pit Stop, Wumpa Challenges & Economy finished":"Pit Stop, défis Wumpa et économie terminés",
 "Quickmatch, Emulator friend lobbies":"Partie rapide, salons entre amis sur émulateur",
-"Buy on the Nintendo eShop":"Acheter sur le Nintendo eShop"};
+"Buy on the Nintendo eShop":"Acheter sur le Nintendo eShop",
+"None yet":"Aucun pour l'instant",
+"{0} hasn't played online yet.":"{0} n'a pas encore joué en ligne."};

@@ -627,3 +627,5 @@
 627	Elegir un país
 628	Cuenta eliminada definitivamente.
 629	Comprar en la Nintendo eShop
+630	Ninguno por ahora
+631	{0} aún no ha jugado en línea.
