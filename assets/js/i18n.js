@@ -223,7 +223,7 @@
     // first pass is done, never longer than 1.5 s.
     racine.classList.add("nx-traduit-attente");
     setTimeout(function () { racine.classList.remove("nx-traduit-attente"); }, 1500);
-    document.write('<script src="assets/js/i18n/' + langue + '.js?v=20260925g"><\/script>');
+    document.write('<script src="assets/js/i18n/' + langue + '.js?v=20260925h"><\/script>');
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(demarrer, 0); });
   else setTimeout(demarrer, 0);

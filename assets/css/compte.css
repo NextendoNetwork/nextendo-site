@@ -447,7 +447,6 @@ button.bouton { font-size: 0.92rem; }
   width: 104px; height: 104px; margin-top: -52px; border-radius: 50%; object-fit: cover;
   border: 5px solid #1a1133; background: #2a1d4f; box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 }
-.fiche-photo[hidden] { display: none; }
 .fiche-titre { padding-top: 12px; min-width: 0; }
 .fiche-titre h2 { font-size: 1.6rem; overflow-wrap: anywhere; }
 .fiche-tete .code-bouton { margin-top: 14px; }

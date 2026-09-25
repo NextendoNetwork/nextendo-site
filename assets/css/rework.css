@@ -798,13 +798,3 @@ main > * { min-width: 0; }
   .flou-mot { opacity: 1; filter: none; transform: none; }
   .defile-piste, .bord-etoile::before { animation: none; }
 }
-
-/* Default profile picture: a player without a photo gets a silhouette, never a letter. The
-   doubled class outranks the page sheets (compte.css, developers.css) that load after this one
-   and paint .initiale; the element keeps the size its page gives it. */
-span.pp-defaut.pp-defaut {
-  background:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='38' r='17' fill='%23fff' fill-opacity='.28'/%3E%3Cellipse cx='50' cy='95' rx='31' ry='28' fill='%23fff' fill-opacity='.28'/%3E%3C/svg%3E") center / cover no-repeat,
-    linear-gradient(145deg, #5b5bd8, #6a3cb6);
-  border-radius: 50%; overflow: hidden; color: transparent;
-}

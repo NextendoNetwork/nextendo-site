@@ -43,11 +43,11 @@
     return e;
   }
   function imgPhoto(pid, aPhoto, nom, cls) {
-    var defaut = function () { var s = el("span", "initiale pp-defaut"); s.setAttribute("aria-hidden", "true"); return s; };
-    if (!aPhoto) return defaut();
+    // No photo (or a 404): the default avatar, as in the Nextendo App.
     var img = el("img", cls || "");
-    img.src = photo(pid); img.alt = ""; img.loading = "lazy";
-    img.onerror = function () { img.replaceWith(defaut()); };
+    img.alt = ""; img.loading = "lazy";
+    img.onerror = function () { img.onerror = null; img.src = window.nxSilhouette(pid); };
+    img.src = aPhoto ? photo(pid) : window.nxSilhouette(pid);
     return img;
   }
 
@@ -715,12 +715,9 @@
   function ouvrirAmi(a) {
     etat.ami = a;
     var e = etatAmi(a);
-    // No photo on the account (404) -> the default silhouette, as in the list.
-    var sansPhoto = function () { $("fm-photo").hidden = true; $("fm-initiale").hidden = false; };
-    $("fm-initiale").hidden = true;
-    $("fm-photo").hidden = false;
-    $("fm-photo").onerror = sansPhoto;
-    if (a.photo) $("fm-photo").src = photo(a.pid); else { $("fm-photo").removeAttribute("src"); sansPhoto(); }
+    // No photo on the account (404) -> the default avatar, as in the list and the app.
+    $("fm-photo").onerror = function () { $("fm-photo").onerror = null; $("fm-photo").src = window.nxSilhouette(a.pid); };
+    $("fm-photo").src = a.photo ? photo(a.pid) : window.nxSilhouette(a.pid);
     $("fm-nom").textContent = a.nom;
     $("fm-etat").textContent = e.texte + (e.detail ? " \u00b7 " + e.detail : "");
     $("fm-etat").title = $("fm-etat").textContent;

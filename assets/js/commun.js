@@ -7,6 +7,28 @@
   "use strict";
 
   var calme = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Default profile picture: the server's own default avatar (profile_images/10151.jpg: diagonal
+  // gradient, head and shoulders in veiled white), with the hue taken from the PID. Same
+  // measurements and same hue computation as the Nextendo App (Silhouette.kt, and iOS), so a
+  // player without a photo has the same avatar on the site and in the app.
+  window.nxSilhouette = function (pid) {
+    pid = Number(pid) || 0;
+    var decalage = pid ? ((Math.imul(pid >>> 0, 2654435761 | 0) >>> 0) % 360) / 360 : 0;
+    var couleur = function (h, s, v) {
+      var d = (((h + decalage) % 1) * 360) / 60, i = Math.floor(d) % 6, f = d - Math.floor(d);
+      var p = v * (1 - s), q = v * (1 - f * s), t = v * (1 - (1 - f) * s);
+      var rgb = [[v, t, p], [q, v, p], [p, v, t], [p, q, v], [t, p, v], [v, p, q]][i];
+      return "rgb(" + rgb.map(function (x) { return Math.round(x * 255); }).join(",") + ")";
+    };
+    var svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">' +
+      '<defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="' + couleur(0.213, 0.60, 0.80) + '"/>' +
+      '<stop offset="1" stop-color="' + couleur(0.290, 0.72, 0.55) + '"/></linearGradient></defs>' +
+      '<rect width="256" height="256" fill="url(#g)"/>' +
+      '<circle cx="127.5" cy="101.5" r="46" fill="#fff" fill-opacity=".185"/>' +
+      '<ellipse cx="127.5" cy="208" rx="66.5" ry="54" fill="#fff" fill-opacity=".185"/></svg>';
+    return "data:image/svg+xml," + encodeURIComponent(svg);
+  };
   var page = document.body.getAttribute("data-page") || "";
 
   var ICONES = {
