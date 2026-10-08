@@ -1,17 +1,8 @@
-*.conf
-*.yaml
-*.env
-*.key
-*.pem
-node_modules/
-
-# Admin panel: never in the public repo
-admin.html
-assets/js/admin.js
-assets/css/admin.css
-
-# Local-only: preview server, launch checklist, account snapshots, model sources
-apercu.py
-PUBLICATION.md
 assets/data/
-outils/modeles-*/
+
+# Staff tools (news editor, application moderation, client-side gate): never in the public repo
+admin-news.html
+developers-news.html
+assets/js/admin-news.js
+assets/js/admin-applis.js
+assets/js/garde.js

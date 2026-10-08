@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://flagcdn.com; connect-src 'self' blob: data: https://api.github.com https://cdn.jsdelivr.net https://cloudflareinsights.com; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Download, Nextendo Network</title>
@@ -11,9 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/rework.css?v=20260925h">
-<link rel="stylesheet" href="assets/css/pages.css?v=20260925h">
-<script src="assets/js/i18n.js?v=20260925h"></script>
+<link rel="stylesheet" href="assets/css/rework.css?v=20261007n">
+<link rel="stylesheet" href="assets/css/pages.css?v=20261007d">
+<script src="assets/js/i18n.js?v=20261008a"></script>
 </head>
 <body data-page="telecharger">
 <a class="saut" href="#contenu">Skip to content</a>
@@ -53,6 +52,16 @@
           <a class="systeme" id="dl-citron-win" href="#"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="currentColor" d="M3 5.5 10.5 4.4v7H3zm0 13 7.5 1.1v-7.2H3zm8.4 1.3L21 21.2v-8.8h-9.6zm0-15.6v7.3H21V2.8z"/></svg><span><strong>Windows</strong><small>Checking…</small></span></a>
           <a class="systeme" id="dl-citron-linux" href="#"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.7" d="M12 3c-2.2 0-3.4 1.9-3.4 4.4 0 1.6.5 2.6-.5 4.2C7 13.5 5.8 15.4 6.5 17.6c.4 1.3 1.6 2.4 5.5 2.4s5.1-1.1 5.5-2.4c.7-2.2-.5-4.1-1.6-6-.9-1.6-.5-2.6-.5-4.2C15.4 4.9 14.2 3 12 3z"/><circle cx="10.5" cy="8" r=".9" fill="currentColor"/><circle cx="13.5" cy="8" r=".9" fill="currentColor"/></svg><span><strong>Linux (AppImage)</strong><small>Checking…</small></span></a>
         </div>
+        <div class="selection-version" id="citron-select-box" style="margin-top:14px" hidden>
+          <label class="petit" style="display:block;margin-bottom:6px;font-weight:600">Choose Linux architecture:</label>
+          <div class="nx-dropdown" id="citron-dropdown">
+            <button type="button" class="nx-dropdown-trigger" id="citron-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false">
+              <span id="citron-dropdown-label">Linux x86_64 (Standard AppImage)</span>
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M7 10l5 5 5-5z"/></svg>
+            </button>
+            <ul class="nx-dropdown-menu" id="citron-dropdown-menu" role="listbox" hidden></ul>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -72,17 +81,20 @@
     </div>
   </section>
 
-  <section class="plaque" aria-labelledby="t-cfw">
-    <h2 id="t-cfw" class="titre-plaque">On a real Switch (CFW)</h2>
-    <p class="petit">Nextendo also works on a Switch running custom firmware. Everything is reversible.</p>
-    <ol class="etapes-cfw">
-      <li><div><strong>Install the Nextendo profile</strong><div class="petit">It redirects the console's online services to Nextendo.</div></div></li>
-      <li><div><strong>Link your account</strong><div class="petit">Sign in from the console with your Nextendo e-mail and password.</div></div></li>
-      <li><div><strong>Play online</strong><div class="petit">Open any supported game's online mode.</div></div></li>
-    </ol>
-    <div class="ligne-boutons" style="margin-top:16px;max-width:420px">
-      <a class="bouton bouton--plein" href="https://discord.gg/XPfeCMwnzQ">Guide on Discord</a>
-      <a class="bouton bouton--verre" href="https://github.com/NextendoNetwork/Prelude-Nro/releases">Prelude on GitHub</a>
+  <section class="plaque" aria-labelledby="t-prelude">
+    <div class="telechargement">
+      <img src="assets/img/plateformes/prelude.jpg" alt="Prelude" style="width:72px;height:72px;border-radius:18px;object-fit:cover;flex-shrink:0">
+      <div>
+        <h2 id="t-prelude">Prelude (Switch CFW) <span class="version" id="v-prelude">…</span></h2>
+        <p class="petit">The homebrew application to configure your Switch, link your Nextendo account, and play online.</p>
+        <div class="systemes">
+          <a class="systeme" id="dl-prelude-nro" href="#"><svg viewBox="0 0 24 24" width="26" height="26" aria-hidden="true"><rect x="2" y="5" width="5" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="17" y="5" width="5" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><rect x="7" y="5" width="10" height="14" rx="1" fill="none" stroke="currentColor" stroke-width="1.8"/></svg><span><strong>Nintendo Switch (.nro)</strong><small>Checking…</small></span></a>
+        </div>
+        <div class="ligne-boutons" style="margin-top:14px;gap:10px">
+          <a class="bouton bouton--plein petit-bouton" href="https://discord.gg/XPfeCMwnzQ">Guide on Discord</a>
+          <a class="bouton bouton--verre petit-bouton" href="https://github.com/NextendoNetwork/Prelude-Nro/releases">Releases on GitHub</a>
+        </div>
+      </div>
     </div>
   </section>
 </main>
@@ -90,9 +102,9 @@
 <div id="nx-pied"></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="assets/js/nx.js?v=20260925h" defer></script>
-<script src="assets/js/commun.js?v=20260925m" defer></script>
-<script src="assets/js/pages.js?v=20260925h" defer></script>
-<script src="assets/js/effets.js?v=20260925h" defer></script>
+<script src="assets/js/nx.js?v=20261002b" defer></script>
+<script src="assets/js/commun.js?v=20261007p" defer></script>
+<script src="assets/js/pages.js?v=20261006a" defer></script>
+<script src="assets/js/effets.js?v=20260928b" defer></script>
 </body>
 </html>

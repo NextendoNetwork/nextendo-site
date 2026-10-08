@@ -33,7 +33,7 @@
 .retour-applis { color: var(--texte-doux) !important; font-size: 0.9rem; }
 .menu-appli-tete { display: flex; align-items: center; gap: 10px; padding: 8px 10px 12px; margin-bottom: 4px; border-bottom: 1px solid var(--carte-bord); }
 .menu-appli-tete strong { display: block; overflow-wrap: anywhere; }
-.menu-appli-tete .appli-ico { font-size: 1.1rem; border-radius: 12px; flex: none; }
+.menu-appli-tete .appli-ico { font-size: 1.1rem; border-radius: 50%; flex: none; }
 #onglets-v { display: grid; gap: 2px; }
 .espace-menu a { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; text-decoration: none; color: var(--texte-doux); font-weight: 700; transition: background-color 0.2s, color 0.2s; }
 .espace-menu a:hover { color: var(--texte); background: rgba(255, 255, 255, 0.05); }
@@ -51,7 +51,8 @@
 .carte-appli strong { display: block; overflow-wrap: anywhere; }
 .carte-appli small { color: var(--texte-doux); }
 .vide-applis { grid-column: 1 / -1; display: grid; justify-items: start; gap: 8px; }
-.appli-ico { font-size: 1.6rem; border-radius: 18px; }
+.appli-ico { font-size: 1.6rem; border-radius: 50%; overflow: hidden; }
+.appli-ico img { border-radius: 50%; }
 
 /* --- Application detail ------------------------------------------------------------------- */
 
@@ -61,7 +62,10 @@
 .onglet-v { display: flex; align-items: center; justify-content: space-between; gap: 8px; padding: 10px 12px; border-radius: 12px; text-decoration: none; color: var(--texte-doux); font-weight: 700; font-size: 0.95rem; transition: background-color 0.2s, color 0.2s; }
 .onglet-v:hover { color: var(--texte); background: rgba(255, 255, 255, 0.05); }
 .onglet-v[aria-current="page"] { color: var(--texte); background: rgba(255, 255, 255, 0.09); }
-.onglet-v--danger { color: #ff8a9b; }
+.onglet-v--danger, .onglet-v--danger:hover, .onglet-v--danger[aria-current="page"] { color: #ff6b81; }
+.onglet-v--danger:hover { background: rgba(255, 53, 83, 0.08); }
+.onglet-v--danger[aria-current="page"] { background: rgba(255, 53, 83, 0.14); }
+.bouton--danger:disabled { opacity: 0.45; cursor: not-allowed; }
 .nouveau { font-size: 0.66rem; font-weight: 800; padding: 2px 7px; border-radius: 999px; background: var(--rouge-logo); color: #fff; letter-spacing: 0.02em; }
 .panneaux { display: grid; gap: 16px; align-content: start; min-width: 0; }
 .panneaux.entre { animation: glisse-panneau 0.3s cubic-bezier(0.22, 1, 0.36, 1) both; }
@@ -130,3 +134,17 @@
   .dev-liens { order: 3; width: 100%; }
 }
 @media (prefers-reduced-motion: reduce) { .panneaux.entre, .barre-sauver, .espace-menu.sort-gauche, .espace-menu.entre-droite, .espace-contenu.sort-gauche, .espace-contenu.entre-droite { animation: none; } }
+
+/* Players who accepted an application */
+.pastille-acceptations { display: inline-block; align-self: flex-start; max-width: 100%; margin-top: 4px; padding: 2px 9px; border-radius: 999px; font-size: 0.78rem; font-weight: 700; color: var(--vivant); background: rgba(98, 227, 164, 0.1); }
+/* The sidebar keeps its width whatever the header holds. */
+.espace-menu { grid-template-columns: minmax(0, 1fr); }
+.carte-appli div, #menu-appli-tete div { display: flex; flex-direction: column; min-width: 0; }
+.acceptations-grand { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin: 0 0 4px; }
+.acceptations-grand strong { font-family: var(--titre); font-size: 2.4rem; line-height: 1; font-variant-numeric: tabular-nums; }
+.palier { display: grid; gap: 8px; margin-top: 16px; padding: 14px 16px; border-radius: 16px; background: var(--carte); border: 1px solid var(--carte-bord); }
+.palier-tete { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.palier.est-atteint { border-color: rgba(98, 227, 164, 0.4); }
+.palier p { margin: 0; }
+.barre-progres { display: block; height: 8px; border-radius: 999px; background: rgba(255, 255, 255, 0.08); overflow: hidden; }
+.barre-progres span { display: block; height: 100%; border-radius: inherit; background: var(--vivant); }

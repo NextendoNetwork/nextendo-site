@@ -101,7 +101,7 @@
 101	Ayuda
 102	Cuenta
 103	© {0} Nextendo Network. Proyecto comunitario independiente, no afiliado a Nintendo Co., Ltd.
-104	«Nintendo Switch», «Ryujinx», «Citron» y «Prelude» pertenecen a sus respectivos propietarios. No se proporcionan juegos ni ROMs.
+104	«Nintendo Switch», «Ryujinx» y «Citron» pertenecen a sus respectivos propietarios. «Prelude» es un proyecto de Nextendo Network. No se proporcionan juegos ni ROMs.
 105	{0} en línea
 106	Actualizado a las {0}
 107	Tu foto de perfil
@@ -565,7 +565,7 @@
 565	iPhone y teléfono Android en 3D
 566	Dónde encontrar Nextendo
 567	App complementaria
-568	Proyecto comunitario independiente, no afiliado a Nintendo Co., Ltd. «Nintendo Switch», «Ryujinx», «Citron» y «Prelude» pertenecen a sus respectivos propietarios. No se proporcionan juegos ni ROMs.
+568	Proyecto comunitario independiente, no afiliado a Nintendo Co., Ltd. «Nintendo Switch», «Ryujinx» y «Citron» pertenecen a sus respectivos propietarios. «Prelude» es un proyecto de Nextendo Network. No se proporcionan juegos ni ROMs.
 569	Sigue a Nextendo
 570	Juegos compatibles
 571	Cooperativo y Versus Ops completamente terminados
@@ -629,3 +629,223 @@
 629	Comprar en la Nintendo eShop
 630	Ninguno por ahora
 631	{0} aún no ha jugado en línea.
+632	País
+633	Administrador
+634	Equipo de Nextendo
+635	Desarrollador
+636	Acceso a Nextendo Developers
+637	Mejora el servidor de Discord de Nextendo
+638	Miembro de Nextendo
+639	Insignias
+640	Equipo de Nextendo Network
+641	Desarrolla los servidores de Nextendo
+642	Desarrollador verificado
+643	Creó una app de Nextendo Developers usada por más de 500 jugadores
+644	1.er aniversario de Nextendo
+645	Estuvo en el primer año de Nextendo
+646	Mejorando desde el {0}
+647	Staff de Discord
+648	Moderador jefe
+649	Moderador
+650	Helpful
+651	Colaborador
+652	Aceptar todas
+653	Rechazar todas
+654	Cancelar todas
+655	{0} solicitudes aceptadas
+656	{0} solicitudes rechazadas
+657	{0} solicitudes canceladas
+658	{0} fallidas
+659	¿Rechazar todas las solicitudes de amistad recibidas?
+660	¿Cancelar todas las solicitudes de amistad que enviaste?
+661	Conservarlas
+662	Rechazar todas las solicitudes recibidas
+663	Se rechazarán las {0} solicitudes de amistad que recibiste.
+664	Cancelar todas las solicitudes enviadas
+665	Se retirarán las {0} solicitudes de amistad que enviaste.
+666	Visto en el juego como
+667	Todo el juego en línea salvo las competiciones, los Combates Múltiples y el Regalo Misterioso
+668	Juego en línea con amigos
+669	Intercambios en línea y combates privados; combates clasificatorios aún sin probar
+670	Juego en línea
+671	Token que empieza por {0}: restablécelo para crear uno nuevo
+672	Para comprobar un token:
+673	El icono no puede superar los 512 KB.
+674	Cliente confidencial: nuevo secreto copiado, no se volverá a mostrar
+675	Te han invitado a unirte a la aplicación {0}. Acepta para iniciar sesión con ella antes de que sea pública.
+676	Juego predeterminado
+677	Solo se usa cuando tu aplicación no envía un juego por sí misma.
+678	Tu aplicación publica la presencia por sí misma: llama a POST /api/presence con el token de acceso del jugador (ámbito presence) al menos cada 90 segundos, con el juego y un breve detalle que ella elige. Sin una nueva llamada, el jugador vuelve a aparecer desconectado. Los ajustes de abajo solo completan lo que una llamada deja vacío.
+679	Esta aplicación es un emulador. Su presencia viene del juego en marcha: es el juego el que indica lo que hace el jugador, el emulador la transmite y estos ajustes nunca se usan. Solo se aplican a las aplicaciones que envían su propia presencia con un token de acceso OAuth.
+680	Presencia
+681	Muestra a los amigos del jugador a qué juego está jugando, desde tu propia aplicación.
+682	Tokens de bot
+683	Lee las estadísticas de la red desde un servidor o un bot de Discord, sin jugador.
+684	Aplicaciones autorizadas
+685	Las aplicaciones a las que permitiste acceder a tu cuenta de Nextendo. Mira lo que puede hacer cada una y retira su acceso cuando quieras.
+686	Buscar aplicaciones autorizadas
+687	Aún no hay aplicaciones autorizadas. Cuando inicies sesión en una aplicación con Nextendo, aparecerá aquí.
+688	Aplicaciones bloqueadas
+689	Denunciar esta aplicación
+690	Se hace pasar por Nextendo u otra aplicación
+691	Estafa o phishing
+692	Hace algo que no permití
+693	Nombre, icono o contenido inapropiado
+694	Detalles (opcional)
+695	Enviar la denuncia
+696	Acceder a tu nombre de usuario, tu PID y tu código de amigo
+697	Ver tu lista de amigos
+698	Mostrar y actualizar tu estado de juego
+699	Ver y editar tu perfil (nombre, avatar, país)
+700	Unirse y organizar partidas multijugador por ti
+701	Ver y gestionar tus favoritos del ModStore
+702	Acceder a tus partidas en la nube y sincronizarlas
+703	Vincular una consola a tu cuenta
+704	Cambiar tu correo o eliminar tu cuenta
+705	Ver tu historial de juego
+706	Oficial
+707	Autorizada el {0}
+708	Más opciones
+709	Bloquear
+710	Denunciar
+711	Copiar el ID de la aplicación
+712	ID de la aplicación copiado
+713	Descripción y políticas
+714	Creada por
+715	Permisos
+716	Ningún permiso
+717	Aplicación oficial de Nextendo. Para cerrar sesión, hazlo desde la propia aplicación.
+718	Retirar la autorización
+719	¿Retirar {0}?
+720	La aplicación pierde el acceso a tu cuenta de inmediato. Podrás autorizarla de nuevo más adelante.
+721	{0} ya no tiene acceso a tu cuenta
+722	¿Bloquear {0}?
+723	La aplicación pierde el acceso a tu cuenta y no podrá volver a pedirlo hasta que la desbloquees.
+724	{0} está bloqueada
+725	Gracias, el equipo de Nextendo revisará esta aplicación.
+726	{0} aplicaciones
+727	{0} aplicación
+728	Ninguna aplicación coincide.
+729	Desbloquear
+730	{0} está desbloqueada
+731	No se pudieron cargar tus aplicaciones.
+732	Nextendo Developers requiere un correo verificado y una cuenta de Discord vinculada. Puedes configurar ambos en tu página de cuenta.
+733	Has alcanzado el límite de 5 aplicaciones.
+734	Este nombre está reservado a Nextendo o imita una aplicación oficial.
+735	Este icono pertenece a una aplicación oficial.
+736	Aplicaciones denunciadas
+737	{0} aplicaciones denunciadas
+738	{0} aplicación denunciada
+739	Ninguna aplicación denunciada.
+740	Denuncias archivadas
+741	Aplicación eliminada
+742	¿Eliminar {0}? Todos los jugadores que la usan cerrarán sesión. No se puede deshacer.
+743	Suplantación
+744	Hace algo no permitido
+745	Contenido inapropiado
+746	Eliminada
+747	Acceso reservado a los administradores.
+748	Dirección de correo no válida.
+749	Aplicación no encontrada.
+750	Ningún jugador tiene este código de amigo.
+751	Foto de perfil no válida.
+752	Ya es tu dirección de correo.
+753	Es tu propio código de amigo.
+754	Esta cuenta de Discord está baneada.
+755	Esta cuenta ha sido baneada de Nextendo.
+756	Esta cuenta está desactivada por ahora.
+757	Este jugador no está en tus amigos.
+758	Este nombre de usuario ya está en uso.
+759	Este usuario ya es el creador de esta aplicación.
+760	Este usuario ya es miembro de esta aplicación.
+761	Esta dirección de correo ya está en uso.
+762	Esta aplicación es oficial y no se puede eliminar.
+763	Esta aplicación es pública y no tiene secreto.
+764	Esta invitación es para otra cuenta.
+765	Elige tu país.
+766	Miembro no encontrado.
+767	Se necesita una cuenta de Nextendo.
+768	Cuenta no encontrada.
+769	Inicia sesión con tu correo (se eliminó el inicio de sesión con nombre de usuario).
+770	Primero inicia sesión en nextendo.network.
+771	Inicia sesión para aceptar la invitación.
+772	Debes iniciar sesión.
+773	Color no válido.
+774	Solicitud no encontrada.
+775	El dibujo es demasiado grande.
+776	Añade al menos una redirección.
+777	GameBanana no responde.
+778	Correo o contraseña incorrectos.
+779	No se pudo enviar la solicitud.
+780	No se pudo actualizar el favorito.
+781	No se pueden cambiar los permisos del creador.
+782	No se puede retirar el acceso del creador.
+783	No disponible para perfiles de invitado.
+784	No hay invitación para esta aplicación.
+785	Solo los emuladores oficiales de Nextendo pueden subir partidas en la nube.
+786	Solo los emuladores oficiales de Nextendo pueden borrar partidas en la nube.
+787	La descripción no puede superar los 400 caracteres.
+788	Solo se pueden subir imágenes.
+789	Se eliminó el modo invitado. Crea una cuenta de Nextendo en nextendo.network para jugar en línea.
+790	El nombre de la aplicación es obligatorio.
+791	El nombre no puede superar los 64 caracteres.
+792	El nombre de usuario debe tener de 3 a 16 caracteres (letras, números, _ o -).
+793	Los desarrolladores no pueden cambiar el nombre de la aplicación.
+794	Los registros están cerrados temporalmente mientras terminamos la nueva versión de Nextendo. ¡Vuelve pronto!
+795	Las partidas en la nube se limitan a Splatoon 3.
+796	Los testers solo tienen acceso de lectura.
+797	Enlace de invitación no válido o caducado.
+798	Enlace de restablecimiento no válido.
+799	Enlace de verificación no válido o caducado.
+800	Enlace no válido o caducado (quizá ya se usó).
+801	Límite de almacenamiento en la nube alcanzado (10 MB). Borra algunas partidas.
+802	Límite de almacenamiento en la nube alcanzado (5 MB). Borra partidas o hazte booster de Discord (10 MB).
+803	Contraseña incorrecta.
+804	Motivo no válido.
+805	No tienes acceso a esta aplicación.
+806	País desconocido.
+807	Permiso de subida no válido o caducado.
+808	Rotación no disponible.
+809	Salmon Run no disponible.
+810	Salas no disponibles.
+811	La partida es demasiado grande.
+812	Sesión no encontrada.
+813	Tu sesión no es válida o caducó. Vuelve a iniciar sesión.
+814	Solo el creador o un administrador puede añadir miembros.
+815	Solo el creador o un administrador puede cambiar los permisos.
+816	Solo el creador o un administrador puede restablecer el secreto.
+817	Solo el creador o un administrador puede retirar el acceso.
+818	Solo el creador puede eliminar la aplicación.
+819	Solo el creador, un desarrollador o un administrador puede restablecer el token del bot.
+820	Demasiados perfiles creados desde esta dirección. Inténtalo más tarde.
+821	Demasiadas denuncias recientes. Inténtalo dentro de una hora.
+822	Demasiados intentos. Inténtalo en unos minutos.
+823	Bloqueaste esta aplicación. Desbloquéala desde tu cuenta para autorizarla.
+824	No puedes eliminar tu propia cuenta de administrador.
+825	Una cuenta de invitado no tiene correo.
+826	Una cuenta de invitado no se puede eliminar aquí.
+827	Una aplicación confidencial necesita al menos una redirección https.
+828	Una aplicación oficial no se puede bloquear.
+829	Una aplicación oficial no se puede retirar desde aquí.
+830	Una aplicación oficial no se puede denunciar aquí.
+831	Escribe un nombre de usuario de Nextendo.
+832	No se pudo eliminar.
+833	La verificación falló. Inicia sesión directamente en https://nextendo.network: otro sitio no puede iniciar sesión en tu cuenta de Nextendo.
+834	Error del servidor. Inténtalo de nuevo.
+835	Solicitud no válida.
+836	Rol no válido.
+837	Denuncia no encontrada.
+838	Ver las rotaciones de escenarios y las tiendas de Splatoon
+839	Ver las estadísticas de la red Nextendo
+840	Explorar el catálogo público del ModStore
+841	Ver la lista de juegos compatibles con Nextendo
+842	Mostrar tu actividad en el juego en Discord Rich Presence
+843	Sincronizar el estado y la versión de tu emulador
+1035	Amigos, presencia, vinculación a la red e iconos de NSO
+1036	Luigi's Balloon World: esconde y encuentra globos en línea
+1037	Cooperativo en línea y salas con amigos; juego multiplataforma probado
+1038	Campaña cooperativa en línea, emparejamiento y modo Whored
+1039	Partidos en línea, salas con amigos y Club Strikers
+1040	Combates clasificatorios y amistosos, partidas de grupo, cartas y clasificaciones; el teatro de repeticiones aún no funciona
+1041	Inicio de sesión, héroes, inventario y grupos en línea
+1042	Cooperativo en línea y salas en Ryujinx, Citron y consola (versión 1.2.2 del juego); las salas con contraseña aún no funcionan

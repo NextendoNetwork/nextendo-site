@@ -99,7 +99,7 @@ button.bouton { font-size: 0.92rem; }
   font: inherit; color: var(--texte); background: rgba(12, 10, 29, 0.55); border: 1px solid var(--carte-bord);
 }
 .pays-bouton:hover, .pays.est-ouvert .pays-bouton { border-color: rgba(79, 176, 255, 0.55); }
-.pays-bouton img, .pays-option img { border-radius: 3px; flex: none; object-fit: cover; }
+.pays-bouton img, .pays-option img { flex: none; object-fit: contain; }
 .pays-bouton span:not(.pays-chevron) { flex: 1; text-align: left; font-weight: 400; }
 .pays-chevron { display: grid; color: var(--texte-doux); transition: transform 0.3s; }
 .pays.est-ouvert .pays-chevron { transform: rotate(180deg); }
@@ -256,20 +256,110 @@ main.page-etroite { max-width: 880px; }
 .auth-etape--interne { gap: 16px; }
 
 @media (max-width: 900px) {
+  .auth {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 16px auto 32px;
+    border-radius: var(--r-plaque);
+  }
+  .auth-ciel {
+    display: none;
+  }
+  .auth-form {
+    padding: clamp(24px, 5vw, 36px) clamp(18px, 4vw, 28px);
+    gap: 20px;
+  }
+  .auth-form h2 {
+    font-size: 1.5rem;
+    text-align: center;
+  }
+  .auth-etape {
+    gap: 18px;
+  }
+  .auth-etape p.petit {
+    text-align: center;
+  }
+  .chiffres {
+    gap: 8px;
+    justify-content: center;
+  }
+  .chiffres input {
+    width: 60px;
+    height: 72px;
+    font-size: 1.8rem;
+    border-radius: 16px;
+  }
+  .ligne-boutons {
+    flex-direction: column-reverse;
+    gap: 12px;
+  }
+  .ligne-boutons > .bouton {
+    width: 100%;
+    min-height: 48px;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .auth-etape .lien {
+    text-align: center;
+    display: block;
+    margin-top: 4px;
+  }
+  .auth-etape#etape-lie, .auth-etape#etape-refuse {
+    justify-items: center;
+    text-align: center;
+  }
+  .auth-etape#etape-lie .bouton, .auth-etape#etape-refuse .bouton {
+    width: 100%;
+    min-height: 48px;
+  }
   .atouts { grid-template-columns: 1fr 1fr; }
   .guides { grid-template-columns: 1fr; }
   .serveurs { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
+  .auth-form {
+    padding: 22px 14px;
+  }
+  .chiffres {
+    gap: 6px;
+  }
+  .chiffres input {
+    width: 54px;
+    height: 66px;
+    font-size: 1.6rem;
+    border-radius: 14px;
+  }
   .atouts, .portees { grid-template-columns: 1fr; }
   .telechargement { grid-template-columns: 1fr; }
   .telechargement > img { width: 72px; height: 72px; }
   .session, .appli { grid-template-columns: 44px minmax(0, 1fr); }
   .session > :last-child, .appli > :last-child { grid-column: 1 / -1; }
-  .chiffres input { width: 56px; height: 68px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .gros-point, .roue, .session, .dialogue[open], .dialogue.sort { animation: none; }
 }
 /* Never over the unsaved-changes bar of the developer portal. */
 body:has(.barre-sauver:not([hidden])) .toast { bottom: 104px; }
+
+/* Donation page */
+.don-grille { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+.don-grille p, .don-action p { color: var(--texte-doux); margin-top: 10px; }
+.don-titre-badge { display: flex; align-items: center; gap: 10px; }
+.don-action { text-align: center; }
+.don-objectif { text-align: center; }
+.don-objectif[hidden] { display: none; }
+.don-objectif p { color: var(--texte-doux); margin-top: 10px; }
+.don-barre { position: relative; height: 12px; border-radius: 999px; background: rgba(255, 255, 255, .12); overflow: hidden; margin: 18px auto 0; max-width: 620px; }
+.don-barre span, .don-barre i { position: absolute; left: 0; top: 0; display: block; height: 100%; width: 0; border-radius: 999px; transition: width 1.6s cubic-bezier(.22, 1, .36, 1); }
+.don-barre span { background: var(--rouge-logo); }
+.don-barre i { background: #4ecb8f; transition-delay: .25s; }
+@media (prefers-reduced-motion: reduce) { .don-barre span, .don-barre i { transition: none; } }
+.don-objectif .don-objectif-texte { color: var(--texte); font-weight: 600; }
+.don-photo { width: 84px; height: 84px; border-radius: 50%; object-fit: cover; display: block; margin: 0 auto 14px; border: 2px solid var(--rouge-logo); }
+.don-photo[hidden] { display: none; }
+.don-etat { font-size: 1.05rem; color: var(--texte); }
+.don-boutons { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 18px 0 6px; }
+.don-merci { display: flex; align-items: center; gap: 16px; border: 1px solid var(--rouge-logo); }
+.don-merci[hidden] { display: none; }

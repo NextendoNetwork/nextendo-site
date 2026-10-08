@@ -103,7 +103,10 @@
     $("message").hidden = true;
     document.title = window.nxTitre ? window.nxTitre(c.titre) : c.titre;
     document.body.setAttribute("data-mode", m);
-    if (pousser) history.pushState({ mode: m }, "", c.url);
+    if (pousser) {
+      var queryGardee = paramNext ? "?next=" + encodeURIComponent(paramNext) : (location.search || "");
+      history.pushState({ mode: m }, "", c.url + queryGardee);
+    }
     heros(m);
   }
 
@@ -115,9 +118,17 @@
 
   // ?next= brings the player back to where the sign-in started (the OAuth consent screen, for
   // instance). Only a same-site path is accepted, never another origin: no open redirect.
+  var paramNext = new URLSearchParams(location.search).get("next") || "";
+
   function suite() {
-    var n = new URLSearchParams(location.search).get("next");
-    return n && n.charAt(0) === "/" && n.charAt(1) !== "/" && n.charAt(1) !== "\\" ? n : "compte.html";
+    var n = paramNext || new URLSearchParams(location.search).get("next") || "";
+    if (!n) return "compte.html";
+    try { n = decodeURIComponent(n); } catch (e) {}
+    if (!/^[a-zA-Z][a-zA-Z0-9+.-]*:/.test(n) && !n.startsWith("//") && !n.startsWith("/\\")) {
+      if (!n.startsWith("/")) n = "/" + n;
+      return n;
+    }
+    return "compte.html";
   }
 
   // --- Live auth: the real Turnstile widget + the real /api calls -------------------------
@@ -329,7 +340,8 @@
   });
 
   document.body.setAttribute("data-mode-initial", mode);
-  history.replaceState({ mode: mode }, "", MODES[mode].url);
+  var queryInit = location.search || "";
+  history.replaceState({ mode: mode }, "", MODES[mode].url + queryInit);
   changer(mode, false);
   forceMdp();
   inscriptionsOuvertes();
@@ -338,5 +350,14 @@
     try { getPays = window.nxSelecteurPays($("pays"), ((navigator.language || "en").split("-")[1] || "US").toUpperCase()); } catch (e) {}
   }
   // Already signed in: no need to sign in again.
-  if (mode === "login" && window.NX && NX.token) location.replace(suite());
+  // Un jeton simplement PRESENT n est pas un jeton qui marche encore : un jeton expire
+  // renvoyait le joueur sur compte.html, qui le renvoyait ici, sans fin et sans pouvoir
+  // se reconnecter. On le verifie, et on l efface s il est mort. Une panne reseau n est
+  // pas une session morte : dans ce cas on garde l ancien comportement.
+  if (mode === "login" && window.NX && NX.token) {
+    NX.me().then(function () { location.replace(suite()); }, function (e) {
+      if (!e || (e.status !== 401 && e.status !== 403)) { location.replace(suite()); return; }
+      try { NX.token = ""; NX.nexToken = ""; } catch (e2) {}
+    });
+  }
 })();

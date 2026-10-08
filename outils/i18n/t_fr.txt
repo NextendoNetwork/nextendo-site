@@ -101,7 +101,7 @@
 101	Aide
 102	Compte
 103	© {0} Nextendo Network. Projet communautaire indépendant, non affilié à Nintendo Co., Ltd.
-104	« Nintendo Switch », « Ryujinx », « Citron » et « Prelude » appartiennent à leurs propriétaires respectifs. Aucun jeu ni ROM n'est fourni.
+104	« Nintendo Switch », « Ryujinx » et « Citron » appartiennent à leurs propriétaires respectifs. « Prelude » est un projet de Nextendo Network. Aucun jeu ni ROM n'est fourni.
 105	{0} en ligne
 106	Mis à jour à {0}
 107	Ta photo de profil
@@ -565,7 +565,7 @@
 565	iPhone et téléphone Android en 3D
 566	Où trouver Nextendo
 567	Application compagnon
-568	Projet communautaire indépendant, non affilié à Nintendo Co., Ltd. « Nintendo Switch », « Ryujinx », « Citron » et « Prelude » appartiennent à leurs propriétaires respectifs. Aucun jeu ni ROM n'est fourni.
+568	Projet communautaire indépendant, non affilié à Nintendo Co., Ltd. « Nintendo Switch », « Ryujinx » et « Citron » appartiennent à leurs propriétaires respectifs. « Prelude » est un projet de Nextendo Network. Aucun jeu ni ROM n'est fourni.
 569	Suivre Nextendo
 570	Jeux compatibles
 539	Pays changé pour {0}
@@ -630,3 +630,426 @@
 629	Acheter sur le Nintendo eShop
 630	Aucun pour l'instant
 631	{0} n'a pas encore joué en ligne.
+632	Pays
+633	Administrateur
+634	Équipe Nextendo
+635	Développeur
+636	Accès à Nextendo Developers
+637	Booste le serveur Discord Nextendo
+638	Membre Nextendo
+639	Badges
+640	Équipe Nextendo Network
+641	Développe les serveurs Nextendo
+642	Développeur vérifié
+643	A créé une appli Nextendo Developers utilisée par plus de 500 joueurs
+644	1 an de Nextendo
+645	Était là pour la première année de Nextendo
+646	Booste depuis le {0}
+647	Staff Discord
+648	Modérateur en chef
+649	Modérateur
+650	Helpful
+651	Contributeur
+652	Tout accepter
+653	Tout refuser
+654	Tout annuler
+655	{0} demandes acceptées
+656	{0} demandes refusées
+657	{0} demandes annulées
+658	{0} en échec
+659	Refuser toutes les demandes d'ami reçues ?
+660	Annuler toutes les demandes d'ami que tu as envoyées ?
+661	Les garder
+662	Refuser toutes les demandes reçues
+663	Les {0} demandes d'ami que tu as reçues seront refusées.
+664	Annuler toutes les demandes envoyées
+665	Les {0} demandes d'ami que tu as envoyées seront retirées.
+666	Vu en jeu sous le nom
+667	Tout le jeu en ligne sauf les compétitions, les Combats Multi et le Cadeau Mystère
+668	Jeu en ligne entre amis
+669	Échanges en ligne et combats privés ; combats classés pas encore testés
+670	Jeu en ligne
+671	Jeton commençant par {0} : réinitialise pour en créer un nouveau
+672	Pour vérifier un jeton :
+673	L'icône ne peut pas dépasser 512 Ko.
+674	Client confidentiel : nouveau secret copié, il ne sera plus affiché
+675	Tu as été invité à rejoindre l'application {0}. Accepte pour pouvoir t'y connecter avant sa sortie publique.
+676	Jeu par défaut
+677	Utilisé seulement quand ton application n'envoie pas de jeu elle-même.
+678	Ton application publie elle-même la présence : elle appelle POST /api/presence avec le jeton d'accès du joueur (portée presence) au moins toutes les 90 secondes, avec le jeu et un court détail qu'elle choisit. Sans nouvel appel, le joueur repasse hors ligne. Les réglages ci-dessous ne remplissent que ce qu'un appel laisse vide.
+679	Cette application est un émulateur. Sa présence vient du jeu lancé : c'est le jeu qui indique ce que fait le joueur, l'émulateur la transmet, et ces réglages ne sont jamais utilisés. Ils ne s'appliquent qu'aux applications qui envoient leur propre présence avec un jeton d'accès OAuth.
+680	Présence
+681	Montre aux amis du joueur à quel jeu il joue, depuis ta propre application.
+682	Jetons de bot
+683	Lis les statistiques du réseau depuis un serveur ou un bot Discord, sans joueur.
+684	Applications autorisées
+685	Les applications que tu as autorisées à accéder à ton compte Nextendo. Vois ce que chacune peut faire et retire son accès à tout moment.
+686	Rechercher dans les applications autorisées
+687	Aucune application autorisée pour l'instant. Quand tu te connectes à une application avec Nextendo, elle apparaît ici.
+688	Applications bloquées
+689	Signaler cette application
+690	Elle se fait passer pour Nextendo ou une autre application
+691	Arnaque ou hameçonnage
+692	Elle fait quelque chose que je n'ai pas autorisé
+693	Nom, icône ou contenu inapproprié
+694	Précisions (facultatif)
+695	Envoyer le signalement
+696	Accéder à ton pseudo, ton PID et ton code ami
+697	Voir ta liste d'amis
+698	Afficher et mettre à jour ton statut en jeu
+699	Voir et modifier ton profil (pseudo, avatar, pays)
+700	Rejoindre et organiser des parties multijoueurs pour toi
+701	Voir et gérer tes favoris du ModStore
+702	Accéder à tes sauvegardes cloud et les synchroniser
+703	Lier une console à ton compte
+704	Changer ton e-mail ou supprimer ton compte
+705	Voir ton historique de jeu
+706	Officielle
+707	Autorisée le {0}
+708	Plus d'options
+709	Bloquer
+710	Signaler
+711	Copier l'identifiant d'application
+712	Identifiant d'application copié
+713	Description et politiques
+714	Créée par
+715	Permissions
+716	Aucune permission
+717	Application officielle de Nextendo. Pour te déconnecter, passe par l'application elle-même.
+718	Retirer l'autorisation
+719	Retirer {0} ?
+720	L'application perd immédiatement l'accès à ton compte. Tu pourras l'autoriser de nouveau plus tard.
+721	{0} n'a plus accès à ton compte
+722	Bloquer {0} ?
+723	L'application perd l'accès à ton compte et ne peut plus le redemander tant que tu ne la débloques pas.
+724	{0} est bloquée
+725	Merci, l'équipe Nextendo va examiner cette application.
+726	{0} applications
+727	{0} application
+728	Aucune application ne correspond.
+729	Débloquer
+730	{0} est débloquée
+731	Impossible de charger tes applications.
+732	Nextendo Developers demande un e-mail vérifié et un compte Discord lié. Tu peux régler les deux depuis ta page Compte.
+733	Tu as atteint la limite de 5 applications.
+734	Ce nom est réservé à Nextendo ou imite une application officielle.
+735	Cette icône est celle d'une application officielle.
+736	Applications signalées
+737	{0} applications signalées
+738	{0} application signalée
+739	Aucune application signalée.
+740	Signalements classés
+741	Application supprimée
+742	Supprimer {0} ? Tous les joueurs connectés avec elle sont déconnectés. C'est irréversible.
+743	Usurpation
+744	Fait quelque chose de non autorisé
+745	Contenu inapproprié
+746	Supprimée
+747	Accès réservé aux administrateurs.
+748	Adresse e-mail invalide.
+749	Application introuvable.
+750	Aucun joueur n'a ce code ami.
+751	Photo de profil invalide.
+752	C'est déjà ton adresse e-mail.
+753	C'est ton propre code ami.
+754	Ce compte Discord est banni.
+755	Ce compte a été banni de Nextendo.
+756	Ce compte est désactivé pour le moment.
+757	Ce joueur n'est pas dans tes amis.
+758	Ce pseudo est déjà pris.
+759	Cet utilisateur est déjà le créateur de cette application.
+760	Cet utilisateur fait déjà partie de cette application.
+761	Cette adresse e-mail est déjà utilisée.
+762	Cette application est officielle et ne peut pas être supprimée.
+763	Cette application est publique et n'a pas de secret.
+764	Cette invitation est destinée à un autre compte.
+765	Choisis ton pays.
+766	Membre introuvable.
+767	Un compte Nextendo est requis.
+768	Compte introuvable.
+769	Connecte-toi avec ton adresse e-mail (la connexion par pseudo a été retirée).
+770	Connecte-toi d'abord sur nextendo.network.
+771	Connecte-toi pour accepter l'invitation.
+772	Connexion requise.
+773	Couleur invalide.
+774	Demande introuvable.
+775	Le dessin est trop volumineux.
+776	Déclare au moins une redirection.
+777	GameBanana ne répond pas.
+778	Adresse e-mail ou mot de passe incorrect.
+779	Impossible d'envoyer la demande.
+780	Impossible de mettre à jour le favori.
+781	Les permissions du créateur ne peuvent pas être modifiées.
+782	L'accès du créateur ne peut pas être retiré.
+783	Indisponible pour les profils invités.
+784	Aucune invitation trouvée pour cette application.
+785	Seuls les émulateurs officiels Nextendo peuvent envoyer des sauvegardes cloud.
+786	Seuls les émulateurs officiels Nextendo peuvent supprimer des sauvegardes cloud.
+787	La description ne peut pas dépasser 400 caractères.
+788	Seules les images sont acceptées.
+789	Le mode invité a été retiré. Crée un compte Nextendo sur nextendo.network pour jouer en ligne.
+790	Le nom de l'application est requis.
+791	Le nom ne peut pas dépasser 64 caractères.
+792	Le pseudo doit faire 3 à 16 caractères (lettres, chiffres, _ ou -).
+793	Les développeurs ne peuvent pas renommer l'application.
+794	Les inscriptions sont temporairement fermées, le temps de finaliser la nouvelle version de Nextendo. Reviens bientôt !
+795	Les sauvegardes cloud sont limitées à Splatoon 3.
+796	Les testeurs ont un accès en lecture seule.
+797	Lien d'invitation invalide ou expiré.
+798	Lien de réinitialisation invalide.
+799	Lien de vérification invalide ou expiré.
+800	Lien invalide ou expiré (il a peut-être déjà été utilisé).
+801	Limite de stockage cloud atteinte (10 Mo). Supprime des sauvegardes.
+802	Limite de stockage cloud atteinte (5 Mo). Supprime des sauvegardes ou deviens booster Discord (10 Mo).
+803	Mot de passe incorrect.
+804	Motif invalide.
+805	Tu n'as pas accès à cette application.
+806	Pays inconnu.
+807	Autorisation d'envoi invalide ou expirée.
+808	Rotation indisponible.
+809	Salmon Run indisponible.
+810	Salons indisponibles.
+811	La sauvegarde est trop volumineuse.
+812	Session introuvable.
+813	Ta session est invalide ou a expiré. Reconnecte-toi.
+814	Seul le créateur ou un administrateur peut ajouter des membres.
+815	Seul le créateur ou un administrateur peut modifier les permissions.
+816	Seul le créateur ou un administrateur peut réinitialiser le secret.
+817	Seul le créateur ou un administrateur peut retirer l'accès.
+818	Seul le créateur peut supprimer l'application.
+819	Seul le créateur, un développeur ou un administrateur peut réinitialiser le jeton de bot.
+820	Trop de créations de profil depuis cette adresse. Réessaie plus tard.
+821	Trop de signalements récents. Réessaie dans une heure.
+822	Trop de tentatives. Réessaie dans quelques minutes.
+823	Tu as bloqué cette application. Débloque-la depuis ton compte pour l'autoriser.
+824	Tu ne peux pas supprimer ton propre compte admin.
+825	Un compte invité n'a pas d'adresse e-mail.
+826	Un compte invité ne peut pas être supprimé ici.
+827	Une application confidentielle doit déclarer au moins une redirection https.
+828	Une application officielle ne peut pas être bloquée.
+829	Une application officielle ne peut pas être retirée d'ici.
+830	Une application officielle ne peut pas être signalée ici.
+831	Saisis un pseudo Nextendo.
+832	La suppression a échoué.
+833	Échec de la vérification. Connecte-toi directement sur https://nextendo.network : un autre site ne peut pas te connecter à ton compte Nextendo.
+834	Erreur du serveur. Réessaie.
+835	Requête invalide.
+836	Rôle invalide.
+837	Signalement introuvable.
+838	Voir les rotations de stages et les boutiques de Splatoon
+839	Voir les statistiques du réseau Nextendo
+840	Parcourir le catalogue public du ModStore
+841	Voir la liste des jeux pris en charge par Nextendo
+842	Afficher ton activité en jeu sur Discord Rich Presence
+843	Synchroniser l'état et la version de ton émulateur
+844	Actualités Switch, Nextendo Network
+845	Administration Nextendo : actualités Switch.
+846	Actualités Switch
+847	Les articles affichés dans les actualités du menu HOME de la Switch. Enregistre tes modifications, puis publie pour les envoyer aux consoles.
+848	Retour à l'administration
+849	Chaîne
+850	Icône de la chaîne
+851	Changer l'icône
+852	Recadrée en 70 × 70, affichée dans un cercle.
+853	Nom de la chaîne
+854	Mention « New » dans Trouver des chaînes
+855	Chaîne importante
+856	Enregistrer la chaîne
+857	Articles
+858	Nouvel article
+859	Pages d'articles
+860	Contenu
+861	Titre
+862	Les retours à la ligne sont conservés sur la console.
+863	Langues
+864	L'article est envoyé dans chaque langue cochée. Une console n'affiche que les articles dans sa langue.
+865	Mise en page
+866	Normale
+867	Liste (avec produits en vedette)
+868	Style du titre
+869	Image de liste
+870	Recadrée en 358 × 201. Affichée dans la liste des articles.
+871	Corps
+872	Ajouter un bloc
+873	Chaque bloc est un paragraphe avec une image facultative (redimensionnée à 800 px de large) et une vidéo facultative. Les balises HTML strong mettent le texte en gras.
+874	Pied de page
+875	Petit texte tout en bas de l'article. Laisse vide pour ne rien afficher.
+876	Classifications d'âge
+877	Ajouter une classification
+878	Ajouter
+879	Classification personnalisée
+880	Système
+881	Âge
+882	Icône et ajout
+883	Sans classification, l'article n'affiche aucun bloc d'âge.
+884	Bouton en bas de l'article
+885	Action
+886	Aucun bouton
+887	Ouvrir le Nintendo eShop
+888	Ouvrir un jeu
+889	Ouvrir un écran système
+890	Texte du bouton
+891	Requête eShop
+892	Pour un jeu, laisse vide pour ouvrir sa page eShop.
+893	Jeux (title IDs)
+894	Séparés par des virgules.
+895	Écran système
+896	Mise à jour du système
+897	Contrôle parental
+898	Chaînes d'actualités
+899	Produits et vidéos
+900	Produits en vedette
+901	(mise en page Liste)
+902	Ajouter un produit en vedette
+903	Produits liés
+904	Ajouter un produit lié
+905	Vidéos liées
+906	Ajouter une vidéo
+907	Programmation et priorité
+908	Afficher dans À la une
+909	À la une pendant (jours)
+910	Date de publication
+911	Vide = maintenant.
+912	Expire après (jours)
+913	Priorité
+914	Priorité après À la une
+915	Priorité de suppression
+916	Pays
+917	Vide = tous les pays.
+918	Jeux liés (title IDs)
+919	Bloquer les captures d'écran
+920	Surprise
+921	Avancé
+922	Champs supplémentaires (JSON)
+923	Chaque clé ici remplace celle générée dans l'article. null la retire. Texte et nombres uniquement, pas d'images.
+924	Enregistrer l'article
+925	Publier
+926	Les modifications enregistrées restent ici jusqu'à la publication. Les consoles les reçoivent à la synchro suivante, environ une minute plus tard.
+927	Publier sur les consoles
+928	Choisis un fichier image.
+929	Cette image est illisible.
+930	Aucune image
+931	Choisir une image
+932	Impossible de charger les actualités : {0}
+933	Chaîne enregistrée
+934	{0} articles
+935	{0} article
+936	Aucun article pour l'instant. Écris le premier avec Nouvel article.
+937	Publié le {0}
+938	À la une
+939	Liste
+940	Modifier
+941	Dupliquer
+942	Supprimer l'article n° {0} ? Il quitte les consoles à la prochaine publication.
+943	Article n° {0} supprimé
+944	Modifier l'article n° {0}
+945	Copie d'un article
+946	L'enregistrement donne un nouveau numéro à l'article pour que les consoles qui l'ont déjà reçoivent la modification.
+947	Bloc {0}
+948	Monter
+949	Descendre
+950	Texte
+951	Adresse de la vidéo (facultatif)
+952	10 blocs au maximum.
+953	Aucune classification d'âge.
+954	Saisis d'abord le système de classification (lettres et chiffres).
+955	Nom
+956	Commentaire
+957	Libellé de plateforme
+958	Adresse de la vidéo
+959	Tu as atteint la limite de cette liste.
+960	Champs supplémentaires : ce n'est pas du JSON valide.
+961	Champs supplémentaires : écris un objet JSON, entre { }.
+962	Coche au moins une langue.
+963	Écris un titre.
+964	Article n° {0} enregistré. Publie pour l'envoyer aux consoles.
+965	Publication…
+966	{0} fichiers écrits. Les consoles les reçoivent à la prochaine synchro, dans environ une minute.
+967	Actualités publiées
+968	Échec de la publication : {0}
+969	Français
+970	Anglais (Royaume-Uni)
+971	Anglais (États-Unis)
+972	Allemand
+973	Italien
+974	Espagnol
+975	Espagnol (Amérique latine)
+976	Néerlandais
+977	Portugais
+978	Portugais (Brésil)
+979	Français (Canada)
+980	Russe
+981	Japonais
+982	Coréen
+983	Chinois (simplifié)
+984	Chinois (traditionnel)
+985	Pages des joueurs signalés
+986	Pages des comptes supprimés
+987	Rechercher (pseudo, PID)…
+988	Rechercher un compte supprimé
+989	Aucun compte supprimé ne correspond.
+990	Annoncée comme créée le {0}. C'est la console qui décide combien de temps elle affiche « New » à partir de cette date.
+991	La date de création sera fixée à la prochaine publication.
+992	Enregistrer et publier
+993	L'enregistrement publie tout de suite. Les consoles reçoivent les modifications à la synchro suivante, environ une minute plus tard. Ce bouton renvoie tout.
+994	Une console n'affiche que les articles dans sa langue, donc toutes les langues sont cochées par défaut.
+995	Article n° {0} enregistré
+996	Code du système
+997	Le système est un code court sans espaces, comme dans les vrais articles Nintendo : PEGI, ESRB, USK. Par exemple CERO, ACB ou GRAC. L'âge est l'âge minimum, puis choisis l'icône.
+998	Le système doit être un code court sans espaces (2 à 16 lettres ou chiffres), comme CERO ou ACB.
+999	Les corrections dans les {0} premières minutes sont gratuites. Ensuite, une modification repart comme un nouvel article et compte dans la limite d'un article tous les {1} jours.
+1000	joueurs ont accepté cette application ({0} nécessaires pour les actualités)
+1001	joueur a accepté cette application ({0} nécessaires pour les actualités)
+1002	Les applications officielles publient sur la chaîne Nextendo.
+1003	L'équipe Nextendo a coupé la chaîne de cette application. Contacte l'équipe pour en parler.
+1004	Les actualités se débloquent à {0} joueurs. Chaque joueur compte une fois, peu importe combien de fois il accepte. Toi et tes collaborateurs ne comptez pas.
+1005	Les testeurs voient la chaîne mais ne peuvent pas la modifier.
+1006	Prochain article possible le {0}. Un article tous les {1} jours.
+1007	Tu peux publier un article maintenant. Un article tous les {0} jours. Les articles arrivent dans Latest sur toutes les consoles ; À la une reste réservé à Nextendo.
+1008	Affiché sur la Switch : {0}
+1009	Aucune chaîne d'application pour l'instant. Une application débloque les actualités à {0} joueurs.
+1010	Application {0}, {1} joueurs ont accepté
+1011	Rétablir la chaîne
+1012	Couper la chaîne
+1013	Chaîne rétablie
+1014	Chaîne coupée
+1015	Chaînes des applications
+1016	Les chaînes des applications Nextendo Developers. Elles publient seules, un article tous les 4 jours, jamais dans À la une, avec « (Unofficial) » après leur éditeur. Supprime un article ou coupe une chaîne ici.
+1017	Actualités de l'application, Nextendo Developers
+1018	Nextendo Developers : les actualités de ton application sur la Switch.
+1019	Actualités de l'application
+1020	La chaîne de ton application dans les actualités du menu HOME de la Switch. L'enregistrement publie tout de suite.
+1021	Retour à l'application
+1022	{0} joueurs ont accepté
+1023	{0} joueur a accepté
+1024	Chaque joueur compte une fois. Le créateur et les collaborateurs ne comptent pas.
+1025	La chaîne de ton application dans les actualités du menu HOME de la Switch.
+1026	Débloqué
+1027	joueurs ont accepté cette application
+1028	joueur a accepté cette application
+1029	Chaque joueur compte une fois, peu importe combien de fois il accepte. Toi et tes collaborateurs ne comptez pas.
+1030	Publie tes propres articles dans les actualités de toutes les Switch : un article tous les 4 jours, avec « (Unofficial) » après ton nom d'éditeur. À la une reste réservé à Nextendo.
+1031	Badge développeur
+1032	Un badge sur le profil du créateur. Les collaborateurs ne le reçoivent pas.
+1033	Ouvrir l'éditeur d'actualités
+1034	Voir l'éditeur d'actualités
+1035	Amis, présence, liaison au réseau et icônes NSO
+1036	Luigi's Balloon World : cache et trouve des ballons en ligne
+1037	Coop en ligne et salons entre amis ; jeu multiplateforme testé
+1038	Campagne en coop en ligne, matchmaking et mode Whored
+1039	Matchs en ligne, salons entre amis et Club Strikers
+1040	Combats classés et amicaux, matchs de groupe, cartes et classements ; le théâtre des replays ne fonctionne pas encore
+1041	Connexion, héros, inventaire et groupes en ligne
+1042	Coopération en ligne et salons sur Ryujinx, Citron et console (version 1.2.2 du jeu) ; les salons avec mot de passe ne fonctionnent pas encore
+1043	Traductions
+1044	Écris le texte de l'article dans une autre langue. Les consoles réglées sur cette langue reçoivent cette version ; un champ vide reprend le texte principal. Les images, les liens et les réglages restent les mêmes.
+1045	Traduit : {0}
+1046	Langue du texte principal
+1047	La langue dans laquelle tu écris le texte ci-dessus. Les autres langues cochées le reçoivent tel quel, ou leur propre traduction plus bas.
+1048	Facultatif. Traduis le texte principal pour une autre langue cochée ; un champ vide garde le texte principal. Les images, les liens et les réglages restent les mêmes.
+1049	Traduit
+1050	Texte principal
+1051	L'enregistrement remplace l'article sur les consoles qui l'ont déjà.
+1052	L'enregistrement remplace l'article sur les consoles qui l'ont déjà. Les modifications ne comptent pas dans la limite d'un article tous les {0} jours.
+1053	Brouillon : le garder ici, ne pas l'envoyer aux consoles
+1054	Brouillon

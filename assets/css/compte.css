@@ -112,6 +112,43 @@
 .ajout-etat.erreur { color: #ff8a9b; }
 
 .outils-amis { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+/* Authorized applications */
+.applis-autorisees { list-style: none; display: grid; gap: 14px; margin: 14px 0 0; padding: 0; }
+.appli-autorisee { border: 1px solid var(--plaque-bord, rgba(255,255,255,.1)); border-radius: 18px; background: rgba(255, 255, 255, 0.03); overflow: visible; }
+.appli-tete { display: flex; align-items: center; gap: 14px; padding: 16px 18px; background: rgba(255, 255, 255, 0.04); border-radius: 18px 18px 0 0; }
+.appli-logo { display: grid; place-items: center; flex: none; border-radius: 50%; overflow: hidden; background: linear-gradient(135deg, #ff4d5e, #ff9a5a); color: #fff; font-weight: 800; font-size: 1.2rem; }
+.appli-logo img { width: 100%; height: 100%; object-fit: cover; }
+.appli-id { flex: 1; min-width: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px; }
+.appli-id strong { font-size: 1.05rem; overflow-wrap: anywhere; }
+.appli-id .petit { flex-basis: 100%; }
+.puce-officielle { padding: 2px 9px; border-radius: 999px; background: rgba(88, 140, 255, 0.18); color: #9ab8ff; font-size: 0.75rem; font-weight: 700; }
+.appli-coin { position: relative; }
+.appli-plus { display: grid; place-items: center; width: 40px; height: 40px; border: 0; border-radius: 10px; background: rgba(255, 255, 255, 0.06); color: var(--texte); cursor: pointer; }
+.appli-plus:hover, .appli-plus[aria-expanded="true"] { background: rgba(255, 255, 255, 0.12); }
+.appli-menu { display: none; position: absolute; right: 0; top: calc(100% + 6px); z-index: 20; min-width: 240px; padding: 6px; border-radius: 12px; background: #1d1438; border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45); }
+.appli-menu.ouvert { display: grid; }
+.appli-menu button { text-align: start; padding: 10px 12px; border: 0; border-radius: 8px; background: none; color: var(--texte); font: inherit; font-weight: 600; cursor: pointer; }
+.appli-menu button:hover, .appli-menu button:focus-visible { background: rgba(255, 255, 255, 0.08); outline: none; }
+.appli-menu button.danger { color: #ff8a9b; }
+.appli-corps { padding: 4px 18px 16px; }
+.appli-bloc { padding: 14px 0; border-bottom: 1px solid rgba(255, 255, 255, 0.07); }
+.appli-bloc h3 { font-size: 0.95rem; margin: 0 0 8px; }
+.appli-bloc p { margin: 0 0 8px; line-height: 1.55; overflow-wrap: anywhere; }
+.appli-createur { display: flex; align-items: center; gap: 8px; margin: 6px 0 8px; }
+.appli-createur img { width: 24px; height: 24px; border-radius: 50%; object-fit: cover; }
+.appli-liens { display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.appli-liens .lien { display: inline-flex; align-items: center; gap: 4px; }
+.appli-permissions { list-style: none; display: grid; gap: 8px; margin: 0; padding: 0; }
+.appli-permissions li { display: flex; align-items: center; gap: 10px; }
+.appli-permissions svg { flex: none; color: #43c46d; }
+.appli-pied { display: flex; justify-content: flex-end; padding-top: 14px; }
+.appli-pied .petit { margin: 0; flex: 1; }
+.applis-bloquees { margin-top: 14px; }
+.applis-bloquees summary { cursor: pointer; font-weight: 700; }
+.applis-bloquees ul { list-style: none; display: grid; gap: 8px; margin: 10px 0 0; padding: 0; }
+.appli-bloquee { display: flex; align-items: center; gap: 12px; }
+.appli-bloquee strong { flex: 1; }
+
 .recherche {
   flex: 1 1 200px; display: flex; align-items: center; gap: 8px;
   padding: 0 14px; border-radius: 999px; background: rgba(12, 10, 29, 0.5); border: 1px solid var(--carte-bord);
@@ -222,7 +259,7 @@
   transition: border-color 0.2s;
 }
 .pays-bouton:hover, .pays.est-ouvert .pays-bouton { border-color: rgba(79, 176, 255, 0.55); }
-.pays-bouton img, .pays-option img, .puce-pays img { border-radius: 3px; object-fit: cover; flex: none; }
+.pays-bouton img, .pays-option img, .puce-pays img { object-fit: contain; flex: none; }
 .pays-bouton span:not(.pays-chevron) { flex: 1; text-align: center; }
 .pays-chevron { display: grid; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1); color: var(--texte-doux); }
 .pays.est-ouvert .pays-chevron { transform: rotate(180deg); }
@@ -573,3 +610,36 @@ button.bouton { font-size: 0.92rem; }
 #presence-texte, #fm-etat { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ami-etat, .ami-detail { display: block; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .ami-detail { font-size: 0.8rem; color: var(--texte-doux); opacity: 0.85; }
+
+/* Profile badges: a compact row of icons, each one naming itself in a tooltip (hover, focus
+   or tap), like Discord. */
+.badges-profil { list-style: none; margin: 12px 0 0; padding: 4px 6px; display: inline-flex; flex-wrap: wrap; align-items: center; gap: 2px; border-radius: 12px; background: rgba(12, 10, 29, 0.45); border: 1px solid var(--carte-bord); }
+.badges-profil[hidden] { display: none; }
+.badge-profil { width: 30px; height: 30px; display: grid; place-items: center; border-radius: 8px; cursor: default; transition: background-color .15s ease, transform .15s ease; }
+.badge-profil img { object-fit: contain; display: block; }
+.badge-profil:hover, .badge-profil:focus-visible { background: rgba(255, 255, 255, 0.08); transform: translateY(-1px); }
+.badge-profil:focus-visible { outline: 2px solid var(--bleu-logo); outline-offset: 1px; }
+.fiche-titre .badges-profil { margin-top: 8px; }
+
+.bulle-badge { position: fixed; z-index: 60; display: flex; align-items: center; gap: 10px; max-width: min(300px, calc(100vw - 16px)); padding: 9px 13px 9px 10px; border-radius: 12px; background: #17122e; border: 1px solid rgba(255, 214, 236, 0.14); box-shadow: 0 10px 30px rgba(0, 0, 0, .45); color: var(--texte); pointer-events: none; opacity: 0; transform: translateY(4px); transition: opacity .12s ease, transform .12s ease; }
+.bulle-badge.visible { opacity: 1; transform: none; }
+.bulle-badge::after { content: ""; position: absolute; left: 50%; bottom: -6px; width: 10px; height: 10px; background: #17122e; border-right: 1px solid rgba(255, 214, 236, 0.14); border-bottom: 1px solid rgba(255, 214, 236, 0.14); transform: translateX(-50%) rotate(45deg); }
+.bulle-badge.dessous::after { bottom: auto; top: -6px; transform: translateX(-50%) rotate(225deg); }
+.bulle-badge-icone { flex: none; width: 30px; height: 30px; display: grid; place-items: center; }
+.bulle-badge-icone img { width: 28px; height: 28px; object-fit: contain; }
+.bulle-badge-texte { display: flex; flex-direction: column; line-height: 1.25; min-width: 0; }
+.bulle-badge-texte strong { font-size: .95rem; }
+.bulle-badge-texte span { font-size: .85rem; color: var(--texte-doux); }
+@media (prefers-reduced-motion: reduce) { .badge-profil, .bulle-badge { transition: none; } .badge-profil:hover { transform: none; } }
+/* Inside an open dialog the tooltip is one of its children: undo the dialog's scroll rule. */
+dialog.dialogue > .bulle-badge { max-height: none; overflow: visible; }
+
+/* Group actions next to the "Received" / "Sent" titles. */
+.demandes-tete { display: flex; align-items: center; justify-content: space-between; gap: 10px; flex-wrap: wrap; }
+.demandes-tete { margin: 18px 0 10px; }
+.demandes-tete:first-of-type { margin-top: 4px; }
+.demandes-tete .sous-titre { margin: 0; }
+.demandes-tete + .demandes { margin-bottom: 14px; }
+.demandes-groupe { display: flex; gap: 8px; flex-wrap: wrap; }
+.demandes-groupe[hidden] { display: none; }
+.demandes-groupe .petit-bouton { min-height: 34px; padding: 0 12px; font-size: 0.82rem; }

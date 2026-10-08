@@ -100,7 +100,7 @@
     var codes = ("AR AT AU BE BO BR CA CH CL CN CO CR CU CZ DE DK DO DZ EC EG ES FI FR GB GR GT HN HR HU IE IL IN IT JP KR MA MX " +
       "NI NL NO NZ PA PE PH PL PR PT PY RO RS RU SA SE SG SK SV TN TR UA US UY VE VN ZA").split(" ");
     var liste = codes.map(function (c) { return { c: c, n: noms.of(c) }; }).sort(function (a, b) { return a.n.localeCompare(b.n, "en"); });
-    var drapeau = function (c) { return "https://flagcdn.com/w40/" + c.toLowerCase() + ".png"; };
+    var drapeau = function (c) { return "assets/img/drapeaux/" + c.toLowerCase() + ".png"; };
     var choisi = actuel;
     hote.innerHTML = "";
     var bouton = el("button", "pays-bouton"); bouton.type = "button";
@@ -198,26 +198,28 @@
   };
 
   PAGES.lier = function () {
-    if (!window.NX || !NX.token) { location.replace("login.html?next=" + encodeURIComponent("lier.html" + location.search)); return; }
-    var CODE = new URLSearchParams(location.search).get("code") || "";
+    var sp = new URLSearchParams(location.search);
+    var CODE = sp.get("c") || sp.get("code") || "";
+    if (!window.NX || !NX.token) {
+      location.replace("login.html?next=" + encodeURIComponent("/lier.html" + location.search));
+      return;
+    }
     var etat = document.createElement("p");
     etat.className = "petit";
     etat.setAttribute("role", "status");
     $("etape-code").appendChild(etat);
     if (!CODE) {
-      etat.textContent = "This link has no device code. Scan the QR code again.";
+      etat.textContent = window.nxT ? window.nxT("This link has no device code. Scan the QR code again.") : "This link has no device code. Scan the QR code again.";
       $("approuver").disabled = true;
       $("refuser").disabled = true;
       return;
     }
     // Announce the scan right away: the other screen shows this account before approving.
     NX.api("/api/qr/scan", { code: CODE }).then(function (d) {
-      if (d && d.pseudo) {
-        var qui = document.querySelector("#etape-code .appareil strong");
-        if (qui) qui.textContent = d.pseudo;
-      }
+      var qui = document.querySelector("#etape-code .appareil strong");
+      if (qui) qui.textContent = window.nxT ? window.nxT("Nintendo Switch") : "Nintendo Switch";
     }).catch(function (err) {
-      etat.textContent = (err && err.message) || "This code is expired or already used.";
+      etat.textContent = (err && err.message) || (window.nxT ? window.nxT("This code is expired or already used.") : "This code is expired or already used.");
       $("approuver").disabled = true;
       $("refuser").disabled = true;
     });
@@ -248,15 +250,15 @@
         var msg = String((err && err.message) || "");
         var d = err && err.data;
         if (d && d.mort) {
-          $("titre-lier").textContent = "Too many tries";
-          etat.textContent = "This code is now expired. Scan a new one.";
+          $("titre-lier").textContent = window.nxT ? window.nxT("Too many tries") : "Too many tries";
+          etat.textContent = window.nxT ? window.nxT("This code is now expired. Scan a new one.") : "This code is now expired. Scan a new one.";
           $("approuver").disabled = true;
           return;
         }
         if (d && typeof d.restant === "number" && d.restant > 0) {
-          etat.textContent = "Wrong digits. " + d.restant + " tries left.";
+          etat.textContent = tf("Wrong digits. {0} tries left.", d.restant);
         } else {
-          etat.textContent = msg || "This code is expired or already used.";
+          etat.textContent = msg || (window.nxT ? window.nxT("This code is expired or already used.") : "This code is expired or already used.");
         }
         cases.forEach(function (x) { x.value = ""; });
         cases[0].focus();
@@ -272,6 +274,7 @@
   PAGES.sessions = function () {
     if (!window.NX || !NX.token) { location.replace("login.html?next=sessions.html"); return; }
     var SESSIONS = [];
+    var fr = (window.nxLangue === "fr");
     var typeDe = function (kind) {
       var k = String(kind || "").toLowerCase();
       if (/switch/.test(k)) return "switch";
@@ -279,15 +282,30 @@
       if (/app|iphone|android|phone|mobile/.test(k)) return "tel";
       return "web";
     };
+    var traduireNom = function (kind, label) {
+      var k = String(kind || "").toLowerCase();
+      var s = String(label || "").toLowerCase();
+      if (k === "browser" || /navigateur|browser/.test(s)) return fr ? "Navigateur" : "Browser";
+      if (k === "switch" || /switch/.test(s)) return "Nintendo Switch";
+      if (k === "ryujinx" || /ryujinx/.test(s)) return fr ? "Ryujinx (émulateur)" : "Ryujinx (emulator)";
+      if (k === "citron" || /citron/.test(s)) return fr ? "Citron (émulateur)" : "Citron (emulator)";
+      return label || k || "Session";
+    };
     var ilYA = function (iso) {
       var t = Date.parse(iso);
       if (!t) return "";
       var s = Math.max(0, (Date.now() - t) / 1000);
-      if (s < 60) return "just now";
-      if (s < 3600) return Math.max(1, Math.round(s / 60)) + " min ago";
-      if (s < 86400) return Math.round(s / 3600) + " h ago";
+      if (s < 60) return fr ? "à l'instant" : "just now";
+      if (s < 3600) {
+        var m = Math.max(1, Math.round(s / 60));
+        return fr ? "il y a " + m + " min" : m + " min ago";
+      }
+      if (s < 86400) {
+        var h = Math.round(s / 3600);
+        return fr ? "il y a " + h + " h" : h + " h ago";
+      }
       var j = Math.round(s / 86400);
-      return j + (j > 1 ? " days ago" : " day ago");
+      return fr ? (j > 1 ? "il y a " + j + " jours" : "il y a 1 jour") : (j + (j > 1 ? " days ago" : " day ago"));
     };
     var ICO = {
       web: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="3" y="4" width="18" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8 21h8M12 17v4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
@@ -298,19 +316,51 @@
     var cible = null;
     var charger = function () {
       NX.sessions().then(function (r) {
-        SESSIONS = ((r && r.sessions) || []).map(function (s) {
-          var lieu = [s.geo, s.ip].filter(Boolean).join(" · ") || (s.ip || "Unknown IP");
+        var rawList = ((r && r.sessions) || []).map(function (s) {
+          var lieu = [s.geo, s.ip].filter(Boolean).join(" · ") || (s.ip || (fr ? "IP inconnue" : "Unknown IP"));
+          var tSeen = Date.parse(s.last_seen) || 0;
           return {
-            id: s.id, nom: s.kind_label || s.kind || "Session",
-            ou: lieu + (s.playing ? " · in game" : ""), quand: ilYA(s.last_seen),
-            type: typeDe(s.kind), courante: !!s.current
+            id: s.id, nom: traduireNom(s.kind, s.kind_label),
+            ou: lieu + (s.playing ? (fr ? " · en jeu" : " · in game") : ""), quand: ilYA(s.last_seen),
+            type: typeDe(s.kind), courante: !!s.current, raw_last_seen: tSeen, ip: s.ip || "", kind: s.kind
           };
         });
-        SESSIONS.sort(function (a, b) { return (b.courante ? 1 : 0) - (a.courante ? 1 : 0); });
+
+        // Tri par date décroissante
+        rawList.sort(function (a, b) {
+          return (b.raw_last_seen || 0) - (a.raw_last_seen || 0);
+        });
+
+        // Déduplication : conserver la session courante, et au plus une session par (type + ip)
+        var vu = {};
+        var uniques = [];
+        rawList.forEach(function (s) {
+          if (s.courante) {
+            uniques.push(s);
+            if (s.ip) vu[s.type + ":" + s.ip] = true;
+          }
+        });
+        rawList.forEach(function (s) {
+          if (s.courante) return;
+          var cle = s.type + ":" + (s.ip || s.id);
+          if (!vu[cle]) {
+            vu[cle] = true;
+            uniques.push(s);
+          }
+        });
+
+        // Session courante en tête
+        uniques.sort(function (a, b) {
+          if (b.courante !== a.courante) return (b.courante ? 1 : 0) - (a.courante ? 1 : 0);
+          return (b.raw_last_seen || 0) - (a.raw_last_seen || 0);
+        });
+
+        SESSIONS = uniques;
         dessiner();
       }).catch(function (err) {
         var msg = String((err && err.message) || "");
-        if (/401|403|token|session|expir|invalid/i.test(msg)) { NX.logout(); return; }
+        // Le code HTTP d'abord : le message est traduit et ne contient pas forcement ces mots.
+        if ((err && (err.status === 401 || err.status === 403)) || /401|403|token|session|expir|invalid/i.test(msg)) { NX.logout(); return; }
         var ul = $("sessions");
         ul.innerHTML = "";
         ul.appendChild(el("li", "vide-bloc", "Could not load sessions: " + msg));
@@ -324,22 +374,22 @@
         var ico = el("span", "appareil-ico"); ico.innerHTML = ICO[s.type];
         var mid = el("div");
         var n = el("div", "session-nom", s.nom);
-        if (s.courante) n.appendChild(el("span", "badge", "This device"));
+        if (s.courante) n.appendChild(el("span", "badge", fr ? "Cet appareil" : "This device"));
         mid.append(n, el("div", "session-detail", s.ou + ", " + s.quand.toLowerCase()));
         li.append(ico, mid);
         if (!s.courante) {
-          var b = el("button", "bouton bouton--sortie petit-bouton", "Sign out");
+          var b = el("button", "bouton bouton--sortie petit-bouton", fr ? "Déconnecter" : "Sign out");
           b.type = "button";
           b.addEventListener("click", function () { cible = s; $("dlg-session-nom").textContent = s.nom; $("dlg-session").showModal(); });
           li.appendChild(b);
         } else {
-          li.appendChild(el("span", "petit", "Current"));
+          li.appendChild(el("span", "petit", fr ? "Actuelle" : "Current"));
         }
         li.dataset.id = s.id;
         ul.appendChild(li);
       });
       $("tout-fermer").disabled = SESSIONS.length < 2;
-      $("sessions-compte").textContent = SESSIONS.length + (SESSIONS.length > 1 ? " devices" : " device");
+      $("sessions-compte").textContent = SESSIONS.length + (SESSIONS.length > 1 ? (fr ? " appareils" : " devices") : (fr ? " appareil" : " device"));
     };
     var retirer = function (ids) {
       ids.forEach(function (id) {
@@ -377,11 +427,12 @@
       { nom: "Super Smash Bros. Ultimate", ids: ["01006a800016e000"] },
       { nom: "Animal Crossing: New Horizons", ids: ["01006f8002326000"] },
       { nom: "Luigi's Mansion 3", ids: ["0100dca0064a6000"] },
-      { nom: "Minecraft", ids: ["01006bd001e06000", "0100d71004694000"] },
+      { nom: "Minecraft: Nintendo Switch Edition", ids: ["01006bd001e06000"] },
       { nom: "ARMS", ids: ["01009b500007c000"] },
       { nom: "Mario Tennis Aces", ids: ["0100bde00862a000"] },
       { nom: "Super Mario Maker 2", ids: ["01009b90006dc000"] },
       { nom: "PAC-MAN 99", ids: ["0100ad9012510000"] },
+      { nom: "Tetris 99", ids: ["010040600c5ce000"] },
       { nom: "Super Mario Bros. 35", ids: ["0100277011f1a000"] },
       { nom: "Super Mario Bros. Wonder", ids: ["010015100b514000"] },
       { nom: "Clubhouse Games: 51 Worldwide Classics", ids: ["010047700d540000"] },
@@ -389,13 +440,24 @@
       { nom: "Crash Team Racing Nitro-Fueled", ids: ["0100f9f00c696000"] },
       { nom: "Diablo III: Eternal Collection", ids: ["01001b300b9be000"] },
       { nom: "Mario Party Superstars", ids: ["01006fe013472000"] },
-      { nom: "Overcooked! 2", ids: ["01006fd0080b2000"] }
+      { nom: "Overcooked! 2", ids: ["01006fd0080b2000"] },
+      { nom: "Pokémon Scarlet and Violet", ids: ["0100a3d008c5c000", "01008f6008c5e000"] },
+      { nom: "Nintendo 64 - Nintendo Classics", ids: ["0100c9a00ece6000"] },
+      { nom: "Pokémon Legends: Z-A", ids: ["0100f43008c44000"] },
+      { nom: "Mario Golf: Super Rush", ids: ["0100c9c00e25c000"] },
+      { nom: "Super Mario 3D World + Bowser's Fury", ids: ["010028600ebda000"], icon: "/assets/img/games/sm3dw.jpg" },
+      { nom: "Super Mario Odyssey", ids: ["0100000000010000"] },
+      { nom: "METAL GEAR SOLID: Peace Walker", ids: ["0100c6f01c4f8000"] },
+      { nom: "Mario Strikers: Battle League", ids: ["010019401051c000"] },
+      { nom: "Minecraft Dungeons II", ids: ["0100a7c01b792000"] },
+      { nom: "Pokkén Tournament DX", ids: ["0100b3f000be2000"] },
+      { nom: "Saints Row: The Third - The Full Package", ids: ["0100de600beee000"] }
     ];
     var ul = $("serveurs");
     var lignes = {};
     JEUX.forEach(function (j) {
       var li = el("li", "serveur");
-      var img = el("img"); img.src = "/api/game-icon/" + j.ids[0] + ".jpg"; img.alt = ""; img.loading = "lazy";
+      var img = el("img"); img.src = j.icon || "/api/game-icon/" + j.ids[0] + ".jpg"; img.alt = ""; img.loading = "lazy";
       var mid = el("div");
       mid.append(el("div", "serveur-nom", j.nom), el("div", "serveur-etat", "Checking…"));
       var n = el("div", "serveur-joueurs", "…");
@@ -404,18 +466,24 @@
       lignes[j.nom] = li;
     });
     var maj = function () {
-      fetch("/api/online-counts", { cache: "no-store" }).then(function (r) { if (!r.ok) throw 0; return r.json(); }).then(function (d) {
+      window.nxOnlineCounts().then(function (d) {
         var counts = d.counts || {};
         var total = 0;
+        var parJeu = {};
         JEUX.forEach(function (j) {
           var n = 0;
           j.ids.forEach(function (id) { if (counts[id] != null) n = Math.max(n, counts[id]); });
           total += n;
+          parJeu[j.nom] = n;
           var li = lignes[j.nom];
           li.querySelector(".serveur-etat").textContent = "Operational";
           li.querySelector(".serveur-joueurs").innerHTML = "";
           li.querySelector(".serveur-joueurs").append(document.createTextNode(nf.format(n)), el("small", "", n === 1 ? "player" : "players"));
         });
+        // Most players first, then by name.
+        JEUX.slice().sort(function (a, b) {
+          return (parJeu[b.nom] - parJeu[a.nom]) || a.nom.localeCompare(b.nom);
+        }).forEach(function (j) { ul.appendChild(lignes[j.nom]); });
         $("etat-bandeau").className = "bandeau-etat";
         $("etat-titre").textContent = "All systems operational";
         $("etat-texte").textContent = tf("{0} players online across {1} game servers.", nf.format(total), JEUX.length);
@@ -437,7 +505,8 @@
       { cle: "ryu", repo: "NextendoNetwork/Ryujinx-Nextendo", mode: "latest",
         match: { win: /win[-_]x64\.zip$/i, linux: /linux[-_]x64\.tar\.gz$/i, mac: /macos.*\.tar\.gz$/i } },
       { cle: "citron", repo: "NextendoNetwork/citron-nextendo", mode: "list",
-        match: { win: /x64-clangcl\.zip$/i, linux: /linux-x86_64\.AppImage$/i } },
+        match: { win: /x64-clangcl\.zip$/i, linux: /linux.*x86_64.*\.AppImage$/i } },
+      { cle: "prelude", repo: "NextendoNetwork/Prelude-Nro", mode: "latest", match: { nro: /\.nro$/i } },
       { cle: "ios", repo: "NextendoNetwork/Nextendo-App-Ios", mode: "latest", match: { deb: /\.deb$/i, ipa: /^NextendoApp\.ipa$/i } },
       { cle: "android", repo: "NextendoNetwork/Nextendo-App-Android", mode: "latest", match: { apk: /^NextendoApp\.apk$/i } }
     ];
@@ -458,6 +527,98 @@
               });
             });
           });
+
+          // Citron : sélecteur custom d'architectures Linux (exclut Windows / .zip)
+          if (src.cle === "citron") {
+            var box = $("citron-select-box");
+            var trig = $("citron-dropdown-trigger");
+            var labelEl = $("citron-dropdown-label");
+            var menu = $("citron-dropdown-menu");
+            var wrap = $("citron-dropdown");
+            // Le menu deroulant est en position absolue dans une carte a
+            // backdrop-filter (contexte d'empilement) : sans ca, la carte
+            // suivante le recouvre. On remonte toute la carte au-dessus.
+            var majPlaque = function (ouvert) {
+              var plaque = wrap ? wrap.closest(".plaque") : null;
+              if (plaque) plaque.classList.toggle("menu-deroulant-ouvert", !!ouvert);
+            };
+            if (box && trig && menu && labelEl) {
+              menu.innerHTML = "";
+              var assetsList = [];
+              versions.forEach(function (v) {
+                (v.assets || []).forEach(function (a) {
+                  if (/\.zsync$/i.test(a.name)) return;
+                  // Strictly Linux: AppImage or tar.zst (No windows, no zip, no exe)
+                  if (!/\.(AppImage|tar\.zst)$/i.test(a.name) || /windows|msvc|\.zip|\.exe/i.test(a.name)) return;
+                  var label = a.name;
+                  if (/x86_64.*use-nopgo.*AppImage/i.test(a.name)) label = "Linux x86_64 (Standard AppImage)";
+                  else if (/x86_64_v3.*AppImage/i.test(a.name)) label = "Linux x86_64 v3 (Modern CPU AppImage)";
+                  else if (/aarch64.*AppImage/i.test(a.name)) label = "Linux ARM64 (aarch64 AppImage)";
+                  else if (/x86_64.*tar\.zst/i.test(a.name)) label = "Linux x86_64 (.tar.zst)";
+                  else if (/aarch64.*tar\.zst/i.test(a.name)) label = "Linux ARM64 (.tar.zst)";
+                  var sz = (a.size / 1048576).toFixed(1) + " MB";
+                  assetsList.push({ name: a.name, label: label, sizeStr: sz, url: a.browser_download_url, size: a.size });
+                });
+              });
+              if (assetsList.length) {
+                box.hidden = false;
+                var selectAsset = function (ast) {
+                  labelEl.textContent = ast.label + " — " + ast.sizeStr;
+                  var linuxBtn = $("dl-citron-linux");
+                  if (linuxBtn) {
+                    linuxBtn.href = ast.url;
+                    linuxBtn.classList.remove("est-indispo");
+                    var sm = linuxBtn.querySelector("small");
+                    if (sm) sm.textContent = ast.sizeStr + ", " + ast.label;
+                  }
+                  Array.from(menu.children).forEach(function (li) {
+                    li.classList.toggle("est-selectionne", li.dataset.url === ast.url);
+                  });
+                };
+                // Default to standard x86_64 AppImage or first
+                var def = assetsList.filter(function (x) { return /Standard AppImage/i.test(x.label); })[0] || assetsList[0];
+                assetsList.forEach(function (ast) {
+                  var li = document.createElement("li");
+                  li.className = "nx-dropdown-item" + (ast === def ? " est-selectionne" : "");
+                  li.tabIndex = 0;
+                  li.dataset.url = ast.url;
+                  li.innerHTML = "<span>" + ast.label + "</span><span class='taille'>" + ast.sizeStr + "</span>";
+                  li.addEventListener("click", function () {
+                    selectAsset(ast);
+                    menu.hidden = true;
+                    if (wrap) wrap.removeAttribute("data-open");
+                    trig.setAttribute("aria-expanded", "false");
+                    majPlaque(false);
+                  });
+                  li.addEventListener("keydown", function (e) {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      li.click();
+                    }
+                  });
+                  menu.appendChild(li);
+                });
+                selectAsset(def);
+                trig.onclick = function (e) {
+                  e.stopPropagation();
+                  var ouv = menu.hidden;
+                  menu.hidden = !ouv;
+                  if (wrap) wrap.setAttribute("data-open", ouv ? "true" : "false");
+                  trig.setAttribute("aria-expanded", ouv ? "true" : "false");
+                  majPlaque(ouv);
+                };
+                document.addEventListener("click", function (e) {
+                  if (wrap && !wrap.contains(e.target)) {
+                    menu.hidden = true;
+                    wrap.removeAttribute("data-open");
+                    trig.setAttribute("aria-expanded", "false");
+                    majPlaque(false);
+                  }
+                });
+              }
+            }
+          }
+
           var tag = versions[0] && versions[0].tag_name;
           var ver = $("v-" + src.cle);
           if (ver && tag) ver.textContent = tag;

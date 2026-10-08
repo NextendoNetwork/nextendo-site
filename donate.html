@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="referrer" content="strict-origin-when-cross-origin">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Donate, Nextendo Network</title>
+<meta name="description" content="Support Nextendo Network: donations pay for the servers that keep Switch online play alive.">
+<link rel="icon" href="assets/img/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/rework.css?v=20261007n">
+<link rel="stylesheet" href="assets/css/pages.css?v=20261007i">
+<script src="assets/js/i18n.js?v=20261008a"></script>
+</head>
+<body data-page="don">
+<a class="saut" href="#contenu">Skip to content</a>
+
+<div id="nx-barre"></div>
+
+<main id="contenu" class="">
+
+  <section class="plaque page-tete">
+    <h1 class="page-titre">Support Nextendo Network</h1>
+    <p class="page-intro">Nextendo is free and run by volunteers. Donations pay for the servers and hosting that keep it online.</p>
+  </section>
+
+  <section class="plaque don-objectif" id="don-objectif" hidden>
+    <h2 class="titre-plaque">Monthly goal</h2>
+    <p id="don-objectif-intro">Reaching the monthly goal covers the servers that keep Nextendo online.</p>
+    <div class="don-barre" id="don-barre" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="don-barre-plein"></span></div>
+    <p class="don-objectif-texte" id="don-objectif-texte"></p>
+  </section>
+
+  <section class="plaque don-merci" id="don-merci" hidden aria-live="polite">
+    <img src="assets/img/badges/donateur.png?v=20261007d" alt="" width="44" height="44">
+    <div>
+      <h2 class="titre-plaque">Thank you for your donation!</h2>
+      <p id="don-merci-texte">Your Donor badge will appear on your profile within a few minutes.</p>
+    </div>
+  </section>
+
+  <div class="don-grille">
+    <section class="plaque">
+      <h2 class="titre-plaque">Where your donation goes</h2>
+      <p>Servers, bandwidth and domain names. Donations also let us move to more powerful servers, add storage (hard drives) and grow the network. Online play itself stays free for everyone.</p>
+    </section>
+    <section class="plaque">
+      <h2 class="titre-plaque don-titre-badge"><img src="assets/img/badges/donateur.png?v=20261007d" alt="" width="26" height="26"><span>A thank-you on your profile</span></h2>
+      <p>Any donation gives your Nextendo account the Donor badge, and the Donor role on our Discord server if your Discord account is linked. Both are added automatically, usually within a few minutes, and they stay for good.</p>
+    </section>
+  </div>
+
+  <section class="plaque don-action" aria-live="polite">
+    <img class="don-photo" id="don-photo" alt="" width="84" height="84" hidden>
+    <p class="don-etat" id="don-etat">Sign in first so we know which account gets the badge.</p>
+    <div class="don-boutons" id="don-boutons">
+      <a class="bouton bouton--plein" id="don-connexion" href="login.html?next=donate.html">Sign in</a>
+      <a class="bouton" id="don-sans" href="https://donate.stripe.com/aFabJ00GbdOY0oAaU96oo00" target="_blank" rel="noopener">Donate without a badge</a>
+    </div>
+    <p class="petit">Payments are handled by Stripe. Nextendo never sees your card details.</p>
+  </section>
+</main>
+
+<div id="nx-pied"></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/nx.js?v=20261002b" defer></script>
+<script src="assets/js/commun.js?v=20261007p" defer></script>
+<script src="assets/js/donate.js?v=20261007j" defer></script>
+<script src="assets/js/effets.js?v=20260925h" defer></script>
+</body>
+</html>

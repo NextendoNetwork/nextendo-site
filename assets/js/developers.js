@@ -11,7 +11,17 @@
   var $ = function (id) { return document.getElementById(id); };
   function el(tag, cls, texte) { var e = document.createElement(tag); if (cls) e.className = cls; if (texte != null) e.textContent = texte; return e; }
   function toast(t) { var x = $("toast"); x.textContent = t; x.classList.add("visible"); clearTimeout(toast.m); toast.m = setTimeout(function () { x.classList.remove("visible"); }, 2600); }
-  function erreur(m) { return (m && m.message) || "Something went wrong. Try again."; }
+  var CODES = {
+    dev_conditions: "Nextendo Developers needs a verified e-mail and a linked Discord account. You can set both up on your account page.",
+    app_limit: "You've reached the limit of 5 applications.",
+    name_reserved: "This name is reserved to Nextendo or imitates an official application.",
+    logo_reserved: "This icon belongs to an official application."
+  };
+  function erreur(m) {
+    var c = m && m.data && m.data.code;
+    if (c && CODES[c]) return window.nxT ? window.nxT(CODES[c]) : CODES[c];
+    return (m && m.message) || "Something went wrong. Try again.";
+  }
   function copier(texte, quoi) { if (navigator.clipboard) navigator.clipboard.writeText(texte); toast(quoi ? tf("{0} copied to the clipboard", window.nxT ? window.nxT(quoi) : quoi) : tf("Copied to the clipboard")); }
   function echapper(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
@@ -38,7 +48,16 @@
       botPerms: a.bot_permissions || [],
       bot: { nom: (a.name || "Application") + " Bot", jeton: "", prefixe: a.bot_token_prefix || "" },
       rp: { jeu: rp.app_id || rp.game || "0100152000022000", details: rp.details || "", statut: rp.status || "playing", chrono: rp.timer !== false },
-      membres: [], cree: a.created_at || ""
+      membres: [], cree: a.created_at || "",
+      // Players who accepted the application, each counted once; the creator and the
+      // collaborators don't count. 250 unlock Switch news, 500 give the creator the badge.
+      acceptations: a.acceptations || 0, seuilNews: a.seuil_news || 250, seuilBadge: a.seuil_badge || 500,
+      // Emulateur officiel (Ryujinx, Citron) : il se connecte avec son jeton en ligne, pas un jeton
+      // OAuth, et sa presence vient du jeu lance. Les reglages Rich Presence ne le concernent pas.
+      officiel: !!a.is_official, role: a.user_role || "", networkAdmin: !!a.network_admin,
+      moderationWarning: a.moderation_warning || "", suspended: !!a.suspended,
+      suspensionReason: a.suspension_reason || "",
+      emulateur: !!a.is_official && (a.redirect_uris || []).length > 0 && (a.redirect_uris || []).every(function (u) { return /^http:\/\/(127\.0\.0\.1|localhost)(:|\/)/.test(u); })
     };
   }
   function charge() {
@@ -50,6 +69,9 @@
   function chargeAppli(id) {
     return NX.api("/api/developers/applications/" + encodeURIComponent(id), null, "GET").then(function (d) {
       var a = norme(d.application || d);
+      if (d.user_role) a.role = d.user_role;
+      a.networkAdmin = !!d.network_admin;
+      if (d.acceptations != null) { a.acceptations = d.acceptations; a.seuilNews = d.seuil_news || a.seuilNews; a.seuilBadge = d.seuil_badge || a.seuilBadge; }
       var i = applis.findIndex(function (x) { return x.id === a.id; });
       if (i >= 0) applis[i] = a; else applis.unshift(a);
       return a;
@@ -65,20 +87,17 @@
 
   // --- Scopes and API permissions (same lists as the live portal) --------------------------
 
-  var SCOPES = ["identity", "friends", "presence", "profil", "saves", "history", "stats:read", "splatoon:read", "modstore:read", "catalog:read", "game.matchmaking", "mods.favorites", "rpc"];
-  var PERMISSIONS = [
-    ["stats:read", "Network statistics"], ["splatoon:read", "Splatoon rotations and sessions"], ["modstore:read", "Public ModStore catalog"],
-    ["catalog:read", "Supported official titles"], ["identity", "Player profile (username, friend code, avatar)"], ["friends", "Friend list and presence"],
-    ["presence", "Live activity and game status"], ["saves:read", "Player cloud saves"], ["game.matchmaking", "Matchmaking and game lobbies"],
-    ["mods.favorites", "Player's ModStore favorites"], ["admin:*", "Administrator console", true], ["auth:internal", "Internal authentication", true],
-    ["user:credentials", "Audit logs and diagnostics", true]
-  ];
+  // Only the scopes a third-party application can actually use. Cloud saves, account management
+  // and console linking are reserved to official Nextendo applications (the server refuses them).
+  var SCOPES = ["identity", "friends", "presence", "profil", "game.matchmaking", "mods.favorites", "history", "splatoon:read", "stats:read", "modstore:read", "catalog:read", "rpc", "emulator.status"];
+  // What a bot token can do today: /api/stats and /api/profile (players who authorized the app).
+  var PERMISSIONS = [["stats:read", "Network statistics"], ["identity", "Player profile (username, friend code, avatar)"]];
   var ONGLETS = [
     ["general", "General information"], ["install", "Installation", "NEW"], ["oauth", "General & redirects"], ["urlgen", "URL generator"],
-    ["bot", "Bot & API keys", "NEW"], ["rp", "Rich Presence"], ["testeurs", "Application testers"]
+    ["bot", "Bot & API keys", "NEW"], ["news", "Switch news", "NEW"], ["testeurs", "Application testers"], ["moderation", "Moderation"], ["danger", "Danger zone"]
   ];
-  // No "Danger zone": applications cannot be deleted from the portal. An old link to
-  // #/applis/<id>/danger lands on "General information".
+  // "Danger zone" only shows for the application's creator, and never for an official application.
+  function peutSupprimer(a) { return a.role === "owner" && !a.officiel; }
 
   // --- Router ------------------------------------------------------------------------------
 
@@ -151,12 +170,13 @@
     social: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="9" cy="8" r="3.2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="17" cy="9.5" r="2.4" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M3.5 19c.8-3 3-4.6 5.5-4.6s4.7 1.6 5.5 4.6M15 14.3c2.6-.2 4.4 1.2 5.2 3.7" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
     cloud: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M7 18h10a4 4 0 0 0 .6-8A6 6 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>',
     rp: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="currentColor"/><path d="M6.3 6.3a8 8 0 0 0 0 11.4M17.7 6.3a8 8 0 0 1 0 11.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
+    bot: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="5" y="8" width="14" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M12 8V5M9.5 13h.01M14.5 13h.01" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>',
     oauth: '<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><rect x="5" y="10.5" width="14" height="10" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>'
   };
   $("atouts").innerHTML = [
     ["social", "Social SDK and friends", "Read the player's friend list and who is online, with their consent."],
-    ["cloud", "Cloud saves", "Back up and restore saves on the player's Nextendo quota."],
-    ["rp", "Rich Presence and lobbies", "Show what the player is doing and let friends join the game."],
+    ["rp", "Presence", "Show friends which game the player is in, from your own application."],
+    ["bot", "Bot tokens", "Read network statistics from a server or a Discord bot, without a player."],
     ["oauth", "OAuth 2.0 and PKCE", "Standard sign-in. Players type their password on nextendo.network, never in your app."]
   ].map(function (x) { return '<article class="atout"><span class="atout-ico">' + ICO[x[0]] + "</span><h3>" + x[1] + "</h3><p>" + x[2] + "</p></article>"; }).join("");
 
@@ -173,6 +193,13 @@
     } else lettre();
     return s;
   }
+  function pastilleAcceptations(a) {
+    var n = a.acceptations || 0;
+    var s = el("span", "pastille-acceptations", tf(n > 1 ? "{0} players accepted" : "{0} player accepted", n));
+    s.title = "Each player counts once. The creator and the collaborators don't count.";
+    return s;
+  }
+
   function dessinerCartes(hote, liste, recentes) {
     hote.innerHTML = "";
     if (!liste.length) {
@@ -186,7 +213,7 @@
     liste.forEach(function (a) {
       var c = el("a", "carte-appli"); c.href = "#/applis/" + a.id + "/general";
       c.appendChild(icone(a, 64));
-      var t = el("div"); t.append(el("strong", "", a.nom), el("small", "", a.publique ? "Public client, PKCE" : "Confidential client"));
+      var t = el("div"); t.append(el("strong", "", a.nom), el("small", "", a.publique ? "Public client, PKCE" : "Confidential client"), pastilleAcceptations(a));
       c.appendChild(t);
       hote.appendChild(c);
     });
@@ -229,6 +256,23 @@
     }).catch(function (err) { toast(erreur(err)); }).then(function () { btn.disabled = false; });
   });
 
+  // --- Delete confirmation: the button unlocks only once the exact name is typed ------------
+  $("sup-saisie").addEventListener("input", function () {
+    $("sup-ok").disabled = $("sup-saisie").value.trim() !== $("form-supprimer").dataset.nom;
+  });
+  $("form-supprimer").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var f = $("form-supprimer"), id = f.dataset.id, nom = f.dataset.nom;
+    if ($("sup-saisie").value.trim() !== nom) return;
+    $("sup-ok").disabled = true;
+    NX.api("/api/developers/applications/" + encodeURIComponent(id), null, "DELETE").then(function () {
+      applis = applis.filter(function (x) { return x.id !== id; });
+      $("dlg-supprimer").close();
+      toast(tf("{0} deleted", nom));
+      location.hash = "#/applis";
+    }).catch(function (err) { toast(erreur(err)); $("sup-ok").disabled = false; });
+  });
+
   // --- Application detail: tabs ------------------------------------------------------------
 
   function ouvrirAppli(a, onglet) {
@@ -236,12 +280,17 @@
     var tete = $("menu-appli-tete");
     tete.innerHTML = "";
     tete.appendChild(icone(a, 40));
-    var nt = el("div"); nt.append(el("strong", "", a.nom), el("small", "petit", a.publique ? "Public client" : "Confidential client"));
+    var nt = el("div"); nt.append(el("strong", "", a.nom), el("small", "petit", a.publique ? "Public client" : "Confidential client"), pastilleAcceptations(a));
     tete.appendChild(nt);
     var nav = $("onglets-v");
     nav.innerHTML = "";
+    if (onglet === "danger" && !peutSupprimer(a)) onglet = "general";
+    if (onglet === "moderation" && (!a.networkAdmin || a.officiel)) onglet = "general";
+    if (!PANNEAUX[onglet]) onglet = "general";
     ONGLETS.forEach(function (o) {
-      var l = el("a", "onglet-v");
+      if (o[0] === "danger" && !peutSupprimer(a)) return;
+      if (o[0] === "moderation" && (!a.networkAdmin || a.officiel)) return;
+      var l = el("a", "onglet-v" + (o[0] === "danger" ? " onglet-v--danger" : ""));
       l.href = "#/applis/" + a.id + "/" + o[0];
       l.textContent = o[1];
       if (o[2]) l.appendChild(el("span", "nouveau", o[2]));
@@ -269,7 +318,7 @@
       scopes: brouillon.permissions, bot_permissions: brouillon.botPerms,
       redirect_uris: brouillon.redirections, logo_b64: brouillon.icone || "",
       terms_url: brouillon.cgu || "", privacy_url: brouillon.confidentialite || "",
-      rich_presence: { app_id: brouillon.rp.jeu, details: brouillon.rp.details, status: brouillon.rp.statut, timer: brouillon.rp.chrono }
+      rich_presence: { app_id: brouillon.rp.jeu, details: brouillon.rp.details, status: brouillon.rp.statut }
     };
     NX.api("/api/developers/applications/" + encodeURIComponent(brouillon.id), payload, "PUT").then(function (d) {
       var a = norme(d.application || d);
@@ -277,7 +326,8 @@
       if (i >= 0) applis[i] = a;
       $("barre-sauver").hidden = true;
       ouvrirAppli(a, ongletCourant);
-      toast("Changes saved");
+      if (d && d.client_secret) { copier(d.client_secret, "New secret"); toast("Confidential client: new secret copied, it won't be shown again"); }
+      else toast("Changes saved");
     }).catch(function (e) { toast(erreur(e)); }).then(function () { btn.disabled = false; });
   });
 
@@ -344,6 +394,7 @@
       var f = el("input"); f.type = "file"; f.accept = "image/*"; f.hidden = true; up.appendChild(f);
       f.addEventListener("change", function () {
         var fi = f.files && f.files[0]; if (!fi) return;
+        if (fi.size > 512 * 1024) { toast(window.nxT ? window.nxT("The icon can't be larger than 512 KB.") : "The icon can't be larger than 512 KB."); f.value = ""; return; }
         var lecteur = new FileReader();
         lecteur.onload = function () { brouillon.icone = lecteur.result; ic.replaceWith(ic = icone(brouillon, 96)); modifie(); };
         lecteur.readAsDataURL(fi);
@@ -451,7 +502,7 @@
       var t = el("div"); t.append(el("strong", "", brouillon.bot.nom), el("div", "petit", tf("Bot user of {0}", a.nom)));
       tete.appendChild(t); p.appendChild(tete);
       var reset = el("button", "bouton bouton--sortie petit-bouton", "Reset the token"); reset.type = "button";
-      var jet = ligneCopie(p, "Token", brouillon.bot.prefixe ? "Token ending in " + brouillon.bot.prefixe + ": reset to create a new one" : "No token yet: reset to create one", "Token", [reset]);
+      var jet = ligneCopie(p, "Token", brouillon.bot.prefixe ? tf("Token starting with {0}: reset to create a new one", brouillon.bot.prefixe) : "No token yet: reset to create one", "Token", [reset]);
       reset.addEventListener("click", function () {
         reset.disabled = true;
         NX.api("/api/developers/applications/" + encodeURIComponent(brouillon.id) + "/reset-bot-token", {}, "POST").then(function (res) {
@@ -465,10 +516,10 @@
       var liste = el("div", "permissions");
       PERMISSIONS.forEach(function (x) {
         var l = el("label", "portee" + (x[2] ? " est-verrouille" : ""));
-        var cb = el("input"); cb.type = "checkbox"; cb.disabled = !!x[2]; cb.checked = brouillon.permissions.indexOf(x[0]) >= 0;
+        var cb = el("input"); cb.type = "checkbox"; cb.disabled = !!x[2]; cb.checked = brouillon.botPerms.indexOf(x[0]) >= 0;
         cb.addEventListener("change", function () {
-          var i = brouillon.permissions.indexOf(x[0]);
-          if (cb.checked && i < 0) brouillon.permissions.push(x[0]); if (!cb.checked && i >= 0) brouillon.permissions.splice(i, 1);
+          var i = brouillon.botPerms.indexOf(x[0]);
+          if (cb.checked && i < 0) brouillon.botPerms.push(x[0]); if (!cb.checked && i >= 0) brouillon.botPerms.splice(i, 1);
           modifie();
         });
         var s = el("span"); s.append(el("strong", "", x[1]), el("small", "mono", x[0] + (x[2] ? ", Nextendo staff only" : "")));
@@ -476,60 +527,91 @@
       });
       p.appendChild(liste);
       var doc = el("div", "info-bloc");
-      doc.innerHTML = "<strong>Documentation and code samples</strong><br><span class=\"petit\">Send the token as <code>Authorization: Bot &lt;token&gt;</code>.</span> <a class=\"lien\" href=\"https://wiki.nextendo.network/developers\">Read the documentation</a>";
+      doc.innerHTML = "<strong>Documentation and code samples</strong><br><span class=\"petit\">Send the token as <code>Authorization: Bot &lt;token&gt;</code>.</span> <span class=\"petit\">Check a token with</span> <code>GET /api/bot/me</code>. <a class=\"lien\" href=\"https://wiki.nextendo.network/developers\">Read the documentation</a>";
       p.appendChild(doc);
     },
 
-    rp: function (p, a) {
-      titre(p, "Rich Presence and game status", "What your players' friends see while they use your application. The preview updates as you type.");
-      var grille = el("div", "rp-grille");
-      var gauche = el("div", "rp-form");
-      var JEUX = [["0100152000022000", "Mario Kart 8 Deluxe"], ["0100c2500fc20000", "Splatoon 3"], ["01006a800016e000", "Super Smash Bros. Ultimate"], ["01009b90006dc000", "Super Mario Maker 2"], ["01006f8002326000", "Animal Crossing: New Horizons"]];
-      var ls = el("label", "champ"); ls.appendChild(document.createTextNode("Default title or game"));
-      var sel = el("select"); JEUX.forEach(function (j) { var o = el("option", "", j[1]); o.value = j[0]; if (j[0] === brouillon.rp.jeu) o.selected = true; sel.appendChild(o); });
-      ls.appendChild(sel); gauche.appendChild(ls);
-      var det = champ(gauche, "Activity details / mode", brouillon.rp.details, function (v) { brouillon.rp.details = v; apercu(); }, { max: 64 });
-      var lst = el("label", "champ"); lst.appendChild(document.createTextNode("Simulated connection status"));
-      var st = el("select"); [["playing", "Playing"], ["online", "Online"], ["away", "Away"]].forEach(function (x) { var o = el("option", "", x[1]); o.value = x[0]; if (x[0] === brouillon.rp.statut) o.selected = true; st.appendChild(o); });
-      lst.appendChild(st); gauche.appendChild(lst);
-      var lc = el("label", "bascule"); var cc = el("input"); cc.type = "checkbox"; cc.checked = brouillon.rp.chrono;
-      lc.append(el("span", "", "Show the elapsed time in the activity"), cc); gauche.appendChild(lc);
-      var enr = el("button", "bouton bouton--plein", "Save Rich Presence"); enr.type = "button";
-      enr.addEventListener("click", function () { $("sauver-modifs").click(); });
-      gauche.appendChild(enr);
+    moderation: function (p, a) {
+      titre(p, "Application moderation", "Only Nextendo network administrators can change these settings. The reasons are shown to players.");
+      p.appendChild(el("p", "info-bloc", a.suspended ? "Suspended: " + a.suspensionReason : "Active"));
 
-      var carte = el("div", "rp-carte");
-      carte.innerHTML = '<div class="rp-tete"><span class="rp-point" id="rp-preview-status-dot"></span><span id="rp-preview-status-text"></span></div>' +
-        '<div class="rp-corps"><img id="rp-preview-icon" alt=""><div><strong id="rp-preview-title"></strong><div class="petit" id="rp-preview-details"></div><div class="rp-chrono" id="rp-preview-timer"></div></div></div>' +
-        '<span class="rp-badge" id="rp-preview-badge">via ' + echapper(a.nom) + '</span><button type="button" class="bouton bouton--plein petit-bouton rp-rejoindre">Join the game</button>';
-      grille.append(gauche, carte);
-      p.appendChild(grille);
-      var debut = Date.now();
-      var apercu = function () {
-        var jeu = JEUX.filter(function (j) { return j[0] === sel.value; })[0];
-        $("rp-preview-icon").src = "/api/game-icon/" + sel.value + ".jpg";
-        $("rp-preview-title").textContent = jeu[1];
-        $("rp-preview-details").textContent = det.value || "No details";
-        var libelles = { playing: "Playing", online: "Online", away: "Away" };
-        $("rp-preview-status-text").textContent = libelles[st.value];
-        carte.dataset.statut = st.value;
-        $("rp-preview-timer").hidden = !cc.checked;
+      function action(kind, reason, button) {
+        button.disabled = true;
+        NX.api("/api/developers/applications/" + encodeURIComponent(a.id) + "/moderation",
+          { action: kind, reason: reason || "" }, "POST")
+          .then(function () { return chargeAppli(a.id); })
+          .then(function (updated) { ouvrirAppli(updated, "moderation"); toast("Moderation updated"); })
+          .catch(function (e) { toast(erreur(e)); button.disabled = false; });
+      }
+      function reasonField(label, value) {
+        var field = el("label", "champ", label);
+        var input = el("textarea"); input.value = value; input.maxLength = 500;
+        field.appendChild(input); p.appendChild(field);
+        return input;
+      }
+      var warning = reasonField("Warning shown on the OAuth consent screen", a.moderationWarning);
+      var setWarning = el("button", "bouton", "Save warning"); setWarning.type = "button";
+      setWarning.addEventListener("click", function () { action("set_warning", warning.value.trim(), setWarning); });
+      p.appendChild(setWarning);
+      if (a.moderationWarning) {
+        var clearWarning = el("button", "bouton bouton--verre", "Remove warning"); clearWarning.type = "button";
+        clearWarning.addEventListener("click", function () { action("clear_warning", "", clearWarning); });
+        p.appendChild(clearWarning);
+      }
+
+      if (a.suspended) {
+        var resume = el("button", "bouton", "Resume application"); resume.type = "button";
+        resume.addEventListener("click", function () { action("resume", "", resume); });
+        p.appendChild(resume);
+      } else {
+        var reason = reasonField("Reason shown when sign-in is blocked", "");
+        var suspend = el("button", "bouton bouton--danger", "Suspend application"); suspend.type = "button";
+        suspend.addEventListener("click", function () { action("suspend", reason.value.trim(), suspend); });
+        p.appendChild(suspend);
+      }
+    },
+
+    danger: function (p, a) {
+      titre(p, "Danger zone");
+      var t = el("p", "petit intro-panneau");
+      t.append(document.createTextNode(window.nxT ? window.nxT("This deletes") : "This deletes"), " ", el("strong", "", a.nom),
+        document.createTextNode(window.nxT ? window.nxT(", its keys and its members. Players signed in with it are signed out. This can't be undone.") : ", its keys and its members. Players signed in with it are signed out. This can't be undone."));
+      p.appendChild(t);
+      var b = el("button", "bouton bouton--danger", "Delete the application"); b.type = "button";
+      b.addEventListener("click", function () {
+        $("sup-nom").textContent = a.nom;
+        $("sup-saisie").value = "";
+        $("sup-ok").disabled = true;
+        $("form-supprimer").dataset.id = a.id;
+        $("form-supprimer").dataset.nom = a.nom;
+        $("dlg-supprimer").showModal();
+        $("sup-saisie").focus();
+      });
+      p.appendChild(b);
+    },
+
+    news: function (p, a) {
+      titre(p, "Switch news", "Your application's own channel in the News section of the Switch HOME Menu.");
+      var n = a.acceptations || 0;
+      var palier = function (seuil, libelle, detail) {
+        var b = el("div", "palier" + (n >= seuil ? " est-atteint" : ""));
+        var tete = el("div", "palier-tete");
+        tete.append(el("strong", "", libelle), el("span", "petit", n >= seuil ? "Unlocked" : tf("{0} / {1}", Math.min(n, seuil), seuil)));
+        var barre = el("div", "barre-progres"); var r = el("span"); r.style.width = Math.min(100, Math.round(n * 100 / seuil)) + "%"; barre.appendChild(r);
+        barre.setAttribute("role", "progressbar"); barre.setAttribute("aria-valuemin", "0"); barre.setAttribute("aria-valuemax", String(seuil)); barre.setAttribute("aria-valuenow", String(Math.min(n, seuil)));
+        b.append(tete, barre, el("p", "petit", detail));
+        return b;
       };
-      sel.addEventListener("change", function () { brouillon.rp.jeu = sel.value; modifie(); apercu(); });
-      st.addEventListener("change", function () { brouillon.rp.statut = st.value; modifie(); apercu(); });
-      cc.addEventListener("change", function () { brouillon.rp.chrono = cc.checked; modifie(); apercu(); });
-      var chrono = setInterval(function () {
-        var t = $("rp-preview-timer"); if (!t) { clearInterval(chrono); return; }
-        var s = Math.floor((Date.now() - debut) / 1000);
-        t.textContent = String(Math.floor(s / 60)).padStart(2, "0") + ":" + String(s % 60).padStart(2, "0") + " elapsed";
-      }, 1000);
-      apercu();
-      p.appendChild(el("h3", "sous-titre", "Rich Presence API integration guide"));
-      var curl = "curl -X POST https://nextendo.network/api/presence \\\n  -H \"Authorization: Bearer PLAYER_ACCESS_TOKEN\" \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\"status\":2,\"app_id\":\"" + brouillon.rp.jeu + "\",\"app_detail\":\"" + (brouillon.rp.details || "") + "\"}'";
-      var pre = el("pre", "code-bloc"); pre.textContent = curl; p.appendChild(pre);
-      var cp = el("button", "bouton bouton--verre petit-bouton", "Copy cURL"); cp.type = "button";
-      cp.addEventListener("click", function () { copier(pre.textContent, "cURL command"); });
-      p.appendChild(cp);
+      var compte = el("p", "acceptations-grand");
+      compte.append(el("strong", "", String(n)), el("span", "", n > 1 ? "players accepted this application" : "player accepted this application"));
+      p.appendChild(compte);
+      p.appendChild(el("p", "petit", "Each player counts once, however many times they accept. You and your collaborators don't count."));
+      p.appendChild(palier(a.seuilNews, "Switch news", tf("Publish your own articles in the News section of every Switch: one article every 4 days, with “(Unofficial)” after your publisher name. Featured stays reserved for Nextendo.")));
+      p.appendChild(palier(a.seuilBadge, "Developer badge", "A badge on the creator's profile. Collaborators don't receive it."));
+      if (a.officiel) { p.appendChild(el("p", "petit", "Official applications publish through the Nextendo channel.")); return; }
+      var ouvrir = el("a", "bouton bouton--plein petit-bouton", n >= a.seuilNews ? "Open the news editor" : "See the news editor");
+      ouvrir.href = "/developers-news.html?app=" + encodeURIComponent(a.id);
+      var l = el("div", "ligne-boutons"); l.appendChild(ouvrir); p.appendChild(l);
     },
 
     testeurs: function (p, a) {
@@ -610,7 +692,7 @@
     d.innerHTML = '<div class="dialogue-corps"><h2 id="t-invitation"></h2><p></p>' +
       '<div class="ligne-fin"><button type="button" class="bouton bouton--verre" data-ferme></button><button type="button" class="bouton bouton--plein" id="invitation-ok"></button></div></div>';
     d.querySelector("h2").textContent = "Join this application?";
-    d.querySelector("p").textContent = tf("You were invited to join the application {0} as a tester. Accept to sign in with it before it's public.", appId);
+    d.querySelector("p").textContent = tf("You were invited to join the application {0}. Accept to sign in with it before it's public.", appId);
     d.querySelector("[data-ferme]").textContent = "Not now";
     d.querySelector("#invitation-ok").textContent = "Accept the invitation";
     document.body.appendChild(d);

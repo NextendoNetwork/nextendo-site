@@ -11,7 +11,7 @@
   var nf = new Intl.NumberFormat((window.nxLangue || "en"));
   var PAR_PAGE = 10;
   var SENT_VISIBLES = 5;
-  var etat = { donnees: null, amis: [], filtre: "tous", recherche: "", page: 1, ami: null, envoyeesTout: false };
+  var etat = { donnees: null, amis: [], filtre: "tous", recherche: "", page: 1, pageDemandes: 1, ami: null, envoyeesTout: false };
 
   var photo = function (pid) { return "/api/avatar?pid=" + encodeURIComponent(pid); };
   var icone = function (tid) { return "/api/game-icon/" + encodeURIComponent(tid) + ".jpg"; };
@@ -88,21 +88,27 @@
       pid: f.pid, nom: f.name || f.username || ("PID " + f.pid),
       code: f.friend_code || "", favori: !!f.favorite,
       statut: p.statut, jeu_id: p.jeu_id, jeu: p.jeu, detail: p.detail, plateforme: p.plateforme, pf: p.pf,
-      photo: true, depuis: dateISO(f.created_at), historique: null
+      photo: true, depuis: dateISO(f.created_at), historique: null,
+      badges: Array.isArray(f.badges) ? f.badges : [], pays: f.country || "", boost_since: f.boost_since || ""
     };
   }
   function normDemande(r) {
     return { pid: r.pid, nom: r.name || r.username || ("PID " + r.pid), code: r.friend_code || "", photo: true };
   }
 
-  // Game names for presence app_ids (cache, like the previous site).
+  // Game names for presence app_ids (cache per language).
   var cacheNomsJeux = {};
   function resoudreJeu(appId, cb) {
     if (!appId) { cb(""); return; }
-    if (cacheNomsJeux[appId]) { cb(cacheNomsJeux[appId]); return; }
+    var lang = (window.nxLangue || (document.documentElement && document.documentElement.lang) || "fr").slice(0, 2);
+    var cle = lang + ":" + appId;
+    if (cacheNomsJeux[cle]) { cb(cacheNomsJeux[cle]); return; }
     NX.gameInfo(appId).then(function (f) {
       var n = (f && f.name) || "";
-      cacheNomsJeux[appId] = n;
+      if (n) {
+        n = n.replace(/™|®/g, "");
+        cacheNomsJeux[cle] = n;
+      }
       cb(n);
     }).catch(function () { cb(""); });
   }
@@ -214,28 +220,102 @@
     $("i-copier").addEventListener("click", function () { copier($("i-copier")); });
   }
 
-  function drapeau(code) { return "https://flagcdn.com/w40/" + String(code).toLowerCase() + ".png"; }
+  function drapeau(code) { return "assets/img/drapeaux/" + String(code).toLowerCase() + ".png"; }
 
   var AVATAR_DEFAUT = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 128 128' width='128' height='128'><circle cx='64' cy='64' r='64' fill='%232b2b3a'/><circle cx='64' cy='48' r='24' fill='%23ffffff' opacity='0.75'/><path d='M24 108 c0 -22 18 -40 40 -40 s40 18 40 40 Z' fill='%23ffffff' opacity='0.75'/></svg>";
 
   function dessinerPuces(moi, depuisTexte) {
-    var puces = $("puces");
-    if (!puces) return;
-    puces.innerHTML = "";
-    if (moi && moi.pays && typeof moi.pays === "string" && moi.pays.trim().length === 2) {
-      try {
-        var codePays = moi.pays.trim().toUpperCase();
-        var noms = new Intl.DisplayNames([window.nxLangue || "en"], { type: "region" });
-        var nomP = noms.of(codePays) || codePays;
-        var li = el("li", "puce-pays");
-        var f = el("img"); f.src = drapeau(codePays); f.alt = ""; f.width = 20; f.height = 14;
-        li.appendChild(f); li.appendChild(document.createTextNode(nomP));
-        puces.appendChild(li);
-      } catch (e) {}
-    }
-    if (depuisTexte) puces.appendChild(el("li", "", tf("Member since {0}", depuisTexte)));
-    if (moi && moi.booster) puces.appendChild(el("li", "", "Server booster"));
+    dessinerBadges($("puces"), {
+      pays: moi && moi.pays, depuis: depuisTexte, boostDepuis: moi && moi.boost_since,
+      badges: (moi && moi.badges) || (moi && moi.booster ? ["booster"] : [])
+    });
   }
+
+  // --- Profile badges ----------------------------------------------------------------------
+  // A row of small icons, like Discord: each one names itself in a tooltip on hover or focus.
+  // The list comes from the server (admin, developer, booster); country and join date come
+  // from the account itself.
+
+  // Icons from emoji.gg, stored with the site (assets/img/badges).
+  function iconeBadge(nom) { return "<img src='assets/img/badges/" + nom + ".png?v=20260925r' alt='' width='22' height='22'>"; }
+
+  // Server key -> [icon file, title, meaning]. Booster keys carry the boost tier in months.
+  var TEXTES_BADGES = {
+    admin: ["admin", "Administrator", "Nextendo team"],
+    team: ["team", "Nextendo Network team", "Develops the Nextendo servers"],
+    verified_dev: ["dev_verifie", "Verified developer", "Created a Nextendo Developers app used by 500+ players"],
+    donor: ["donateur", "Donor", "Supports Nextendo Network with a donation"],
+    anniversary_1: ["anniversaire", "Nextendo's 1st anniversary", "Was there for Nextendo's first year"]
+  };
+
+  function dessinerBadges(ul, o) {
+    if (!ul) return;
+    ul.innerHTML = "";
+    var ajouter = function (icone, titre, sous) {
+      var li = el("li", "badge-profil");
+      li.tabIndex = 0;
+      li.setAttribute("aria-label", titre + (sous ? " : " + sous : ""));
+      li.dataset.titre = titre;
+      li.dataset.sous = sous || "";
+      li.innerHTML = icone;
+      ul.appendChild(li);
+    };
+    if (o.pays && typeof o.pays === "string" && o.pays.trim().length === 2) {
+      var cp = o.pays.trim().toUpperCase(), nomP = cp;
+      try { nomP = new Intl.DisplayNames([window.nxLangue || "en"], { type: "region" }).of(cp) || cp; } catch (e) {}
+      ajouter("<img src='" + drapeau(cp) + "' alt='' width='22' height='16'>", nomP, tf("Country"));
+    }
+    (o.badges || []).forEach(function (b) {
+      var palier = /^booster(?:_(\d+))?$/.exec(b);
+      if (palier) {
+        var depuis = o.boostDepuis ? new Date(o.boostDepuis) : null;
+        ajouter(iconeBadge("boost_" + (palier[1] || "1")), tf("Server booster"),
+          depuis && !isNaN(depuis) ? tf("Boosting since {0}", depuis.toLocaleDateString((window.nxLangue || "en"), { day: "numeric", month: "long", year: "numeric" }))
+            : tf("Boosts the Nextendo Discord server"));
+        return;
+      }
+      var t = TEXTES_BADGES[b];
+      if (t) ajouter(iconeBadge(t[0]), tf(t[1]), tf(t[2]));
+    });
+    if (o.depuis) ajouter(iconeBadge("membre"), tf("Nextendo member"), tf("Member since {0}", o.depuis));
+    ul.hidden = !ul.children.length;
+  }
+
+  // One shared tooltip, placed above the hovered or focused badge.
+  (function () {
+    var bulle = null, cible = null;
+    var cacher = function () { if (bulle) bulle.classList.remove("visible"); cible = null; };
+    var montrer = function (li) {
+      if (!bulle) {
+        bulle = el("div", "bulle-badge");
+        bulle.setAttribute("role", "tooltip");
+      }
+      // An open <dialog> sits in the top layer: the tooltip must live inside it to show.
+      var hote = li.closest("dialog") || document.body;
+      if (bulle.parentNode !== hote) hote.appendChild(bulle);
+      cible = li;
+      bulle.innerHTML = "";
+      var ic = el("span", "bulle-badge-icone"); ic.innerHTML = li.innerHTML;
+      var tx = el("span", "bulle-badge-texte");
+      tx.appendChild(el("strong", "", li.dataset.titre));
+      if (li.dataset.sous) tx.appendChild(el("span", "", li.dataset.sous));
+      bulle.appendChild(ic); bulle.appendChild(tx);
+      var r = li.getBoundingClientRect();
+      bulle.style.left = "0px"; bulle.style.top = "0px";
+      bulle.classList.add("visible");
+      var b = bulle.getBoundingClientRect();
+      var x = Math.min(Math.max(8, r.left + r.width / 2 - b.width / 2), window.innerWidth - b.width - 8);
+      var y = r.top - b.height - 10;
+      bulle.classList.toggle("dessous", y < 8);
+      if (y < 8) y = r.bottom + 10;
+      bulle.style.left = x + "px"; bulle.style.top = y + "px";
+    };
+    var badgeDe = function (e) { return e.target && e.target.closest ? e.target.closest(".badge-profil") : null; };
+    document.addEventListener("mouseover", function (e) { var li = badgeDe(e); if (li && li !== cible) montrer(li); else if (!li && cible) cacher(); });
+    document.addEventListener("focusin", function (e) { var li = badgeDe(e); if (li) montrer(li); });
+    document.addEventListener("focusout", function (e) { if (badgeDe(e)) cacher(); });
+    window.addEventListener("scroll", cacher, true);
+  })();
 
   function selecteurPays(actuel) {
     var noms;
@@ -365,23 +445,35 @@
     var p = d.moi.presence || {};
     if (p.statut > 0 && p.jeu_id) {
       box.appendChild(imageJeu(p.jeu_id));
-      box.appendChild(bloc("Right now", p.jeu || "In game", plateforme(p.plateforme, p.pf)));
+      var bMaintenant = bloc("Right now", p.jeu || "In game", plateforme(p.plateforme, p.pf));
+      box.appendChild(bMaintenant);
+      resoudreJeu(p.jeu_id, function (nomTrad) {
+        if (nomTrad) { var s = bMaintenant.querySelector("strong"); if (s) s.textContent = nomTrad; }
+      });
     } else if (hist.length) {
       box.appendChild(imageJeu(hist[0].title_id));
-      box.appendChild(bloc("Last game played", hist[0].name || hist[0].title_id, ilYA(hist[0].last_played)));
+      var bDernier = bloc(tf("Last game played"), hist[0].name || hist[0].title_id, ilYA(hist[0].last_played));
+      box.appendChild(bDernier);
+      if (hist[0].title_id) {
+        resoudreJeu(hist[0].title_id, function (nomTrad) {
+          if (nomTrad) { var s = bDernier.querySelector("strong"); if (s) s.textContent = nomTrad; }
+        });
+      }
     } else {
-      box.appendChild(el("span", "vide-ico", "•"));
-      box.appendChild(bloc("No games yet", "Launch an online game", "It will show up here."));
+      var icoVide = el("span", "vide-ico");
+      icoVide.innerHTML = '<svg viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="4"/><path d="M6 12h4m-2-2v4m9-2h.01m3 0h.01"/></svg>';
+      box.appendChild(icoVide);
+      box.appendChild(bloc(tf("No games yet"), tf("Launch an online game"), tf("It will show up here.")));
     }
 
     var HIST_VISIBLES = 10;
     var ul = $("historique");
     ul.innerHTML = "";
-    if (!hist.length) ul.appendChild(el("li", "vide", "Your games will show up here once you play online."));
+    if (!hist.length) ul.appendChild(el("li", "vide", tf("Your games will show up here once you play online.")));
     hist.slice(0, HIST_VISIBLES).forEach(function (h) { ul.appendChild(ligneJeu(h, null)); });
-    $("historique-compte").textContent = hist.length ? nf.format(hist.length) + (hist.length > 1 ? " games" : " game") : "";
+    $("historique-compte").textContent = hist.length ? (hist.length > 1 ? tf("{0} games", nf.format(hist.length)) : tf("{0} game", nf.format(hist.length))) : "";
     var voir = $("voir-tout");
-    voir.hidden = hist.length <= HIST_VISIBLES;
+    voir.hidden = !hist.length || hist.length <= HIST_VISIBLES;
     voir.textContent = tf("See all {0} games", nf.format(hist.length));
     etat.hist = hist;
     if (p.statut > 0 && p.jeu_id) box.dataset.tid = p.jeu_id;
@@ -401,7 +493,13 @@
     var b = el("button", "ligne-jeu");
     b.type = "button";
     var mid = el("span", "ligne-milieu");
-    mid.appendChild(el("span", "nom", h.name || h.title_id));
+    var spNom = el("span", "nom", h.name || h.title_id);
+    mid.appendChild(spNom);
+    if (h.title_id) {
+      resoudreJeu(h.title_id, function (nomTrad) {
+        if (nomTrad) spNom.textContent = nomTrad;
+      });
+    }
     mid.appendChild(el("span", "quand", tf("Played {0}", ilYA(h.last_played))));
     b.appendChild(imageJeu(h.title_id));
     b.appendChild(mid);
@@ -534,10 +632,12 @@
       ligne("Players", f.joueurs ? String(f.joueurs) : "");
       ligne("Age rating", f.classification ? f.classification + "+" : "");
     };
-    if (cacheJeux[tid]) { remplir(cacheJeux[tid]); return; }
-    fetch("/api/gameinfo?langue=en&title_id=" + encodeURIComponent(tid))
+    var langJeu = (window.nxLangue || (document.documentElement && document.documentElement.lang) || "fr").slice(0, 2);
+    var cleJeu = langJeu + ":" + tid;
+    if (cacheJeux[cleJeu]) { remplir(cacheJeux[cleJeu]); return; }
+    fetch("/api/gameinfo?langue=" + encodeURIComponent(langJeu) + "&title_id=" + encodeURIComponent(tid))
       .then(function (r) { return r.ok ? r.json() : null; })
-      .then(function (f) { cacheJeux[tid] = f; if ($("gm-icone").src.indexOf(tid) >= 0) remplir(f); })
+      .then(function (f) { cacheJeux[cleJeu] = f; if ($("gm-icone").src.indexOf(tid) >= 0) remplir(f); })
       .catch(function () { $("gm-desc").textContent = "Game details are unavailable right now."; });
   }
 
@@ -548,12 +648,12 @@
     var gate = d.savesGate;
     var liste = d.sauvegardes || [];
     if (gate) {
-      $("quota-texte").textContent = gate;
+      $("quota-texte").textContent = tf(gate);
       $("quota-barre").style.width = "0%";
       $("sauvegardes-vide").hidden = true;
       var ul0 = $("sauvegardes");
       ul0.innerHTML = "";
-      var li0 = el("li", "vide", gate);
+      var li0 = el("li", "vide", tf(gate));
       ul0.appendChild(li0);
       return;
     }
@@ -653,10 +753,10 @@
     ul.innerHTML = "";
     if (!liste.length) {
       ul.appendChild(el("li", "vide",
-        etat.recherche ? "No friend matches “" + etat.recherche + "”." :
-        etat.filtre === "enligne" ? "No friends online right now." :
-        etat.filtre === "favoris" ? "No favorites yet. Tap a friend's star to add one." :
-        "No friends yet. Add one with their friend code above."));
+        etat.recherche ? tf("No friend matches “{0}”.", etat.recherche) :
+        etat.filtre === "enligne" ? tf("No friends online right now.") :
+        etat.filtre === "favoris" ? tf("No favorites yet. Tap a friend's star to add one.") :
+        tf("No friends yet. Add one with their friend code above.")));
     }
     liste.slice((etat.page - 1) * PAR_PAGE, etat.page * PAR_PAGE).forEach(function (a) {
       var e = etatAmi(a);
@@ -721,6 +821,16 @@
     $("fm-nom").textContent = a.nom;
     $("fm-etat").textContent = e.texte + (e.detail ? " \u00b7 " + e.detail : "");
     $("fm-etat").title = $("fm-etat").textContent;
+    if (a.jeu_id) {
+      resoudreJeu(a.jeu_id, function (nom) {
+        if (nom && etat.ami === a && a.jeu !== nom) {
+          a.jeu = nom;
+          var e2 = etatAmi(a);
+          $("fm-etat").textContent = e2.texte + (e2.detail ? " \u00b7 " + e2.detail : "");
+          $("fm-etat").title = $("fm-etat").textContent;
+        }
+      });
+    }
     $("fm-presence").className = "presence " + (e.cls === "ami--enjeu" ? "presence--enjeu" : e.cls === "ami--enligne" ? "presence--enligne" : "");
     $("fm-code").querySelector("strong").textContent = a.code || "";
     $("fm-temps").textContent = "…";
@@ -728,6 +838,10 @@
     $("fm-favori-jeu").textContent = "…";
     $("fm-depuis").textContent = a.depuis ? new Date(a.depuis).toLocaleDateString((window.nxLangue || "en"), { month: "long", day: "numeric", year: "numeric" }) : "…";
     $("fm-pid").textContent = String(a.pid);
+    dessinerBadges($("fm-badges"), {
+      pays: a.pays, badges: a.badges, boostDepuis: a.boost_since,
+      depuis: a.depuis ? new Date(a.depuis).toLocaleDateString((window.nxLangue || "en"), { month: "long", year: "numeric" }) : ""
+    });
     $("fm-derniere").textContent = "…";
     var ul = $("fm-historique");
     ul.innerHTML = "";
@@ -765,23 +879,40 @@
     return NX.friends().then(function (r) {
       etat.amis = (r.friends || []).map(normAmi);
       etat.donnees.demandes_recues = (r.requests || []).map(normDemande);
+      etat.donnees.demandes_envoyees = (r.sent || []).map(normDemande);
       demandes();
       dessinerAmis();
       resoudreNomsAmis();
     });
   }
-  // Presence often carries the game id without its name: fill it in once known.
+  // Resolve localized game name for all friends currently in game.
   function resoudreNomsAmis() {
-    var manque = etat.amis.filter(function (a) { return a.jeu_id && !a.jeu; });
-    if (!manque.length) return;
+    var avecJeu = etat.amis.filter(function (a) { return a.jeu_id; });
+    if (!avecJeu.length) return;
     var ids = {};
-    manque.forEach(function (a) { ids[a.jeu_id] = true; });
+    avecJeu.forEach(function (a) { ids[a.jeu_id] = true; });
     Object.keys(ids).forEach(function (tid) {
       resoudreJeu(tid, function (nom) {
         if (!nom) return;
         var change = false;
-        etat.amis.forEach(function (a) { if (a.jeu_id === tid && !a.jeu) { a.jeu = nom; change = true; } });
-        if (change) dessinerAmis();
+        etat.amis.forEach(function (a) {
+          if (a.jeu_id === tid && a.jeu !== nom) {
+            a.jeu = nom;
+            change = true;
+          }
+        });
+        if (change) {
+          dessinerAmis();
+          if (etat.ami && etat.ami.jeu_id === tid) {
+            etat.ami.jeu = nom;
+            var e = etatAmi(etat.ami);
+            var fmEtat = $("fm-etat");
+            if (fmEtat) {
+              fmEtat.textContent = e.texte + (e.detail ? " \u00b7 " + e.detail : "");
+              fmEtat.title = fmEtat.textContent;
+            }
+          }
+        }
       });
     });
   }
@@ -894,22 +1025,130 @@
     li.appendChild(actions);
     return li;
   }
+  // Accept / decline / cancel every request of a list, one call at a time (the server rewrites
+  // the account file on each call; a burst of parallel calls would only queue up behind it).
+  function toutTraiter(bouton, recue, appel, message) {
+    var liste = (recue ? etat.donnees.demandes_recues : etat.donnees.demandes_envoyees).slice();
+    if (!liste.length) return;
+    var boutons = document.querySelectorAll(".demandes-groupe button");
+    boutons.forEach(function (b) { b.disabled = true; });
+    var texte = bouton.textContent, fait = 0, rate = 0;
+    var suivant = function () {
+      if (!liste.length) {
+        boutons.forEach(function (b) { b.disabled = false; });
+        bouton.textContent = texte;
+        toast(tf(message, fait) + (rate ? " · " + tf("{0} failed", rate) : ""));
+        return rechargerAmis();
+      }
+      var x = liste.shift();
+      bouton.textContent = (fait + rate + 1) + " / " + (fait + rate + 1 + liste.length);
+      return appel(x.pid).then(function () { fait++; }, function () { rate++; }).then(suivant);
+    };
+    suivant();
+  }
+  // Site-styled confirmation (replaces the browser's confirm()). Resolves true on the action.
+  function confirmer(titre, texte, action) {
+    var dlg = $("dlg-confirmer");
+    if (!dlg || !dlg.showModal) return Promise.resolve(window.confirm(texte));
+    $("dc-titre").textContent = titre;
+    $("dc-texte").textContent = texte;
+    $("dc-oui").textContent = action;
+    $("dc-non").textContent = tf("Keep them");
+    // Buttons are plain type="button": the page wraps dialog.close() for its exit animation,
+    // and a form[method=dialog] submission bypasses that wrapper (no reliable answer).
+    return new Promise(function (fin) {
+      var repondu = false;
+      var repondre = function (oui) {
+        if (repondu) return;
+        repondu = true;
+        $("dc-oui").onclick = $("dc-non").onclick = null;
+        dlg.close();
+        fin(oui);
+      };
+      $("dc-oui").onclick = function () { repondre(true); };
+      $("dc-non").onclick = function () { repondre(false); };
+      // Escape or a click on the backdrop close the dialog: that is a "no".
+      dlg.addEventListener("close", function () { repondre(false); }, { once: true });
+      dlg.showModal();
+      $("dc-non").focus();
+    });
+  }
+  function brancherDemandesGroupees() {
+    var acc = $("tout-accepter"), ref = $("tout-refuser"), ann = $("tout-annuler");
+    if (acc) acc.addEventListener("click", function () {
+      toutTraiter(acc, true, function (pid) { return NX.acceptFriend(pid); }, "{0} requests accepted");
+    });
+    if (ref) ref.addEventListener("click", function () {
+      var n = etat.donnees.demandes_recues.length;
+      confirmer(tf("Decline all received requests"), tf("The {0} friend requests you received will be declined.", n), tf("Decline all")).then(function (oui) {
+        if (oui) toutTraiter(ref, true, function (pid) { return NX.declineFriend(pid); }, "{0} requests declined");
+      });
+    });
+    if (ann) ann.addEventListener("click", function () {
+      var n = etat.donnees.demandes_envoyees.length;
+      confirmer(tf("Cancel all sent requests"), tf("The {0} friend requests you sent will be withdrawn.", n), tf("Cancel all")).then(function (oui) {
+        if (oui) toutTraiter(ann, false, function (pid) { return NX.declineFriend(pid); }, "{0} requests canceled");
+      });
+    });
+  }
+  var PAR_PAGE_DEMANDES = 10;
   function demandes() {
     var d = etat.donnees;
     var recues = $("recues");
     recues.innerHTML = "";
-    if (!d.demandes_recues.length) recues.appendChild(el("li", "vide-bloc", "No pending requests. Share your friend code so other players can add you."));
-    d.demandes_recues.forEach(function (x) { recues.appendChild(ligneDemande(x, true)); });
+    var totalRecues = (d && d.demandes_recues) ? d.demandes_recues.length : 0;
+    if (!totalRecues) {
+      recues.appendChild(el("li", "vide-bloc", tf("No pending requests. Share your friend code so other players can add you.")));
+    }
+    var pages = Math.max(1, Math.ceil(totalRecues / PAR_PAGE_DEMANDES));
+    if (!etat.pageDemandes || etat.pageDemandes > pages) etat.pageDemandes = 1;
+    var debut = (etat.pageDemandes - 1) * PAR_PAGE_DEMANDES;
+    var visiblesRecues = (d && d.demandes_recues) ? d.demandes_recues.slice(debut, debut + PAR_PAGE_DEMANDES) : [];
+    visiblesRecues.forEach(function (x) { recues.appendChild(ligneDemande(x, true)); });
 
+    var navRecues = $("pages-recues");
+    if (navRecues) {
+      navRecues.innerHTML = "";
+      if (pages > 1) {
+        navRecues.hidden = false;
+        var btnDemande = function (texte, page, courant, inactif, label) {
+          var b = el("button", "", texte);
+          b.type = "button";
+          if (label) b.setAttribute("aria-label", label);
+          if (courant) b.setAttribute("aria-current", "page");
+          b.disabled = !!inactif;
+          b.addEventListener("click", function () { etat.pageDemandes = page; demandes(); });
+          navRecues.appendChild(b);
+        };
+        btnDemande("‹", etat.pageDemandes - 1, false, etat.pageDemandes === 1, tf("Previous page"));
+        var debP = Math.max(1, Math.min(etat.pageDemandes - 2, pages - 4));
+        for (var p = debP; p <= Math.min(pages, debP + 4); p++) {
+          btnDemande(String(p), p, p === etat.pageDemandes, false, tf("Page {0}", p));
+        }
+        btnDemande("›", etat.pageDemandes + 1, false, etat.pageDemandes === pages, tf("Next page"));
+      } else {
+        navRecues.hidden = true;
+      }
+    }
+
+    // Group actions as soon as there is something to act on.
+    var gR = $("groupe-recues"), gE = $("groupe-envoyees");
+    if (gR) gR.hidden = !(d && d.demandes_recues && d.demandes_recues.length);
+    if (gE) gE.hidden = !(d && d.demandes_envoyees && d.demandes_envoyees.length);
     var env = $("envoyees");
     env.innerHTML = "";
-    if (!d.demandes_envoyees.length) env.appendChild(el("li", "vide-bloc", "You have no requests waiting for an answer."));
-    var visibles = etat.envoyeesTout ? d.demandes_envoyees : d.demandes_envoyees.slice(0, SENT_VISIBLES);
-    visibles.forEach(function (x) { env.appendChild(ligneDemande(x, false)); });
+    if (!d || !d.demandes_envoyees || !d.demandes_envoyees.length) {
+      env.appendChild(el("li", "vide-bloc", tf("You have no requests waiting for an answer.")));
+    } else {
+      var visibles = etat.envoyeesTout ? d.demandes_envoyees : d.demandes_envoyees.slice(0, SENT_VISIBLES);
+      visibles.forEach(function (x) { env.appendChild(ligneDemande(x, false)); });
+    }
     var plus = $("plus-envoyees");
-    var reste = d.demandes_envoyees.length - SENT_VISIBLES;
-    plus.hidden = reste <= 0;
-    if (reste > 0) plus.textContent = etat.envoyeesTout ? "Show fewer" : tf("Show {0} more", reste);
+    if (plus && d && d.demandes_envoyees) {
+      var reste = d.demandes_envoyees.length - SENT_VISIBLES;
+      plus.hidden = reste <= 0;
+      if (reste > 0) plus.textContent = etat.envoyeesTout ? tf("Show fewer") : tf("Show {0} more", reste);
+    }
   }
 
   var PROFILE = {};
@@ -1378,9 +1617,12 @@
         pays: acc.country || "",
         discord: acc.discord || acc.discord_username || "",
         discord_lie_le: acc.discord_linked_at || "",
+        discord_avatar_sync: acc.discord_avatar_sync !== false,
         membre_depuis: dateISO(acc.created_at),
-        booster: !!acc.booster,
-        admin: false,
+        booster: !!(acc.booster || acc.isBooster),
+        badges: Array.isArray(acc.badges) ? acc.badges : null,
+        boost_since: acc.boost_since || "",
+        admin: Array.isArray(acc.badges) && acc.badges.indexOf("admin") >= 0,
         presence: normPresence(r[0] && r[0].presence)
       };
       var amis = ((r[1] && r[1].friends) || []).map(normAmi);
@@ -1389,7 +1631,8 @@
         amis: amis,
         historique: ((r[2] && r[2].history) || []).slice(),
         demandes_recues: ((r[1] && r[1].requests) || []).map(normDemande),
-        demandes_envoyees: [],
+        // Requests this account sent and nobody answered yet (served as "sent" by /api/friends).
+        demandes_envoyees: ((r[1] && r[1].sent) || []).map(normDemande),
         sauvegardes: [],
         savesQuota: 5 * 1048576,
         savesTotal: 0,
@@ -1414,9 +1657,9 @@
       etat.amis = amis;
       try { carteMembre(moi); } catch (e) { console.error("carteMembre:", e); }
       // The game the presence points to often lacks its name: fill it in.
-      if (moi.presence.statut > 0 && moi.presence.jeu_id && !moi.presence.jeu) {
+      if (moi.presence.statut > 0 && moi.presence.jeu_id) {
         resoudreJeu(moi.presence.jeu_id, function (nom) {
-          if (nom && etat.donnees) {
+          if (nom && etat.donnees && etat.donnees.moi.presence.jeu !== nom) {
             etat.donnees.moi.presence.jeu = nom;
             try { carteMembre(etat.donnees.moi); } catch (e) {}
           }
@@ -1427,6 +1670,7 @@
       try { brancherFiltres(); } catch (e) { console.error("brancherFiltres:", e); }
       try { brancherAjout(); } catch (e) { console.error("brancherAjout:", e); }
       try { brancherFicheAmi(); } catch (e) { console.error("brancherFicheAmi:", e); }
+      try { brancherDemandesGroupees(); } catch (e) { console.error("brancherDemandesGroupees:", e); }
       try { brancherTousJeux(); } catch (e) { console.error("brancherTousJeux:", e); }
       var svsBtn = $("svs-ok");
       if (svsBtn) {
@@ -1448,7 +1692,14 @@
     }).catch(function (err) {
       document.dispatchEvent(new Event("nx-donnees-pretes"));
       var msg = String((err && err.message) || "");
-      if (/401|403|token|session|sign|invalide|expir/i.test(msg)) { location.replace("login.html"); return; }
+      // Le code HTTP d'abord : le message est TRADUIT (« Tu sesión no es válida o caducó » ne
+      // contient ni session, ni invalide, ni expir) et l'espagnol restait sur une page vide.
+      if ((err && (err.status === 401 || err.status === 403)) || /401|403|token|session|sign|invalide|expir/i.test(msg)) {
+        // Effacer le jeton AVANT de partir : sans cela login.html le voit encore et
+        // nous renvoie ici, en boucle fermee dont on ne sort plus (25/09/2026).
+        try { NX.token = ""; NX.nexToken = ""; } catch (e2) {}
+        location.replace("login.html"); return;
+      }
       console.error(err);
       panne("Could not load your account: " + msg);
     });

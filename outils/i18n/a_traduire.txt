@@ -101,7 +101,7 @@ Site links
 Help
 Account
 © {0} Nextendo Network. Independent community project, not affiliated with Nintendo Co., Ltd.
-“Nintendo Switch”, “Ryujinx”, “Citron” and “Prelude” belong to their respective owners. No games or ROMs are provided.
+“Nintendo Switch”, “Ryujinx” and “Citron” belong to their respective owners. “Prelude” is a Nextendo Network project. No games or ROMs are provided.
 {0} online
 Updated at {0}
 Your profile picture
@@ -565,7 +565,7 @@ On iPhone and Android: your friends, your activity and your saves.
 3D iPhone and Android phone
 Where to find Nextendo
 Companion app
-Independent community project, not affiliated with Nintendo Co., Ltd. “Nintendo Switch”, “Ryujinx”, “Citron” and “Prelude” belong to their respective owners. No games or ROMs are provided.
+Independent community project, not affiliated with Nintendo Co., Ltd. “Nintendo Switch”, “Ryujinx” and “Citron” belong to their respective owners. “Prelude” is a Nextendo Network project. No games or ROMs are provided.
 Follow Nextendo
 Supported games
 Co-op, Versus Ops fully done
@@ -629,3 +629,426 @@ Account permanently deleted.
 Buy on the Nintendo eShop
 None yet
 {0} hasn't played online yet.
+Country
+Administrator
+Nextendo team
+Developer
+Access to Nextendo Developers
+Boosts the Nextendo Discord server
+Nextendo member
+Badges
+Nextendo Network team
+Develops the Nextendo servers
+Verified developer
+Created a Nextendo Developers app used by 500+ players
+Nextendo's 1st anniversary
+Was there for Nextendo's first year
+Boosting since {0}
+Discord staff
+Head moderator
+Moderator
+Helpful
+Contributor
+Accept all
+Decline all
+Cancel all
+{0} requests accepted
+{0} requests declined
+{0} requests canceled
+{0} failed
+Decline all received friend requests?
+Cancel all the friend requests you sent?
+Keep them
+Decline all received requests
+The {0} friend requests you received will be declined.
+Cancel all sent requests
+The {0} friend requests you sent will be withdrawn.
+Seen in game as
+All online play except competitions, Multi Battles and Mystery Gift
+Online play with friends
+Link Trades and private battles; Ranked Battles not tested yet
+Online play
+Token starting with {0}: reset to create a new one
+Check a token with
+The icon can't be larger than 512 KB.
+Confidential client: new secret copied, it won't be shown again
+You were invited to join the application {0}. Accept to sign in with it before it's public.
+Default game
+Used only when your application doesn't send a game itself.
+Your application publishes the presence itself: it calls POST /api/presence with the player's access token (presence scope) at least every 90 seconds, with the game and a short detail it chooses. Without a new call the player goes back offline. The settings below only fill in what a call leaves out.
+This application is an emulator. Its presence comes from the game being played: the game itself reports what the player is doing, the emulator forwards it, and these settings are never used. They only apply to applications that send their own presence with an OAuth access token.
+Presence
+Show friends which game the player is in, from your own application.
+Bot tokens
+Read network statistics from a server or a Discord bot, without a player.
+Authorized applications
+Applications you allowed to access your Nextendo account. See what each one can do and remove its access at any time.
+Search authorized applications
+No authorized application yet. When you sign in to an application with Nextendo, it appears here.
+Blocked applications
+Report this application
+It pretends to be Nextendo or another application
+Scam or phishing
+It does something I didn't allow
+Inappropriate name, icon or content
+Details (optional)
+Send the report
+Access your username, PID and friend code
+See your friend list
+Show and update your in-game status
+See and edit your profile (name, avatar, country)
+Join and organize multiplayer games for you
+See and manage your ModStore favorites
+Access and sync your cloud saves
+Link a console to your account
+Change your e-mail or delete your account
+See your game history
+Official
+Authorized on {0}
+More options
+Block
+Report
+Copy the application ID
+Application ID copied
+Description and policies
+Created by
+Permissions
+No permission
+Official Nextendo application. To sign out, use the application itself.
+Remove authorization
+Remove {0}?
+The application loses access to your account right away. You can authorize it again later.
+{0} no longer has access to your account
+Block {0}?
+The application loses access to your account and can't ask for it again until you unblock it.
+{0} is blocked
+Thanks, the Nextendo team will review this application.
+{0} applications
+{0} application
+No application matches.
+Unblock
+{0} is unblocked
+Could not load your applications.
+Nextendo Developers needs a verified e-mail and a linked Discord account. You can set both up on your account page.
+You've reached the limit of 5 applications.
+This name is reserved to Nextendo or imitates an official application.
+This icon belongs to an official application.
+Reported applications
+{0} reported applications
+{0} reported application
+No reported application.
+Reports dismissed
+Application deleted
+Delete {0}? Every player signed in with it is signed out. This can't be undone.
+Impersonation
+Does something not allowed
+Inappropriate content
+Deleted
+Access restricted to administrators.
+Invalid e-mail address.
+Application not found.
+No player has this friend code.
+Invalid profile picture.
+This is already your e-mail address.
+This is your own friend code.
+This Discord account is banned.
+This account has been banned from Nextendo.
+This account is disabled for now.
+This player isn't in your friends.
+This username is already taken.
+This user already created this application.
+This user is already a member of this application.
+This e-mail address is already in use.
+This application is official and can't be deleted.
+This application is public and has no secret.
+This invitation is for another account.
+Choose your country.
+Member not found.
+A Nextendo account is required.
+Account not found.
+Sign in with your e-mail address (signing in with a username was removed).
+Sign in on nextendo.network first.
+Sign in to accept the invitation.
+Sign-in required.
+Invalid color.
+Request not found.
+The drawing is too large.
+Add at least one redirect.
+GameBanana isn't responding.
+Incorrect e-mail or password.
+Couldn't send the request.
+Couldn't update the favorite.
+The creator's permissions can't be changed.
+The creator's access can't be removed.
+Not available for guest profiles.
+No invitation found for this application.
+Only official Nextendo emulators can upload cloud saves.
+Only official Nextendo emulators can delete cloud saves.
+The description can't be longer than 400 characters.
+Only images can be uploaded.
+Guest mode was removed. Create a Nextendo account on nextendo.network to play online.
+The application name is required.
+The name can't be longer than 64 characters.
+The username must be 3 to 16 characters (letters, numbers, _ or -).
+Developers can't rename the application.
+Sign-ups are temporarily closed while we finish the new version of Nextendo. Come back soon!
+Cloud saves are limited to Splatoon 3.
+Testers have read-only access.
+Invalid or expired invitation link.
+Invalid reset link.
+Invalid or expired verification link.
+Invalid or expired link (it may have been used already).
+Cloud storage limit reached (10 MB). Delete some saves.
+Cloud storage limit reached (5 MB). Delete some saves or become a Discord booster (10 MB).
+Incorrect password.
+Invalid reason.
+You don't have access to this application.
+Unknown country.
+Invalid or expired upload permission.
+Rotation unavailable.
+Salmon Run unavailable.
+Lobbies unavailable.
+The save is too large.
+Session not found.
+Your session is invalid or has expired. Sign in again.
+Only the creator or an administrator can add members.
+Only the creator or an administrator can change permissions.
+Only the creator or an administrator can reset the secret.
+Only the creator or an administrator can remove access.
+Only the creator can delete the application.
+Only the creator, a developer or an administrator can reset the bot token.
+Too many profiles created from this address. Try again later.
+Too many recent reports. Try again in an hour.
+Too many attempts. Try again in a few minutes.
+You blocked this application. Unblock it from your account to authorize it.
+You can't delete your own admin account.
+A guest account has no e-mail address.
+A guest account can't be deleted here.
+A confidential application needs at least one https redirect.
+An official application can't be blocked.
+An official application can't be removed from here.
+An official application can't be reported here.
+Enter a Nextendo username.
+Deletion failed.
+Verification failed. Sign in directly on https://nextendo.network: another site can't sign you in to your Nextendo account.
+Server error. Try again.
+Invalid request.
+Invalid role.
+Report not found.
+See Splatoon map rotations and shops
+See Nextendo network statistics
+Browse the public ModStore catalog
+See the list of games supported by Nextendo
+Show your in-game activity on Discord Rich Presence
+Sync your emulator status and version
+Switch news, Nextendo Network
+Nextendo administration: Switch news.
+Switch news
+Articles shown in the News section of the Switch HOME Menu. Save your changes, then publish to send them to consoles.
+Back to administration
+Channel
+Channel icon
+Change icon
+Cropped to 70 × 70, shown in a circle.
+Channel name
+“New” badge in Find Channels
+Important channel
+Save channel
+Articles
+New article
+Article pages
+Content
+Title
+Line breaks are kept on the console.
+Languages
+The article is sent in each checked language. A console only shows articles in its own language.
+Layout
+Normal
+List (with featured products)
+Title style
+List image
+Cropped to 358 × 201. Shown in the article list.
+Body
+Add a block
+Each block is a paragraph with an optional image (resized to 800 px wide) and an optional video. HTML strong tags make text bold.
+Footer
+Small text at the very bottom of the article. Leave empty for none.
+Age ratings
+Add a rating
+Add
+Custom rating
+System
+Age
+Icon and add
+No rating means no age block on the article.
+Button at the bottom
+Action
+No button
+Open Nintendo eShop
+Open a game
+Open a system screen
+Button text
+eShop query
+For a game, leave empty to open its eShop page.
+Games (title IDs)
+Separated by commas.
+System screen
+System update
+Parental controls
+News channels
+Products and videos
+Featured products
+(List layout)
+Add a featured product
+Related products
+Add a related product
+Related videos
+Add a video
+Schedule and priority
+Show in Featured
+Featured for (days)
+Publication date
+Empty means now.
+Expires after (days)
+Priority
+Priority after Featured
+Deletion priority
+Countries
+Empty means every country.
+Linked games (title IDs)
+Block screenshots
+Surprise
+Advanced
+Extra fields (JSON)
+Any key here replaces the generated one in the article. null removes it. Text and numbers only, no images.
+Save article
+Publish
+Saved changes stay here until you publish. Consoles receive them at the next sync, about a minute later.
+Publish to consoles
+Pick an image file.
+This image can't be read.
+No image
+Choose an image
+Could not load news: {0}
+Channel saved
+{0} articles
+{0} article
+No article yet. Write the first one with New article.
+Published {0}
+Featured
+List
+Edit
+Duplicate
+Delete article #{0}? It leaves consoles at the next publish.
+Article #{0} deleted
+Edit article #{0}
+Copy of an article
+Saving gives the article a new number so consoles that already have it receive the change.
+Block {0}
+Move up
+Move down
+Text
+Video address (optional)
+10 blocks at most.
+No age rating.
+Type the rating system first (letters and digits).
+Name
+Comment
+Platform label
+Video address
+You reached the limit for this list.
+Extra fields: this is not valid JSON.
+Extra fields: write a JSON object, between { }.
+Check at least one language.
+Write a title.
+Article #{0} saved. Publish to send it to consoles.
+Publishing…
+{0} files written. Consoles receive them at the next sync, about a minute from now.
+News published
+Publish failed: {0}
+French
+English (UK)
+English (US)
+German
+Italian
+Spanish
+Spanish (Latin America)
+Dutch
+Portuguese
+Portuguese (Brazil)
+French (Canada)
+Russian
+Japanese
+Korean
+Chinese (Simplified)
+Chinese (Traditional)
+Reported player pages
+Deleted account pages
+Search (username, PID)…
+Search deleted accounts
+No deleted account matches.
+Announced as created on {0}. The console decides how long it shows “New” from this date.
+The creation date is set at the next publish.
+Save and publish
+Saving publishes right away. Consoles receive the changes at the next sync, about a minute later. This button sends everything again.
+A console only shows articles in its own language, so all languages are checked by default.
+Article #{0} saved
+System code
+The system is a short code without spaces, like the ones in real Nintendo articles: PEGI, ESRB, USK. For example CERO, ACB or GRAC. The age is the minimum age, then pick the icon.
+The system must be a short code without spaces (2 to 16 letters or digits), like CERO or ACB.
+Corrections in the first {0} minutes are free. After that, an edit goes out as a new article and counts toward the limit of one article every {1} days.
+players accepted this application ({0} needed for news)
+player accepted this application ({0} needed for news)
+Official applications publish through the Nextendo channel.
+The Nextendo team turned off this application's channel. Contact the team to talk about it.
+News unlock at {0} players. Each player counts once, however many times they accept. You and your collaborators don't count.
+Testers can read the channel but not change it.
+Next article possible on {0}. One article every {1} days.
+You can publish an article now. One article every {0} days. Articles reach Latest on every console; Featured stays reserved for Nextendo.
+Shown on the Switch as: {0}
+No application channel yet. An application unlocks news at {0} players.
+Application {0}, {1} players accepted
+Turn the channel back on
+Turn the channel off
+Channel turned back on
+Channel turned off
+Application channels
+Channels of Nextendo Developers applications. They publish on their own, one article every 4 days, never in Featured, with “(Unofficial)” after their publisher. Delete an article or turn a channel off here.
+Application news, Nextendo Developers
+Nextendo Developers: your application news on the Switch.
+Application news
+Your application's own channel in the News section of the Switch HOME Menu. Saving publishes right away.
+Back to the application
+{0} players accepted
+{0} player accepted
+Each player counts once. The creator and the collaborators don't count.
+Your application's own channel in the News section of the Switch HOME Menu.
+Unlocked
+players accepted this application
+player accepted this application
+Each player counts once, however many times they accept. You and your collaborators don't count.
+Publish your own articles in the News section of every Switch: one article every 4 days, with “(Unofficial)” after your publisher name. Featured stays reserved for Nextendo.
+Developer badge
+A badge on the creator's profile. Collaborators don't receive it.
+Open the news editor
+See the news editor
+Friends, Presence, Network linking & NSO icons
+Luigi's Balloon World: hide and find balloons online
+Online co-op and friend rooms; cross-platform play tested
+Online co-op campaign, matchmaking and Whored Mode
+Online matches, friend rooms and Strikers Club
+Ranked and friendly battles, Group Matches, cards and rankings; Replay Theater not working yet
+Sign-in, heroes, inventory and online parties
+Online co-op and rooms on Ryujinx, Citron and console (game version 1.2.2); rooms with a password don't work yet
+Translations
+Write the text of the article in another language. The consoles set to that language get this version; an empty field uses the main text above. Images, links and settings stay the same.
+Translated: {0}
+Main text language
+The language you write the text above in. The other checked languages get it as is, or their own translation below.
+Optional. Translate the main text for another checked language; an empty field keeps the main text. Images, links and settings stay the same.
+Translated
+Main text
+Saving replaces the article on the consoles that already have it.
+Saving replaces the article on the consoles that already have it. Edits don't count toward the limit of one article every {0} days.
+Draft: keep it here, don't send it to consoles
+Draft

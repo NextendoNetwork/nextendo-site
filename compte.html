@@ -8,9 +8,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/rework.css?v=20260925h">
-<link rel="stylesheet" href="assets/css/compte.css?v=20260925h">
-<script src="assets/js/i18n.js?v=20260925h"></script>
+<link rel="stylesheet" href="assets/css/rework.css?v=20261007n">
+<link rel="stylesheet" href="assets/css/compte.css?v=20261002a">
+<script src="assets/js/i18n.js?v=20261008a"></script>
 </head>
 <body class="page-compte" data-page="compte" data-attente="donnees">
 <a class="saut" href="#contenu">Skip to content</a>
@@ -27,7 +27,7 @@
       <div class="membre-texte">
         <h1 id="membre-pseudo">…</h1>
         <p class="presence" id="presence"><span class="presence-point" aria-hidden="true"></span><span id="presence-texte">…</span></p>
-        <ul class="puces" id="puces"></ul>
+        <ul class="badges-profil" id="puces" aria-label="Badges" hidden></ul>
       </div>
       <div class="membre-actions">
         <div class="code-ami">
@@ -73,6 +73,21 @@
       <ul class="sauvegardes" id="sauvegardes"></ul>
       <p class="vide-bloc" id="sauvegardes-vide">No cloud saves yet. Save from Ryujinx or your Switch while signed in, and your saves will appear here.</p>
       <p class="note">Cloud saves require a verified e-mail and a linked Discord account. Server boosters get 10 MB instead of 5 MB.</p>
+    </section>
+
+    <section class="plaque" aria-labelledby="titre-applis" id="bloc-applis">
+      <div class="entete-plaque">
+        <h2 id="titre-applis" class="titre-plaque">Authorized applications</h2>
+        <span class="petit" id="applis-compte"></span>
+      </div>
+      <p class="note">Applications you allowed to access your Nextendo account. See what each one can do and remove its access at any time.</p>
+      <label class="recherche"><svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><path d="m20 20-3.5-3.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><input type="search" id="applis-recherche" placeholder="Search authorized applications" aria-label="Search authorized applications"></label>
+      <ul class="applis-autorisees" id="applis-autorisees"></ul>
+      <p class="vide-bloc" id="applis-vide" hidden>No authorized application yet. When you sign in to an application with Nextendo, it appears here.</p>
+      <details class="applis-bloquees" id="applis-bloquees-bloc" hidden>
+        <summary>Blocked applications</summary>
+        <ul id="applis-bloquees"></ul>
+      </details>
     </section>
 
     <section class="plaque" aria-labelledby="titre-brancher">
@@ -123,9 +138,17 @@
 
     <section class="plaque" aria-labelledby="titre-demandes">
       <h2 id="titre-demandes" class="titre-plaque">Friend requests</h2>
-      <h3 class="sous-titre">Received</h3>
+      <div class="demandes-tete"><h3 class="sous-titre">Received</h3>
+        <div class="demandes-groupe" id="groupe-recues" hidden>
+          <button type="button" class="bouton bouton--plein petit-bouton" id="tout-accepter">Accept all</button>
+          <button type="button" class="bouton bouton--verre petit-bouton" id="tout-refuser">Decline all</button>
+        </div></div>
       <ul class="demandes" id="recues"></ul>
-      <h3 class="sous-titre">Sent</h3>
+      <nav class="pages" id="pages-recues" hidden aria-label="Pagination demandes"></nav>
+      <div class="demandes-tete"><h3 class="sous-titre">Sent</h3>
+        <div class="demandes-groupe" id="groupe-envoyees" hidden>
+          <button type="button" class="bouton bouton--verre petit-bouton" id="tout-annuler">Cancel all</button>
+        </div></div>
       <ul class="demandes" id="envoyees"></ul>
       <button type="button" class="plus" id="plus-envoyees" hidden></button>
     </section>
@@ -241,6 +264,17 @@
   </form>
 </dialog>
 
+<dialog id="dlg-confirmer" class="dialogue" aria-labelledby="dc-titre">
+  <form method="dialog" class="dialogue-corps">
+    <h2 id="dc-titre"></h2>
+    <p id="dc-texte"></p>
+    <div class="ligne-boutons fin">
+      <button type="button" class="bouton bouton--verre" id="dc-non">Keep them</button>
+      <button type="button" class="bouton bouton--danger" id="dc-oui"></button>
+    </div>
+  </form>
+</dialog>
+
 <dialog id="dlg-ami" class="dialogue dialogue--large" aria-labelledby="fm-nom">
   <div class="fiche">
     <div class="fiche-ciel" aria-hidden="true"></div>
@@ -250,6 +284,7 @@
       <div class="fiche-titre">
         <h2 id="fm-nom">…</h2>
         <p class="presence" id="fm-presence"><span class="presence-point" aria-hidden="true"></span><span id="fm-etat"></span></p>
+        <ul class="badges-profil" id="fm-badges" aria-label="Badges" hidden></ul>
       </div>
       <button type="button" class="code-bouton" id="fm-code"><strong></strong><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="3" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2" fill="none" stroke="currentColor" stroke-width="2"/></svg><span class="sr">Copy friend code</span></button>
     </div>
@@ -351,11 +386,30 @@
   </div>
 </dialog>
 
+<dialog id="dlg-signaler-appli" class="dialogue" aria-labelledby="sa-titre">
+  <form class="dialogue-corps" id="form-signaler-appli">
+    <h2 id="sa-titre">Report this application</h2>
+    <p><strong id="sa-nom"></strong></p>
+    <label class="champ">Reason
+      <select id="sa-motif" required>
+        <option value="impersonation">It pretends to be Nextendo or another application</option>
+        <option value="scam">Scam or phishing</option>
+        <option value="malicious">It does something I didn't allow</option>
+        <option value="inappropriate">Inappropriate name, icon or content</option>
+        <option value="other">Other</option>
+      </select>
+    </label>
+    <label class="champ">Details (optional)<textarea id="sa-texte" maxlength="500"></textarea></label>
+    <div class="ligne-boutons fin"><button type="button" class="bouton bouton--verre" data-ferme>Cancel</button><button type="submit" class="bouton bouton--danger">Send the report</button></div>
+  </form>
+</dialog>
+
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="assets/js/nx.js?v=20260925h" defer></script>
-<script src="assets/js/commun.js?v=20260925m" defer></script>
-<script src="assets/js/compte.js?v=20260925h" defer></script>
-<script src="assets/js/effets.js?v=20260925h" defer></script>
+<script src="assets/js/nx.js?v=20261002b" defer></script>
+<script src="assets/js/commun.js?v=20261007p" defer></script>
+<script src="assets/js/compte.js?v=20261007d" defer></script>
+<script src="assets/js/applications.js?v=20261003a" defer></script>
+<script src="assets/js/effets.js?v=20260928b" defer></script>
 </body>
 </html>

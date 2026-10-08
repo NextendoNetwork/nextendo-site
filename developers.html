@@ -9,10 +9,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700;800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/rework.css?v=20260925h">
-<link rel="stylesheet" href="assets/css/pages.css?v=20260925h">
-<link rel="stylesheet" href="assets/css/developers.css?v=20260925h">
-<script src="assets/js/i18n.js?v=20260925h"></script>
+<link rel="stylesheet" href="assets/css/rework.css?v=20261007n">
+<link rel="stylesheet" href="assets/css/pages.css?v=20261007d">
+<link rel="stylesheet" href="assets/css/developers.css?v=20261004j">
+<script src="assets/js/i18n.js?v=20261008a"></script>
 </head>
 <body data-page="dev">
 <a class="saut" href="#contenu">Skip to content</a>
@@ -106,14 +106,15 @@
     </div>
   </section>
 
-  <!-- Unsaved changes bar (Discord-style) -->
-  <div class="barre-sauver" id="barre-sauver" role="region" aria-label="Unsaved changes" hidden>
-    <span>Careful, you have unsaved changes.</span>
-    <div class="ligne-boutons"><button type="button" class="bouton bouton--verre petit-bouton" id="annuler-modifs">Reset</button><button type="button" class="bouton bouton--plein petit-bouton" id="sauver-modifs">Save changes</button></div>
-  </div>
 </main>
 
 <div id="nx-pied"></div>
+
+<!-- Unsaved changes bar (Discord-style) -->
+<div class="barre-sauver" id="barre-sauver" role="region" aria-label="Unsaved changes" hidden>
+  <span>Careful, you have unsaved changes.</span>
+  <div class="ligne-boutons"><button type="button" class="bouton bouton--verre petit-bouton" id="annuler-modifs">Reset</button><button type="button" class="bouton bouton--plein petit-bouton" id="sauver-modifs">Save changes</button></div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <dialog id="dlg-nouvelle" class="dialogue" aria-labelledby="t-nouvelle">
@@ -129,11 +130,20 @@
   </form>
 </dialog>
 
+<dialog id="dlg-supprimer" class="dialogue" aria-labelledby="t-supprimer">
+  <form class="dialogue-corps" id="form-supprimer">
+    <h2 id="t-supprimer">Delete the application</h2>
+    <p><span>This deletes</span> <strong id="sup-nom"></strong><span>, its keys and its members. Players signed in with it are signed out. This can't be undone.</span></p>
+    <label class="champ">Type the application's name to confirm:<input id="sup-saisie" autocomplete="off" spellcheck="false"></label>
+    <div class="ligne-fin"><button type="button" class="bouton bouton--verre" data-ferme>Cancel</button><button type="submit" class="bouton bouton--danger" id="sup-ok" disabled>Delete the application</button></div>
+  </form>
+</dialog>
 
-<script src="assets/js/nx.js?v=20260925h" defer></script>
-<script src="assets/js/commun.js?v=20260925m" defer></script>
-<script src="assets/js/pages.js?v=20260925h" defer></script>
-<script src="assets/js/developers.js?v=20260925j" defer></script>
+
+<script src="assets/js/nx.js?v=20261002b" defer></script>
+<script src="assets/js/commun.js?v=20261007p" defer></script>
+<script src="assets/js/pages.js?v=20261004-t99" defer></script>
+<script src="assets/js/developers.js?v=20261004k" defer></script>
 <script src="assets/js/effets.js?v=20260925h" defer></script>
 </body>
 </html>

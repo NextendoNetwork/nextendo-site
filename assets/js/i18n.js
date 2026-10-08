@@ -137,7 +137,7 @@
     var groupe = document.querySelector(".barre .compte-groupe");
     if (!groupe || document.getElementById("choix-langue")) return;
     var cur = LANGS[Math.max(0, codes.indexOf(langue))];
-    var drapeau = function (l) { return '<img src="https://flagcdn.com/' + l.pays + '.svg" alt="" width="20" height="15">'; };
+    var drapeau = function (l) { return '<img src="assets/img/drapeaux/' + l.pays + '.png" alt="" width="22" height="16">'; };
     var bloc = document.createElement("div");
     bloc.className = "choix-langue";
     bloc.setAttribute("translate", "no");
@@ -223,7 +223,7 @@
     // first pass is done, never longer than 1.5 s.
     racine.classList.add("nx-traduit-attente");
     setTimeout(function () { racine.classList.remove("nx-traduit-attente"); }, 1500);
-    document.write('<script src="assets/js/i18n/' + langue + '.js?v=20260925h"><\/script>');
+    document.write('<script src="assets/js/i18n/' + langue + '.js?v=20261008a"><\/script>');
   }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", function () { setTimeout(demarrer, 0); });
   else setTimeout(demarrer, 0);

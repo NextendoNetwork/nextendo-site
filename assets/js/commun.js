@@ -47,7 +47,9 @@
     { href: "index.html#fonctionnement", texte: "How it works", cle: "fonctionnement" },
     { href: "index.html#equipe", texte: "Team", cle: "equipe" },
     { href: "status.html", texte: "Status", cle: "etat" },
-    { href: "developers.html", texte: "Developers", cle: "dev" }
+    { href: "developers.html", texte: "Developers", cle: "dev" },
+    // Donations: our own page, which hands over to Stripe.
+    { href: "donate.html", texte: "Donate", cle: "don" }
   ];
 
   // --- Navigation bar ----------------------------------------------------------------------
@@ -76,7 +78,7 @@
       { href: "https://discord.gg/XPfeCMwnzQ", texte: "Community" }
     ] : LIENS;
     var liens = liensPage.map(function (l) {
-      return '<a class="nav-lien" href="' + l.href + '"' + (l.route ? ' data-route="' + l.route + '"' : "") + ">" + l.texte + "</a>";
+      return '<a class="nav-lien' + (l.cle === "don" ? " nav-lien--don" : "") + '" href="' + l.href + '"' + (l.route ? ' data-route="' + l.route + '"' : "") + (l.externe ? ' target="_blank" rel="noopener"' : "") + ">" + l.texte + "</a>";
     }).join("");
     hote.outerHTML =
       '<header class="barre' + (posee ? " barre--posee" : "") + '" id="barre">' +
@@ -87,13 +89,13 @@
         '<div class="compte-groupe">' +
         (dev ? '<button type="button" class="bouton bouton--plein bouton-nav" data-nouvelle-appli>New application</button>' : "") +
         '<div class="compte" id="barre-compte">' +
-          '<a class="lien-discret" href="compte.html">Sign in</a>' +
+          '<a class="lien-discret" href="login.html">Sign in</a>' +
           '<a class="bouton bouton--plein" href="register.html">Create account</a>' +
         "</div></div>" +
         '<button type="button" class="burger" id="burger" aria-expanded="false" aria-controls="menu-mobile" aria-label="Open menu"><span></span><span></span></button>' +
       "</header>" +
       '<div class="menu-mobile" id="menu-mobile" hidden>' +
-        liensPage.map(function (l, i) { return '<a href="' + l.href + '" style="--i:' + i + '">' + l.texte + "</a>"; }).join("") +
+        liensPage.map(function (l, i) { return '<a href="' + l.href + '"' + (l.externe ? ' target="_blank" rel="noopener"' : "") + ' style="--i:' + i + '">' + l.texte + "</a>"; }).join("") +
         '<a href="compte.html" style="--i:' + LIENS.length + '">My account</a>' +
       "</div>";
 
@@ -134,6 +136,46 @@
     var ile = document.getElementById("barre");
     ile.addEventListener("animationend", function (e) { if (e.target === ile) ile.classList.add("barre--ouverte"); });
     var burger = document.getElementById("burger");
+
+    // Does the full menu fit? Measured with the full menu shown, then the bar falls back to
+    // the burger when the links overflow their track or the bar overflows its own width.
+    var barreEl = document.getElementById("barre");
+    var navEl = barreEl && barreEl.querySelector(".menu");
+    var mesure = false;
+    var ajusterBarre = function () {
+      if (!barreEl || !navEl || mesure) return;
+      // The bar opens with an animation that starts 62px wide: measuring then would always
+      // find the links too wide and hide them for good. Wait until it has its real width.
+      if (barreEl.getAnimations && barreEl.getAnimations().some(function (an) { return an.playState === "running" && an.animationName === "ile"; })) return;
+      mesure = true;
+      barreEl.classList.remove("barre--etroite", "barre--serree");
+      var deborde = function () {
+        return getComputedStyle(navEl).display !== "none" &&
+          (navEl.scrollWidth > navEl.clientWidth + 1 || barreEl.scrollWidth > barreEl.clientWidth + 1);
+      };
+      // First tighten (links closer, menu no longer centred on the page), then the burger.
+      if (deborde()) {
+        barreEl.classList.add("barre--serree");
+        if (deborde()) { barreEl.classList.remove("barre--serree"); barreEl.classList.add("barre--etroite"); }
+      }
+      mesure = false;
+    };
+    ajusterBarre();
+    window.addEventListener("resize", ajusterBarre);
+    window.addEventListener("load", ajusterBarre);
+    barreEl && barreEl.addEventListener("animationend", ajusterBarre);
+    barreEl && barreEl.addEventListener("animationcancel", ajusterBarre);
+    setTimeout(ajusterBarre, 2000);
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(ajusterBarre);
+    // The account area changes after /api/me answers (Sign in + Create account, or the profile
+    // chip), and the texts change with the language: measure again each time.
+    if (window.MutationObserver && barreEl) {
+      var attente = 0;
+      new MutationObserver(function () {
+        clearTimeout(attente);
+        attente = setTimeout(ajusterBarre, 60);
+      }).observe(barreEl, { childList: true, subtree: true, characterData: true });
+    }
     var mm = document.getElementById("menu-mobile");
     // The menu grows out of the button (clip-path circle centred on it) and shrinks back into it;
     // it is only hidden once the closing animation is over.
@@ -188,7 +230,7 @@
       return '<a class="icone-reseau" href="' + href + '" aria-label="Nextendo on ' + nom + '" title="' + nom + '">' + ICONES[cle] + "</a>";
     };
     var colonne = function (titre, liens) {
-      return "<div><h3>" + titre + "</h3><ul>" + liens.map(function (l) { return '<li><a href="' + l[0] + '">' + l[1] + "</a></li>"; }).join("") + "</ul></div>";
+      return "<div><h3>" + titre + "</h3><ul>" + liens.map(function (l) { return '<li><a href="' + l[0] + '"' + (l[2] ? ' target="_blank" rel="noopener"' : "") + ">" + l[1] + "</a></li>"; }).join("") + "</ul></div>";
     };
     hote.outerHTML =
       '<footer class="pied verre-liquide" id="pied">' +
@@ -198,7 +240,7 @@
             "<p>Nextendo Network brings Switch online play back: accounts, friends, presence and matchmaking, on Ryujinx, Citron or a Switch with CFW.</p>" +
           "</div>" +
           '<nav class="pied-liens" aria-label="Site links">' +
-            colonne("Project", [["telecharger.html", "Download"], ["index.html#fonctionnement", "How it works"], ["index.html#plateformes", "Where to find Nextendo"], ["developers.html", "Developers"]]) +
+            colonne("Project", [["telecharger.html", "Download"], ["index.html#fonctionnement", "How it works"], ["index.html#plateformes", "Where to find Nextendo"], ["developers.html", "Developers"], ["donate.html", "Donate"]]) +
             colonne("Help", [["https://wiki.nextendo.network", "NexWiki"], ["status.html", "Network status"], ["index.html#faq", "Frequently asked questions"], ["https://discord.gg/XPfeCMwnzQ", "Community"]]) +
             colonne("Account", [["register.html", "Create account"], ["compte.html", "My account"], ["sessions.html", "My sessions"]]) +
           "</nav>" +
@@ -206,7 +248,7 @@
         '<div class="pied-bas">' +
           '<div class="pied-mentions">' +
             '<p class="pied-copy">\u00a9 ' + new Date().getFullYear() + " Nextendo Network</p>" +
-            '<p class="pied-legal">Independent community project, not affiliated with Nintendo Co., Ltd. \u201cNintendo Switch\u201d, \u201cRyujinx\u201d, \u201cCitron\u201d and \u201cPrelude\u201d belong to their respective owners. No games or ROMs are provided.</p>' +
+            '<p class="pied-legal">Independent community project, not affiliated with Nintendo Co., Ltd. \u201cNintendo Switch\u201d, \u201cRyujinx\u201d and \u201cCitron\u201d belong to their respective owners. \u201cPrelude\u201d is a Nextendo Network project. No games or ROMs are provided.</p>' +
           "</div>" +
           '<div class="pied-suivre"><span>Follow Nextendo</span><div class="icones-reseaux">' +
             icone("https://discord.gg/XPfeCMwnzQ", "Discord", "discord") +
@@ -266,7 +308,7 @@
       try { cible = new URL(a2.getAttribute("href"), location.href); } catch (x) { return; }
       // Another site, or the same page with only a different #section: no page load follows.
       var ici = new URL(location.href);
-      var chemin = function (u) { return u.pathname.replace(/\/index\.html$/, "/"); };
+      var chemin = function (u) { return u.pathname.replace(/\.html$/, "").replace(/\/index$/, "/"); };
       if (cible.origin !== ici.origin || (chemin(cible) === chemin(ici) && cible.search === ici.search)) return;
       barre.className = "progres progres--part";
       // Safety net: if the page doesn't change (download, blocked navigation), let go.
