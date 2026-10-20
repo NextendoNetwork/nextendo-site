@@ -128,6 +128,7 @@
     { nom: "Super Mario Bros. Wonder", tid: "010015100b514000", pct: 75, detail: "Online play and friend rooms" },
     { nom: "Animal Crossing: New Horizons", tid: "01006f8002326000", pct: 73, detail: "Island visits with friends" },
     { nom: "Super Mario Maker 2", tid: "01009b90006dc000", pct: 70, detail: "Course World, uploads, world records and comments" },
+    { nom: "UNO", tid: "0100b6e012ebe000", pct: 70, detail: "Public rooms and full matches on Ryujinx, Citron and console; private invites from console still pending" },
     { nom: "Minecraft Dungeons II", tid: "0100a7c01b792000", pct: 65, detail: "Sign-in, heroes, inventory and online parties" },
     { nom: "Minecraft: Nintendo Switch Edition", tid: "01006bd001e06000", pct: 51, detail: "Connecting to the online server" },
     { nom: "Super Mario Party Jamboree", tid: "0100965017338000", pct: 70, detail: "Mario Party and minigames in ranked and solo online matchmaking" }
