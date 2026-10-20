@@ -451,7 +451,8 @@
       { nom: "Mario Strikers: Battle League", ids: ["010019401051c000"] },
       { nom: "Minecraft Dungeons II", ids: ["0100a7c01b792000"] },
       { nom: "Pokkén Tournament DX", ids: ["0100b3f000be2000"] },
-      { nom: "Saints Row: The Third - The Full Package", ids: ["0100de600beee000"] }
+      { nom: "Saints Row: The Third - The Full Package", ids: ["0100de600beee000"] },
+      { nom: "UNO", ids: ["0100b6e012ebe000"] }
     ];
     var ul = $("serveurs");
     var lignes = {};
