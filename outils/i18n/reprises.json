@@ -101,7 +101,7 @@
  "Connecting to the online server": {
   "es": "Conexión al servidor en línea",
   "fr": "Connexion au serveur en ligne",
-  "pt": "Conexão ao servidor online",
+  "pt": "Conexão com o servidor online",
   "de": "Verbindung zum Online-Server",
   "it": "Connessione al server online",
   "ru": "Подключение к онлайн-серверу",
@@ -167,7 +167,7 @@
  "Which emulators are supported?": {
   "es": "¿Qué emuladores son compatibles?",
   "fr": "Quels émulateurs sont pris en charge ?",
-  "pt": "Quais emuladores são suportados?",
+  "pt": "Quais emuladores são compatíveis?",
   "de": "Welche Emulatoren werden unterstützt?",
   "it": "Quali emulatori sono supportati?",
   "ru": "Какие эмуляторы поддерживаются?",
@@ -299,7 +299,7 @@
  "Cloud saves": {
   "es": "Guardados en la nube",
   "fr": "Sauvegardes cloud",
-  "pt": "Saves na nuvem",
+  "pt": "Dados salvos na nuvem",
   "de": "Cloud-Speicherstände",
   "it": "Salvataggi cloud",
   "ru": "Облачные сохранения",
@@ -343,7 +343,7 @@
  "Friend code": {
   "es": "Friend code",
   "fr": "Code ami",
-  "pt": "Friend code",
+  "pt": "Código de amigo",
   "de": "Friend code",
   "it": "Friend code",
   "ru": "Friend code",
@@ -1157,7 +1157,7 @@
  "Why build on Nextendo?": {
   "es": "¿Por qué construir en Nextendo?",
   "fr": "Pourquoi construire sur Nextendo ?",
-  "pt": "Por que construir no Nextendo?",
+  "pt": "Por que construir na Nextendo?",
   "de": "Warum Nextendo wählen?",
   "it": "Perché costruire su Nextendo?",
   "ru": "Зачем создавать на базе Nextendo?",
@@ -1168,7 +1168,7 @@
  "Ready to connect your application?": {
   "es": "¿Listo para conectar tu aplicación?",
   "fr": "Prêt à connecter votre application ?",
-  "pt": "Pronto para conectar a sua aplicação?",
+  "pt": "Pronto para conectar o seu aplicativo?",
   "de": "Bereit, deine App zu verbinden?",
   "it": "Pronto a collegare la tua applicazione?",
   "ru": "Готовы подключить ваше приложение?",
@@ -1179,7 +1179,7 @@
  "Applications": {
   "es": "Aplicaciones",
   "fr": "Applications",
-  "pt": "Aplicações",
+  "pt": "Aplicativos",
   "de": "Anwendungen",
   "it": "Applicazioni",
   "ru": "Приложения",
@@ -1190,7 +1190,7 @@
  "Welcome,": {
   "es": "Bienvenido/a,",
   "fr": "Bienvenue,",
-  "pt": "Bem-vindo/a,",
+  "pt": "Boas-vindas,",
   "de": "Willkommen,",
   "it": "Benvenuto/a,",
   "ru": "Добро пожаловать,",
@@ -1267,7 +1267,7 @@
  "Application ID": {
   "es": "Identificador de aplicación",
   "fr": "IDENTIFIANT DU CLIENT",
-  "pt": "ID da Aplicação",
+  "pt": "ID do Aplicativo",
   "de": "Anwendungs-ID",
   "it": "ID Applicazione",
   "ru": "ID Приложения",
@@ -1322,7 +1322,7 @@
  "Friend code copied": {
   "es": "Friend code copiado",
   "fr": "Friend code copié",
-  "pt": "Friend code copiado",
+  "pt": "Código de amigo copiado",
   "de": "Friend code kopiert",
   "it": "Friend code copiato",
   "ru": "Friend code скопирован",
