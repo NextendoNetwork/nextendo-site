@@ -841,6 +841,197 @@
 841	Ver a lista de jogos compatíveis com a Nextendo
 842	Mostrar sua atividade no jogo no Discord Rich Presence
 843	Sincronizar o status e a versão do seu emulador
+844	Notícias do Switch, Nextendo Network
+845	Administração da Nextendo: notícias do Switch.
+846	Notícias do Switch
+847	Artigos exibidos na seção Notícias do Menu HOME do Switch. Salve suas alterações e depois publique para enviá-los aos consoles.
+848	Voltar à administração
+849	Canal
+850	Ícone do canal
+851	Alterar ícone
+852	Cortado em 70 × 70, exibido em um círculo.
+853	Nome do canal
+854	Selo “New” em Encontrar canais
+855	Canal importante
+856	Salvar canal
+857	Artigos
+858	Novo artigo
+859	Páginas de artigos
+860	Conteúdo
+861	Título
+862	As quebras de linha são mantidas no console.
+863	Idiomas
+864	O artigo é enviado em cada idioma marcado. O console só exibe artigos no próprio idioma.
+865	Layout
+866	Normal
+867	Lista (com produtos em destaque)
+868	Estilo do título
+869	Imagem da lista
+870	Cortada em 358 × 201. Exibida na lista de artigos.
+871	Corpo
+872	Adicionar um bloco
+873	Cada bloco é um parágrafo com uma imagem opcional (redimensionada para 800 px de largura) e um vídeo opcional. As tags HTML strong deixam o texto em negrito.
+874	Rodapé
+875	Texto pequeno na parte de baixo do artigo. Deixe vazio para não exibir nada.
+876	Classificações indicativas
+877	Adicionar uma classificação
+878	Adicionar
+879	Classificação personalizada
+880	Sistema
+881	Idade
+882	Ícone e adição
+883	Sem classificação, o artigo não exibe nenhum bloco de idade.
+884	Botão no final
+885	Ação
+886	Nenhum botão
+887	Abrir o Nintendo eShop
+888	Abrir um jogo
+889	Abrir uma tela do sistema
+890	Texto do botão
+891	Consulta do Nintendo eShop
+892	Para um jogo, deixe vazio para abrir a página dele no Nintendo eShop.
+893	Jogos (title IDs)
+894	Separados por vírgulas.
+895	Tela do sistema
+896	Atualização do sistema
+897	Controle parental
+898	Canais de notícias
+899	Produtos e vídeos
+900	Produtos em destaque
+901	(layout Lista)
+902	Adicionar um produto em destaque
+903	Produtos relacionados
+904	Adicionar um produto relacionado
+905	Vídeos relacionados
+906	Adicionar um vídeo
+907	Programação e prioridade
+908	Exibir em Destaques
+909	Em destaque por (dias)
+910	Data de publicação
+911	Vazio significa agora.
+912	Expira após (dias)
+913	Prioridade
+914	Prioridade após Destaques
+915	Prioridade de exclusão
+916	Países
+917	Vazio significa todos os países.
+918	Jogos relacionados (title IDs)
+919	Bloquear capturas de tela
+920	Surpresa
+921	Avançado
+922	Campos extras (JSON)
+923	Qualquer chave aqui substitui a gerada no artigo. null a remove. Somente texto e números, sem imagens.
+924	Salvar artigo
+925	Publicar
+926	As alterações salvas ficam aqui até você publicar. Os consoles as recebem na próxima sincronização, cerca de um minuto depois.
+927	Publicar nos consoles
+928	Escolha um arquivo de imagem.
+929	Não foi possível ler esta imagem.
+930	Nenhuma imagem
+931	Escolher uma imagem
+932	Não foi possível carregar as notícias: {0}
+933	Canal salvo
+934	{0} artigos
+935	{0} artigo
+936	Nenhum artigo ainda. Escreva o primeiro com Novo artigo.
+937	Publicado em {0}
+938	Em destaque
+939	Lista
+940	Editar
+941	Duplicar
+942	Excluir o artigo nº {0}? Ele sai dos consoles na próxima publicação.
+943	Artigo nº {0} excluído
+944	Editar o artigo nº {0}
+945	Cópia de um artigo
+946	Ao salvar, o artigo recebe um novo número para que os consoles que já o têm recebam a alteração.
+947	Bloco {0}
+948	Mover para cima
+949	Mover para baixo
+950	Texto
+951	Endereço do vídeo (opcional)
+952	No máximo 10 blocos.
+953	Nenhuma classificação indicativa.
+954	Digite primeiro o sistema de classificação (letras e números).
+955	Nome
+956	Comentário
+957	Rótulo da plataforma
+958	Endereço do vídeo
+959	Você atingiu o limite desta lista.
+960	Campos extras: este JSON não é válido.
+961	Campos extras: escreva um objeto JSON, entre { }.
+962	Marque pelo menos um idioma.
+963	Escreva um título.
+964	Artigo nº {0} salvo. Publique para enviá-lo aos consoles.
+965	Publicando…
+966	{0} arquivos gravados. Os consoles os recebem na próxima sincronização, em cerca de um minuto.
+967	Notícias publicadas
+968	Falha na publicação: {0}
+969	Francês
+970	Inglês (Reino Unido)
+971	Inglês (Estados Unidos)
+972	Alemão
+973	Italiano
+974	Espanhol
+975	Espanhol (América Latina)
+976	Holandês
+977	Português
+978	Português (Brasil)
+979	Francês (Canadá)
+980	Russo
+981	Japonês
+982	Coreano
+983	Chinês (simplificado)
+984	Chinês (tradicional)
+985	Páginas dos jogadores denunciados
+986	Páginas das contas excluídas
+987	Buscar (usuário, PID)…
+988	Buscar contas excluídas
+989	Nenhuma conta excluída corresponde.
+990	Anunciado como criado em {0}. É o console que decide por quanto tempo exibe “New” a partir desta data.
+991	A data de criação será definida na próxima publicação.
+992	Salvar e publicar
+993	Ao salvar, tudo é publicado na hora. Os consoles recebem as alterações na próxima sincronização, cerca de um minuto depois. Este botão envia tudo de novo.
+994	O console só exibe artigos no próprio idioma, por isso todos os idiomas vêm marcados por padrão.
+995	Artigo nº {0} salvo
+996	Código do sistema
+997	O sistema é um código curto sem espaços, como os dos artigos reais da Nintendo: PEGI, ESRB, USK. Por exemplo, CERO, ACB ou GRAC. A idade é a idade mínima; depois escolha o ícone.
+998	O sistema deve ser um código curto sem espaços (de 2 a 16 letras ou números), como CERO ou ACB.
+999	As correções feitas nos primeiros {0} minutos não têm custo. Depois disso, uma edição sai como um novo artigo e conta para o limite de um artigo a cada {1} dias.
+1000	jogadores aceitaram este aplicativo ({0} necessários para as notícias)
+1001	jogador aceitou este aplicativo ({0} necessários para as notícias)
+1002	Os aplicativos oficiais publicam pelo canal da Nextendo.
+1003	A equipe Nextendo desativou o canal deste aplicativo. Entre em contato com a equipe para conversar sobre isso.
+1004	As notícias são liberadas com {0} jogadores. Cada jogador conta uma vez, não importa quantas vezes aceite. Você e seus colaboradores não contam.
+1005	Os testadores podem ver o canal, mas não alterá-lo.
+1006	Próximo artigo possível em {0}. Um artigo a cada {1} dias.
+1007	Você pode publicar um artigo agora. Um artigo a cada {0} dias. Os artigos chegam a Novidades em todos os consoles; Destaques fica reservado à Nextendo.
+1008	Exibido no Switch como: {0}
+1009	Nenhum canal de aplicativo ainda. Um aplicativo libera as notícias com {0} jogadores.
+1010	Aplicativo {0}, {1} jogadores aceitaram
+1011	Reativar o canal
+1012	Desativar o canal
+1013	Canal reativado
+1014	Canal desativado
+1015	Canais dos aplicativos
+1016	Canais dos aplicativos do Nextendo Developers. Eles publicam por conta própria, um artigo a cada 4 dias, nunca em Destaques, com “(Unofficial)” depois do nome da distribuidora. Exclua um artigo ou desative um canal aqui.
+1017	Notícias do aplicativo, Nextendo Developers
+1018	Nextendo Developers: as notícias do seu aplicativo no Switch.
+1019	Notícias do aplicativo
+1020	O canal do seu aplicativo na seção Notícias do Menu HOME do Switch. Ao salvar, a publicação é imediata.
+1021	Voltar ao aplicativo
+1022	{0} jogadores aceitaram
+1023	{0} jogador aceitou
+1024	Cada jogador conta uma vez. O criador e os colaboradores não contam.
+1025	O canal do seu aplicativo na seção Notícias do Menu HOME do Switch.
+1026	Liberado
+1027	jogadores aceitaram este aplicativo
+1028	jogador aceitou este aplicativo
+1029	Cada jogador conta uma vez, não importa quantas vezes aceite. Você e seus colaboradores não contam.
+1030	Publique seus próprios artigos na seção Notícias de todos os Switch: um artigo a cada 4 dias, com “(Unofficial)” depois do nome da sua distribuidora. Destaques fica reservado à Nextendo.
+1031	Emblema de desenvolvedor
+1032	Um emblema no perfil do criador. Os colaboradores não o recebem.
+1033	Abrir o editor de notícias
+1034	Ver o editor de notícias
 1035	Amigos, presença, vinculação à rede e ícones do NSO
 1036	Luigi's Balloon World: esconda e encontre balões online
 1037	Cooperativo online e salas com amigos; jogo multiplataforma testado
@@ -849,3 +1040,15 @@
 1040	Batalhas ranqueadas e amistosas, Group Matches, cartas e rankings; o Replay Theater ainda não funciona
 1041	Login, heróis, inventário e grupos online
 1042	Cooperativo online e salas no Ryujinx, Citron e console (versão 1.2.2 do jogo); as salas com senha ainda não funcionam
+1043	Traduções
+1044	Escreva o texto do artigo em outro idioma. Os consoles configurados nesse idioma recebem esta versão; um campo vazio usa o texto principal acima. Imagens, links e configurações continuam iguais.
+1045	Traduzido: {0}
+1046	Idioma do texto principal
+1047	O idioma em que você escreve o texto acima. Os outros idiomas marcados o recebem como está, ou com a tradução própria abaixo.
+1048	Opcional. Traduza o texto principal para outro idioma marcado; um campo vazio mantém o texto principal. Imagens, links e configurações continuam iguais.
+1049	Traduzido
+1050	Texto principal
+1051	Ao salvar, o artigo é substituído nos consoles que já o têm.
+1052	Ao salvar, o artigo é substituído nos consoles que já o têm. As edições não contam para o limite de um artigo a cada {0} dias.
+1053	Rascunho: manter aqui, não enviar aos consoles
+1054	Rascunho
