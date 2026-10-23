@@ -170,15 +170,18 @@
     var moyenne = Math.round(total / PROGRES.length);
     var anneau = $("anneau");
     anneau.setAttribute("aria-label", "Overall progress: " + moyenne + "%");
+    // The number is data, not an animation's initial state. Keep it accurate even
+    // if the observer never runs (long game lists, reduced motion or hidden tabs).
+    $("anneau-pct").textContent = moyenne + "%";
     // The bars and the ring fill once, when the section scrolls into view.
     var lancer = function () {
       document.getElementById("progres").classList.add("est-visible");
       anneau.style.setProperty("--pct", moyenne);
-      if (window.nxCompter) window.nxCompter($("anneau-pct"), moyenne, "%"); else $("anneau-pct").textContent = moyenne + "%";
     };
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { lancer(); io.disconnect(); } }, { threshold: 0.25 });
-      io.observe(document.getElementById("progres"));
+      // A quarter of the whole section may be taller than the viewport.
+      io.observe(anneau);
     } else { lancer(); }
   }
 
