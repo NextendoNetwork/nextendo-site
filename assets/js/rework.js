@@ -1,13 +1,13 @@
 // Nextendo Network, rework de l'accueil : les chiffres en direct.
-// Une seule source, /api/online-counts (la même que la page d'état et l'application). Sans réseau,
-// la page garde ses repli fixes et le dit plutôt que d'afficher des zéros trompeurs.
+// Une seule source, /api/online-counts (la mÃªme que la page d'Ã©tat et l'application). Sans rÃ©seau,
+// la page garde ses repli fixes et le dit plutÃ´t que d'afficher des zÃ©ros trompeurs.
 
 (function () {
   "use strict";
   // Sentence with values, translated as a whole (see i18n.js).
   var tf = function () { return window.nxF ? window.nxF.apply(null, arguments) : [].slice.call(arguments, 1).reduce(function (s, v, i) { return s.replace("{" + i + "}", v); }, arguments[0]); };
 
-  // Six jeux phares, affichés tels quels si l'API ne répond pas.
+  // Six jeux phares, affichÃ©s tels quels si l'API ne rÃ©pond pas.
   var REPLI = [
     { nom: "Mario Kart 8 Deluxe", titres: ["0100152000022000"] },
     { nom: "Super Smash Bros. Ultimate", titres: ["01006a800016e000"] },
@@ -97,11 +97,11 @@
   // --- Progress: same figures as the live site's Progression section (pct = what works today) -
 
   var PROGRES = [
-    { nom: "SEGA Genesis - Nintendo Classics", tid: "0100b3c014bda000", pct: 90, detail: "Online play tested on Switch and Ryujinx; Genesis 3.1.1 loading fixed in a Citron test build, public update pending" },
-    { nom: "Game Boy Advance - Nintendo Classics", tid: "010012f017576000", pct: 90, detail: "Four-player gameplay tested on Switch and Citron; GBA 3.4.0 online entry verified, Prelude 4.0.9 release pending" },
-    { nom: "Game Boy - Nintendo Classics", tid: "0100c62011050000", pct: 95, detail: "Friend rooms and gameplay tested on Switch, Ryujinx and Citron; password rooms pending" },
-    { nom: "SNES - Nintendo Classics", tid: "01008d300c50c000", pct: 95, detail: "Friend rooms and gameplay tested on Switch, Ryujinx and Citron; password rooms pending" },
-    { nom: "NES - Nintendo Classics", tid: "0100d870045b6000", pct: 95, detail: "Two-player friend rooms and gameplay tested on Switch, Ryujinx and Citron; password rooms pending" },
+    { nom: "SEGA Genesis - Nintendo Classics", tid: "0100b3c014bda000", pct: 95, detail: "Genesis 3.1.1 rooms and gameplay tested on Citron with Switch; automatic patch available; invitations, password rooms and the Ryujinx update pending" },
+    { nom: "Game Boy Advance - Nintendo Classics", tid: "010012f017576000", pct: 95, detail: "Four-player gameplay tested on Switch and Citron, including cross-play; GBA 3.4.0 supported by Prelude 4.0.9; invitations, password rooms and the Ryujinx update pending" },
+    { nom: "Game Boy - Nintendo Classics", tid: "0100c62011050000", pct: 95, detail: "Friend rooms and gameplay tested on Switch, Citron and Ryujinx; invitations, password rooms and the public Ryujinx Classics update pending" },
+    { nom: "SNES - Nintendo Classics", tid: "01008d300c50c000", pct: 95, detail: "Friend rooms and gameplay tested on Switch, Citron and Ryujinx; invitations, password rooms and the public Ryujinx Classics update pending" },
+    { nom: "NES - Nintendo Classics", tid: "0100d870045b6000", pct: 95, detail: "Two-player rooms and gameplay tested on Switch, Citron and Ryujinx; invitations, password rooms and the public Ryujinx Classics update pending" },
     { nom: "Just Dance 2022", tid: "0100ea6014bb8000", pct: 80, detail: "World Dance Floor, voting, shared rankings and rotating Home suggestions tested on Switch, Citron and Ryujinx" },
     { nom: "PAC-MAN 99", tid: "0100ad9012510000", pct: 100, detail: "Full 99-player matches" },
     { nom: "Tetris 99", tid: "010040600c5ce000", pct: 100, detail: "Full 99-player matches" },
@@ -124,12 +124,12 @@
     { nom: "Mario Golf: Super Rush", tid: "0100c9c00e25c000", pct: 80, detail: "Online play" },
     { nom: "Mario Kart 8 Deluxe", tid: "0100152000022000", pct: 91, detail: "Worldwide races, rooms and friends" },
     { nom: "Diablo III: Eternal Collection", tid: "01001b300b9be000", pct: 90, detail: "Quickmatch, Emulator friend lobbies" },
-    { nom: "Pokkén Tournament DX", tid: "0100b3f000be2000", pct: 90, detail: "Ranked and friendly battles, Group Matches, cards and rankings; Replay Theater not working yet" },
-    { nom: "Nintendo 64 - Nintendo Classics", tid: "0100c9a00ece6000", pct: 95, detail: "Room creation on Switch and online connection from updated Citron verified; password rooms pending" },
+    { nom: "PokkÃ©n Tournament DX", tid: "0100b3f000be2000", pct: 90, detail: "Ranked and friendly battles, Group Matches, cards and rankings; Replay Theater not working yet" },
+    { nom: "Nintendo 64 - Nintendo Classics", tid: "0100c9a00ece6000", pct: 95, detail: "Online rooms verified on Switch and updated Citron; invitations, password rooms and the public Ryujinx Classics update pending" },
     { nom: "Splatoon 2", tid: "0100f8f0000a2000", pct: 87, detail: "8-player Turf War, friends and Salmon Run" },
     { nom: "Super Smash Bros. Ultimate", tid: "01006a800016e000", pct: 84, detail: "Online arenas and friends" },
-    { nom: "Pokémon Scarlet and Violet", tid: "0100a3d008c5c000", pct: 80, detail: "All online play except competitions, Multi Battles and Mystery Gift" },
-    { nom: "Pokémon Legends: Z-A", tid: "0100f43008c44000", pct: 85, detail: "Link Trades and private battles; Ranked Battles not tested yet" },
+    { nom: "PokÃ©mon Scarlet and Violet", tid: "0100a3d008c5c000", pct: 80, detail: "All online play except competitions, Multi Battles and Mystery Gift" },
+    { nom: "PokÃ©mon Legends: Z-A", tid: "0100f43008c44000", pct: 85, detail: "Link Trades and private battles; Ranked Battles not tested yet" },
     { nom: "Splatoon 3", tid: "0100c2500fc20000", pct: 78, detail: "Online battles, private rooms, Salmon Run and Splatfests" },
     { nom: "Super Mario Bros. Wonder", tid: "010015100b514000", pct: 75, detail: "Online play and friend rooms" },
     { nom: "Animal Crossing: New Horizons", tid: "01006f8002326000", pct: 73, detail: "Island visits with friends" },
@@ -281,7 +281,7 @@
         var total = jeux.reduce(function (s, j) { return s + (j.joueurs || 0); }, 0);
         if (window.nxCompter) { window.nxCompter($("pouls-total"), total); window.nxCompter($("etat-total"), total); }
         else { $("pouls-total").textContent = nf.format(total); $("etat-total").textContent = nf.format(total); }
-        // Les six jaquettes : les jeux les plus joués maintenant, complétés par les jeux phares.
+        // Les six jaquettes : les jeux les plus jouÃ©s maintenant, complÃ©tÃ©s par les jeux phares.
         var vus = {};
         var six = [];
         jeux.concat(REPLI.map(function (r) { return { nom: r.nom, titres: r.titres, joueurs: 0 }; }))
@@ -292,8 +292,8 @@
         $("etat-maj").textContent = tf("Updated at {0}", h.toLocaleTimeString((window.nxLangue || "en"), { hour: "2-digit", minute: "2-digit" }));
       })
       .catch(function () {
-        $("pouls-total").textContent = "…";
-        $("etat-total").textContent = "…";
+        $("pouls-total").textContent = "â€¦";
+        $("etat-total").textContent = "â€¦";
         $("etat-maj").textContent = "Live numbers are unavailable right now.";
         jaquettes(REPLI, false);
         barres([]);

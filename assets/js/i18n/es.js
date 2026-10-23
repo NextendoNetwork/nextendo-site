@@ -1001,3 +1001,12 @@ Object.assign(window.NXT["es"], {
   "Room creation on Switch and online connection from updated Citron verified; password rooms pending": "Creación de salas en Switch y conexión en línea desde Citron actualizado verificadas; salas con contraseña pendientes",
   "World Dance Floor, voting, shared rankings and rotating Home suggestions tested on Switch, Citron and Ryujinx": "World Dance Floor, votación, clasificación compartida y sugerencias de Home renovadas probados en Switch, Citron y Ryujinx"
 });
+
+/* Confirmed public Classics gameplay, 23 October 2026. */
+Object.assign(window.NXT["es"], {
+  "Two-player rooms and gameplay tested on Switch, Citron and Ryujinx; invitations, password rooms and the public Ryujinx Classics update pending": "Salas y partidas de dos jugadores probadas en Switch, Citron y Ryujinx; invitaciones, salas con contraseña y actualización pública de Classics en Ryujinx pendientes",
+  "Friend rooms and gameplay tested on Switch, Citron and Ryujinx; invitations, password rooms and the public Ryujinx Classics update pending": "Salas con amigos y partidas probadas en Switch, Citron y Ryujinx; invitaciones, salas con contraseña y actualización pública de Classics en Ryujinx pendientes",
+  "Four-player gameplay tested on Switch and Citron, including cross-play; GBA 3.4.0 supported by Prelude 4.0.9; invitations, password rooms and the Ryujinx update pending": "Partidas de cuatro jugadores probadas en Switch y Citron, incluido juego cruzado; GBA 3.4.0 compatible con Prelude 4.0.9; invitaciones, salas con contraseña y actualización de Ryujinx pendientes",
+  "Genesis 3.1.1 rooms and gameplay tested on Citron with Switch; automatic patch available; invitations, password rooms and the Ryujinx update pending": "Salas y partidas de Genesis 3.1.1 probadas en Citron con Switch; parche automático disponible; invitaciones, salas con contraseña y actualización de Ryujinx pendientes",
+  "Online rooms verified on Switch and updated Citron; invitations, password rooms and the public Ryujinx Classics update pending": "Salas en línea verificadas en Switch y Citron actualizado; invitaciones, salas con contraseña y actualización pública de Classics en Ryujinx pendientes"
+});
