@@ -97,6 +97,7 @@
   // --- Progress: same figures as the live site's Progression section (pct = what works today) -
 
   var PROGRES = [
+    { nom: "Just Dance 2022", tid: "0100ea6014bb8000", pct: 80, detail: "World Dance Floor, voting and shared scores on Switch, Citron and Ryujinx; larger groups and optional modes still being tested" },
     { nom: "PAC-MAN 99", tid: "0100ad9012510000", pct: 100, detail: "Full 99-player matches" },
     { nom: "Tetris 99", tid: "010040600c5ce000", pct: 100, detail: "Full 99-player matches" },
     { nom: "Just Shapes & Beats", tid: "0100830008426000", pct: 100, detail: "Public matchmaking and online multiplayer" },

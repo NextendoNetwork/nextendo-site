@@ -1,0 +1,17 @@
+# Add inside the existing website server block after the JD aggregate endpoint is deployed.
+# Install only the PUBLIC JD CA at the path below; no server private key belongs on the website.
+location = /game-stats/justdance22 {
+    limit_except GET { deny all; }
+    proxy_pass https://51.178.29.194/api/stats;
+    proxy_set_header Host jd.ubisoft.com;
+    proxy_set_header Connection "";
+    proxy_ssl_server_name on;
+    proxy_ssl_name jd.ubisoft.com;
+    proxy_ssl_verify on;
+    proxy_ssl_verify_depth 2;
+    proxy_ssl_trusted_certificate /usr/share/nginx/html/assets/certs/jd22-ca.pem;
+    proxy_connect_timeout 2s;
+    proxy_read_timeout 3s;
+    proxy_hide_header Cache-Control;
+    add_header Cache-Control "no-store" always;
+}

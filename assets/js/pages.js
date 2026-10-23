@@ -421,6 +421,7 @@
   PAGES.status = function () {
     // Same list as the live status page, read from the same endpoint every 15 seconds.
     var JEUX = [
+      { nom: "Just Dance 2022", ids: ["0100ea6014bb8000"], monitored: true },
       { nom: "Mario Kart 8 Deluxe", ids: ["0100152000022000"] },
       { nom: "Splatoon 2", ids: ["0100f8f0000a2000", "01003bc0000a0000", "01003c700009c800"] },
       { nom: "Splatoon 3", ids: ["0100c2500fc20000"] },
@@ -469,6 +470,7 @@
       window.nxOnlineCounts().then(function (d) {
         var counts = d.counts || {};
         var total = 0;
+        var unavailable = 0;
         var parJeu = {};
         JEUX.forEach(function (j) {
           var n = 0;
@@ -476,7 +478,9 @@
           total += n;
           parJeu[j.nom] = n;
           var li = lignes[j.nom];
-          li.querySelector(".serveur-etat").textContent = "Operational";
+          var online = !j.monitored || (d.availability && d.availability[j.ids[0]] === true);
+          if (!online) unavailable++;
+          li.querySelector(".serveur-etat").textContent = online ? "Operational" : "Offline";
           li.querySelector(".serveur-joueurs").innerHTML = "";
           li.querySelector(".serveur-joueurs").append(document.createTextNode(nf.format(n)), el("small", "", n === 1 ? "player" : "players"));
         });
@@ -485,7 +489,7 @@
           return (parJeu[b.nom] - parJeu[a.nom]) || a.nom.localeCompare(b.nom);
         }).forEach(function (j) { ul.appendChild(lignes[j.nom]); });
         $("etat-bandeau").className = "bandeau-etat";
-        $("etat-titre").textContent = "All systems operational";
+        $("etat-titre").textContent = unavailable ? "Some game servers are offline" : "All systems operational";
         $("etat-texte").textContent = tf("{0} players online across {1} game servers.", nf.format(total), JEUX.length);
         $("etat-maj").textContent = tf("Updated at {0}", new Date().toLocaleTimeString((window.nxLangue || "en"), { hour: "2-digit", minute: "2-digit", second: "2-digit" }));
       }).catch(function () {
