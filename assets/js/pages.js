@@ -421,6 +421,11 @@
   PAGES.status = function () {
     // Same list as the live status page, read from the same endpoint every 15 seconds.
     var JEUX = [
+      { nom: "SEGA Genesis - Nintendo Classics", ids: ["0100b3c014bda000"], monitored: true },
+      { nom: "Game Boy Advance - Nintendo Classics", ids: ["010012f017576000"], monitored: true },
+      { nom: "Game Boy - Nintendo Classics", ids: ["0100c62011050000"], monitored: true },
+      { nom: "SNES - Nintendo Classics", ids: ["01008d300c50c000"], monitored: true },
+      { nom: "NES - Nintendo Classics", ids: ["0100d870045b6000"], monitored: true },
       { nom: "Just Dance 2022", ids: ["0100ea6014bb8000"], monitored: true },
       { nom: "Mario Kart 8 Deluxe", ids: ["0100152000022000"] },
       { nom: "Splatoon 2", ids: ["0100f8f0000a2000", "01003bc0000a0000", "01003c700009c800"] },

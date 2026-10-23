@@ -97,6 +97,11 @@
   // --- Progress: same figures as the live site's Progression section (pct = what works today) -
 
   var PROGRES = [
+    { nom: "SEGA Genesis - Nintendo Classics", tid: "0100b3c014bda000", pct: 80, detail: "Games tested with Switch and Ryujinx hosting; Citron suspend and invitation acceptance still pending" },
+    { nom: "Game Boy Advance - Nintendo Classics", tid: "010012f017576000", pct: 80, detail: "Four-player rooms and gameplay tested on Switch and Citron; latency and intermittent reconnects still under investigation" },
+    { nom: "Game Boy - Nintendo Classics", tid: "0100c62011050000", pct: 90, detail: "Friend rooms and games tested with Switch and Ryujinx hosting; automatic Citron patch publication pending" },
+    { nom: "SNES - Nintendo Classics", tid: "01008d300c50c000", pct: 90, detail: "Friend rooms and games tested with Switch and Ryujinx hosting; automatic Citron patch publication pending" },
+    { nom: "NES - Nintendo Classics", tid: "0100d870045b6000", pct: 90, detail: "Friend rooms and two-player games tested on Switch and Ryujinx; automatic Citron patch publication pending" },
     { nom: "Just Dance 2022", tid: "0100ea6014bb8000", pct: 80, detail: "World Dance Floor, voting and shared scores on Switch, Citron and Ryujinx; larger groups and optional modes still being tested" },
     { nom: "PAC-MAN 99", tid: "0100ad9012510000", pct: 100, detail: "Full 99-player matches" },
     { nom: "Tetris 99", tid: "010040600c5ce000", pct: 100, detail: "Full 99-player matches" },
