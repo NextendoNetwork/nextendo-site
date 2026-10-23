@@ -97,12 +97,12 @@
   // --- Progress: same figures as the live site's Progression section (pct = what works today) -
 
   var PROGRES = [
-    { nom: "SEGA Genesis - Nintendo Classics", tid: "0100b3c014bda000", pct: 80, detail: "Games tested with Switch and Ryujinx hosting; Citron suspend and invitation acceptance still pending" },
-    { nom: "Game Boy Advance - Nintendo Classics", tid: "010012f017576000", pct: 80, detail: "Four-player rooms and gameplay tested on Switch and Citron; latency and intermittent reconnects still under investigation" },
-    { nom: "Game Boy - Nintendo Classics", tid: "0100c62011050000", pct: 90, detail: "Friend rooms and games tested with Switch and Ryujinx hosting; fresh-cache Citron release checks pending" },
-    { nom: "SNES - Nintendo Classics", tid: "01008d300c50c000", pct: 90, detail: "Friend rooms and games tested with Switch and Ryujinx hosting; fresh-cache Citron release checks pending" },
-    { nom: "NES - Nintendo Classics", tid: "0100d870045b6000", pct: 90, detail: "Friend rooms and two-player games tested on Switch and Ryujinx; fresh-cache Citron release checks pending" },
-    { nom: "Just Dance 2022", tid: "0100ea6014bb8000", pct: 80, detail: "World Dance Floor, voting and shared scores on Switch, Citron and Ryujinx; larger groups and optional modes still being tested" },
+    { nom: "SEGA Genesis - Nintendo Classics", tid: "0100b3c014bda000", pct: 90, detail: "Online play tested on Switch and Ryujinx; Genesis 3.1.1 loading fixed in a Citron test build, public update pending" },
+    { nom: "Game Boy Advance - Nintendo Classics", tid: "010012f017576000", pct: 90, detail: "Four-player gameplay tested on Switch and Citron; GBA 3.4.0 online entry verified, Prelude 4.0.9 release pending" },
+    { nom: "Game Boy - Nintendo Classics", tid: "0100c62011050000", pct: 95, detail: "Friend rooms and gameplay tested on Switch, Ryujinx and Citron; password rooms pending" },
+    { nom: "SNES - Nintendo Classics", tid: "01008d300c50c000", pct: 95, detail: "Friend rooms and gameplay tested on Switch, Ryujinx and Citron; password rooms pending" },
+    { nom: "NES - Nintendo Classics", tid: "0100d870045b6000", pct: 95, detail: "Two-player friend rooms and gameplay tested on Switch, Ryujinx and Citron; password rooms pending" },
+    { nom: "Just Dance 2022", tid: "0100ea6014bb8000", pct: 80, detail: "World Dance Floor, voting, shared rankings and rotating Home suggestions tested on Switch, Citron and Ryujinx" },
     { nom: "PAC-MAN 99", tid: "0100ad9012510000", pct: 100, detail: "Full 99-player matches" },
     { nom: "Tetris 99", tid: "010040600c5ce000", pct: 100, detail: "Full 99-player matches" },
     { nom: "Just Shapes & Beats", tid: "0100830008426000", pct: 100, detail: "Public matchmaking and online multiplayer" },
@@ -125,7 +125,7 @@
     { nom: "Mario Kart 8 Deluxe", tid: "0100152000022000", pct: 91, detail: "Worldwide races, rooms and friends" },
     { nom: "Diablo III: Eternal Collection", tid: "01001b300b9be000", pct: 90, detail: "Quickmatch, Emulator friend lobbies" },
     { nom: "Pokkén Tournament DX", tid: "0100b3f000be2000", pct: 90, detail: "Ranked and friendly battles, Group Matches, cards and rankings; Replay Theater not working yet" },
-    { nom: "Nintendo 64 - Nintendo Classics", tid: "0100c9a00ece6000", pct: 95, detail: "Online play with friends" },
+    { nom: "Nintendo 64 - Nintendo Classics", tid: "0100c9a00ece6000", pct: 95, detail: "Room creation on Switch and online connection from updated Citron verified; password rooms pending" },
     { nom: "Splatoon 2", tid: "0100f8f0000a2000", pct: 87, detail: "8-player Turf War, friends and Salmon Run" },
     { nom: "Super Smash Bros. Ultimate", tid: "01006a800016e000", pct: 84, detail: "Online arenas and friends" },
     { nom: "Pokémon Scarlet and Violet", tid: "0100a3d008c5c000", pct: 80, detail: "All online play except competitions, Multi Battles and Mystery Gift" },

@@ -991,3 +991,13 @@ window.NXT["es"] = {"Skip to content":"Saltar al contenido",
 "Friend rooms and games tested with Switch and Ryujinx hosting; fresh-cache Citron release checks pending":"Salas con amigos y partidas probadas con Switch y Ryujinx como anfitriones; pruebas de la versión de Citron con caché nueva pendientes",
 "Friend rooms and two-player games tested on Switch and Ryujinx; fresh-cache Citron release checks pending":"Salas con amigos y partidas de dos jugadores probadas en Switch y Ryujinx; pruebas de la versión de Citron con caché nueva pendientes"
 };
+
+/* Confirmed Classics and Just Dance tests, 23 October 2026. */
+Object.assign(window.NXT["es"], {
+  "Two-player friend rooms and gameplay tested on Switch, Ryujinx and Citron; password rooms pending": "Salas con amigos y partidas de dos jugadores probadas en Switch, Ryujinx y Citron; salas con contraseña pendientes",
+  "Friend rooms and gameplay tested on Switch, Ryujinx and Citron; password rooms pending": "Salas con amigos y partidas probadas en Switch, Ryujinx y Citron; salas con contraseña pendientes",
+  "Four-player gameplay tested on Switch and Citron; GBA 3.4.0 online entry verified, Prelude 4.0.9 release pending": "Partidas de cuatro jugadores probadas en Switch y Citron; entrada al online de GBA 3.4.0 verificada, publicación de Prelude 4.0.9 pendiente",
+  "Online play tested on Switch and Ryujinx; Genesis 3.1.1 loading fixed in a Citron test build, public update pending": "Juego en línea probado en Switch y Ryujinx; carga de Genesis 3.1.1 corregida en una compilación de prueba de Citron, actualización pública pendiente",
+  "Room creation on Switch and online connection from updated Citron verified; password rooms pending": "Creación de salas en Switch y conexión en línea desde Citron actualizado verificadas; salas con contraseña pendientes",
+  "World Dance Floor, voting, shared rankings and rotating Home suggestions tested on Switch, Citron and Ryujinx": "World Dance Floor, votación, clasificación compartida y sugerencias de Home renovadas probados en Switch, Citron y Ryujinx"
+});
