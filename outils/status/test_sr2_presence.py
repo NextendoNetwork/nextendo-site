@@ -17,7 +17,7 @@ class Dispatcher:
 
 class Tests(unittest.TestCase):
     def test_exact_title_freshness_and_status(self):
-        data = {'presence': {'1': player(), '2': player(89), '3': player(91),
+        data = {'presence': {'0': player(), '1': player(), '2': player(89), '3': player(91),
                              '4': player(title='0100fcf002a58000'), '5': player(status=1)}}
         self.assertEqual(aggregate(data, NOW), 2)
 

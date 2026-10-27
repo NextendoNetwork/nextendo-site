@@ -41,6 +41,9 @@ def aggregate(data, now):
         raise ValueError('Presence source invalid')
     count = 0
     for pid, entry in presence.items():
+        # The existing store may contain an anonymous sentinel; it is not a player.
+        if pid == '0':
+            continue
         if not isinstance(pid, str) or not re.fullmatch(r'[1-9][0-9]{0,19}', pid) or int(pid) >= 2**64:
             raise ValueError('Presence key invalid')
         if not isinstance(entry, dict):
