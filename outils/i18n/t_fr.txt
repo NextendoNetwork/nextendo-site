@@ -1053,3 +1053,5 @@
 1052	L'enregistrement remplace l'article sur les consoles qui l'ont déjà. Les modifications ne comptent pas dans la limite d'un article tous les {0} jours.
 1053	Brouillon : le garder ici, ne pas l'envoyer aux consoles
 1054	Brouillon
+1055	Course rapide, parties classées, salons publics et salons privés par code testés sur Switch. La sauvegarde des résultats classés, les invitations et le Tournoi restent indisponibles ; la prise en charge publique des émulateurs attend une publication et une validation. Choisissez Amérique du Sud et désactivez le jeu multiplateforme.
+1056	Testé sur Switch : Amérique du Sud, jeu multiplateforme désactivé.

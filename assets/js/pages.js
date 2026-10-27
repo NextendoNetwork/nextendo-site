@@ -95,10 +95,15 @@
 
   // --- Country picker (register), same behavior as on the account page --------------------
 
-  function selecteurPays(hote, actuel, auChoix) {
+  function selecteurPays(hote, actuel, auChoix, codesServeur) {
     var noms = new Intl.DisplayNames([window.nxLangue || "en"], { type: "region" });
-    var codes = ("AR AT AU BE BO BR CA CH CL CN CO CR CU CZ DE DK DO DZ EC EG ES FI FR GB GR GT HN HR HU IE IL IN IT JP KR MA MX " +
+    var codes = ("AR AT AU BE BO BR CA CH CL CN CO CR CU CZ DE DK DO DZ EC EG ES FI FR GB GR GT HN HR HU IE IN IT JP KR MA MX " +
       "NI NL NO NZ PA PE PH PL PR PT PY RO RS RU SA SE SG SK SV TN TR UA US UY VE VN ZA").split(" ");
+    // Liste du serveur (GET /api/country, la seule acceptee a l inscription) ; la liste ci-dessus
+    // ne sert que s il n a pas repondu. IL n y figure pas : il devient PS.
+    if (codesServeur && codesServeur.length) codes = codesServeur.slice();
+    codes = codes.filter(function (c) { return c !== "IL"; });
+    if (actuel === "IL") actuel = "PS";
     var liste = codes.map(function (c) { return { c: c, n: noms.of(c) }; }).sort(function (a, b) { return a.n.localeCompare(b.n, "en"); });
     var drapeau = function (c) { return "assets/img/drapeaux/" + c.toLowerCase() + ".png"; };
     var choisi = actuel;
@@ -123,6 +128,7 @@
         var li = el("li", "pays-option"); li.setAttribute("role", "option"); li.tabIndex = -1;
         li.setAttribute("aria-selected", x.c === choisi ? "true" : "false");
         var f = el("img"); f.src = drapeau(x.c); f.alt = ""; f.width = 22; f.height = 16; f.loading = "lazy";
+        f.onerror = function () { f.style.visibility = "hidden"; };
         li.append(f, document.createTextNode(x.n));
         var prendre = function () { choisi = x.c; montrer(); fermer(); bouton.focus(); if (auChoix) auChoix(x.c); };
         li.addEventListener("click", prendre);
@@ -421,6 +427,9 @@
   PAGES.status = function () {
     // Same list as the live status page, read from the same endpoint every 15 seconds.
     var JEUX = [
+      {"nom": "SpeedRunners 2: King of Speed", "ids": ["01004cc023582000"], "nostatus": true, "playableNote": "Switch tested: South America, crossplay disabled.", "guidance": "Quick Race, Ranked play, public rooms and private rooms by code tested on Switch. Ranked result saving, friend invitations and Tournament remain unavailable; public emulator support is pending release and validation. Use South America with crossplay disabled."},
+      { nom: "SEGA Genesis - Nintendo Classics", ids: ["0100b3c014bda000"], monitored: true },
+      { nom: "Just Dance 2022", ids: ["0100ea6014bb8000"], monitored: true },
       { nom: "Mario Kart 8 Deluxe", ids: ["0100152000022000"] },
       { nom: "Splatoon 2", ids: ["0100f8f0000a2000", "01003bc0000a0000", "01003c700009c800"] },
       { nom: "Splatoon 3", ids: ["0100c2500fc20000"] },
@@ -432,6 +441,8 @@
       { nom: "Mario Tennis Aces", ids: ["0100bde00862a000"] },
       { nom: "Super Mario Maker 2", ids: ["01009b90006dc000"] },
       { nom: "PAC-MAN 99", ids: ["0100ad9012510000"] },
+      { nom: "Among Us", ids: ["0100b0c013912000"], nolist: true },
+      { nom: "Mario & Sonic at the Olympic Games Tokyo 2020", ids: ["010086000e148000"] },
       { nom: "Tetris 99", ids: ["010040600c5ce000"] },
       { nom: "Super Mario Bros. 35", ids: ["0100277011f1a000"] },
       { nom: "Super Mario Bros. Wonder", ids: ["010015100b514000"] },
@@ -440,10 +451,19 @@
       { nom: "Crash Team Racing Nitro-Fueled", ids: ["0100f9f00c696000"] },
       { nom: "Diablo III: Eternal Collection", ids: ["01001b300b9be000"] },
       { nom: "Mario Party Superstars", ids: ["01006fe013472000"] },
+      { nom: "Super Mario Party Jamboree", ids: ["0100965017338000"], icon: "/assets/img/games/jamboree.png", monitored: true },
+      { nom: "Kirby's Dream Buffet", ids: ["0100a8e016236000"], icon: "/assets/img/games/kirby.png", monitored: true },
+      { nom: "Stardew Valley", ids: ["0100e65002bb8000"], icon: "/assets/img/games/stardew.png", monitored: true },
       { nom: "Overcooked! 2", ids: ["01006fd0080b2000"] },
       { nom: "Pokémon Scarlet and Violet", ids: ["0100a3d008c5c000", "01008f6008c5e000"] },
       { nom: "Nintendo 64 - Nintendo Classics", ids: ["0100c9a00ece6000"] },
+      { nom: "NES - Nintendo Classics", ids: ["0100d870045b6000"], monitored: true },
+      { nom: "SNES - Nintendo Classics", ids: ["01008d300c50c000"], monitored: true },
+      { nom: "Game Boy - Nintendo Classics", ids: ["0100c62011050000"], monitored: true },
+      { nom: "Game Boy Advance - Nintendo Classics", ids: ["010012f017576000"], monitored: true },
       { nom: "Pokémon Legends: Z-A", ids: ["0100f43008c44000"] },
+      { nom: "Pokémon Sword and Shield", ids: ["0100abf008968000", "01008db008c2c000"] },
+      { nom: "Super Monkey Ball Banana Mania", ids: ["010001701248c000"] },
       { nom: "Mario Golf: Super Rush", ids: ["0100c9c00e25c000"] },
       { nom: "Super Mario 3D World + Bowser's Fury", ids: ["010028600ebda000"], icon: "/assets/img/games/sm3dw.jpg" },
       { nom: "Super Mario Odyssey", ids: ["0100000000010000"] },
@@ -451,51 +471,284 @@
       { nom: "Mario Strikers: Battle League", ids: ["010019401051c000"] },
       { nom: "Minecraft Dungeons II", ids: ["0100a7c01b792000"] },
       { nom: "Pokkén Tournament DX", ids: ["0100b3f000be2000"] },
-      { nom: "Saints Row: The Third - The Full Package", ids: ["0100de600beee000"] }
+      { nom: "Saints Row: The Third - The Full Package", ids: ["0100de600beee000"] },
+      { nom: "UNO", ids: ["0100b6e012ebe000"] },
+      { nom: "Dying Light: Platinum Edition", ids: ["01008c8012920000"] },
+      { nom: "Ultimate Chicken Horse", ids: ["0100fcf002a58000"], nostatus: true },
+      { nom: "Crypt of the NecroDancer", ids: ["0100cea007d08000"], nostatus: true, countScope: "rooms" },
+      { nom: "Nintendo Switch Sports", ids: ["0100d2f00d5c0000"] },
+      { nom: "Monopoly for Nintendo Switch", ids: ["01007430037f6000"] },
+      { nom: "Dragon Ball FighterZ", ids: ["0100a250097f0000"] },
+      { nom: "Friday the 13th: The Game", ids: ["010092a00c4b6000"] },
+      { nom: "Monster Hunter Rise", ids: ["0100b04011742000"] },
+      { nom: "Miitopia", ids: ["01003da010e8a000"] },
+      { nom: "Game Builder Garage", ids: ["0100fa5010788000"] },
+      { nom: "Zombie Army 4: Dead War", ids: ["01000bf0152fa000"], icon: "/assets/img/games/zombiearmy4.jpg" },
     ];
     var ul = $("serveurs");
     var lignes = {};
+    var ouverts = {};
+    var reportedCounts = {};
+    var detailedTitles = ["0100d870045b6000", "01008d300c50c000", "0100c62011050000", "010012f017576000", "0100b3c014bda000", "0100ea6014bb8000", "0100fcf002a58000"];
+    var live = null; // title id -> game from /api/status/live (logged-in only)
     JEUX.forEach(function (j) {
       var li = el("li", "serveur");
+      li.tabIndex = 0;
+      li.setAttribute("role", "button");
+      li.setAttribute("aria-expanded", "false");
       var img = el("img"); img.src = j.icon || "/api/game-icon/" + j.ids[0] + ".jpg"; img.alt = ""; img.loading = "lazy";
       var mid = el("div");
-      mid.append(el("div", "serveur-nom", j.nom), el("div", "serveur-etat", "Checking…"));
+      var etat = el("div", "serveur-ligne");
+      var amis = el("span", "serveur-amis");
+      amis.hidden = true;
+      etat.append(el("div", "serveur-etat", "Checking…"), amis);
+      mid.append(el("div", "serveur-nom", j.nom), etat);
+      if (j.playableNote) mid.append(el("small", "", j.playableNote));
       var n = el("div", "serveur-joueurs", "…");
-      li.append(img, mid, n);
+      var detail = el("div", "serveur-detail");
+      detail.hidden = true;
+      li.append(img, mid, n, detail);
+      var basculer = function () {
+        ouverts[j.nom] = !ouverts[j.nom];
+        li.classList.toggle("est-ouvert", ouverts[j.nom]);
+        li.setAttribute("aria-expanded", ouverts[j.nom] ? "true" : "false");
+        detail.hidden = !ouverts[j.nom];
+        if (ouverts[j.nom]) dessinerDetail(j);
+      };
+      li.addEventListener("click", function (e) { if (!detail.contains(e.target)) basculer(); });
+      li.addEventListener("keydown", function (e) {
+        if ((e.key === "Enter" || e.key === " ") && e.target === li) { e.preventDefault(); basculer(); }
+      });
       ul.appendChild(li);
       lignes[j.nom] = li;
     });
-    var maj = function () {
-      window.nxOnlineCounts().then(function (d) {
+
+    var jeuLive = function (j) {
+      if (!live) return null;
+      for (var i = 0; i < j.ids.length; i++) if (live[j.ids[i]]) return live[j.ids[i]];
+      return null;
+    };
+    var avatar = function (p) {
+      var box = el("span", "joueur-avatar");
+      box.style.background = p.color || "";
+      var lettre = el("span", "", (p.name || "?").charAt(0).toUpperCase());
+      box.append(lettre);
+      if (p.avatar) {
+        var img = el("img"); img.alt = ""; img.loading = "lazy"; img.src = p.avatar;
+        img.onerror = function () { img.remove(); };
+        box.append(img);
+      }
+      return box;
+    };
+    var puce = function (p, lobbies) {
+      var c = el("span", "joueur" + (p.friend ? " est-ami" : "") + (p.you ? " est-moi" : ""));
+      c.append(avatar(p), el("span", "joueur-nom", p.name));
+      if (p.you) c.append(el("span", "joueur-tag", "You"));
+      else if (p.friend) c.append(el("span", "joueur-tag est-ami", "Friend"));
+      if (lobbies && p.lobby >= 0) c.append(el("span", "joueur-tag", tf("Lobby {0}", p.lobby + 1)));
+      // Activite generique publiee par le serveur du jeu (ACNH : ile, visite, Luna), libelle anglais.
+      if (p.activity) c.append(el("span", "joueur-tag", p.activity));
+      return c;
+    };
+    var ETATS = { searching: "Searching", matched: "In a match", full: "Full", open: "Open" };
+    // Type de partie d'un salon : /api/status/live le calcule pour MK8, Smash, ACNH et S2 (code `kind`,
+    // libelle anglais dans `mode`, jamais le mode ni les attributs bruts du jeu). Couleur et
+    // icone comme dans nexdash ; le libelle passe par i18n.js comme le reste de la page.
+    var ICO_SALON = {
+      globe: '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+      map: '<path d="M1 6v16l7-4 8 4 7-4V2l-7 4-8-4zM8 2v16M16 6v16"/>',
+      swords: '<path d="M14 4h6v6M20 4 4 20M10 20H4v-6"/>',
+      trophy: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM17 5h3v1a4 4 0 0 1-3 4M7 5H4v1a4 4 0 0 0 3 4"/>',
+      users: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>',
+      crown: '<path d="M3 7l5 4 4-6 4 6 5-4-2 10H5z"/>',
+      zap: '<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>',
+      flag: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1zM4 22v-7"/>'
+    };
+    var TYPES_SALON = {
+      "mk8-world-race": ["globe", "#7fb4ff", "rgba(59,140,255,.16)"],
+      "mk8-world-battle": ["swords", "#6ee7c8", "rgba(45,212,191,.18)"],
+      "mk8-regional-race": ["map", "#c19bff", "rgba(176,107,255,.18)"],
+      "mk8-regional-battle": ["swords", "#ff8ad4", "rgba(255,105,196,.18)"],
+      "tournament": ["trophy", "#ffd166", "rgba(255,209,102,.18)"],
+      "friend-room": ["users", "#5fe08c", "rgba(46,224,106,.18)"],
+      "smash-quick": ["swords", "#7fb4ff", "rgba(59,140,255,.16)"],
+      "smash-elite": ["crown", "#ff6b9a", "rgba(255,79,138,.18)"],
+      "smash-quick-elite": ["swords", "#9cc1ff", "rgba(106,166,255,.16)"],
+      "smash-quick-duo": ["users", "#2ad4e6", "rgba(42,212,230,.16)"],
+      "smash-amiibo": ["zap", "#c19bff", "rgba(176,107,255,.18)"],
+      "smash-arena-public": ["globe", "#ff9e5c", "rgba(255,145,59,.18)"],
+      "smash-arena-friends": ["users", "#5fe08c", "rgba(46,224,106,.18)"],
+      "world-dance-floor": ["globe", "#c19bff", "rgba(176,107,255,.18)"],
+      "online": ["flag", "#9cc1ff", "rgba(106,166,255,.16)"],
+      "acnh-island-dodo": ["crown", "#ffd166", "rgba(255,209,102,.18)"],
+      "acnh-island-friends": ["users", "#5fe08c", "rgba(46,224,106,.18)"],
+      "s2-turf": ["flag", "#5fe08c", "rgba(46,224,106,.18)"],
+      "s2-ranked": ["trophy", "#ffbf5a", "rgba(255,159,59,.18)"],
+      "s2-salmon": ["zap", "#ff9e5c", "rgba(255,122,61,.20)"],
+      "s2-private": ["users", "#c9d2f0", "rgba(139,151,196,.20)"]
+    };
+    var typeSalon = function (l) {
+      var d = TYPES_SALON[String(l.kind || "").replace(/-1v1$/, "")];
+      if (!d || !l.mode) return el("span", "salon-mode", l.mode || "");
+      var s = el("span", "salon-type");
+      s.style.color = d[1];
+      s.style.background = d[2];
+      s.innerHTML = '<svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' + ICO_SALON[d[0]] + "</svg>";
+      s.append(el("span", "", l.mode));
+      return s;
+    };
+    var dessinerDetail = function (j) {
+      var detail = lignes[j.nom].querySelector(".serveur-detail");
+      detail.innerHTML = "";
+      if (j.guidance) { detail.append(el("p", "detail-vide", j.guidance)); detail.append(el("p", "detail-vide", "Player count unavailable")); return; }
+      if (j.countScope === "rooms") {
+        detail.append(el("p", "detail-vide", "This counter shows players in active game rooms."));
+        return;
+      }
+      if (!window.NX || !NX.token) {
+        var p = el("p", "detail-vide");
+        var a = el("a", "", "Sign in"); a.href = "login.html?next=status.html";
+        p.append(el("span", "", "Sign in to see who's playing and the lobbies being run."), document.createTextNode(" "), a);
+        detail.append(p);
+        return;
+      }
+      if (!live) { detail.append(el("p", "detail-vide", "Loading…")); return; }
+      var g = jeuLive(j);
+      if ((j.ids[0] === "0100a8e016236000" || j.ids[0] === "0100b6e012ebe000") && !g) { detail.append(el("p", "detail-vide", "Live player and lobby details are temporarily unavailable.")); return; }
+      if (j.nolist && (!g || !g.players.length)) { detail.append(el("p", "detail-vide", "The player count is live, but this game does not publish who is playing or its lobbies.")); return; }
+      if (!g || !g.players.length) {
+        var count = reportedCounts[j.nom];
+        var message = count > 0 || (detailedTitles.indexOf(j.ids[0]) >= 0 && !g) || count == null
+          ? "Live player and lobby details are temporarily unavailable." : "Nobody is online right now.";
+        detail.append(el("p", "detail-vide", message)); return;
+      }
+      if (g.roomsAvailable === false) detail.append(el("p", "detail-vide", "Player presence is live. Room details are temporarily unavailable."));
+      else if (!g.lobbies.length) detail.append(el("p", "detail-vide", "These players are online but are not in a room yet."));
+      if (g.lobbies.length) {
+        detail.append(el("h3", "detail-titre", tf("Lobbies ({0})", g.lobbies.length)));
+        var grille = el("div", "salons");
+        g.lobbies.forEach(function (l, i) {
+          var s = el("div", "salon");
+          var tete = el("div", "salon-tete");
+          tete.append(el("strong", "", tf("Lobby {0}", i + 1)), typeSalon(l),
+            el("span", "salon-etat est-" + l.state, ETATS[l.state] || l.state),
+            el("span", "salon-places", l.max ? tf("{0}/{1}", l.count, l.max) : nf.format(l.count)));
+          var membres = el("div", "joueurs");
+          l.players.forEach(function (p) { membres.append(puce(p, false)); });
+          s.append(tete, membres);
+          grille.append(s);
+        });
+        detail.append(grille);
+      }
+      detail.append(el("h3", "detail-titre", tf("Players ({0})", g.players.length)));
+      var tous = el("div", "joueurs");
+      g.players.forEach(function (p) { tous.append(puce(p, true)); });
+      detail.append(tous);
+    };
+    var unoSnapshot = null, unoSnapshotAt = 0, liveSession = null, liveRequest = 0;
+    var majLive = function () {
+      var session = window.NX && NX.token;
+      var request = ++liveRequest;
+      if (session !== liveSession) {
+        unoSnapshot = null; unoSnapshotAt = 0; liveSession = session; live = null;
+        JEUX.forEach(function (j) { if (ouverts[j.nom]) dessinerDetail(j); });
+      }
+      if (!session) {
+        live = {};
+        JEUX.forEach(function (j) { if (ouverts[j.nom]) dessinerDetail(j); });
+        return;
+      }
+      Promise.all(["/api/status/live", "/game-stats/kirby-live", "/game-stats/uno-live", "/service-catalog/v1/status/live"].map(function (path) {
+        return fetch(path, { headers: { Authorization: "Bearer " + session }, cache: "no-store" })
+          .then(function (r) {
+            if (path === "/game-stats/uno-live" && (r.status === 401 || r.status === 403)) {
+              if (liveSession === session) { unoSnapshot = null; unoSnapshotAt = 0; }
+            }
+            if (!r.ok) throw 0; return r.json();
+          }).catch(function () { return null; });
+      }))
+        .then(function (results) {
+          if (!window.NX || NX.token !== session || liveSession !== session || request !== liveRequest) return;
+          if (results[2]) { unoSnapshot = results[2]; unoSnapshotAt = Date.now(); }
+          else if (Date.now() - unoSnapshotAt > 30000) { unoSnapshot = null; }
+          var d = results[0] || {games: []};
+          if (results[1]) d.games = (d.games || []).filter(function (g) { return (g.titles || []).indexOf("0100a8e016236000") < 0; }).concat([results[1]]);
+          if (unoSnapshot) d.games = (d.games || []).filter(function (g) { return (g.titles || []).indexOf("0100b6e012ebe000") < 0; }).concat([unoSnapshot]);
+          // An unavailable detail source must not become a fictional empty room/player list.
+          var extra = results[3] && Array.isArray(results[3].games) ? results[3].games : [];
+          d.games = (d.games || []).filter(function (g) {
+            return !(g.titles || []).some(function (id) { return detailedTitles.indexOf(id) >= 0; });
+          }).concat(extra.filter(function (g) {
+            return Array.isArray(g.titles) && g.titles.length === 1 && detailedTitles.indexOf(g.titles[0]) >= 0 && Array.isArray(g.players) && Array.isArray(g.lobbies);
+          }));
+          live = {};
+          (d.games || []).forEach(function (g) { (g.titles || []).forEach(function (t) { live[t] = g; }); });
+          if (lastCounts) renderCounts(lastCounts);
+          JEUX.forEach(function (j) {
+            var g = jeuLive(j);
+            var badge = lignes[j.nom].querySelector(".serveur-amis");
+            var n = g ? g.friends : 0;
+            badge.textContent = n ? (n === 1 ? "1 friend" : tf("{0} friends", n)) : "";
+            badge.hidden = !n;
+            if (ouverts[j.nom]) dessinerDetail(j);
+          });
+        })
+        .catch(function () {});
+    };
+    var lastCounts = null;
+    var renderCounts = function (d) {
+        lastCounts = d;
         var counts = d.counts || {};
         var total = 0;
+        var unavailable = 0;
         var parJeu = {};
         JEUX.forEach(function (j) {
           var n = 0;
           j.ids.forEach(function (id) { if (counts[id] != null) n = Math.max(n, counts[id]); });
+          var details = jeuLive(j);
+          // For Classics and JD the header and list use the same authenticated snapshot.
+          if (details && detailedTitles.indexOf(j.ids[0]) >= 0) n = details.players.length;
+          reportedCounts[j.nom] = j.ids.some(function (id) { return counts[id] != null; }) || details ? n : null;
           total += n;
           parJeu[j.nom] = n;
           var li = lignes[j.nom];
-          li.querySelector(".serveur-etat").textContent = "Operational";
+          // A game is Operational only when its server answered the live check; nostatus marks a
+          // server the check cannot reach, which is shown as such rather than assumed up.
+          var hasCount = !!details || j.ids.some(function (id) { return Object.prototype.hasOwnProperty.call(counts, id); });
+          var online = hasCount || j.ids.some(function (id) { return d.availability && d.availability[id] === true; });
+          if (!online && !j.nostatus) { unavailable++; }
+          var gameState = li.querySelector(".serveur-etat");
+          gameState.textContent = online ? "Operational" : (j.nostatus ? "Status unavailable" : "Offline");
+          gameState.style.color = online ? "" : (j.nostatus ? "#9aa0b4" : "#ff6b81");
           li.querySelector(".serveur-joueurs").innerHTML = "";
-          li.querySelector(".serveur-joueurs").append(document.createTextNode(nf.format(n)), el("small", "", n === 1 ? "player" : "players"));
+          if (online && hasCount) {
+            li.querySelector(".serveur-joueurs").append(document.createTextNode(nf.format(n)), el("small", "", j.countScope === "rooms" ? (n === 1 ? "player in rooms" : "players in rooms") : (n === 1 ? "player" : "players")));
+          } else if (online && j.countScope === "rooms") {
+            li.querySelector(".serveur-joueurs").append(document.createTextNode("—"), el("small", "", "Player count unavailable"));
+          } else {
+            li.querySelector(".serveur-joueurs").textContent = "—";
+          }
         });
         // Most players first, then by name.
         JEUX.slice().sort(function (a, b) {
           return (parJeu[b.nom] - parJeu[a.nom]) || a.nom.localeCompare(b.nom);
         }).forEach(function (j) { ul.appendChild(lignes[j.nom]); });
         $("etat-bandeau").className = "bandeau-etat";
-        $("etat-titre").textContent = "All systems operational";
-        $("etat-texte").textContent = tf("{0} players online across {1} game servers.", nf.format(total), JEUX.length);
+        $("etat-titre").textContent = unavailable ? (unavailable === 1 ? "1 game server is offline" : unavailable + " game servers are offline") : "All services active";
+        $("etat-texte").textContent = tf("{0} of {1} game servers active · {2} players online.", JEUX.length - unavailable, JEUX.length, nf.format(total));
         $("etat-maj").textContent = tf("Updated at {0}", new Date().toLocaleTimeString((window.nxLangue || "en"), { hour: "2-digit", minute: "2-digit", second: "2-digit" }));
-      }).catch(function () {
+        JEUX.forEach(function (j) { if (ouverts[j.nom]) dessinerDetail(j); });
+    };
+    var maj = function () {
+      window.nxOnlineCounts().then(renderCounts).catch(function () {
         $("etat-bandeau").className = "bandeau-etat est-panne";
         $("etat-titre").textContent = "We can't reach the network right now";
         $("etat-texte").textContent = "The status check failed. It will retry in 15 seconds.";
       });
     };
     maj();
-    setInterval(maj, 15000);
+    majLive();
+    setInterval(function () { maj(); majLive(); }, 15000);
   };
 
   PAGES.telecharger = function () {

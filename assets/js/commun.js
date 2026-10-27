@@ -46,6 +46,7 @@
     { href: "index.html#progres", texte: "Progress", cle: "progres" },
     { href: "index.html#fonctionnement", texte: "How it works", cle: "fonctionnement" },
     { href: "index.html#equipe", texte: "Team", cle: "equipe" },
+    { href: "smm2-levels.html", texte: "SMM2 levels", cle: "smm2" },
     { href: "status.html", texte: "Status", cle: "etat" },
     { href: "developers.html", texte: "Developers", cle: "dev" },
     // Donations: our own page, which hands over to Stripe.
@@ -125,7 +126,24 @@
           img.alt = ""; img.width = 34; img.height = 34;
           var span = document.createElement("span");
           span.textContent = nom;
-          lien.append(img, span);
+          // The Discord avatar decoration (staff and donors: the server gives it to them alone),
+          // as Discord draws it: 20 % larger than the photo, centred on it, past its edge.
+          var photo = img;
+          var deco = moi.avatar_decoration || "";
+          var decoSure = false;
+          try { var du = new URL(deco); decoSure = du.protocol === "https:" && du.hostname === "cdn.discordapp.com" && du.pathname.indexOf("/avatar-decoration-presets/") === 0; } catch (e) {}
+          if (decoSure) {
+            photo = document.createElement("span");
+            photo.className = "moi-mini-photo";
+            photo.style.cssText = "position:relative;display:inline-flex;flex:none;width:34px;height:34px;overflow:visible;max-width:none;";
+            var anneau = document.createElement("img");
+            anneau.alt = ""; anneau.decoding = "async";
+            anneau.style.cssText = "position:absolute;left:-3.4px;top:-3.4px;width:40.8px;height:40.8px;max-width:none;border-radius:0;background:none;pointer-events:none;";
+            anneau.onerror = function () { anneau.remove(); };
+            anneau.src = deco;
+            photo.append(img, anneau);
+          }
+          lien.append(photo, span);
           var c = document.getElementById("barre-compte");
           c.textContent = "";
           c.appendChild(lien);
@@ -240,7 +258,7 @@
             "<p>Nextendo Network brings Switch online play back: accounts, friends, presence and matchmaking, on Ryujinx, Citron or a Switch with CFW.</p>" +
           "</div>" +
           '<nav class="pied-liens" aria-label="Site links">' +
-            colonne("Project", [["telecharger.html", "Download"], ["index.html#fonctionnement", "How it works"], ["index.html#plateformes", "Where to find Nextendo"], ["developers.html", "Developers"], ["donate.html", "Donate"]]) +
+            colonne("Project", [["telecharger.html", "Download"], ["index.html#fonctionnement", "How it works"], ["index.html#plateformes", "Where to find Nextendo"], ["developers.html", "Developers"], ["smm2-levels.html", "SMM2 level explorer"], ["donate.html", "Donate"]]) +
             colonne("Help", [["https://wiki.nextendo.network", "NexWiki"], ["status.html", "Network status"], ["index.html#faq", "Frequently asked questions"], ["https://discord.gg/XPfeCMwnzQ", "Community"]]) +
             colonne("Account", [["register.html", "Create account"], ["compte.html", "My account"], ["sessions.html", "My sessions"]]) +
           "</nav>" +
