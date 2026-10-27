@@ -983,4 +983,5 @@ window.NXT["es"] = {"Skip to content":"Saltar al contenido",
 "Online matches, friend rooms and Strikers Club":"Partidos en línea, salas con amigos y Club Strikers",
 "Ranked and friendly battles, Group Matches, cards and rankings; Replay Theater not working yet":"Combates clasificatorios y amistosos, partidas de grupo, cartas y clasificaciones; el teatro de repeticiones aún no funciona",
 "Sign-in, heroes, inventory and online parties":"Inicio de sesión, héroes, inventario y grupos en línea",
-"Online co-op and rooms on Ryujinx, Citron and console (game version 1.2.2); rooms with a password don't work yet":"Cooperativo en línea y salas en Ryujinx, Citron y consola (versión 1.2.2 del juego); las salas con contraseña aún no funcionan"};
+"Online co-op and rooms on Ryujinx, Citron and console (game version 1.2.2); rooms with a password don't work yet":"Cooperativo en línea y salas en Ryujinx, Citron y consola (versión 1.2.2 del juego); las salas con contraseña aún no funcionan",
+"Quick Race, Ranked and code rooms on Switch; Citron and Ryujinx join with their next update; friend invites and Tournament don't work yet":"Quick Race, Ranked y salas con código en Switch; Citron y Ryujinx se unirán con su próxima actualización; las invitaciones de amigos y el Torneo aún no funcionan"};

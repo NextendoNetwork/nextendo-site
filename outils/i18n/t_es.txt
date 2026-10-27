@@ -849,3 +849,4 @@
 1040	Combates clasificatorios y amistosos, partidas de grupo, cartas y clasificaciones; el teatro de repeticiones aún no funciona
 1041	Inicio de sesión, héroes, inventario y grupos en línea
 1042	Cooperativo en línea y salas en Ryujinx, Citron y consola (versión 1.2.2 del juego); las salas con contraseña aún no funcionan
+1055	Quick Race, Ranked y salas con código en Switch; Citron y Ryujinx se unirán con su próxima actualización; las invitaciones de amigos y el Torneo aún no funcionan

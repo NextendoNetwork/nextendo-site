@@ -1053,3 +1053,4 @@
 1052	L'enregistrement remplace l'article sur les consoles qui l'ont déjà. Les modifications ne comptent pas dans la limite d'un article tous les {0} jours.
 1053	Brouillon : le garder ici, ne pas l'envoyer aux consoles
 1054	Brouillon
+1055	Course rapide, classé et salons par code sur Switch ; Citron et Ryujinx suivront avec leur prochaine mise à jour ; les invitations d'amis et le Tournoi ne fonctionnent pas encore

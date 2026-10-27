@@ -1191,4 +1191,5 @@ window.NXT["fr"] = {"Skip to content":"Aller au contenu",
 "Saving replaces the article on the consoles that already have it.":"L'enregistrement remplace l'article sur les consoles qui l'ont déjà.",
 "Saving replaces the article on the consoles that already have it. Edits don't count toward the limit of one article every {0} days.":"L'enregistrement remplace l'article sur les consoles qui l'ont déjà. Les modifications ne comptent pas dans la limite d'un article tous les {0} jours.",
 "Draft: keep it here, don't send it to consoles":"Brouillon : le garder ici, ne pas l'envoyer aux consoles",
-"Draft":"Brouillon"};
+"Draft":"Brouillon",
+"Quick Race, Ranked and code rooms on Switch; Citron and Ryujinx join with their next update; friend invites and Tournament don't work yet":"Course rapide, classé et salons par code sur Switch ; Citron et Ryujinx suivront avec leur prochaine mise à jour ; les invitations d'amis et le Tournoi ne fonctionnent pas encore"};

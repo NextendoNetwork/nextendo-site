@@ -130,7 +130,8 @@
     { nom: "Super Mario Maker 2", tid: "01009b90006dc000", pct: 70, detail: "Course World, uploads, world records and comments" },
     { nom: "Minecraft Dungeons II", tid: "0100a7c01b792000", pct: 65, detail: "Sign-in, heroes, inventory and online parties" },
     { nom: "Minecraft: Nintendo Switch Edition", tid: "01006bd001e06000", pct: 51, detail: "Connecting to the online server" },
-    { nom: "Super Mario Party Jamboree", tid: "0100965017338000", pct: 70, detail: "Mario Party and minigames in ranked and solo online matchmaking" }
+    { nom: "Super Mario Party Jamboree", tid: "0100965017338000", pct: 70, detail: "Mario Party and minigames in ranked and solo online matchmaking" },
+    { nom: "SpeedRunners 2: King of Speed", tid: "01004cc023582000", pct: 70, detail: "Quick Race, Ranked and code rooms on Switch; Citron and Ryujinx join with their next update; friend invites and Tournament don't work yet" }
   ];
 
   // The supported games scrolling under the project sentence (Logo Loop, see effets.js).
