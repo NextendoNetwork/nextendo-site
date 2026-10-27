@@ -849,4 +849,5 @@
 1040	Combates clasificatorios y amistosos, partidas de grupo, cartas y clasificaciones; el teatro de repeticiones aún no funciona
 1041	Inicio de sesión, héroes, inventario y grupos en línea
 1042	Cooperativo en línea y salas en Ryujinx, Citron y consola (versión 1.2.2 del juego); las salas con contraseña aún no funcionan
-1055	Quick Race, Ranked y salas con código en Switch; Citron y Ryujinx se unirán con su próxima actualización; las invitaciones de amigos y el Torneo aún no funcionan
+1055	Carrera rápida, partidas clasificatorias, salas públicas y salas privadas por código probadas en Switch. Guardar resultados clasificatorios, las invitaciones de amigos y Torneo siguen sin funcionar; el soporte público de emuladores está pendiente de publicación y validación. Usa América del Sur y desactiva multiplataforma.
+1056	Probado en Switch: América del Sur, multiplataforma desactivado.

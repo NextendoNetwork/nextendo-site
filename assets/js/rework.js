@@ -22,6 +22,8 @@
 
   function iconeDe(jeu) {
     var tid = (jeu.titres && jeu.titres[0]) || "";
+    if (tid === "0100a8e016236000") return "/assets/img/games/kirby.png";
+    if (tid === "0100e65002bb8000") return "/assets/img/games/stardew.png";
     return tid === "010028600ebda000" ? "/assets/img/games/sm3dw.jpg" : "/api/game-icon/" + encodeURIComponent(tid) + ".jpg";
   }
 
@@ -97,6 +99,11 @@
   // --- Progress: same figures as the live site's Progression section (pct = what works today) -
 
   var PROGRES = [
+    {"nom": "SpeedRunners 2: King of Speed", "tid": "01004cc023582000", "pct": 70, "detail": "Quick Race, Ranked play, public rooms and private rooms by code tested on Switch. Ranked result saving, friend invitations and Tournament remain unavailable; public emulator support is pending release and validation. Use South America with crossplay disabled."},
+    { nom: "Just Dance 2022", tid: "0100ea6014bb8000", pct: 90, detail: "Online play tested on Switch, Citron and Ryujinx; final song rankings, profile XP and account countries verified on Citron with Switch; mods and phone gyro compatibility pending" },
+    { nom: "Kirby's Dream Buffet", tid: "0100a8e016236000", pct: 100, detail: "Online multiplayer, password matchmaking, Random Match and Free Rolling" },
+    { nom: "Stardew Valley", tid: "0100e65002bb8000", pct: 100, detail: "Fully online: co-op farm hosting, joining and multiplayer" },
+    { nom: "Zombie Army 4: Dead War", tid: "01000bf0152fa000", pct: 100, detail: "Online hosting and lobby joining available" },
     { nom: "PAC-MAN 99", tid: "0100ad9012510000", pct: 100, detail: "Full 99-player matches" },
     { nom: "Tetris 99", tid: "010040600c5ce000", pct: 100, detail: "Full 99-player matches" },
     { nom: "Just Shapes & Beats", tid: "0100830008426000", pct: 100, detail: "Public matchmaking and online multiplayer" },
@@ -106,32 +113,50 @@
     { nom: "Clubhouse Games: 51 Worldwide Classics", tid: "010047700d540000", pct: 100, detail: "Online matches, friend rooms and multiplayer" },
     { nom: "Monster Hunter Generations Ultimate", tid: "0100770008dd8000", pct: 100, detail: "Online hunts, lobbies and full multiplayer" },
     { nom: "METAL GEAR SOLID: Peace Walker", tid: "0100c6f01c4f8000", pct: 100, detail: "Co-op, Versus Ops fully done" },
+    { nom: "Monster Hunter Rise", tid: "0100b04011742000", pct: 100, detail: "Online lobbies and co-op quests" },
     { nom: "Mario Party Superstars", tid: "01006fe013472000", pct: 100, detail: "Room ID & Matchmaking finalized" },
     { nom: "Overcooked! 2", tid: "01006fd0080b2000", pct: 100, detail: "Friend Lobbies by Search & Matchmaking" },
     { nom: "Crash Team Racing Nitro-Fueled", tid: "0100f9f00c696000", pct: 100, detail: "Pit Stop, Wumpa Challenges & Economy finished" },
-    { nom: "Super Mario 3D World + Bowser's Fury", tid: "010028600ebda000", pct: 90, detail: "Online co-op and rooms on Ryujinx, Citron and console (game version 1.2.2); rooms with a password don't work yet" },
+    { nom: "Super Mario 3D World + Bowser's Fury", tid: "010028600ebda000", pct: 90, detail: "Online co-op and rooms on Ryujinx, Citron and console (game version 1.2.2), but rooms with a password don't work yet" },
     { nom: "Super Mario Odyssey", tid: "0100000000010000", pct: 100, detail: "Luigi's Balloon World: hide and find balloons online" },
+    { nom: "Miitopia", tid: "01003da010e8a000", pct: 100, detail: "Share your Miis with an access code and download other players' Miis" },
+    { nom: "Game Builder Garage", tid: "0100fa5010788000", pct: 100, detail: "Share your games online and download other players' games by Game ID or Programmer ID" },
     { nom: "Saints Row: The Third - The Full Package", tid: "0100de600beee000", pct: 100, detail: "Online co-op campaign, matchmaking and Whored Mode" },
+    { nom: "Dying Light: Platinum Edition", tid: "01008c8012920000", pct: 90, detail: "Online co-op: find games and join other players' worlds, but Techland Online Services are not available yet" },
     { nom: "qLaunch (Switch Menu)", tid: "0100000000001000", pct: 95, detail: "Friends, Presence, Network linking & NSO icons" },
     { nom: "Mario Tennis Aces", tid: "0100bde00862a000", pct: 95, detail: "Online matches, rooms and friends" },
     { nom: "Mario Strikers: Battle League", tid: "010019401051c000", pct: 95, detail: "Online matches, friend rooms and Strikers Club" },
     { nom: "Mario Golf: Super Rush", tid: "0100c9c00e25c000", pct: 80, detail: "Online play" },
-    { nom: "Mario Kart 8 Deluxe", tid: "0100152000022000", pct: 91, detail: "Worldwide races, rooms and friends" },
+    { nom: "Mario Kart 8 Deluxe", tid: "0100152000022000", pct: 100, detail: "Fully online: races, rooms, friends, tournaments and time trial ghosts" },
     { nom: "Diablo III: Eternal Collection", tid: "01001b300b9be000", pct: 90, detail: "Quickmatch, Emulator friend lobbies" },
-    { nom: "Pokkén Tournament DX", tid: "0100b3f000be2000", pct: 90, detail: "Ranked and friendly battles, Group Matches, cards and rankings; Replay Theater not working yet" },
-    { nom: "Nintendo 64 - Nintendo Classics", tid: "0100c9a00ece6000", pct: 95, detail: "Online play with friends" },
+    { nom: "Pokkén Tournament DX", tid: "0100b3f000be2000", pct: 90, detail: "Ranked and friendly battles, Group Matches, cards and rankings, but Replay Theater doesn't work yet" },
+    { nom: "Dragon Ball FighterZ", tid: "0100a250097f0000", pct: 85, detail: "Match search and Ring Matches, but Replay Theater and Arena Matches don't work yet" },
+    { nom: "Friday the 13th: The Game", tid: "010092a00c4b6000", pct: 90, detail: "Quick Play, Private Matches, friends and stats, but purchases and XP/CP saving are not confirmed yet" },
+    { nom: "Nintendo 64 - Nintendo Classics", tid: "0100c9a00ece6000", pct: 95, detail: "Online rooms verified on Switch and updated Citron; invitations, password rooms and the public Ryujinx Classics update pending" },
     { nom: "Splatoon 2", tid: "0100f8f0000a2000", pct: 87, detail: "8-player Turf War, friends and Salmon Run" },
-    { nom: "Super Smash Bros. Ultimate", tid: "01006a800016e000", pct: 84, detail: "Online arenas and friends" },
-    { nom: "Pokémon Scarlet and Violet", tid: "0100a3d008c5c000", pct: 80, detail: "All online play except competitions, Multi Battles and Mystery Gift" },
-    { nom: "Pokémon Legends: Z-A", tid: "0100f43008c44000", pct: 85, detail: "Link Trades and private battles; Ranked Battles not tested yet" },
+    { nom: "Super Smash Bros. Ultimate", tid: "01006a800016e000", pct: 68, detail: "Arenas, Quick Play, Spectate and Shared Content" },
+    { nom: "Pokémon Scarlet and Violet", tid: "0100a3d008c5c000", pct: 85, detail: "All online play except competitions & Multi-Battles" },
+    { nom: "Pokémon Legends: Z-A", tid: "0100f43008c44000", pct: 85, detail: "Link Trades and private battles, but Ranked Battles are not tested yet" },
+    { nom: "Pokémon Sword and Shield", tid: "0100abf008968000", pct: 100, detail: "Fully online: Link Trades, Max Raid Battles, Y-Comm, Battle Stadium, Mystery Gifts and Wild Area News" },
+    { nom: "Super Monkey Ball Banana Mania", tid: "010001701248c000", pct: 100, detail: "Fully online: leaderboards, friend rankings and ghosts" },
     { nom: "Splatoon 3", tid: "0100c2500fc20000", pct: 78, detail: "Online battles, private rooms, Salmon Run and Splatfests" },
     { nom: "Super Mario Bros. Wonder", tid: "010015100b514000", pct: 75, detail: "Online play and friend rooms" },
-    { nom: "Animal Crossing: New Horizons", tid: "01006f8002326000", pct: 73, detail: "Island visits with friends" },
+    { nom: "Animal Crossing: New Horizons", tid: "01006f8002326000", pct: 100, detail: "Fully online: island visits, best friends, messages, letters and gifts, dreams, designs, Happy Home Network and NookNext" },
+    { nom: "Mario & Sonic at the Olympic Games Tokyo 2020", tid: "010086000e148000", pct: 100, detail: "Online matchmaking, ranked matches, rooms (friends-only too) and rankings; game version 1.0.1" },
+    { nom: "Among Us", tid: "0100b0c013912000", pct: 80, detail: "Online games: create a game and join with a code (game versions 2026.19.0 and 2026.18.0, 17.x not supported)" },
     { nom: "Super Mario Maker 2", tid: "01009b90006dc000", pct: 70, detail: "Course World, uploads, world records and comments" },
+    { nom: "UNO", tid: "0100b6e012ebe000", pct: 70, detail: "Public rooms and matches tested on Switch, Citron and Ryujinx; large-profile login and connection capacity fixes deployed; prolonged real-client verification and console private invitations pending" },
+    { nom: "NES - Nintendo Classics", tid: "0100d870045b6000", pct: 95, detail: "Two-player rooms and gameplay tested on Switch, Citron and Ryujinx; invitations, password rooms and the public Ryujinx Classics update pending" },
+    { nom: "SNES - Nintendo Classics", tid: "01008d300c50c000", pct: 95, detail: "Friend rooms and gameplay tested on Switch, Citron and Ryujinx; invitations, password rooms and the public Ryujinx Classics update pending" },
+    { nom: "Game Boy - Nintendo Classics", tid: "0100c62011050000", pct: 95, detail: "Friend rooms and gameplay tested on Switch, Citron and Ryujinx; invitations, password rooms and the public Ryujinx Classics update pending" },
+    { nom: "Game Boy Advance - Nintendo Classics", tid: "010012f017576000", pct: 95, detail: "GBA 3.4.0: Switch and Citron gameplay verified for over 20 minutes with Prelude 4.0.11; four-player cross-play tested; invitations, password rooms and the Ryujinx update pending" },
+    { nom: "SEGA Genesis - Nintendo Classics", tid: "0100b3c014bda000", pct: 95, detail: "Genesis 3.1.1 rooms and gameplay tested on Citron with Switch; automatic patch available; invitations, password rooms and the Ryujinx update pending" },
     { nom: "Minecraft Dungeons II", tid: "0100a7c01b792000", pct: 65, detail: "Sign-in, heroes, inventory and online parties" },
+    { nom: "Ultimate Chicken Horse", tid: "0100fcf002a58000", pct: 90, detail: "Online play, friend rooms and custom levels" },
+    { nom: "Crypt of the NecroDancer", tid: "0100cea007d08000", pct: null, detail: "Server available; Switch room creation and stability verified. Joining with a second player and full online matches still need verification." },
     { nom: "Minecraft: Nintendo Switch Edition", tid: "01006bd001e06000", pct: 51, detail: "Connecting to the online server" },
-    { nom: "Super Mario Party Jamboree", tid: "0100965017338000", pct: 70, detail: "Mario Party and minigames in ranked and solo online matchmaking" },
-    { nom: "SpeedRunners 2: King of Speed", tid: "01004cc023582000", pct: 70, detail: "Quick Race, Ranked and code rooms on Switch; Citron and Ryujinx join with their next update; friend invites and Tournament don't work yet" }
+    { nom: "Portal 2", tid: "0100abd01785c000", pct: 100, detail: "Online co-op with friends and Challenge Mode leaderboards" },
+    { nom: "Super Mario Party Jamboree", tid: "0100965017338000", pct: 100, detail: "All online modes, matchmaking and friend rooms" }
   ];
 
   // The supported games scrolling under the project sentence (Logo Loop, see effets.js).
@@ -140,7 +165,7 @@
     if (!ul) return;
     PROGRES.forEach(function (g) {
       var li = document.createElement("li");
-      li.innerHTML = '<a href="#progres"><img src="' + iconeDe({titres:[g.tid]}) + '" alt="" width="64" height="64" loading="lazy"></a>';
+      li.innerHTML = '<a href="#progres"><img src="' + (g.tid === '01000bf0152fa000' ? '/assets/img/games/zombiearmy4.jpg' : iconeDe({titres:[g.tid]})) + '" alt="" width="64" height="64" loading="lazy"></a>';
       li.querySelector("a").setAttribute("aria-label", g.nom);
       li.querySelector("img").title = g.nom;
       ul.appendChild(li);
@@ -150,35 +175,38 @@
   function progres() {
     var ul = $("progres-liste");
     if (!ul) return;
-    var total = 0;
+    var total = 0, confirmedCount = 0;
+    var hasPercentage = function (g) { return typeof g.pct === "number" && Number.isFinite(g.pct) && g.pct >= 0 && g.pct <= 100; };
     // Du plus complet au moins complet (tri stable : a egalite, l'ordre de la liste est garde).
-    PROGRES.slice().sort(function (x, y) { return y.pct - x.pct; }).forEach(function (g, i) {
-      total += g.pct;
+    PROGRES.slice().sort(function (x, y) { return (hasPercentage(y) ? y.pct : -1) - (hasPercentage(x) ? x.pct : -1); }).forEach(function (g, i) {
+      var confirmed = hasPercentage(g);
+      if (confirmed) { total += g.pct; confirmedCount++; }
       var li = document.createElement("li");
-      li.className = "progres-jeu" + (g.pct >= 100 ? " est-fini" : "");
+      li.className = "progres-jeu" + (confirmed && g.pct >= 100 ? " est-fini" : "");
       li.style.setProperty("--i", i);
       li.innerHTML =
-        '<img src="' + iconeDe({titres:[g.tid]}) + '" alt="" loading="lazy">' +
+        '<img src="' + (g.tid === '01000bf0152fa000' ? '/assets/img/games/zombiearmy4.jpg' : iconeDe({titres:[g.tid]})) + '" alt="" loading="lazy">' +
         '<div class="progres-texte"><div class="progres-ligne"><strong></strong><span class="progres-pct"></span></div>' +
-        '<small></small><span class="piste"><i style="--pct:' + g.pct + '%"></i></span></div>';
+        '<small></small>' + (confirmed ? '<span class="piste"><i style="--pct:' + g.pct + '%"></i></span>' : '') + '</div>';
       li.querySelector("strong").textContent = g.nom;
       li.querySelector("strong").title = g.nom;
       li.querySelector("small").textContent = g.detail;
-      li.querySelector(".progres-pct").textContent = g.pct >= 100 ? "Done" : g.pct + "%";
+      li.querySelector(".progres-pct").textContent = confirmed ? (g.pct >= 100 ? "Done" : g.pct + "%") : "In validation";
       ul.appendChild(li);
     });
-    var moyenne = Math.round(total / PROGRES.length);
+    var moyenne = confirmedCount ? Math.round(total / confirmedCount) : null;
     var anneau = $("anneau");
-    anneau.setAttribute("aria-label", "Overall progress: " + moyenne + "%");
+    anneau.setAttribute("aria-label", moyenne === null ? "Overall progress awaiting validation" : "Overall progress: " + moyenne + "%");
+    $("anneau-pct").textContent = moyenne === null ? "—" : moyenne + "%";
     // The bars and the ring fill once, when the section scrolls into view.
     var lancer = function () {
       document.getElementById("progres").classList.add("est-visible");
-      anneau.style.setProperty("--pct", moyenne);
-      if (window.nxCompter) window.nxCompter($("anneau-pct"), moyenne, "%"); else $("anneau-pct").textContent = moyenne + "%";
+      anneau.style.setProperty("--pct", moyenne === null ? 0 : moyenne);
+
     };
     if ("IntersectionObserver" in window) {
       var io = new IntersectionObserver(function (e) { if (e[0].isIntersecting) { lancer(); io.disconnect(); } }, { threshold: 0.25 });
-      io.observe(document.getElementById("progres"));
+      io.observe(anneau);
     } else { lancer(); }
   }
 
@@ -189,41 +217,38 @@
     { nom: "Kazuu", role: "Project owner", photo: "kazuu.webp", pays: "FR", chef: true },
     { nom: "Collecting", role: "Main Citron & Nextendo developer", photo: "collecting.webp" },
     { nom: "alye", role: "Developer & lead designer", photo: "alye.webp", pays: "NI" },
-    { nom: "JuanBrew", role: "Main Prelude developer", photo: "juanbrew.webp", pays: "US" },
+    { nom: "JuanBrew", role: "Main Prelude developer", photo: "juanbrew.webp", pays: "US", noir: true },
     { nom: "Zara", role: "Main Splatoon 3 developer", photo: "zara.webp" },
+    { nom: "Soul", role: "Nextendo server developer", photo: "soul.webp" },
     { nom: "Mars", role: "Super cool guy & server tester", photo: "mars.webp", pays: "AR" },
     { nom: "Anakin_sky05", role: "Prelude Developer & Network Protocol Analyst", photoSrc: "https://cdn.discordapp.com/avatars/545680588921765889/afd98760b70f4bc44c61b1caab7718bb.webp?size=128" }
   ];
 
-  // --- Discord server roles (admins, developers, contributors, moderators): a row of pictures
-  // scrolling right to left under the team, without the people who already have a team card. The list comes
-  // from the Discord bot (roles) through /api/staff; each picture is the member's Nextendo photo,
-  // or their Discord avatar when they have none. ---------------------------------------------
+  // --- Discord server (admins, developers, contributors, moderators, then donors): a row of
+  // pictures scrolling right to left under the team, without the people who already have a team
+  // card. The list comes from the Discord bot (roles of members still on the server) through
+  // /api/staff: Discord name, role and a copy of the current Discord picture, nothing else. ----
 
-  var ROLES_STAFF = { admin: "Administrator", developer: "Developer", contributor: "Contributor", head_mod: "Head moderator", mod: "Moderator" };
+  var ROLES_STAFF = { admin: "Administrator", developer: "Developer", contributor: "Contributor", head_mod: "Head moderator", mod: "Moderator", donor: "Donor" };
 
   function staffBande() {
     var bande = $("staff-bande"), piste = $("staff-piste");
     if (!bande || !piste || !window.fetch) return;
     fetch("/api/staff", { credentials: "same-origin" }).then(function (r) { return r.ok ? r.json() : null; }).then(function (d) {
-      var liste = ((d && d.staff) || []).filter(function (m) {
-        return Number(m.pid) !== 1800000379 && !/^nobody$/i.test(m.name || "");
-      });
-      // Keep former team members credited even when absent from the staff API.
-      liste.push({ name: "Nobody", role: "contributor", photo: "assets/img/equipe/nothing.webp" });
+      var liste = ((d && d.staff) || []).filter(function (m) { return m && m.name; });
       if (!liste.length) return;
       var t = window.nxF || function (s) { return s; };
+      var defaut = window.nxSilhouette ? window.nxSilhouette(0) : "";
       var carte = function (m, copie) {
         var li = document.createElement("li");
-        li.className = "staff-membre";
+        li.className = "staff-membre" + (m.role === "donor" ? " staff-membre--don" : "");
         var role = t(ROLES_STAFF[m.role] || m.role);
         if (copie) li.setAttribute("aria-hidden", "true");
         else { li.tabIndex = 0; li.setAttribute("aria-label", m.name + ", " + role); }
         var img = document.createElement("img");
         img.alt = ""; img.width = 96; img.height = 96; img.decoding = "async";
-        var secours = [m.discord_avatar, window.nxSilhouette ? window.nxSilhouette(m.pid) : ""].filter(Boolean);
-        img.onerror = function () { var s = secours.shift(); if (s) img.src = s; else img.onerror = null; };
-        img.src = m.photo || (m.pid ? "/api/avatar?pid=" + encodeURIComponent(m.pid) : (secours.shift() || ""));
+        img.onerror = function () { img.onerror = null; if (defaut) img.src = defaut; };
+        img.src = (m.photo && /^\/api\/staff\/photo\/[0-9a-f]+$/.test(m.photo)) ? m.photo : defaut;
         var nom = document.createElement("span");
         nom.className = "staff-nom";
         nom.innerHTML = "<strong></strong><span></span>";
@@ -259,6 +284,7 @@
         (m.chef ? '<svg class="equipe-chef" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M3 8l4.5 4L12 5l4.5 7L21 8l-2 11H5z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>' : "") +
         "<span class=\"equipe-role-texte\"></span></span></div>";
       li.querySelector("strong").textContent = m.nom;
+      if (m.noir) { var im = li.querySelector(".equipe-photo"); if (im) im.style.filter = "brightness(0)"; } // the whole picture in black
       li.querySelector(".equipe-role-texte").textContent = m.role;
       var ini = li.querySelector(".equipe-initiale");
       if (ini) ini.textContent = m.nom.charAt(0).toUpperCase();

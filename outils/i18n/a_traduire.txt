@@ -1052,4 +1052,5 @@ Saving replaces the article on the consoles that already have it.
 Saving replaces the article on the consoles that already have it. Edits don't count toward the limit of one article every {0} days.
 Draft: keep it here, don't send it to consoles
 Draft
-Quick Race, Ranked and code rooms on Switch; Citron and Ryujinx join with their next update; friend invites and Tournament don't work yet
+Quick Race, Ranked play, public rooms and private rooms by code tested on Switch. Ranked result saving, friend invitations and Tournament remain unavailable; public emulator support is pending release and validation. Use South America with crossplay disabled.
+Switch tested: South America, crossplay disabled.

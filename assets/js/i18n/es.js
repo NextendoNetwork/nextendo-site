@@ -156,11 +156,12 @@ window.NXT["es"] = {"Skip to content":"Saltar al contenido",
 "Fully online, friend lobbies included":"Totalmente en línea, salas con amigos incluidas",
 "Online matches, friend rooms and multiplayer":"Partidas en línea, salas con amigos y multijugador",
 "Online hunts, lobbies and full multiplayer":"Cacerías en línea, salas y multijugador completo",
-"Worldwide races, rooms and friends":"Carreras mundiales, salas y amigos",
+"Fully online: races, rooms, friends, tournaments and time trial ghosts":"Totalmente en línea: carreras, salas, amigos, torneos y fantasmas de contrarreloj",
 "{0}-player Turf War, friends and Salmon Run":"Combate territorial de {0} jugadores, amigos y Salmon Run",
 "Online battles, private rooms, Salmon Run and Splatfests":"Combates en línea, salas privadas, Salmon Run y Splatfests",
 "Online play and friend rooms":"Juego en línea y salas con amigos",
 "Island visits with friends":"Visitas a islas con amigos",
+"Fully online: island visits, best friends, messages, letters and gifts, dreams, designs, Happy Home Network and NookNext":"Totalmente en línea: visitas a islas, mejores amigos, mensajes, cartas y regalos, sueños, diseños, Happy Home Network y NookNext",
 "Course World, uploads, world records and comments":"Course World, subidas, récords mundiales y comentarios",
 "Online matchmaking and clubs":"Matchmaking en línea y clubes",
 "Mario Party and minigames in ranked and solo online matchmaking":"Mario Party y minijuegos en matchmaking en línea clasificatorio e individual",
@@ -210,7 +211,7 @@ window.NXT["es"] = {"Skip to content":"Saltar al contenido",
 "Main Citron & Nextendo developer":"Desarrollador principal de Citron y Nextendo",
 "Developer & lead designer":"Desarrolladora y diseñadora principal",
 "Main Prelude developer":"Desarrollador principal de Prelude",
-"Main Splatoon 3 developer":"Desarrollador principal de Splatoon 3",
+"Main Splatoon 3 developer":"Desarrollador principal de Splatoon 3", "Nextendo server developer":"Desarrollador de servidores de Nextendo",
 "Super cool guy & server tester":"Un tipo genial y tester de servidores",
 "Main Demonware developer":"Desarrollador principal de Demonware",
 "Frequently asked questions":"Preguntas frecuentes",
@@ -802,7 +803,9 @@ window.NXT["es"] = {"Skip to content":"Saltar al contenido",
 "Seen in game as":"Visto en el juego como",
 "All online play except competitions, Multi Battles and Mystery Gift":"Todo el juego en línea salvo las competiciones, los Combates Múltiples y el Regalo Misterioso",
 "Online play with friends":"Juego en línea con amigos",
-"Link Trades and private battles; Ranked Battles not tested yet":"Intercambios en línea y combates privados; combates clasificatorios aún sin probar",
+"Fully online: Link Trades, Max Raid Battles, Y-Comm, Battle Stadium, Mystery Gifts and Wild Area News":"Totalmente en línea: intercambios en conexión, incursiones Dinamax, Com. Y, Estadio de Combate, Regalos Misteriosos y noticias del Área Silvestre",
+"Fully online: leaderboards, friend rankings and ghosts":"Totalmente en línea: clasificaciones, clasificaciones de amigos y fantasmas",
+"Share your games online and download other players' games by Game ID or Programmer ID":"Comparte tus juegos en línea y descarga los de otros jugadores con su ID de juego o ID de programador",
 "Online play":"Juego en línea",
 "Token starting with {0}: reset to create a new one":"Token que empieza por {0}: restablécelo para crear uno nuevo",
 "Check a token with":"Para comprobar un token:",
@@ -846,6 +849,10 @@ window.NXT["es"] = {"Skip to content":"Saltar al contenido",
 "Copy the application ID":"Copiar el ID de la aplicación",
 "Application ID copied":"ID de la aplicación copiado",
 "Description and policies":"Descripción y políticas",
+"Official Citron emulator for Nextendo Network":"Emulador oficial Citron para Nextendo Network",
+"Official Nextendo Network web portal":"Portal web oficial de Nextendo Network",
+"Nextendo Network dashboard and monitoring":"Panel y monitorización de Nextendo Network",
+"Server-to-server service that checks your e-mail and password for the Discord verification gate (verify.nextendo.network) before linking your account to the bot.":"Servicio de servidor a servidor que comprueba tu correo y tu contraseña para la verificación de Discord (verify.nextendo.network) antes de vincular tu cuenta con el bot.",
 "Created by":"Creada por",
 "Permissions":"Permisos",
 "No permission":"Ningún permiso",
@@ -981,7 +988,116 @@ window.NXT["es"] = {"Skip to content":"Saltar al contenido",
 "Online co-op and friend rooms; cross-platform play tested":"Cooperativo en línea y salas con amigos; juego multiplataforma probado",
 "Online co-op campaign, matchmaking and Whored Mode":"Campaña cooperativa en línea, emparejamiento y modo Whored",
 "Online matches, friend rooms and Strikers Club":"Partidos en línea, salas con amigos y Club Strikers",
-"Ranked and friendly battles, Group Matches, cards and rankings; Replay Theater not working yet":"Combates clasificatorios y amistosos, partidas de grupo, cartas y clasificaciones; el teatro de repeticiones aún no funciona",
 "Sign-in, heroes, inventory and online parties":"Inicio de sesión, héroes, inventario y grupos en línea",
-"Online co-op and rooms on Ryujinx, Citron and console (game version 1.2.2); rooms with a password don't work yet":"Cooperativo en línea y salas en Ryujinx, Citron y consola (versión 1.2.2 del juego); las salas con contraseña aún no funcionan",
-"Quick Race, Ranked and code rooms on Switch; Citron and Ryujinx join with their next update; friend invites and Tournament don't work yet":"Quick Race, Ranked y salas con código en Switch; Citron y Ryujinx se unirán con su próxima actualización; las invitaciones de amigos y el Torneo aún no funcionan"};
+"Sign in to see who's playing and the lobbies being run.":"Inicia sesión para ver quién está jugando y las salas activas.",
+"Nobody is online right now.":"No hay nadie conectado ahora mismo.",
+"Lobbies ({0})":"Salas ({0})",
+"Lobby {0}":"Sala {0}",
+"Players ({0})":"Jugadores ({0})",
+"Searching":"Buscando",
+"In a match":"En partida",
+"Full":"Llena",
+"Open":"Abierta",
+"You":"Tú",
+"Friend":"Amigo",
+"1 friend":"1 amigo",
+"{0} friends":"{0} amigos",
+"Online status":"Estado en línea",
+"Appear online":"Aparecer en línea",
+"Appear offline":"Aparecer desconectado",
+"Friends can see what you're playing.":"Tus amigos pueden ver a qué juegas.",
+"Your friends see you as offline.":"Tus amigos te ven desconectado.",
+"You now appear offline to your friends":"Ahora apareces desconectado para tus amigos",
+"You now appear online to your friends":"Ahora apareces en línea para tus amigos",
+"All online play except competitions & Multi-Battles":"Todo el juego en línea salvo las competiciones y los Combates Múltiples",
+"Online lobbies and co-op quests":"Salas en línea y misiones cooperativas",
+"Change banner":"Cambiar el banner",
+"Upload an image":"Subir una imagen",
+"Choose a GIF":"Elegir un GIF",
+"GIFs are not available yet.":"Los GIF aún no están disponibles.",
+"Upload a PNG, JPG or GIF image under 10 MB. The banner is shown on the website, in the app and on your console.":"Sube una imagen PNG, JPG o GIF de menos de 10 MB. El banner se muestra en la web, en la app y en tu consola.",
+"Remove banner":"Quitar el banner",
+"Banner removed.":"Banner eliminado.",
+"Select an image":"Seleccionar una imagen",
+"This file is not a PNG, JPG or GIF image.":"Este archivo no es una imagen PNG, JPG o GIF.",
+"This GIF is over 10 MB.":"Este GIF supera los 10 MB.",
+"This image is too small: 300 x 60 pixels at least.":"Esta imagen es demasiado pequeña: 300 x 60 píxeles como mínimo.",
+"This image could not be read.":"No se pudo leer esta imagen.",
+"Search KLIPY":"Buscar en KLIPY",
+"Powered by KLIPY":"Con tecnología de KLIPY",
+"Back":"Atrás",
+"No GIF found.":"No se encontró ningún GIF.",
+"GIFs could not be loaded.":"No se pudieron cargar los GIF.",
+"Website":"Web",
+"Zoom":"Zoom",
+"Drag the image to frame it. The whole frame is shown on the console; the website shows the band between the two lines.":"Arrastra la imagen para encuadrarla. El marco completo se muestra en la consola; la web muestra la franja entre las dos líneas.",
+"Apply":"Aplicar",
+"Edit image":"Editar imagen",
+"Banner updated.":"Banner actualizado.",
+"Reserved for donors":"Reservado a donantes",
+"Animated banners (GIF) are reserved for donors.":"Los banners animados (GIF) están reservados a los donantes.",
+"Trending GIFs":"GIF en tendencia",
+"Worldwide · Race":"Mundial · Carrera",
+"Worldwide · Battle":"Mundial · Batalla",
+"Regional · Race":"Regional · Carrera",
+"Regional · Battle":"Regional · Batalla",
+"Online tournament":"Torneo en línea",
+"Friend room":"Sala de amigos",
+"Online match":"Partida en línea",
+"Quickplay":"Partida rápida",
+"Elite Smash":"Smash Élite",
+"Quickplay / Elite":"Partida rápida / Élite",
+"Quickplay · 1 vs 1":"Partida rápida · 1 contra 1",
+"Elite Smash · 1 vs 1":"Smash Élite · 1 contra 1",
+"Quickplay / Elite · 1 vs 1":"Partida rápida / Élite · 1 contra 1",
+"Quickplay, 2 players (same console)":"Partida rápida a dos (misma consola)",
+"amiibo journey":"amiibo de viaje",
+"Public arena":"Arena pública",
+"Friends' arena":"Arena de amigos",
+"World Dance Floor, voting and shared scores on Switch, Citron and Ryujinx; larger groups and optional modes still being tested":"World Dance Floor, votación y puntuaciones compartidas en Switch, Citron y Ryujinx; grupos grandes y modos opcionales aún en pruebas","Some game servers are offline":"Algunos servidores de juego están desconectados",
+"Games tested with Switch and Ryujinx hosting; Citron suspend and invitation acceptance still pending":"Partidas probadas con Switch y Ryujinx como anfitriones; suspensión en Citron y aceptación de invitaciones aún pendientes",
+"Four-player rooms and gameplay tested on Switch and Citron; latency and intermittent reconnects still under investigation":"Salas y partidas de cuatro jugadores probadas en Switch y Citron; latencia y reconexiones intermitentes aún bajo investigación",
+"Friend rooms and games tested with Switch and Ryujinx hosting; fresh-cache Citron release checks pending":"Salas con amigos y partidas probadas con Switch y Ryujinx como anfitriones; pruebas de la versión de Citron con caché nueva pendientes",
+"Friend rooms and games tested with Switch and Ryujinx hosting; fresh-cache Citron release checks pending":"Salas con amigos y partidas probadas con Switch y Ryujinx como anfitriones; pruebas de la versión de Citron con caché nueva pendientes",
+"Friend rooms and two-player games tested on Switch and Ryujinx; fresh-cache Citron release checks pending":"Salas con amigos y partidas de dos jugadores probadas en Switch y Ryujinx; pruebas de la versión de Citron con caché nueva pendientes"
+};
+/* Activites en ligne (status/live : ACNH, Splatoon 2), 21/10/2026. */
+Object.assign(window.NXT["es"], {"Island open (Dodo Code)": "Isla abierta (código Dodo)", "Island open (friends)": "Isla abierta (amigos)", "Turf War": "Combate territorial", "Ranked Battle": "Combate competitivo", "Salmon Run": "Salmon Run", "Private Battle": "Combate privado", "Hosting their island": "Recibe en su isla", "On a friend's island": "En la isla de un amigo", "On an island (Dodo Code)": "En una isla (código Dodo)", "On another player's island": "En la isla de otro jugador", "With Luna (dreams)": "Con Alakama (sueños)", "Looking for an island": "Busca una isla"});
+/* progression : descriptions sans point-virgule et jeux ajoutes (21/10) */
+Object.assign(window.NXT["es"], {"Online multiplayer, password matchmaking, Random Match and Free Rolling":"Multijugador en línea, emparejamiento con contraseña, partidas aleatorias y rodada libre","Fully online: co-op farm hosting, joining and multiplayer":"Totalmente en línea: alojar una granja cooperativa, unirse a ella y multijugador","Online hosting and lobby joining available":"Alojar partidas en línea y unirse a salas","Public matchmaking and online multiplayer":"Emparejamiento público y multijugador en línea","Share your Miis with an access code and download other players' Miis":"Comparte tus Mii con un código de acceso y descarga los Mii de otros jugadores","Arenas, Quick Play, Spectate and Shared Content":"Arenas, Partida rápida, Espectador y Contenido compartido","Online co-op and rooms on Ryujinx, Citron and console (game version 1.2.2), but rooms with a password don't work yet":"Cooperativo en línea y salas en Ryujinx, Citron y consola (versión 1.2.2 del juego), pero las salas con contraseña aún no funcionan","Online co-op: find games and join other players' worlds, but Techland Online Services are not available yet":"Cooperativo en línea: busca partidas y únete a los mundos de otros jugadores, pero los servicios en línea de Techland aún no están disponibles","Ranked and friendly battles, Group Matches, cards and rankings, but Replay Theater doesn't work yet":"Combates clasificatorios y amistosos, partidas de grupo, cartas y clasificaciones, pero el teatro de repeticiones aún no funciona","Match search and Ring Matches, but Replay Theater and Arena Matches don't work yet":"Búsqueda de partidas y combates de anillo, pero el teatro de repeticiones y los combates de arena aún no funcionan","Quick Play, Private Matches, friends and stats, but purchases and XP/CP saving are not confirmed yet":"Partida rápida, partidas privadas, amigos y estadísticas, pero las compras y el guardado de XP/CP aún no están confirmados","Link Trades and private battles, but Ranked Battles are not tested yet":"Intercambios en línea y combates privados, pero los combates clasificatorios aún no se han probado","Online games: create a game and join with a code (game versions 2026.19.0 and 2026.18.0, 17.x not supported)":"Partidas en línea: crea una partida y únete con un código (versiones 2026.19.0 y 2026.18.0 del juego, la 17.x no es compatible)","Public rooms and full matches on Ryujinx, Citron and console, but private invites from console are still pending":"Salas públicas y partidas completas en Ryujinx, Citron y consola, pero las invitaciones privadas desde la consola aún están pendientes","Server live behind the Classics router, while real logins on emulators and consoles are still being tested":"Servidor activo detrás del enrutador de Classics, mientras que los inicios de sesión reales en emuladores y consolas aún se están probando","Lab tests only: Citron still freezes on suspend and the server is not enabled":"Solo pruebas de laboratorio: Citron aún se congela al suspender y el servidor no está activado","Online play, friend rooms and custom levels":"Juego en línea, salas con amigos y niveles personalizados","Online co-op with friends and Challenge Mode leaderboards":"Cooperativo en línea con amigos y clasificaciones del modo Desafío","All online modes, matchmaking and friend rooms":"Todos los modos en línea, emparejamiento y salas con amigos"});
+
+/* Confirmed Classics and Just Dance tests, 23 October 2026. */
+Object.assign(window.NXT["es"], {
+  "Two-player friend rooms and gameplay tested on Switch, Ryujinx and Citron; password rooms pending": "Salas con amigos y partidas de dos jugadores probadas en Switch, Ryujinx y Citron; salas con contraseña pendientes",
+  "Friend rooms and gameplay tested on Switch, Ryujinx and Citron; password rooms pending": "Salas con amigos y partidas probadas en Switch, Ryujinx y Citron; salas con contraseña pendientes",
+  "Four-player gameplay tested on Switch and Citron; GBA 3.4.0 online entry verified, Prelude 4.0.9 release pending": "Partidas de cuatro jugadores probadas en Switch y Citron; entrada al online de GBA 3.4.0 verificada, publicación de Prelude 4.0.9 pendiente",
+  "Online play tested on Switch and Ryujinx; Genesis 3.1.1 loading fixed in a Citron test build, public update pending": "Juego en línea probado en Switch y Ryujinx; carga de Genesis 3.1.1 corregida en una compilación de prueba de Citron, actualización pública pendiente",
+  "Room creation on Switch and online connection from updated Citron verified; password rooms pending": "Creación de salas en Switch y conexión en línea desde Citron actualizado verificadas; salas con contraseña pendientes",
+  "World Dance Floor, voting, shared rankings and rotating Home suggestions tested on Switch, Citron and Ryujinx": "World Dance Floor, votación, clasificación compartida y sugerencias de Home renovadas probados en Switch, Citron y Ryujinx"
+});
+
+/* Confirmed public Classics gameplay, 23 October 2026. */
+Object.assign(window.NXT["es"], {
+  "Two-player rooms and gameplay tested on Switch, Citron and Ryujinx; invitations, password rooms and the public Ryujinx Classics update pending": "Salas y partidas de dos jugadores probadas en Switch, Citron y Ryujinx; invitaciones, salas con contraseña y actualización pública de Classics en Ryujinx pendientes",
+  "Friend rooms and gameplay tested on Switch, Citron and Ryujinx; invitations, password rooms and the public Ryujinx Classics update pending": "Salas con amigos y partidas probadas en Switch, Citron y Ryujinx; invitaciones, salas con contraseña y actualización pública de Classics en Ryujinx pendientes",
+  "Four-player gameplay tested on Switch and Citron, including cross-play; GBA 3.4.0 supported by Prelude 4.0.9; invitations, password rooms and the Ryujinx update pending": "Partidas de cuatro jugadores probadas en Switch y Citron, incluido juego cruzado; GBA 3.4.0 compatible con Prelude 4.0.9; invitaciones, salas con contraseña y actualización de Ryujinx pendientes",
+  "Genesis 3.1.1 rooms and gameplay tested on Citron with Switch; automatic patch available; invitations, password rooms and the Ryujinx update pending": "Salas y partidas de Genesis 3.1.1 probadas en Citron con Switch; parche automático disponible; invitaciones, salas con contraseña y actualización de Ryujinx pendientes",
+  "Online rooms verified on Switch and updated Citron; invitations, password rooms and the public Ryujinx Classics update pending": "Salas en línea verificadas en Switch y Citron actualizado; invitaciones, salas con contraseña y actualización pública de Classics en Ryujinx pendientes"
+});
+
+/* Confirmed GBA stability test, 24 October 2026. */
+Object.assign(window.NXT["es"], {"GBA 3.4.0: Switch and Citron gameplay verified for over 20 minutes with Prelude 4.0.11; four-player cross-play tested; invitations, password rooms and the Ryujinx update pending": "GBA 3.4.0: partida entre Switch y Citron verificada durante más de 20 minutos con Prelude 4.0.11; juego cruzado de cuatro jugadores probado; invitaciones, salas con contraseña y actualización de Ryujinx pendientes"});
+
+/* Verified WDF results and client tests, 24 October 2026. */
+Object.assign(window.NXT["es"], {"Online play tested on Switch, Citron and Ryujinx; final song rankings, profile XP and account countries verified on Citron with Switch; mods and phone gyro compatibility pending": "Juego en línea probado en Switch, Citron y Ryujinx; clasificación final de canciones, experiencia del perfil y países de la cuenta verificados en Citron con Switch; compatibilidad de mods y giroscopio del celular pendiente", "Latest verified tests": "Últimas pruebas verificadas", "24 October 2026": "24 de octubre de 2026", "Just Dance 2022: World Dance Floor gameplay, song voting, final song rankings, profile experience and flags linked to the Nextendo account verified with Switch and Citron.": "Just Dance 2022: partidas en World Dance Floor, votación de canciones, clasificación final, experiencia del perfil y banderas vinculadas a la cuenta Nextendo verificados con Switch y Citron.", "Citron for Windows: closing with X after Just Dance was fixed and tested in a local build. Public release pending; see": "Citron para Windows: el cierre con la X después de Just Dance se corrigió y probó en una compilación local. Actualización pública pendiente; consulta el", "GBA 3.4.0: Switch and Citron gameplay verified for over 20 minutes with Prelude 4.0.11; four-player cross-play also tested.": "GBA 3.4.0: partida entre Switch y Citron verificada durante más de 20 minutos con Prelude 4.0.11; juego cruzado de cuatro jugadores también probado.", "Prelude 4.0.11: updater download test passed on Switch; normal startup and applying Nextendo were also verified.": "Prelude 4.0.11: prueba de descarga del actualizador superada en Switch; también se verificaron el inicio normal y la aplicación de Nextendo.", "Pending verification: Legacy Offline mods, phone gyroscope compatibility, and seasonal or tournament rankings in Just Dance. Classics invitations, password rooms and the public Ryujinx Classics update remain pending.": "Pendientes de verificación: mods Legacy Offline, compatibilidad del giroscopio del celular y clasificaciones de temporada o torneos en Just Dance. Siguen pendientes las invitaciones de Classics, las salas con contraseña y la actualización pública de Classics en Ryujinx."});
+
+/* UNO server reliability deployment, pending real-client verification. */
+Object.assign(window.NXT["es"], {"Public rooms and matches tested on Switch, Citron and Ryujinx; large-profile login and connection capacity fixes deployed; prolonged real-client verification and console private invitations pending": "Salas públicas y partidas probadas en Switch, Citron y Ryujinx; instaladas las correcciones de acceso con perfiles grandes y capacidad de conexiones; pendientes la prueba prolongada con clientes reales y las invitaciones privadas de consola", "UNO: large-profile login corrected and transport capacity expanded. Local concurrency tests passed; prolonged Switch and emulator gameplay after this update still needs verification.": "UNO: corregido el acceso con perfiles grandes y ampliada la capacidad del transporte. Las pruebas locales de concurrencia pasaron; falta verificar una partida prolongada entre Switch y emulador después de esta actualización."});
+
+Object.assign(window.NXT["es"],{"Live player and lobby details are temporarily unavailable.": "Los detalles de jugadores y salas no están disponibles temporalmente.", "Player presence is live. Room details are temporarily unavailable.": "Los jugadores conectados están actualizados. Los detalles de las salas no están disponibles temporalmente.", "These players are online but are not in a room yet.": "Estos jugadores están conectados, pero todavía no están en una sala.", "World Dance Floor": "World Dance Floor"});
+
+Object.assign(window.NXT.es, {"player in rooms": "jugador en salas", "players in rooms": "jugadores en salas", "Player count unavailable": "Cantidad de jugadores sin datos", "This counter shows players in active game rooms.": "Este contador muestra los jugadores en salas activas del juego."});
+
+Object.assign(window.NXT.es, {"In validation": "En validación", "Server available; Switch room creation and stability verified. Joining with a second player and full online matches still need verification.": "Servidor disponible; creación y estabilidad de salas verificadas en Switch. Falta verificar la entrada de un segundo jugador y partidas completas en línea.", "Overall progress awaiting validation": "Progreso global pendiente de validación"});
+
+Object.assign(window.NXT.es, {"Quick Race, Ranked play, public rooms and private rooms by code tested on Switch. Ranked result saving, friend invitations and Tournament remain unavailable; public emulator support is pending release and validation. Use South America with crossplay disabled.": "Carrera rápida, partidas clasificatorias, salas públicas y salas privadas por código probadas en Switch. Guardar resultados clasificatorios, las invitaciones de amigos y Torneo siguen sin funcionar; el soporte público de emuladores está pendiente de publicación y validación. Usa América del Sur y desactiva multiplataforma.", "Switch tested: South America, crossplay disabled.": "Probado en Switch: América del Sur, multiplataforma desactivado."});
