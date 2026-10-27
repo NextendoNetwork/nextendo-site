@@ -427,7 +427,7 @@
   PAGES.status = function () {
     // Same list as the live status page, read from the same endpoint every 15 seconds.
     var JEUX = [
-      {"nom": "SpeedRunners 2: King of Speed", "ids": ["01004cc023582000"], "nostatus": true, "playableNote": "Switch tested: South America, crossplay disabled.", "guidance": "Quick Race, Ranked play, public rooms and private rooms by code tested on Switch. Ranked result saving, friend invitations and Tournament remain unavailable; public emulator support is pending release and validation. Use South America with crossplay disabled."},
+      { nom: "SpeedRunners 2: King of Speed", ids: ["01004cc023582000"], nostatus: true },
       { nom: "SEGA Genesis - Nintendo Classics", ids: ["0100b3c014bda000"], monitored: true },
       { nom: "Just Dance 2022", ids: ["0100ea6014bb8000"], monitored: true },
       { nom: "Mario Kart 8 Deluxe", ids: ["0100152000022000"] },
@@ -503,7 +503,6 @@
       amis.hidden = true;
       etat.append(el("div", "serveur-etat", "Checking…"), amis);
       mid.append(el("div", "serveur-nom", j.nom), etat);
-      if (j.playableNote) mid.append(el("small", "", j.playableNote));
       var n = el("div", "serveur-joueurs", "…");
       var detail = el("div", "serveur-detail");
       detail.hidden = true;
@@ -600,7 +599,6 @@
     var dessinerDetail = function (j) {
       var detail = lignes[j.nom].querySelector(".serveur-detail");
       detail.innerHTML = "";
-      if (j.guidance) { detail.append(el("p", "detail-vide", j.guidance)); detail.append(el("p", "detail-vide", "Player count unavailable")); return; }
       if (j.countScope === "rooms") {
         detail.append(el("p", "detail-vide", "This counter shows players in active game rooms."));
         return;
