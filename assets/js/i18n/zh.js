@@ -984,3 +984,6 @@ window.NXT["zh"] = {"Skip to content":"跳到主要内容",
 "Ranked and friendly battles, Group Matches, cards and rankings; Replay Theater not working yet":"排位战和友谊战、小组赛、卡片和排行榜；回放剧场暂不可用",
 "Sign-in, heroes, inventory and online parties":"登录、英雄、物品栏和在线队伍",
 "Online co-op and rooms on Ryujinx, Citron and console (game version 1.2.2); rooms with a password don't work yet":"在 Ryujinx、Citron 与主机上在线合作和房间游戏（游戏版本 1.2.2）；带密码的房间暂时无法使用"};
+
+// Short progress descriptions.
+Object.assign(window.NXT["zh"], {"Online races": "在线竞速", "Dance online in World Dance Floor": "在 World Dance Floor 在线跳舞", "Online co-op": "在线合作", "Ranked and friendly battles": "排名对战和友谊赛", "Online matchmaking and Ring Matches": "在线匹配和擂台对战", "Quick Play and private matches": "快速游戏和私人比赛", "Online trades, battles and raids": "在线交换、对战和团体战", "Island visits and sharing designs online": "访问岛屿并在线分享设计", "Online matches and rankings": "在线比赛和排行榜", "Online matches with room codes": "通过房间代码在线游戏", "Online matches and public rooms": "在线比赛和公开房间", "Online play for up to four players": "最多四人在线游戏", "Online rooms being tested": "在线房间测试中", "Share and download games online": "在线分享和下载游戏"});
