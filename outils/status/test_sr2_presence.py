@@ -1,54 +1,42 @@
-import datetime
 import unittest
 from sr2_presence import aggregate, SR2Presence, TITLE
-
-NOW = 1800000000
-
-
-def player(age=0, title=TITLE, status=2):
-    return {'AppID': title, 'Status': status,
-            'Updated': datetime.datetime.fromtimestamp(NOW-age, datetime.timezone.utc).isoformat()}
-
 
 class Dispatcher:
     def __init__(self, online=True): self.online = online
     def snapshot(self): return (set(), [], True) if self.online else None
 
+def status(n=2):
+    return {'status': 'ok', 'onlinePlayers': n, 'playingPlayers': n, 'rooms': 1}
 
 class Tests(unittest.TestCase):
-    def test_exact_title_freshness_and_status(self):
-        data = {'presence': {'0': player(), '1': player(), '2': player(89), '3': player(91),
-                             '4': player(title='0100fcf002a58000'), '5': player(status=1)}}
-        self.assertEqual(aggregate(data, NOW), 2)
-
-    def test_real_empty_source(self):
-        self.assertEqual(aggregate({'presence': {}}, NOW), 0)
-
-    def test_invalid_source_fails_closed(self):
-        for source in ({}, {'presence': []}, {'presence': {'1': player(-20)}},
-                       {'presence': {'1': dict(player(), Updated='invalid')}}):
-            with self.assertRaises((ValueError, TypeError)): aggregate(source, NOW)
-
-    def test_failure_is_not_zero(self):
+    def test_real_zero_and_active_connections(self):
+        self.assertEqual(aggregate(status(0)), 0)
+        self.assertEqual(aggregate(status(2)), 2)
+    def test_failure_is_not_zero_or_operational(self):
         def fail(): raise OSError()
-        result = SR2Presence(Dispatcher(), fetch=fail, clock=lambda: NOW).snapshot()
-        self.assertTrue(result['online'])
+        result=SR2Presence(Dispatcher(),fetch=fail).snapshot()
+        self.assertFalse(result['online'])
         self.assertIsNone(result['players'])
-        self.assertEqual(set(result), {'game', 'titleId', 'online', 'players', 'countScope'})
-
-    def test_dispatcher_failure(self):
-        service = SR2Presence(Dispatcher(False), fetch=lambda: self.fail('must not fetch'))
+    def test_invalid_health_fails_closed(self):
+        for source in ({},dict(status(),status='failed'),dict(status(),onlinePlayers=True),
+                       dict(status(),onlinePlayers=-1),dict(status(),onlinePlayers=769),
+                       dict(status(),rooms=4097),dict(status(),playingPlayers='2')):
+            with self.assertRaises(ValueError): aggregate(source)
+    def test_dispatcher_failure_does_not_fetch(self):
+        service=SR2Presence(Dispatcher(False),fetch=lambda:self.fail('must not fetch'))
         self.assertFalse(service.snapshot()['online'])
-        self.assertIsNone(service.snapshot()['players'])
-
-    def test_aggregate_only_and_short_cache(self):
-        calls=[]
-        def fetch(): calls.append(1);return {'presence': {'1': player()}}
-        service=SR2Presence(Dispatcher(),fetch=fetch,clock=lambda: NOW,monotonic=lambda: 10)
-        self.assertEqual(service.snapshot()['players'],1)
-        self.assertEqual(service.snapshot()['players'],1)
+    def test_aggregate_only_cache_and_expiry(self):
+        calls=[];now=[10]
+        def fetch(): calls.append(1);return dict(status(),privateExample='must never leave')
+        service=SR2Presence(Dispatcher(),fetch=fetch,monotonic=lambda:now[0])
+        self.assertEqual(service.snapshot()['players'],2)
+        self.assertEqual(service.snapshot()['players'],2)
         self.assertEqual(len(calls),1)
-        self.assertNotIn('presence',service.current)
+        now[0]=14
+        result=service.snapshot()
+        self.assertEqual(len(calls),2)
+        self.assertTrue(result['online'])
+        self.assertEqual(result['titleId'],TITLE)
+        self.assertEqual(set(result),{'game','titleId','online','players','countScope'})
 
-
-if __name__ == '__main__': unittest.main()
+if __name__=='__main__':unittest.main()
