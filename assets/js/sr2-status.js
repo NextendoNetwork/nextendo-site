@@ -20,7 +20,7 @@
       delete data.counts[title];
       data.availability[title] = false;
       var stats = results[1];
-      if (stats && stats.game === "SpeedRunners 2: King of Speed" && stats.titleId === title && stats.online === true && stats.countScope === "recent_game_presence") {
+      if (stats && stats.game === "SpeedRunners 2: King of Speed" && stats.titleId === title && stats.online === true && stats.countScope === "native_transport_connections") {
         data.availability[title] = true;
         if (Number.isSafeInteger(stats.players) && stats.players >= 0 && stats.players <= 50000) {
           data.counts[title] = stats.players;
