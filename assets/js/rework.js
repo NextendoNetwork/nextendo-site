@@ -24,6 +24,7 @@
     var tid = (jeu.titres && jeu.titres[0]) || "";
     if (tid === "0100a8e016236000") return "/assets/img/games/kirby.png";
     if (tid === "0100e65002bb8000") return "/assets/img/games/stardew.png";
+    if (tid === "0100ab401f136000") return "/assets/img/games/ggst.jpg";
     return tid === "010028600ebda000" ? "/assets/img/games/sm3dw.jpg" : "/api/game-icon/" + encodeURIComponent(tid) + ".jpg";
   }
 
@@ -122,6 +123,7 @@
     { nom: "Miitopia", tid: "01003da010e8a000", pct: 100, detail: "Share your Miis with an access code and download other players' Miis" },
     { nom: "Game Builder Garage", tid: "0100fa5010788000", pct: 100, detail: "Share and download games online" },
     { nom: "Saints Row: The Third - The Full Package", tid: "0100de600beee000", pct: 100, detail: "Online co-op campaign, matchmaking and Whored Mode" },
+    { nom: "Guilty Gear -Strive-", tid: "0100ab401f136000", pct: 100, detail: "Fully online: park lobbies, Player Match rooms, Ranked matches, rankings and replays" },
     { nom: "Dying Light: Platinum Edition", tid: "01008c8012920000", pct: 90, detail: "Online co-op" },
     { nom: "qLaunch (Switch Menu)", tid: "0100000000001000", pct: 95, detail: "Friends, Presence, Network linking & NSO icons" },
     { nom: "Mario Tennis Aces", tid: "0100bde00862a000", pct: 95, detail: "Online matches, rooms and friends" },
